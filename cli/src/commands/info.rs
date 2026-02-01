@@ -20,10 +20,11 @@ use zond_core::info::InfoService;
 use zond_core::system::SystemRepo;
 
 pub fn info(cfg: &Config) -> anyhow::Result<()> {
+    print::header("about the tool", cfg.quiet);
     mprint!(
         format!(
             "{}",
-            "Mappr is a quick tool for mapping and exploring networks.".color(colors::TEXT_DEFAULT)
+            "Zond is a quick tool for mapping and exploring networks.".color(colors::TEXT_DEFAULT)
         )
         .as_str()
     );

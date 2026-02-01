@@ -42,7 +42,7 @@ cargo build --release
 3. **Locate the binary:**
 The compiled binary will be available in `target/release/zond`. You may move this to your `/usr/local/bin` or add it to your `$PATH`.
 
-## :Usage
+## Usage
 
 **Note on Privileges:** Network discovery operations utilizing raw sockets typically require root privileges. Most discovery commands should be prefixed with `sudo`.
 

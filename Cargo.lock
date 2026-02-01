@@ -2311,7 +2311,7 @@ dependencies = [
 
 [[package]]
 name = "zond-cli"
-version = "0.3.1"
+version = "0.3.3"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -2341,6 +2341,7 @@ dependencies = [
  "crossterm",
  "mac_oui",
  "pnet",
+ "rand",
  "rayon",
  "thiserror",
  "tracing",

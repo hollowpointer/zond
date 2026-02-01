@@ -1,58 +1,63 @@
+//! # Zond CLI Entry Point
+//!
+//! The binary entry point for Zond.
+//!
+//! This module is responsible for bootstrapping the application runtime and managing the
+//! global lifecycle of the process. It isolates the command-line interface layer from the
+//! core library logic.
+//!
+//! ## Responsibilities
+//!
+//! 1.  **Runtime Initialization**: The `#[tokio::main]` attribute initializes the asynchronous
+//!     runtime, setting up the thread pool and I/O drivers required for non-blocking operations.
+//! 2.  **Global State Setup**: Initializes the `tracing` subscriber for logging and configures
+//!     terminal output modes (verbosity, quiet mode, banners).
+//! 3.  **Configuration Mapping**: Converts raw command-line arguments (parsed via `clap`) into
+//!     the internal `Config` struct used by the core libraries.
+//! 4.  **Command Dispatch**: Routes execution to the appropriate module in `commands/`.
+//! 5.  **Error Boundary**: Acts as the top-level error handler. Any errors propagated up from
+//!     subcommands are caught here, logged to the error stream, and converted into a
+//!     non-zero `ExitCode`.
+
 mod commands;
 mod terminal;
 
-use commands::{CommandLine, Commands, discover::discover, info::info, listen::listen, scan::scan};
+use std::process::ExitCode;
 
-use zond_common::{config::Config, error, models::target};
+use zond_common::{config::Config, error};
 
-use crate::terminal::{print, spinner};
+use crate::{
+    commands::{CommandLine, Commands, discover, info, listen, scan},
+    terminal::{print, spinner},
+};
 
 #[tokio::main]
-async fn main() {
+async fn main() -> ExitCode {
     let commands = CommandLine::parse_args();
-    let q_lvl: u8 = commands.quiet;
 
     spinner::init_logging(commands.verbosity);
-    print::banner(commands.no_banner, q_lvl);
+    print::banner(commands.no_banner, commands.quiet);
 
-    if let Err(e) = run(commands).await {
-        error!("Critical failure: {e}");
-        print::end_of_program();
-        std::process::exit(1)
-    }
+    let cfg = Config::from(&commands);
 
-    if q_lvl == 0 {
-        print::end_of_program();
-    }
-}
-
-async fn run(commands: CommandLine) -> anyhow::Result<()> {
-    let cfg = Config {
-        no_banner: commands.no_banner,
-        no_dns: commands.no_dns,
-        redact: commands.redact,
-        quiet: commands.quiet,
-        disable_input: false,
+    let result = match &commands.command {
+        Commands::Info => info::info(&cfg),
+        Commands::Listen => listen::listen(&cfg),
+        Commands::Discover { targets } => discover::discover(targets, &cfg).await,
+        Commands::Scan { targets } => scan::scan(targets, &cfg).await,
     };
 
-    match commands.command {
-        Commands::Info => {
-            print::header("about the tool", cfg.quiet);
-            info(&cfg)
+    let exit_code = match result {
+        Ok(_) => ExitCode::SUCCESS,
+        Err(e) => {
+            error!("Critical failure: {e}");
+            ExitCode::FAILURE
         }
-        Commands::Listen => {
-            print::header("starting listener", cfg.quiet);
-            listen()
-        }
-        Commands::Discover { targets } => {
-            print::header("performing host discovery", cfg.quiet);
-            let ips = target::to_collection(&targets)?;
-            discover(ips, &cfg).await
-        }
-        Commands::Scan { targets } => {
-            print::header("starting scanner", cfg.quiet);
-            let ips = target::to_collection(&targets)?;
-            scan(ips, &cfg)
-        }
+    };
+
+    if commands.quiet == 0 {
+        print::end_of_program();
     }
+
+    exit_code
 }

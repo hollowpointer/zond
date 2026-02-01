@@ -1,4 +1,5 @@
 pub mod config;
+pub mod insights;
 pub mod interface;
 pub mod logging;
 pub mod models;

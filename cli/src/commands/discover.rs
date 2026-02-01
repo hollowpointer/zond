@@ -1,50 +1,52 @@
+use std::net::IpAddr;
 use std::time::{Duration, Instant};
-use std::{
-    net::IpAddr,
-    sync::{
-        Arc,
-        atomic::{AtomicBool, Ordering},
-    },
-};
 
 use anyhow::{self, bail};
 use colored::*;
 use tracing::info_span;
 use unicode_width::UnicodeWidthStr;
 use zond_common::error;
+use zond_common::models::range::IpCollection;
+use zond_common::models::target;
 
+use crate::terminal::spinner::SpinnerGuard;
 use crate::{
     mprint,
     terminal::{
         colors, format,
         print::{self, TOTAL_WIDTH},
-        spinner,
     },
 };
-use zond_common::models::range::IpCollection;
 use zond_common::{config::Config, models::host::Host, success};
 use zond_core::scanner;
 
 type Detail = (String, ColoredString);
 
-pub async fn discover(ips: IpCollection, cfg: &Config) -> anyhow::Result<()> {
-    let span = info_span!("discovery", indicatif.pb_show = true);
-    let guard = span.enter();
+pub async fn discover(targets: &[String], cfg: &Config) -> anyhow::Result<()> {
+    print::header("performing host discovery", cfg.quiet);
 
-    let running: Arc<AtomicBool> = Arc::new(AtomicBool::new(true));
-    let spinner_handle = spinner::start_discovery_spinner(span.clone(), running.clone());
+    let _guard: SpinnerGuard = run_spinner();
 
+    let ips: IpCollection = target::to_collection(targets)?;
     let start_time: Instant = Instant::now();
     let mut hosts: Vec<Host> = scanner::perform_discovery(ips, cfg).await?;
 
-    running.store(false, Ordering::Relaxed);
-    let _ = spinner_handle.join();
-
-    drop(guard);
-
     let total_time: Duration = start_time.elapsed();
-    discovery_ends(&mut hosts, total_time, cfg)?;
-    Ok(())
+    discovery_ends(&mut hosts, total_time, cfg)
+}
+
+fn run_spinner() -> SpinnerGuard {
+    let span = info_span!("discover", indicatif.pb_show = true);
+    let _enter = span.enter();
+
+    SpinnerGuard::with_status(span.clone(), || {
+        let count = zond_core::scanner::get_host_count();
+        let count_str = count.to_string().green().bold();
+        let label = if count == 1 { "host" } else { "hosts" };
+        format!("Identified {} {} so far...", count_str, label)
+            .color(colors::TEXT_DEFAULT)
+            .italic()
+    })
 }
 
 fn discovery_ends(hosts: &mut [Host], total_time: Duration, cfg: &Config) -> anyhow::Result<()> {

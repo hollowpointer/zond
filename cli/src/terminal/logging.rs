@@ -5,11 +5,11 @@ use tracing_subscriber::fmt::FormatEvent;
 use tracing_subscriber::fmt::format::{self, Writer};
 use tracing_subscriber::registry::LookupSpan;
 
-pub struct MapprFormatter {
+pub struct ZondFormatter {
     pub max_verbosity: u8,
 }
 
-impl<S, N> FormatEvent<S, N> for MapprFormatter
+impl<S, N> FormatEvent<S, N> for ZondFormatter
 where
     S: Subscriber + for<'a> LookupSpan<'a>,
     N: for<'a> format::FormatFields<'a> + 'static,
@@ -64,7 +64,7 @@ struct MetaVisitor {
 
 impl Visit for MetaVisitor {
     fn record_debug(&mut self, _field: &Field, _value: &dyn std::fmt::Debug) {}
-    
+
     fn record_u64(&mut self, field: &Field, value: u64) {
         if field.name() == "verbosity" {
             self.verbosity = Some(value as u8);
@@ -96,8 +96,8 @@ impl<'a> OutputVisitor<'a> {
 
 impl<'a> Visit for OutputVisitor<'a> {
     fn record_debug(&mut self, field: &Field, value: &dyn std::fmt::Debug) {
-        if field.name() == "status" || field.name() == "verbosity" { 
-            return; 
+        if field.name() == "status" || field.name() == "verbosity" {
+            return;
         }
 
         if field.name() == "message" {
@@ -113,7 +113,9 @@ struct RawVisitor<'a> {
 }
 
 impl<'a> RawVisitor<'a> {
-    fn new(writer: Writer<'a>) -> Self { Self { writer } }
+    fn new(writer: Writer<'a>) -> Self {
+        Self { writer }
+    }
 }
 
 impl<'a> Visit for RawVisitor<'a> {
@@ -126,3 +128,4 @@ impl<'a> Visit for RawVisitor<'a> {
         }
     }
 }
+

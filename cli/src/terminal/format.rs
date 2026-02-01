@@ -30,12 +30,12 @@ pub fn ip_to_detail(host: &Host, cfg: &Config) -> Vec<(String, ColoredString)> {
                 (String::from("IPv4"), value)
             }
             IpAddr::V6(ipv6_addr) => {
-                let ipv6_type: &str = ipv6_to_type_str(&ipv6_addr);
+                let ipv6_type: &str = ipv6_to_type_str(ipv6_addr);
                 let ipv6_addr: ColoredString = if cfg.redact {
                     let ip_str: String = match ip::get_ipv6_type(ipv6_addr) {
-                        ip::Ipv6AddressType::GlobalUnicast => redact::global_unicast(&ipv6_addr),
-                        ip::Ipv6AddressType::UniqueLocal => redact::unique_local(&ipv6_addr),
-                        ip::Ipv6AddressType::LinkLocal => redact::link_local(&ipv6_addr),
+                        ip::Ipv6AddressType::GlobalUnicast => redact::global_unicast(ipv6_addr),
+                        ip::Ipv6AddressType::UniqueLocal => redact::unique_local(ipv6_addr),
+                        ip::Ipv6AddressType::LinkLocal => redact::link_local(ipv6_addr),
                         _ => ipv6_addr.to_string(),
                     };
                     ip_str.color(colors::IPV6_ADDR)
