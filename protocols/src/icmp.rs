@@ -1,3 +1,9 @@
+// Copyright (c) 2026 OverTheFlow and Contributors
+//
+// This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+// If a copy of the MPL was not distributed with this file, You can obtain one at
+// https://mozilla.org/MPL/2.0/.
+
 use crate::ethernet;
 use crate::ip;
 use crate::utils::{ETH_HDR_LEN, ICMP_V6_ECHO_REQ_LEN, IP_V6_HDR_LEN};

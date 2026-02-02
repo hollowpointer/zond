@@ -113,4 +113,7 @@ Zond provides several flags to customize output density, logging levels, and pri
 
 ## License
 
-MIT
+This project is licensed under the **Mozilla Public License 2.0** (MPL-2.0).
+See the [LICENSE](LICENSE) file for more details.
+
+Copyright (c) 2026 OverTheFlow and Contributors.

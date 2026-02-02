@@ -1,3 +1,9 @@
+// Copyright (c) 2026 OverTheFlow and Contributors
+//
+// This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+// If a copy of the MPL was not distributed with this file, You can obtain one at
+// https://mozilla.org/MPL/2.0/.
+
 //! This module is currently a wrapper for the 'tracing' crate.
 //! The goal is to provide an abstraction so that other modules
 //! do not depend on tracing directrly, making it easy to swap 

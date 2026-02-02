@@ -1,3 +1,9 @@
+// Copyright (c) 2026 OverTheFlow and Contributors
+//
+// This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+// If a copy of the MPL was not distributed with this file, You can obtain one at
+// https://mozilla.org/MPL/2.0/.
+
 use anyhow;
 use colored::*;
 use is_root::is_root;
@@ -77,7 +83,7 @@ fn print_about_the_tool() {
     print::aligned_line("Version", env!("CARGO_PKG_VERSION"));
     print::aligned_line("Author", "hollowpointer");
     print::aligned_line("E-Mail", "hollowpointer@pm.me");
-    print::aligned_line("License", "MIT");
+    print::aligned_line("License", "MPL-2.0");
     print::aligned_line("Repository", "https://github.com/hollowpointer/zond");
 }
 

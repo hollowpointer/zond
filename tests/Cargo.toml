@@ -7,5 +7,6 @@ publish = false
 [dependencies]
 zond-core = { workspace = true }
 zond-common = { workspace = true }
-tokio = { workspace = true }
 anyhow = { workspace = true }
+
+tokio = { version = "1.47.1", features = ["full"] }
