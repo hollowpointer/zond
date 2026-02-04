@@ -6,7 +6,7 @@
 
 use colored::Colorize;
 
-use crate::mprint;
+use crate::zprint;
 
 const BANNER_0: &str = r#"
             ▒███████▒ ▒█████   ███▄    █ ▓█████▄ 
@@ -83,5 +83,5 @@ pub fn print() {
         3 => format!("{}", BANNER_3.blue()),
         _ => format!("{}", BANNER_4.truecolor(80, 80, 100)),
     };
-    mprint!(&output);
+    zprint!("{}", output);
 }

@@ -34,17 +34,18 @@ use zond_common::{config::Config, error};
 
 use crate::{
     commands::{CommandLine, Commands, discover, info, listen, scan},
-    terminal::{print, spinner},
+    terminal::{print::Print, spinner},
 };
 
 #[tokio::main]
 async fn main() -> ExitCode {
     let commands = CommandLine::parse_args();
-
     spinner::init_logging(commands.verbosity);
-    print::banner(commands.no_banner, commands.quiet);
 
     let cfg = Config::from(&commands);
+
+    let _ = Print::init(&cfg);
+    Print::banner();
 
     let result = match &commands.command {
         Commands::Info => info::info(&cfg),
@@ -61,9 +62,7 @@ async fn main() -> ExitCode {
         }
     };
 
-    if commands.quiet == 0 {
-        print::end_of_program();
-    }
+    Print::end_of_program();
 
     exit_code
 }

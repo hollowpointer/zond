@@ -11,17 +11,17 @@ use anyhow::{self, bail};
 use colored::*;
 use tracing::info_span;
 use unicode_width::UnicodeWidthStr;
-use zond_common::error;
 use zond_common::models::range::IpCollection;
 use zond_common::models::target;
 
+use crate::terminal::print::Print;
 use crate::terminal::spinner::SpinnerGuard;
 use crate::{
-    mprint,
     terminal::{
         colors, format,
         print::{self, TOTAL_WIDTH},
     },
+    zprint,
 };
 use zond_common::{config::Config, models::host::Host, success};
 use zond_core::scanner;
@@ -29,7 +29,7 @@ use zond_core::scanner;
 type Detail = (String, ColoredString);
 
 pub async fn discover(targets: &[String], cfg: &Config) -> anyhow::Result<()> {
-    print::header("performing host discovery", cfg.quiet);
+    Print::header("performing host discovery");
 
     let _guard: SpinnerGuard = run_spinner();
 
@@ -57,29 +57,15 @@ fn run_spinner() -> SpinnerGuard {
 
 fn discovery_ends(hosts: &mut [Host], total_time: Duration, cfg: &Config) -> anyhow::Result<()> {
     if hosts.is_empty() {
-        no_hosts_found(cfg);
-        return Ok(());
+        Print::no_results();
     }
 
-    if cfg.quiet > 0 {
-        mprint!();
-    }
+    Print::header("Network Discovery");
 
-    print::header("Network Discovery", cfg.quiet);
     hosts.sort_by_key(|host| *host.ips.iter().next().unwrap_or(&host.primary_ip));
     print_hosts(hosts, cfg)?;
     print_summary(hosts.len(), total_time, cfg);
-
     Ok(())
-}
-
-fn no_hosts_found(cfg: &Config) {
-    if cfg.quiet == 0 && !cfg.no_banner {
-        print::header("ZERO HOSTS DETECTED", cfg.quiet);
-        print::no_results_banner();
-        return;
-    }
-    error!("Scan completed: 0 devices responded.");
 }
 
 fn print_hosts(hosts: &mut [Host], cfg: &Config) -> anyhow::Result<()> {
@@ -89,7 +75,7 @@ fn print_hosts(hosts: &mut [Host], cfg: &Config) -> anyhow::Result<()> {
             _ => print_host_tree(host, idx, cfg),
         }
         if idx + 1 != hosts.len() {
-            mprint!();
+            zprint!();
         }
     }
     Ok(())
@@ -104,11 +90,11 @@ fn print_summary(hosts_len: usize, total_time: Duration, cfg: &Config) {
 
     match cfg.quiet {
         0 => {
-            print::fat_separator();
+            print::divider();
             print::centerln(output);
         }
         _ => {
-            mprint!();
+            zprint!();
             success!("{output}")
         }
     }
@@ -162,15 +148,13 @@ fn print_host_head(idx: usize, primary_ip: &IpAddr, host: &Host) {
     let padding_len: usize = TOTAL_WIDTH.saturating_sub(used_width + 1);
     let padding: String = " ".repeat(padding_len);
 
-    let output: String = format!(
+    zprint!(
         "{} {}{}{}",
         format!("[{}]", idx.to_string().color(colors::ACCENT)).color(colors::SEPARATOR),
         primary_ip.to_string().color(colors::PRIMARY),
         padding,
         right_part.color(colors::SECONDARY)
     );
-
-    mprint!(&output);
 }
 
 fn rtt_to_string(host: &Host) -> String {

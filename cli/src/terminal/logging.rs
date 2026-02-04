@@ -125,7 +125,12 @@ impl<'a> RawVisitor<'a> {
 }
 
 impl<'a> Visit for RawVisitor<'a> {
-    fn record_debug(&mut self, _field: &Field, _value: &dyn std::fmt::Debug) {}
+    fn record_debug(&mut self, field: &Field, value: &dyn std::fmt::Debug) {
+        if field.name() == "raw_msg" {
+            let msg = format!("{:?}", value).replace('\n', "\r\n");
+            let _ = write!(self.writer, "{}", msg);
+        }
+    }
 
     fn record_str(&mut self, field: &Field, value: &str) {
         if field.name() == "raw_msg" {
@@ -134,4 +139,3 @@ impl<'a> Visit for RawVisitor<'a> {
         }
     }
 }
-

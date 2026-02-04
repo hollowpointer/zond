@@ -8,7 +8,7 @@ use zond_common::config::Config;
 
 use crate::terminal::print;
 
-pub fn listen(cfg: &Config) -> anyhow::Result<()> {
-    print::header("starting listener", cfg.quiet);
+pub fn listen(_cfg: &Config) -> anyhow::Result<()> {
+    print::Print::header("starting listener");
     anyhow::bail!("'listen' subcommand not implemented yet");
 }
