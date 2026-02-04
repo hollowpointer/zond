@@ -8,7 +8,6 @@ use crate::terminal::colors;
 use colored::*;
 use pnet::util::MacAddr;
 use std::net::{IpAddr, Ipv6Addr};
-use zond_common::config::Config;
 use zond_common::models::host::Host;
 use zond_common::utils::{ip, redact};
 
@@ -26,7 +25,7 @@ pub fn ipv6_to_type_str(ipv6_addr: &Ipv6Addr) -> &'static str {
     "IPv6"
 }
 
-pub fn ip_to_detail(host: &Host, cfg: &Config) -> Vec<(String, ColoredString)> {
+pub fn ip_to_detail(host: &Host, redact: bool) -> Vec<(String, ColoredString)> {
     host.ips
         .iter()
         .filter(|&&ip| ip != host.primary_ip)
@@ -37,7 +36,7 @@ pub fn ip_to_detail(host: &Host, cfg: &Config) -> Vec<(String, ColoredString)> {
             }
             IpAddr::V6(ipv6_addr) => {
                 let ipv6_type: &str = ipv6_to_type_str(ipv6_addr);
-                let ipv6_addr: ColoredString = if cfg.redact {
+                let ipv6_addr: ColoredString = if redact {
                     let ip_str: String = match ip::get_ipv6_type(ipv6_addr) {
                         ip::Ipv6AddressType::GlobalUnicast => redact::global_unicast(ipv6_addr),
                         ip::Ipv6AddressType::UniqueLocal => redact::unique_local(ipv6_addr),
@@ -66,12 +65,12 @@ fn is_global_unicast(ip_addr: &IpAddr) -> bool {
 
 pub fn hostname_to_detail(
     hostname_opt: &Option<String>,
-    cfg: &Config,
+    redact: bool,
 ) -> Option<(String, ColoredString)> {
     let mut result: Option<(String, ColoredString)> = None;
 
     if let Some(hostname) = hostname_opt {
-        let hostname_str: String = if cfg.redact {
+        let hostname_str: String = if redact {
             redact::hostname(hostname)
         } else {
             hostname.to_string()
@@ -85,11 +84,11 @@ pub fn hostname_to_detail(
     result
 }
 
-pub fn mac_to_detail(mac_opt: &Option<MacAddr>, cfg: &Config) -> Option<(String, ColoredString)> {
+pub fn mac_to_detail(mac_opt: &Option<MacAddr>, redact: bool) -> Option<(String, ColoredString)> {
     let mut result: Option<(String, ColoredString)> = None;
 
     if let Some(mac) = mac_opt {
-        let mac_str: String = if cfg.redact {
+        let mac_str: String = if redact {
             redact::mac_addr(mac)
         } else {
             mac.to_string()
