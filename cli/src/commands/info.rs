@@ -8,14 +8,11 @@ use anyhow;
 use colored::*;
 use is_root::is_root;
 use pnet::datalink::NetworkInterface;
-use std::env;
+use std::{cell::Cell, env};
 use sys_info;
 
 use crate::{
-    terminal::{
-        colors,
-        print::{self, GLOBAL_KEY_WIDTH},
-    },
+    terminal::{colors, print},
     zprint,
 };
 use zond_common::{
@@ -24,6 +21,10 @@ use zond_common::{
 };
 use zond_core::info::InfoService;
 use zond_core::system::SystemRepo;
+
+thread_local! {
+    static GLOBAL_KEY_WIDTH: Cell<usize> = const { Cell::new(0) }
+}
 
 pub fn info(_cfg: &Config) -> anyhow::Result<()> {
     print::Print::header("about the tool");
@@ -81,22 +82,22 @@ pub fn info(_cfg: &Config) -> anyhow::Result<()> {
 }
 
 fn print_about_the_tool() {
-    print::aligned_line("Version", env!("CARGO_PKG_VERSION"));
-    print::aligned_line("Author", "hollowpointer");
-    print::aligned_line("E-Mail", "hollowpointer@pm.me");
-    print::aligned_line("License", "MPL-2.0");
-    print::aligned_line("Repository", "https://github.com/hollowpointer/zond");
+    aligned_line("Version", env!("CARGO_PKG_VERSION"));
+    aligned_line("Author", "hollowpointer");
+    aligned_line("E-Mail", "hollowpointer@pm.me");
+    aligned_line("License", "MPL-2.0");
+    aligned_line("Repository", "https://github.com/hollowpointer/zond");
 }
 
 fn print_local_system() -> anyhow::Result<()> {
     print::Print::header("local system");
     let hostname: String = sys_info::hostname()?;
-    print::aligned_line("Hostname", hostname);
+    aligned_line("Hostname", hostname);
     let release = sys_info::os_release().unwrap_or_else(|_| String::from(""));
     let os_name = sys_info::os_type()?;
-    print::aligned_line("OS", format!("{} {}", os_name, release).as_str());
+    aligned_line("OS", format!("{} {}", os_name, release));
     if let Ok(user) = env::var("USER").or_else(|_| env::var("USERNAME")) {
-        print::aligned_line("User", user);
+        aligned_line("User", user);
     }
     Ok(())
 }
@@ -122,7 +123,7 @@ fn print_firewall_status(status: FirewallStatus) -> anyhow::Result<()> {
         FirewallStatus::NotDetected => "inactive (not detected)".yellow(),
     };
 
-    print::aligned_line("Status", status_str);
+    aligned_line("Status", status_str);
 
     if status == FirewallStatus::NotDetected {
         let output = format!(
@@ -245,4 +246,22 @@ fn print_service_line(idx: usize, service: &Service, vertical_branch: &str, serv
         ports.color(colors::TEXT_DEFAULT)
     );
     zprint!("{}", &output);
+}
+
+fn aligned_line<T: std::fmt::Display>(key: &str, value: T) {
+    let whitespace: String = ".".repeat((GLOBAL_KEY_WIDTH.get() + 1).saturating_sub(key.len()));
+    let colon: String = format!(
+        "{}{}",
+        whitespace.color(colors::SEPARATOR),
+        ":".color(colors::SEPARATOR)
+    );
+    let value: ColoredString = value.to_string().color(colors::TEXT_DEFAULT);
+
+    zprint!(
+        "{} {}{} {}",
+        ">".color(colors::SEPARATOR),
+        key.color(colors::PRIMARY),
+        colon,
+        value
+    );
 }

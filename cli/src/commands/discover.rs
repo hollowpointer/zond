@@ -69,6 +69,7 @@ pub async fn discover(targets: &[String], cfg: &Config) -> anyhow::Result<()> {
     Print::header("Network Discovery");
 
     hosts.sort_by_key(|host| *host.ips.iter().next().unwrap_or(&host.primary_ip));
+
     Print::hosts(&hosts)?;
     Print::discovery_summary(hosts.len(), start_time.elapsed());
 

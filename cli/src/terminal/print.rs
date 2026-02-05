@@ -4,23 +4,13 @@
 // If a copy of the MPL was not distributed with this file, You can obtain one at
 // https://mozilla.org/MPL/2.0/.
 
-use std::{cell::Cell, fmt::Display, net::IpAddr, sync::OnceLock, time::Duration};
+use std::{net::IpAddr, sync::OnceLock, time::Duration};
 
 use crate::terminal::{banner, colors, format};
 use anyhow::bail;
 use colored::*;
 use unicode_width::UnicodeWidthStr;
 use zond_common::{config::Config, models::host::Host, success};
-
-pub const TOTAL_WIDTH: usize = 64;
-
-static PRINT: OnceLock<Print> = OnceLock::new();
-
-thread_local! {
-    pub static GLOBAL_KEY_WIDTH: Cell<usize> = const { Cell::new(0) }
-}
-
-type Detail = (String, ColoredString);
 
 #[macro_export]
 macro_rules! zprint {
@@ -35,27 +25,11 @@ macro_rules! zprint {
     };
 }
 
-pub trait WithDefaultColor {
-    fn with_default(self, default_color: Color) -> ColoredString;
-}
+pub const TOTAL_WIDTH: usize = 64;
 
-impl WithDefaultColor for &str {
-    fn with_default(self, default_color: Color) -> ColoredString {
-        self.color(default_color)
-    }
-}
+static PRINT: OnceLock<Print> = OnceLock::new();
 
-impl WithDefaultColor for String {
-    fn with_default(self, default_color: Color) -> ColoredString {
-        self.color(default_color)
-    }
-}
-
-impl WithDefaultColor for ColoredString {
-    fn with_default(self, _default_color: Color) -> ColoredString {
-        self
-    }
-}
+type Detail = (String, ColoredString);
 
 pub struct Print {
     no_banner: bool,
@@ -187,15 +161,11 @@ impl Print {
     }
 
     fn rtt_to_string(host: &Host) -> String {
-        let min_rtt = host.min_rtt();
-
-        if min_rtt.is_none() {
+        let (Some(min_rtt), Some(max_rtt), Some(avg_rtt)) =
+            (host.min_rtt(), host.max_rtt(), host.average_rtt())
+        else {
             return String::new();
-        }
-
-        let min_rtt = host.min_rtt().unwrap();
-        let max_rtt = host.max_rtt().unwrap();
-        let avg_rtt = host.average_rtt().unwrap();
+        };
 
         if min_rtt == max_rtt {
             return format!("⌛ {}ms", min_rtt.as_millis());
@@ -253,28 +223,6 @@ impl Print {
 pub fn divider() {
     let sep: ColoredString = "═".repeat(TOTAL_WIDTH).bright_black();
     zprint!("{}", sep);
-}
-
-pub fn aligned_line<V>(key: &str, value: V)
-where
-    V: Display + WithDefaultColor,
-{
-    let whitespace: String = ".".repeat((GLOBAL_KEY_WIDTH.get() + 1).saturating_sub(key.len()));
-    let colon: String = format!(
-        "{}{}",
-        whitespace.color(colors::SEPARATOR),
-        ":".color(colors::SEPARATOR)
-    );
-    let value: ColoredString = value.with_default(colors::TEXT_DEFAULT);
-    print_status(format!("{}{} {}", key.color(colors::PRIMARY), colon, value));
-}
-
-pub fn print_status<T: AsRef<str>>(msg: T) {
-    zprint!(
-        "{} {}",
-        ">".color(colors::SEPARATOR),
-        msg.as_ref().color(colors::TEXT_DEFAULT)
-    );
 }
 
 pub fn tree_head(idx: usize, name: &str) {
