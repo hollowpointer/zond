@@ -66,7 +66,7 @@ trait NetworkExplorer {
 /// ### Integration Notes
 /// - **State**: Updates [`FOUND_HOST_COUNT`] and reacts to [`STOP_SIGNAL`].
 /// - **Concurrency**: Spawns multiple Tokio tasks; ensure the caller is within a multi-threaded runtime.
-pub async fn perform_discovery(targets: IpCollection, cfg: &Config) -> anyhow::Result<Vec<Host>> {
+pub async fn discover(targets: IpCollection, cfg: &Config) -> anyhow::Result<Vec<Host>> {
     if !cfg.disable_input {
         spawn_user_input_listener();
     }

@@ -41,10 +41,9 @@ use crate::{
 async fn main() -> ExitCode {
     let commands = CommandLine::parse_args();
     spinner::init_logging(commands.verbosity);
-
     let cfg = Config::from(&commands);
-
     let _ = Print::init(&cfg);
+
     Print::banner();
 
     let result = match &commands.command {

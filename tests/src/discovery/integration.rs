@@ -11,7 +11,7 @@ use std::time::Duration;
 use zond_common::config::Config;
 use zond_common::models::host::Host;
 use zond_common::models::range::{IpCollection, Ipv4Range};
-use zond_core::scanner::{self, perform_discovery, STOP_SIGNAL};
+use zond_core::scanner::{self, STOP_SIGNAL};
 
 use crate::utils::NetnsContext;
 
@@ -29,7 +29,7 @@ async fn test_discovery_single_loopback() {
     let localhost: IpAddr = IpAddr::V4(Ipv4Addr::new(127, 0, 0, 1));
     targets.add_single(localhost);
 
-    let result = scanner::perform_discovery(targets, &config).await;
+    let result = scanner::discover(targets, &config).await;
 
     assert!(result.is_ok(), "Discovery failed: {:?}", result.err());
     let hosts: Vec<Host> = result.unwrap();
@@ -60,7 +60,7 @@ async fn test_discovery_range_loopback() {
     let range: Ipv4Range = Ipv4Range::new(start, end);
     targets.add_range(range);
 
-    let result = scanner::perform_discovery(targets, &cfg).await;
+    let result = scanner::discover(targets, &cfg).await;
 
     assert!(result.is_ok(), "Discovery failed: {:?}", result.is_err());
     let hosts: Vec<Host> = result.unwrap();
@@ -90,7 +90,7 @@ async fn test_stop_signal_aborts() {
 
     STOP_SIGNAL.store(false, Ordering::Relaxed);
 
-    let handle = tokio::spawn(async move { perform_discovery(targets, &cfg).await });
+    let handle = tokio::spawn(async move { scanner::discover(targets, &cfg).await });
 
     tokio::time::sleep(Duration::from_millis(10)).await;
 
@@ -125,7 +125,7 @@ async fn test_privileged_discovery_netns() {
     let mut collection: IpCollection = IpCollection::new();
     collection.add_single(target_ip);
 
-    let result = scanner::perform_discovery(collection, &config).await;
+    let result = scanner::discover(collection, &config).await;
 
     match result {
         Ok(hosts) => {

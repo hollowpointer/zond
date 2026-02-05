@@ -127,25 +127,7 @@ impl Print {
         zprint!("{}", line);
     }
 
-    pub fn no_results() {
-        let p = Self::get();
-        if p.q_level == 0 && !p.no_banner {
-            Self::header("ZERO HOSTS DETECTED");
-            no_results_banner();
-            return;
-        }
-        zond_common::error!("Scan completed: 0 devices responded.");
-    }
-
-    pub fn end_of_program() {
-        let p = Self::get();
-        if p.q_level > 0 {
-            return;
-        }
-        zprint!("{}", "═".repeat(TOTAL_WIDTH).color(colors::SEPARATOR));
-    }
-
-    pub fn hosts(hosts: &mut [Host]) -> anyhow::Result<()> {
+    pub fn hosts(hosts: &[Host]) -> anyhow::Result<()> {
         let p = Self::get();
         for (idx, host) in hosts.iter().enumerate() {
             match p.q_level {
@@ -229,7 +211,7 @@ impl Print {
         format!("⌛ {}ms - {}ms", min_rtt.as_millis(), max_rtt.as_millis())
     }
 
-    pub fn summary(hosts_len: usize, total_time: Duration) {
+    pub fn discovery_summary(hosts_len: usize, total_time: Duration) {
         let p = Self::get();
         let active_hosts: ColoredString = format!("{hosts_len} active hosts").bold().green();
         let total_time: ColoredString = format!("{:.2}s", total_time.as_secs_f64()).bold().yellow();
@@ -247,6 +229,24 @@ impl Print {
                 success!("{output}")
             }
         }
+    }
+
+    pub fn no_results() {
+        let p = Self::get();
+        if p.q_level == 0 && !p.no_banner {
+            Self::header("ZERO HOSTS DETECTED");
+            zprint!("{}", banner::NO_RESULTS_0.red().bold());
+            return;
+        }
+        zond_common::error!("Scan completed: 0 devices responded.");
+    }
+
+    pub fn end_of_program() {
+        let p = Self::get();
+        if p.q_level > 0 {
+            return;
+        }
+        zprint!("{}", "═".repeat(TOTAL_WIDTH).color(colors::SEPARATOR));
     }
 }
 
@@ -310,8 +310,4 @@ pub fn as_tree(details: Vec<(String, ColoredString)>) {
 pub fn centerln(msg: &str) {
     let space = " ".repeat((TOTAL_WIDTH - console::measure_text_width(msg)) / 2);
     zprint!("{}{}{}", space, msg, space);
-}
-
-pub fn no_results_banner() {
-    zprint!("{}", banner::NO_RESULTS_0.red().bold());
 }
