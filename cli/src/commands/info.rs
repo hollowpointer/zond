@@ -49,7 +49,6 @@ pub fn info(_cfg: &Config) -> anyhow::Result<()> {
         print_local_system()?;
         let interfaces = zond_common::interface::get_prioritized_interfaces(5)?;
         print_network_interfaces(&interfaces)?;
-        print::Print::end_of_program();
         return Ok(());
     }
 
@@ -75,10 +74,7 @@ pub fn info(_cfg: &Config) -> anyhow::Result<()> {
     print_local_services(system_info.services)?;
 
     let interfaces = zond_common::interface::get_prioritized_interfaces(5)?;
-    print_network_interfaces(&interfaces)?;
-
-    print::Print::end_of_program();
-    Ok(())
+    print_network_interfaces(&interfaces)
 }
 
 fn print_about_the_tool() {

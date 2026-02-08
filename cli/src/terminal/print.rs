@@ -64,41 +64,23 @@ impl Print {
             return;
         }
 
-        let text_content: String = format!("⟦ ZOND v{} ⟧ ", env!("CARGO_PKG_VERSION"));
-        let text_width: usize = UnicodeWidthStr::width(text_content.as_str());
-        let text: ColoredString = text_content.bright_green().bold();
-        let sep: ColoredString = "═"
-            .repeat(TOTAL_WIDTH.saturating_sub(text_width) / 2)
-            .bright_black();
-        let output: String = format!("{}{}{}", sep, text, sep);
+        let text_content = format!("⟦ ZOND v{} ⟧ ", env!("CARGO_PKG_VERSION"));
+        let output = format_centered(&text_content.bright_green().bold(), "═", TOTAL_WIDTH);
 
         zprint!("{}", output);
         banner::print();
     }
 
     pub fn header(msg: &str) {
-        let p = Self::get();
-        if p.q_level > 0 {
+        if Self::get().q_level > 0 {
             zprint!();
             return;
         }
 
-        let formatted: String = format!("⟦ {} ⟧", msg);
-        let msg_len: usize = formatted.chars().count();
+        let formatted_msg = format!("⟦ {} ⟧", msg).to_uppercase().bright_green();
+        let output = format_centered(&formatted_msg, "─", TOTAL_WIDTH);
 
-        let dash_count: usize = TOTAL_WIDTH.saturating_sub(msg_len);
-        let left: usize = dash_count / 2;
-        let right: usize = dash_count - left;
-
-        let line: ColoredString = format!(
-            "{}{}{}",
-            "─".repeat(left),
-            formatted.to_uppercase().bright_green(),
-            "─".repeat(right)
-        )
-        .bright_black();
-
-        zprint!("{}", line);
+        zprint!("{}", output);
     }
 
     pub fn hosts(hosts: &[Host]) -> anyhow::Result<()> {
@@ -221,8 +203,7 @@ impl Print {
 }
 
 pub fn divider() {
-    let sep: ColoredString = "═".repeat(TOTAL_WIDTH).bright_black();
-    zprint!("{}", sep);
+    zprint!("{}", format_centered("", "═", TOTAL_WIDTH));
 }
 
 pub fn tree_head(idx: usize, name: &str) {
@@ -256,6 +237,20 @@ pub fn as_tree(details: Vec<(String, ColoredString)>) {
 }
 
 pub fn centerln(msg: &str) {
-    let space = " ".repeat((TOTAL_WIDTH - console::measure_text_width(msg)) / 2);
-    zprint!("{}{}{}", space, msg, space);
+    zprint!("{}", format_centered(msg, " ", TOTAL_WIDTH));
+}
+
+fn format_centered(text: &str, fill_char: &str, total_width: usize) -> String {
+    let text_width = console::measure_text_width(text);
+
+    let pad_len = total_width.saturating_sub(text_width);
+    let left = pad_len / 2;
+    let right = pad_len - left;
+
+    format!(
+        "{}{}{}",
+        fill_char.repeat(left),
+        text,
+        fill_char.repeat(right)
+    )
 }

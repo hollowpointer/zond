@@ -6,11 +6,23 @@
 
 use crate::terminal::{colors, print};
 use colored::*;
-use zond_common::utils::ip::{self, Ipv6AddressType};
 use pnet::datalink::NetworkInterface;
 use pnet::ipnetwork::IpNetwork;
+use zond_common::utils::ip::{self, Ipv6AddressType};
 
-pub fn to_key_value_pair_net(ip_net: &[IpNetwork]) -> Vec<(String, ColoredString)> {
+pub fn print_interface(interface: &NetworkInterface, idx: usize) {
+    print::tree_head(idx, &interface.name);
+    let mut print_map: Vec<(String, ColoredString)> = to_print_map_net(&interface.ips);
+    if let Some(mac_addr) = interface.mac {
+        print_map.push((
+            "MAC".to_string(),
+            mac_addr.to_string().color(colors::MAC_ADDR),
+        ));
+    }
+    print::as_tree(print_map);
+}
+
+fn to_print_map_net(ip_net: &[IpNetwork]) -> Vec<(String, ColoredString)> {
     ip_net
         .iter()
         .map(|ip_network| match ip_network {
@@ -38,16 +50,4 @@ pub fn to_key_value_pair_net(ip_net: &[IpNetwork]) -> Vec<(String, ColoredString
             }
         })
         .collect()
-}
-
-pub fn print_interface(interface: &NetworkInterface, idx: usize) {
-    print::tree_head(idx, &interface.name);
-    let mut key_value_pair: Vec<(String, ColoredString)> = to_key_value_pair_net(&interface.ips);
-    if let Some(mac_addr) = interface.mac {
-        key_value_pair.push((
-            "MAC".to_string(),
-            mac_addr.to_string().color(colors::MAC_ADDR),
-        ));
-    }
-    print::as_tree(key_value_pair);
 }
