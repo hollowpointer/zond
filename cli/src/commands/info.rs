@@ -4,11 +4,19 @@
 // If a copy of the MPL was not distributed with this file, You can obtain one at
 // https://mozilla.org/MPL/2.0/.
 
+//! # Local System Information
+//!
+//! This module provides the `info` command, which displays detailed information about the
+//! local system, including network interfaces, firewall status, and running services.
+//!
+//! It serves as a diagnostic tool for users to quickly assess their local network configuration
+//! and potential security exposure.
+
 use anyhow;
 use colored::*;
 use is_root::is_root;
 use pnet::datalink::NetworkInterface;
-use std::{cell::Cell, env};
+use std::{cmp, env};
 use sys_info;
 
 use crate::{
@@ -19,83 +27,237 @@ use zond_common::{
     config::Config,
     models::localhost::{FirewallStatus, IpServiceGroup, Service},
 };
-use zond_core::info::InfoService;
-use zond_core::system::SystemRepo;
 
-thread_local! {
-    static GLOBAL_KEY_WIDTH: Cell<usize> = const { Cell::new(0) }
-}
-
+/// Prints system and network information to the terminal.
+///
+/// This function gathers data from the system (hostname, OS, etc.) and network interfaces.
+/// If run as root, it also performs a deeper analysis of running services and firewall status.
 pub fn info(_cfg: &Config) -> anyhow::Result<()> {
     print::Print::header("about the tool");
     zprint!(
         "{}",
-        format!(
-            "{}",
-            "Zond is a quick tool for mapping and exploring networks.".color(colors::TEXT_DEFAULT)
-        )
-        .as_str()
+        "Zond is a quick tool for mapping and exploring networks.".color(colors::TEXT_DEFAULT)
     );
     zprint!();
-    GLOBAL_KEY_WIDTH.set(10);
 
-    let system_repo = Box::new(SystemRepo);
-    let service = InfoService::new(system_repo);
+    let system_info = zond_core::info::get_system_info()?;
 
-    let system_info = service.get_system_info()?;
+    let printer = if is_root() {
+        InfoPrinter::new(&system_info.services)
+    } else {
+        InfoPrinter::default()
+    };
 
-    if !is_root() {
-        print_about_the_tool();
-        print_local_system()?;
-        let interfaces = zond_common::interface::get_prioritized_interfaces(5)?;
-        print_network_interfaces(&interfaces)?;
-        return Ok(());
+    printer.print_about();
+    printer.print_system()?;
+
+    if is_root() {
+        printer.print_firewall_status(system_info.firewall)?;
+        printer.print_local_services(&system_info.services)?;
     }
-
-    let mut longest_name = 0;
-    for group in &system_info.services {
-        for s in &group.tcp_services {
-            if s.name.len() > longest_name {
-                longest_name = s.name.len();
-            }
-        }
-        for s in &group.udp_services {
-            if s.name.len() > longest_name {
-                longest_name = s.name.len();
-            }
-        }
-    }
-
-    GLOBAL_KEY_WIDTH.set(std::cmp::max(longest_name + 6, 10));
-
-    print_about_the_tool();
-    print_local_system()?;
-    print_firewall_status(system_info.firewall)?;
-    print_local_services(system_info.services)?;
 
     let interfaces = zond_common::interface::get_prioritized_interfaces(5)?;
-    print_network_interfaces(&interfaces)
-}
+    print_network_interfaces(&interfaces)?;
 
-fn print_about_the_tool() {
-    aligned_line("Version", env!("CARGO_PKG_VERSION"));
-    aligned_line("Author", "hollowpointer");
-    aligned_line("E-Mail", "hollowpointer@pm.me");
-    aligned_line("License", "MPL-2.0");
-    aligned_line("Repository", "https://github.com/hollowpointer/zond");
-}
-
-fn print_local_system() -> anyhow::Result<()> {
-    print::Print::header("local system");
-    let hostname: String = sys_info::hostname()?;
-    aligned_line("Hostname", hostname);
-    let release = sys_info::os_release().unwrap_or_else(|_| String::from(""));
-    let os_name = sys_info::os_type()?;
-    aligned_line("OS", format!("{} {}", os_name, release));
-    if let Ok(user) = env::var("USER").or_else(|_| env::var("USERNAME")) {
-        aligned_line("User", user);
-    }
     Ok(())
+}
+
+/// Helper struct to manage printing context and alignment.
+struct InfoPrinter {
+    /// Width of the key column for alignment.
+    key_width: usize,
+}
+
+impl Default for InfoPrinter {
+    fn default() -> Self {
+        Self { key_width: 10 }
+    }
+}
+
+impl InfoPrinter {
+    /// Creates a new `InfoPrinter` with a key width calculated from the service names.
+    fn new(services: &[IpServiceGroup]) -> Self {
+        let mut longest_name = 0;
+        for group in services {
+            for s in &group.tcp_services {
+                longest_name = cmp::max(longest_name, s.name.len());
+            }
+            for s in &group.udp_services {
+                longest_name = cmp::max(longest_name, s.name.len());
+            }
+        }
+        Self {
+            key_width: cmp::max(longest_name + 6, 10),
+        }
+    }
+
+    /// Prints the "About" section with version and author info.
+    fn print_about(&self) {
+        self.aligned_line("Version", env!("CARGO_PKG_VERSION"));
+        self.aligned_line("Author", "hollowpointer");
+        self.aligned_line("E-Mail", "hollowpointer@pm.me");
+        self.aligned_line("License", "MPL-2.0");
+        self.aligned_line("Repository", "https://github.com/hollowpointer/zond");
+    }
+
+    /// Prints the "Local System" section with hostname, OS, and user info.
+    fn print_system(&self) -> anyhow::Result<()> {
+        print::Print::header("local system");
+        let hostname: String = sys_info::hostname()?;
+        self.aligned_line("Hostname", hostname);
+
+        let release = sys_info::os_release().unwrap_or_else(|_| String::from(""));
+        let os_name = sys_info::os_type()?;
+        self.aligned_line("OS", format!("{} {}", os_name, release));
+
+        if let Ok(user) = env::var("USER").or_else(|_| env::var("USERNAME")) {
+            self.aligned_line("User", user);
+        }
+        Ok(())
+    }
+
+    /// Prints the firewall status.
+    fn print_firewall_status(&self, status: FirewallStatus) -> anyhow::Result<()> {
+        print::Print::header("firewall status");
+        let status_str = match status {
+            FirewallStatus::Active => "active".green().bold(),
+            FirewallStatus::Inactive => "inactive".red().bold(),
+            FirewallStatus::NotDetected => "inactive (not detected)".yellow(),
+        };
+
+        self.aligned_line("Status", status_str);
+
+        if status == FirewallStatus::NotDetected {
+            zprint!();
+            zprint!(
+                "{}",
+                "No active firewall detected. Services may be exposed to public."
+                    .color(colors::TEXT_DEFAULT)
+            );
+        }
+
+        Ok(())
+    }
+
+    /// Prints the list of local services grouped by IP and protocol.
+    fn print_local_services(&self, groups: &[IpServiceGroup]) -> anyhow::Result<()> {
+        print::Print::header("local services");
+
+        for (idx, group) in groups.iter().enumerate() {
+            if group.tcp_services.is_empty() && group.udp_services.is_empty() {
+                continue;
+            }
+
+            self.print_service_group(group);
+
+            if idx + 1 != groups.len() {
+                zprint!();
+            }
+        }
+        Ok(())
+    }
+
+    fn print_service_group(&self, group: &IpServiceGroup) {
+        let ip_color = if group.ip_addr.is_ipv4() {
+            colors::IPV4_ADDR
+        } else {
+            colors::IPV6_ADDR
+        };
+
+        zprint!(
+            "{}",
+            format!("[{}]", group.ip_addr.to_string().color(ip_color)).color(colors::SEPARATOR)
+        );
+
+        let has_tcp = !group.tcp_services.is_empty();
+        let has_udp = !group.udp_services.is_empty();
+
+        if has_tcp {
+            let branch = if has_udp { "├─" } else { "└─" };
+            let vertical = if has_udp { "│" } else { " " };
+            self.print_service_category(&group.tcp_services, "TCP", branch, vertical);
+        }
+
+        if has_udp {
+            self.print_service_category(&group.udp_services, "UDP", "└─", " ");
+        }
+    }
+
+    fn print_service_category(
+        &self,
+        services: &[Service],
+        label: &str,
+        branch_char: &str,
+        vertical_char: &str,
+    ) {
+        zprint!(
+            " {} {}",
+            branch_char.color(colors::SEPARATOR),
+            label.color(colors::PRIMARY)
+        );
+
+        for (i, service) in services.iter().enumerate() {
+            self.print_service_line(service, i, services.len(), vertical_char);
+        }
+    }
+
+    fn print_service_line(
+        &self,
+        service: &Service,
+        idx: usize,
+        total: usize,
+        vertical_branch: &str,
+    ) {
+        let is_last = idx + 1 == total;
+        let branch = if is_last { "└─" } else { "├─" }.color(colors::SEPARATOR);
+
+        // Calculate dynamic padding dots
+        let dashes_count = (self.key_width as i32 - service.name.len() as i32 - 5).max(0) as usize;
+        let dots = ".".repeat(dashes_count).color(colors::SEPARATOR);
+
+        let ports = self.format_ports(&service.local_ports);
+
+        zprint!(
+            " {}   {branch} {}{}{} {}",
+            vertical_branch.color(colors::SEPARATOR),
+            service.name.color(colors::SECONDARY),
+            dots,
+            ":".color(colors::SEPARATOR),
+            ports.color(colors::TEXT_DEFAULT)
+        );
+    }
+
+    fn format_ports(&self, ports: &std::collections::HashSet<u16>) -> String {
+        let mut port_list: Vec<_> = ports.iter().collect();
+        port_list.sort();
+
+        let count = port_list.len();
+        let mut port_strings: Vec<String> = port_list
+            .into_iter()
+            .take(5)
+            .map(|p| p.to_string())
+            .collect();
+
+        if count > 5 {
+            port_strings.push("...".to_string());
+        }
+        port_strings.join(", ")
+    }
+
+    /// Prints a key-value line aligned with dots.
+    fn aligned_line<T: std::fmt::Display>(&self, key: &str, value: T) {
+        let dots_count = (self.key_width + 1).saturating_sub(key.len());
+        let dots = ".".repeat(dots_count).color(colors::SEPARATOR);
+
+        zprint!(
+            "{} {}{}{} {}",
+            ">".color(colors::SEPARATOR),
+            key.color(colors::PRIMARY),
+            dots,
+            ":".color(colors::SEPARATOR),
+            value.to_string().color(colors::TEXT_DEFAULT)
+        );
+    }
 }
 
 fn print_network_interfaces(interfaces: &[NetworkInterface]) -> anyhow::Result<()> {
@@ -109,155 +271,4 @@ fn print_network_interfaces(interfaces: &[NetworkInterface]) -> anyhow::Result<(
         }
     }
     Ok(())
-}
-
-fn print_firewall_status(status: FirewallStatus) -> anyhow::Result<()> {
-    print::Print::header("firewall status");
-    let status_str = match status {
-        FirewallStatus::Active => "active".green().bold(),
-        FirewallStatus::Inactive => "inactive".red().bold(),
-        FirewallStatus::NotDetected => "inactive (not detected)".yellow(),
-    };
-
-    aligned_line("Status", status_str);
-
-    if status == FirewallStatus::NotDetected {
-        let output = format!(
-            "{}",
-            "No active firewall detected. Services may be exposed to public."
-                .color(colors::TEXT_DEFAULT)
-        );
-        zprint!();
-        zprint!("{}", &output);
-    }
-
-    Ok(())
-}
-
-fn print_local_services(service_groups: Vec<IpServiceGroup>) -> anyhow::Result<()> {
-    print::Print::header("local services");
-
-    for (idx, group) in service_groups.iter().enumerate() {
-        let ip_addr = group.ip_addr;
-        let tcp_services = &group.tcp_services;
-        let udp_services = &group.udp_services;
-
-        let has_tcp = !tcp_services.is_empty();
-        let has_udp = !udp_services.is_empty();
-
-        if !has_tcp && !has_udp {
-            continue;
-        }
-
-        // Print IP Address Header
-        let ip_addr_colored = if ip_addr.is_ipv4() {
-            ip_addr.to_string().color(colors::IPV4_ADDR)
-        } else {
-            ip_addr.to_string().color(colors::IPV6_ADDR)
-        };
-        zprint!(
-            "{}",
-            format!(
-                "{}",
-                format!("[{}]", ip_addr_colored).color(colors::SEPARATOR)
-            )
-            .as_str()
-        );
-
-        // Print TCP Services
-        if has_tcp {
-            let tcp_branch = if has_udp { "├─" } else { "└─" };
-            let vertical_branch = if has_udp { "│" } else { " " };
-            zprint!(
-                "{}",
-                format!(
-                    " {} {}",
-                    tcp_branch.color(colors::SEPARATOR),
-                    "TCP".color(colors::PRIMARY)
-                )
-                .as_str()
-            );
-
-            for (i, service) in tcp_services.iter().enumerate() {
-                print_service_line(i, service, vertical_branch, tcp_services.len());
-            }
-        }
-
-        // Print UDP Services
-        if has_udp {
-            let udp_branch = "└─"; // UDP is always the last branch if it exists
-            let vertical_branch = " "; // No vertical (│) line needed below UDP
-            zprint!(
-                "{}",
-                format!(
-                    " {} {}",
-                    udp_branch.color(colors::SEPARATOR),
-                    "UDP".color(colors::PRIMARY)
-                )
-                .as_str()
-            );
-
-            for (i, service) in udp_services.iter().enumerate() {
-                print_service_line(i, service, vertical_branch, udp_services.len())
-            }
-        }
-
-        if idx + 1 != service_groups.len() {
-            zprint!();
-        }
-    }
-    Ok(())
-}
-
-fn print_service_line(idx: usize, service: &Service, vertical_branch: &str, services_len: usize) {
-    let last: bool = idx + 1 == services_len;
-    let branch: ColoredString = if last {
-        "└─".color(colors::SEPARATOR)
-    } else {
-        "├─".color(colors::SEPARATOR)
-    };
-    let dashes: i32 = GLOBAL_KEY_WIDTH.get() as i32 - service.name.len() as i32 - 5;
-    let dashes = if dashes < 0 { 0 } else { dashes as usize };
-
-    let num_ports = service.local_ports.len();
-
-    let mut port_strings: Vec<String> = service
-        .local_ports
-        .iter()
-        .take(5)
-        .map(|p: &u16| p.to_string())
-        .collect();
-
-    if num_ports > 5 {
-        port_strings.push("...".to_string());
-    }
-    let ports: String = port_strings.join(", ");
-
-    let output: String = format!(
-        " {}   {branch} {}{}{}{}",
-        vertical_branch.color(colors::SEPARATOR),
-        service.name.color(colors::SECONDARY),
-        ".".repeat(dashes).color(colors::SEPARATOR),
-        ": ".color(colors::SEPARATOR),
-        ports.color(colors::TEXT_DEFAULT)
-    );
-    zprint!("{}", &output);
-}
-
-fn aligned_line<T: std::fmt::Display>(key: &str, value: T) {
-    let whitespace: String = ".".repeat((GLOBAL_KEY_WIDTH.get() + 1).saturating_sub(key.len()));
-    let colon: String = format!(
-        "{}{}",
-        whitespace.color(colors::SEPARATOR),
-        ":".color(colors::SEPARATOR)
-    );
-    let value: ColoredString = value.to_string().color(colors::TEXT_DEFAULT);
-
-    zprint!(
-        "{} {}{} {}",
-        ">".color(colors::SEPARATOR),
-        key.color(colors::PRIMARY),
-        colon,
-        value
-    );
 }

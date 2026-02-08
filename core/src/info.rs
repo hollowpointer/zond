@@ -13,40 +13,22 @@
 
 use pnet::datalink::NetworkInterface;
 use zond_common::models::localhost::{FirewallStatus, IpServiceGroup};
-use zond_common::system::SystemRepository;
 
-/// Application Service for Local System Information.
-///
-/// Responsible for gathering and aggregating information about the machine
-/// Service for Local System Information.
-/// * Network Interfaces (IPs, MACs).
-/// * Active Services (Open ports).
-/// * Firewall status.
-pub struct InfoService {
-    system_repo: Box<dyn SystemRepository>,
+/// Retrieves a comprehensive snapshot of the local system's network state.
+pub fn get_system_info() -> anyhow::Result<SystemInfo> {
+    let services = crate::system::get_local_services()?;
+    let firewall = crate::system::get_firewall_status()?;
+    let interfaces = crate::system::get_network_interfaces()?;
+
+    Ok(SystemInfo {
+        services,
+        firewall,
+        interfaces,
+    })
 }
 
 pub struct SystemInfo {
     pub services: Vec<IpServiceGroup>,
     pub firewall: FirewallStatus,
     pub interfaces: Vec<NetworkInterface>,
-}
-
-impl InfoService {
-    pub fn new(system_repo: Box<dyn SystemRepository>) -> Self {
-        Self { system_repo }
-    }
-
-    /// Retrieves a comprehensive snapshot of the local system's network state.
-    pub fn get_system_info(&self) -> anyhow::Result<SystemInfo> {
-        let services = self.system_repo.get_local_services()?;
-        let firewall = self.system_repo.get_firewall_status()?;
-        let interfaces = self.system_repo.get_network_interfaces()?;
-
-        Ok(SystemInfo {
-            services,
-            firewall,
-            interfaces,
-        })
-    }
 }

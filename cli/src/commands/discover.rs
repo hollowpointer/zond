@@ -10,13 +10,13 @@
 //!
 //! This module wraps the core scanning functionality with the necessary terminal UI.
 //! Since the core `scanner` module is silent and purely functional, this module is responsible
-//! for "noise" operations: parsing CLI strings, managing the loading spinner, and rendering
+//! for noise operations: parsing CLI strings, managing the loading spinner, and rendering
 //! the final report table.
 //!
 //! ## Execution Flow
 //!
 //! 1.  **Parse**: Converts raw target strings (e.g., "10.0.0.0/24") into a valid [`IpCollection`].
-//! 2.  **Monitor**: Spawns a background spinner to track progress during the async scan.
+//! 2.  **Monitor**: Spawns a background spinner to show progress during the async scan.
 //! 3.  **Execute**: Calls [`scanner::discover`] to do the actual scanning.
 //! 4.  **Render**: Sorts the resulting host list by IP and prints the summary to stdout.
 
