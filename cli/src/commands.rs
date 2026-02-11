@@ -110,4 +110,3 @@ impl From<&CommandLine> for Config {
         }
     }
 }
-

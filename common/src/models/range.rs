@@ -235,7 +235,10 @@ mod tests {
         let mut collection = IpCollection::new();
         let ip = IpAddr::V4(Ipv4Addr::new(10, 0, 0, 1));
         collection.add_single(ip);
-        
-        assert!(collection.contains(&ip), "Collection should contain the single IP");
+
+        assert!(
+            collection.contains(&ip),
+            "Collection should contain the single IP"
+        );
     }
 }

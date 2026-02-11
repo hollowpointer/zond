@@ -69,12 +69,10 @@ pub fn get_lan_network() -> anyhow::Result<Option<Ipv4Network>> {
         } else {
             anyhow::bail!("No interfaces available for LAN discovery");
         };
-
     let private_v4_net: Option<Ipv4Network> = interface.ips.iter().find_map(|net| match net {
         IpNetwork::V4(v4) if v4.ip().is_private() => Some(*v4),
         _ => None,
     });
-
     Ok(private_v4_net)
 }
 

@@ -15,4 +15,3 @@ pub const ARP_LEN: usize = 28;
 pub const ETH_HDR_LEN: usize = 14;
 pub const MIN_ETH_FRAME_NO_FCS: usize = 60;
 pub const MAX_CPUS: usize = 4;
-

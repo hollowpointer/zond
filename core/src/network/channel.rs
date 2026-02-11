@@ -62,4 +62,3 @@ pub fn spawn_eth_listener(
         }
     });
 }
-

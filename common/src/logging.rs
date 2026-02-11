@@ -6,7 +6,7 @@
 
 //! This module is currently a wrapper for the 'tracing' crate.
 //! The goal is to provide an abstraction so that other modules
-//! do not depend on tracing directrly, making it easy to swap 
+//! do not depend on tracing directrly, making it easy to swap
 //! our way of logging more easily in the future if needed.
 
 #[macro_export]

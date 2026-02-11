@@ -5,20 +5,13 @@
 // https://mozilla.org/MPL/2.0/.
 
 use pnet::{
-    packet::{
-        Packet,
-        ip::IpNextHeaderProtocols
-    },
+    packet::{Packet, ip::IpNextHeaderProtocols},
     transport::{
-        self, 
-        TransportChannelType,
-        TransportProtocol,
-        TransportReceiver, 
-        TransportSender,
+        self, TransportChannelType, TransportProtocol, TransportReceiver, TransportSender,
     },
 };
-use tokio::sync::mpsc;
 use std::net::IpAddr;
+use tokio::sync::mpsc;
 
 const TRANSPORT_BUFFER_SIZE: usize = 4096;
 const CHANNEL_TYPE_UDP: TransportChannelType =
@@ -29,7 +22,7 @@ const CHANNEL_TYPE_TCP: TransportChannelType =
 #[derive(Debug, Clone, Copy)]
 pub enum TransportType {
     TcpLayer4,
-    UdpLayer4
+    UdpLayer4,
 }
 
 pub struct TransportHandle {
@@ -57,8 +50,12 @@ pub fn start_packet_capture(transport_type: TransportType) -> anyhow::Result<Tra
     let (queue_tx, queue_rx) = mpsc::unbounded_channel();
 
     match transport_type {
-        TransportType::TcpLayer4 => spawn_listener!(queue_tx, rx_socket, pnet::transport::tcp_packet_iter),
-        TransportType::UdpLayer4 => spawn_listener!(queue_tx, rx_socket, pnet::transport::udp_packet_iter),
+        TransportType::TcpLayer4 => {
+            spawn_listener!(queue_tx, rx_socket, pnet::transport::tcp_packet_iter)
+        }
+        TransportType::UdpLayer4 => {
+            spawn_listener!(queue_tx, rx_socket, pnet::transport::udp_packet_iter)
+        }
     };
 
     Ok(TransportHandle {
@@ -67,7 +64,9 @@ pub fn start_packet_capture(transport_type: TransportType) -> anyhow::Result<Tra
     })
 }
 
-fn open_channel(transport_type: TransportType) -> anyhow::Result<(TransportSender, TransportReceiver)> {
+fn open_channel(
+    transport_type: TransportType,
+) -> anyhow::Result<(TransportSender, TransportReceiver)> {
     let channel_type: TransportChannelType = match transport_type {
         TransportType::TcpLayer4 => CHANNEL_TYPE_TCP,
         TransportType::UdpLayer4 => CHANNEL_TYPE_UDP,

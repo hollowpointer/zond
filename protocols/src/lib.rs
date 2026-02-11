@@ -17,10 +17,8 @@ pub mod utils;
 
 use zond_common::sender::{PacketType, SenderConfig};
 
-use pnet::ipnetwork::Ipv4Network;
 use pnet::packet::ethernet::{EtherTypes, EthernetPacket};
 use pnet::util::MacAddr;
-use std::collections::HashSet;
 use std::net::{IpAddr, Ipv4Addr, Ipv6Addr};
 
 type Bytes = Vec<u8>;
@@ -43,15 +41,15 @@ pub fn eth_packet_iter(sender_config: &SenderConfig) -> anyhow::Result<PacketIte
 }
 
 pub fn create_arp_packets(sender_config: &SenderConfig) -> anyhow::Result<PacketIter> {
-    let src_mac: MacAddr = sender_config.get_local_mac()?;
-    let dst_mac: MacAddr = MacAddr::broadcast();
-    let src_net: Ipv4Network = sender_config.get_ipv4_net()?;
-    let src_addr: Ipv4Addr = src_net.ip();
+    let src_mac = sender_config.get_local_mac()?;
+    let dst_mac = MacAddr::broadcast();
+    let src_net = sender_config.get_ipv4_net()?;
+    let src_addr = src_net.ip();
 
-    let targets: HashSet<Ipv4Addr> = sender_config.get_targets_v4().iter().cloned().collect();
+    let targets: Vec<Ipv4Addr> = sender_config.iter_targets_v4().copied().collect();
 
     let iter = targets.into_iter().map(move |dst_addr| {
-        let packet: Vec<u8> = arp::create_packet(src_mac, dst_mac, src_addr, dst_addr)
+        let packet = arp::create_packet(src_mac, dst_mac, src_addr, dst_addr)
             .expect("Failed to create ARP packet");
 
         (packet, IpAddr::V4(dst_addr))

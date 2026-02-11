@@ -5,23 +5,21 @@
 // https://mozilla.org/MPL/2.0/.
 
 //! This module is commonly used for **Medium Access Control (MAC)** address operations.
-//! 
+//!
 //! This also includes things like **Organizationally unique identifier (OUI)** database
 //! initialization and handling, thus being able to link a vendor (e.g Cisco) to a MAC address.
 
-use std::sync::OnceLock;
 use mac_oui::Oui;
 use pnet::util::MacAddr;
+use std::sync::OnceLock;
 
 static OUI_DB: OnceLock<Oui> = OnceLock::new();
 
 /// Retrieves or initializes the **Organizationally unique identifier** database.
-/// 
+///
 /// Used for linking a vendor to a MAC address (LAN)
 fn get_oui_db() -> &'static Oui {
-    OUI_DB.get_or_init(|| {
-        Oui::default().expect("failed to load OUI database")
-    })
+    OUI_DB.get_or_init(|| Oui::default().expect("failed to load OUI database"))
 }
 
 /// Identify the vendor of a MAC address.
@@ -61,9 +59,21 @@ mod tests {
         let raspberry_str = raspberry.unwrap();
         let asrock_str = asrock.unwrap();
 
-        assert!(cisco_str.contains("Cisco"), "Vendor string '{}' should contain 'Cisco'", cisco_str);
-        assert!(raspberry_str.contains("Raspberry"), "Vendor string '{}' should contain 'Raspberry'", raspberry_str);
-        assert!(asrock_str.contains("ASRock"), "Vendor string '{}' should contain 'ASRock'", asrock_str);
+        assert!(
+            cisco_str.contains("Cisco"),
+            "Vendor string '{}' should contain 'Cisco'",
+            cisco_str
+        );
+        assert!(
+            raspberry_str.contains("Raspberry"),
+            "Vendor string '{}' should contain 'Raspberry'",
+            raspberry_str
+        );
+        assert!(
+            asrock_str.contains("ASRock"),
+            "Vendor string '{}' should contain 'ASRock'",
+            asrock_str
+        );
     }
 
     #[test]
@@ -71,6 +81,9 @@ mod tests {
         // This is a locally administered address (no vendors linked to it)
         let mac = MacAddr::new(0xDE, 0xAD, 0xBE, 0xEF, 0x00, 0x00);
         let vendor = get_vendor(mac);
-        assert!(vendor.is_none(), "Should return None for random/unknown MAC");
+        assert!(
+            vendor.is_none(),
+            "Should return None for random/unknown MAC"
+        );
     }
 }
