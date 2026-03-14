@@ -1,0 +1,54 @@
+name: Build Zond
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    name: Build on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Build Release Binary
+        run: cargo build --release
+
+      - name: Upload Binary (Linux & macOS)
+        if: matrix.os != 'windows-latest'
+        uses: actions/upload-artifact@v4
+        with:
+          name: zond-${{ matrix.os }}-binary
+          path: target/release/zond
+
+      - name: Upload Binary (Windows)
+        if: matrix.os == 'windows-latest'
+        uses: actions/upload-artifact@v4
+        with:
+          name: zond-windows-binary
+          path: target/release/zond.exe
+
+      - name: Install cargo-deb (Linux only)
+        if: matrix.os == 'ubuntu-latest'
+        run: cargo install cargo-deb
+
+      - name: Build Debian Package
+        if: matrix.os == 'ubuntu-latest'
+        run: cargo deb
+
+      - name: Upload Debian Package
+        if: matrix.os == 'ubuntu-latest'
+        uses: actions/upload-artifact@v4
+        with:
+          name: zond-debian-package
+          path: target/debian/*.deb
