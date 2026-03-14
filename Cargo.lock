@@ -2345,6 +2345,7 @@ dependencies = [
  "rayon",
  "thiserror",
  "tracing",
+ "windows-sys 0.61.2",
 ]
 
 [[package]]
@@ -2360,6 +2361,7 @@ dependencies = [
  "sysinfo",
  "tokio",
  "tracing",
+ "windows-sys 0.61.2",
  "zond-common",
  "zond-plugins",
  "zond-protocols",

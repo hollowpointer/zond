@@ -10,7 +10,7 @@ members = [
 ]
 
 [workspace.package]
-version = "0.3.4"
+version = "0.3.5"
 license = "MPL-2.0"
 edition = "2024"
 repository = "https://github.com/hollowpointer/zond"

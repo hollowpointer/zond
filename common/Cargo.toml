@@ -15,4 +15,5 @@ tracing = { workspace = true }
 
 rand = "0.9.2"
 mac_oui = { version = "0.4.7", features = ["with-db"] }
+windows-sys = { version = "0.61.2", features = ["Win32_NetworkManagement_IpHelper", "Win32_Foundation", "Win32_NetworkManagement_Ndis"] }
 
