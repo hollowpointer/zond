@@ -3,8 +3,13 @@ name: Build Zond
 on:
   push:
     branches: [ "main" ]
+    tags:
+      - 'v*'
   pull_request:
     branches: [ "main" ]
+
+permissions:
+  contents: write
 
 jobs:
   build:
@@ -22,22 +27,29 @@ jobs:
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@stable
 
+      - name: Setup Rust Cache
+        uses: Swatinem/rust-cache@v2
+
       - name: Download and Configure Npcap SDK (Windows)
         if: matrix.os == 'windows-latest'
         run: |
           Invoke-WebRequest -Uri "https://npcap.com/dist/npcap-sdk-1.13.zip" -OutFile "npcap-sdk.zip"
           Expand-Archive -Path "npcap-sdk.zip" -DestinationPath "npcap-sdk"
-          echo "LIB=$env:GITHUB_WORKSPACE\npcap-sdk\Lib\x64;$env:LIB" | Out-File -FilePath $env:GITHUB_ENV -Append
+          echo "LIB=$env:GITHUB_WORKSPACE\npcap-sdk\Lib\x64;$env:LIB" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
 
       - name: Build Release Binary
         run: cargo build --release
+
+      - name: Rename Linux/Mac Binary
+        if: matrix.os != 'windows-latest'
+        run: mv target/release/zond target/release/zond-${{ runner.os }}
 
       - name: Upload Binary (Linux & macOS)
         if: matrix.os != 'windows-latest'
         uses: actions/upload-artifact@v4
         with:
           name: zond-${{ matrix.os }}-binary
-          path: target/release/zond
+          path: target/release/zond-${{ runner.os }}
 
       - name: Build Windows Installer (Inno Setup)
         if: matrix.os == 'windows-latest'
@@ -64,3 +76,23 @@ jobs:
         with:
           name: zond-debian-package
           path: target/debian/*.deb
+
+      - name: Release Linux/macOS Binary
+        if: startsWith(github.ref, 'refs/tags/') && matrix.os != 'windows-latest'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: target/release/zond-${{ runner.os }}
+
+      - name: Release Windows Files
+        if: startsWith(github.ref, 'refs/tags/') && matrix.os == 'windows-latest'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            target/release/zond.exe
+            target/release/Zond_Setup.exe
+
+      - name: Release Debian Package
+        if: startsWith(github.ref, 'refs/tags/') && matrix.os == 'ubuntu-latest'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: target/debian/*.deb
