@@ -40,59 +40,40 @@ jobs:
       - name: Build Release Binary
         run: cargo build --release
 
-      - name: Rename Linux/Mac Binary
-        if: matrix.os != 'windows-latest'
-        run: mv target/release/zond target/release/zond-${{ runner.os }}
+      - name: Package Windows Binary
+        if: matrix.os == 'windows-latest'
+        run: |
+          powershell Compress-Archive -Path target/release/zond.exe -DestinationPath target/release/zond-windows.zip
 
-      - name: Upload Binary (Linux & macOS)
-        if: matrix.os != 'windows-latest'
-        uses: actions/upload-artifact@v4
-        with:
-          name: zond-${{ matrix.os }}-binary
-          path: target/release/zond-${{ runner.os }}
+      - name: Package MacOS Binary
+        if: matrix.os == 'macos-latest'
+        run: |
+          cd target/release
+          zip zond-macos.zip zond
+
+      - name: Package Linux Binary
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          cd target/release
+          tar -czf zond-linux.tar.gz zond
 
       - name: Build Windows Installer (Inno Setup)
         if: matrix.os == 'windows-latest'
         run: iscc packaging/windows/zond_installer.iss
 
-      - name: Upload Zond Setup (Windows)
-        if: matrix.os == 'windows-latest'
-        uses: actions/upload-artifact@v4
-        with:
-          name: zond-windows-installer
-          path: target/release/Zond_Setup.exe
-
-      - name: Install cargo-deb (Linux only)
-        if: matrix.os == 'ubuntu-latest'
-        run: cargo install cargo-deb
-
       - name: Build Debian Package
         if: matrix.os == 'ubuntu-latest'
-        run: cargo deb -p zond-cli
+        run: |
+          cargo install cargo-deb
+          cargo deb -p zond-cli
 
-      - name: Upload Debian Package
-        if: matrix.os == 'ubuntu-latest'
-        uses: actions/upload-artifact@v4
-        with:
-          name: zond-debian-package
-          path: target/debian/*.deb
-
-      - name: Release Linux/macOS Binary
-        if: startsWith(github.ref, 'refs/tags/') && matrix.os != 'windows-latest'
-        uses: softprops/action-gh-release@v2
-        with:
-          files: target/release/zond-${{ runner.os }}
-
-      - name: Release Windows Files
-        if: startsWith(github.ref, 'refs/tags/') && matrix.os == 'windows-latest'
+      - name: Release Files
+        if: startsWith(github.ref, 'refs/tags/')
         uses: softprops/action-gh-release@v2
         with:
           files: |
-            target/release/zond.exe
+            target/release/zond-windows.zip
+            target/release/zond-macos.zip
+            target/release/zond-linux.tar.gz
             target/release/Zond_Setup.exe
-
-      - name: Release Debian Package
-        if: startsWith(github.ref, 'refs/tags/') && matrix.os == 'ubuntu-latest'
-        uses: softprops/action-gh-release@v2
-        with:
-          files: target/debian/*.deb
+            target/debian/*.deb

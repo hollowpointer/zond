@@ -49,6 +49,9 @@ const STATUS_MS: u128 = 2000;
 /// 2.  **Formatter**: Our custom `ZondFormatter` that makes logs look nice.
 /// 3.  **Indicatif**: Ensures logs print *above* the spinner line, not over it.
 pub fn init_logging(verbosity: u8) {
+    #[cfg(target_os = "windows")]
+    let _ = colored::control::set_virtual_terminal(true);
+
     let indicatif_layer = IndicatifLayer::new().with_progress_style(
         ProgressStyle::with_template("{spinner:.blue} {msg}")
             .unwrap()

@@ -513,11 +513,17 @@ mod windows_impl {
     }
 
     pub fn is_physical(interface: &NetworkInterface) -> bool {
-        with_cache(|info| info.physical_devices.contains(&interface.name))
+        with_cache(|info| {
+            let name = interface.name.strip_prefix(r"\Device\NPF_").unwrap_or(&interface.name);
+            info.physical_devices.contains(name)
+        })
     }
 
     pub fn is_wireless(interface: &NetworkInterface) -> bool {
-        with_cache(|info| info.wireless_devices.contains(&interface.name))
+        with_cache(|info| {
+            let name = interface.name.strip_prefix(r"\Device\NPF_").unwrap_or(&interface.name);
+            info.wireless_devices.contains(name)
+        })
     }
 }
 
