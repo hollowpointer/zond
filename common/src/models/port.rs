@@ -12,7 +12,24 @@
 //! "Rich" model. It encapsulates not just the port number and protocol, but also
 //! state information (Open/Closed) and service metadata gathered during fingerprinting.
 
-use std::ops::RangeInclusive;
+use std::{num::ParseIntError, ops::RangeInclusive};
+use thiserror::Error;
+
+#[derive(Debug, Error)]
+pub enum PortSetParseError {
+    #[error("Failed to parse port from '{input}': {source}")]
+    InvalidPort {
+        input: String,
+        #[source]
+        source: ParseIntError,
+    },
+
+    #[error("Invalid port range: start ({start}) cannot be strictly greater than end ({end})")]
+    InvalidRange { start: u16, end: u16 },
+
+    #[error("Malformed port specification, expected a single port or a range: '{0}'")]
+    MalformedSpec(String),
+}
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum Protocol {
@@ -79,31 +96,35 @@ impl Port {
     }
 }
 
-impl From<String> for PortSet {
-    /// Converts a [`String`] into a [`PortSet`].
+impl TryFrom<&str> for PortSet {
+    type Error = PortSetParseError;
+
+    /// Attempts to parse a string slice into a [`PortSet`].
     ///
     /// This conversion parses a string containing port numbers or ranges.
     /// Delimiters can be spaces or commas. Ports prefixed with `u:` are
     /// assigned to UDP, otherwise they default to TCP.
     ///
-    /// # Panics
+    /// # Errors
     ///
-    /// This implementation will panic if:
+    /// Returns a [`PortSetParseError`] if:
     /// - A port number cannot be parsed as a `u16`.
+    /// - A port range has a start value greater than its end value.
+    /// - The specification format is malformed (e.g., multiple hyphens).
     ///
     /// # Examples
     ///
     /// ```
     /// use zond_common::models::port::PortSet;
     ///
-    /// let input = String::from("22, 80, 443-1024, u:53");
-    /// let port_set = PortSet::from(input);
+    /// let input = "22, 80, 443-1024, u:53";
+    /// let port_set = PortSet::try_from(input).unwrap();
     ///
     /// assert!(port_set.has_tcp(22));
     /// assert!(port_set.has_tcp(500));
     /// assert!(port_set.has_udp(53));
     /// ```
-    fn from(value: String) -> Self {
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
         let mut tcp = Vec::new();
         let mut udp = Vec::new();
 
@@ -116,13 +137,39 @@ impl From<String> for PortSet {
                 (false, part)
             };
 
-            let range = if let Some((start, end)) = raw_range.split_once('-') {
-                let s = start.parse::<u16>().expect("Invalid start port");
-                let e = end.parse::<u16>().expect("Invalid end port");
-                s..=e
-            } else {
-                let p = raw_range.parse::<u16>().expect("Invalid port number");
-                p..=p
+            let parts: Vec<&str> = raw_range.split('-').collect();
+
+            let range = match parts.as_slice() {
+                [single_port] => {
+                    let p = single_port.parse::<u16>().map_err(|source| {
+                        PortSetParseError::InvalidPort {
+                            input: single_port.to_string(),
+                            source,
+                        }
+                    })?;
+                    p..=p
+                }
+                [start_str, end_str] => {
+                    let start = start_str.parse::<u16>().map_err(|source| {
+                        PortSetParseError::InvalidPort {
+                            input: start_str.to_string(),
+                            source,
+                        }
+                    })?;
+                    let end = end_str.parse::<u16>().map_err(|source| {
+                        PortSetParseError::InvalidPort {
+                            input: end_str.to_string(),
+                            source,
+                        }
+                    })?;
+
+                    if start > end {
+                        return Err(PortSetParseError::InvalidRange { start, end });
+                    }
+
+                    start..=end
+                }
+                _ => return Err(PortSetParseError::MalformedSpec(raw_range.to_string())),
             };
 
             if is_udp {
@@ -132,7 +179,18 @@ impl From<String> for PortSet {
             }
         }
 
-        Self { tcp, udp }
+        Ok(Self { tcp, udp })
+    }
+}
+
+impl TryFrom<String> for PortSet {
+    type Error = PortSetParseError;
+
+    /// Attempts to parse a [`String`] into a [`PortSet`].
+    ///
+    /// This is a convenience wrapper around the `TryFrom<&str>` implementation.
+    fn try_from(value: String) -> Result<Self, Self::Error> {
+        Self::try_from(value.as_str())
     }
 }
 
@@ -143,5 +201,127 @@ impl PortSet {
 
     pub fn has_udp(&self, port: u16) -> bool {
         self.udp.iter().any(|range| range.contains(&port))
+    }
+}
+
+// ╔════════════════════════════════════════════╗
+// ║ ████████╗███████╗███████╗████████╗███████╗ ║
+// ║ ╚══██╔══╝██╔════╝██╔════╝╚══██╔══╝██╔════╝ ║
+// ║    ██║   █████╗  ███████╗   ██║   ███████╗ ║
+// ║    ██║   ██╔══╝  ╚════██║   ██║   ╚════██║ ║
+// ║    ██║   ███████╗███████║   ██║   ███████║ ║
+// ║    ╚═╝   ╚══════╝╚══════╝   ╚═╝   ╚══════╝ ║
+// ╚════════════════════════════════════════════╝
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn port_set_try_from_str_parses_correctly() {
+        let port_set_single = PortSet::try_from("21");
+        let port_set_multiple = PortSet::try_from("21, 22 80, 800-1000, u:53 8080");
+
+        assert!(port_set_single.is_ok());
+        assert!(port_set_multiple.is_ok());
+
+        let port_set_single = port_set_single.unwrap();
+        let port_set_multiple = port_set_multiple.unwrap();
+
+        assert!(port_set_single.has_tcp(21));
+
+        assert!(port_set_multiple.has_tcp(21));
+        assert!(port_set_multiple.has_tcp(22));
+        assert!(port_set_multiple.has_tcp(80));
+        assert!(port_set_multiple.has_tcp(900));
+        assert!(port_set_multiple.has_udp(53));
+        assert!(port_set_multiple.has_tcp(8080));
+    }
+
+    #[test]
+    fn port_set_try_from_str_parses_udp_variants() {
+        let port_set_udp = PortSet::try_from("u:22 u:53-100, u:1024");
+
+        assert!(port_set_udp.is_ok());
+
+        let port_set_udp = port_set_udp.unwrap();
+
+        assert!(port_set_udp.has_udp(22));
+        assert!(port_set_udp.has_udp(53));
+        assert!(port_set_udp.has_udp(80));
+        assert!(port_set_udp.has_udp(100));
+        assert!(port_set_udp.has_udp(1024));
+    }
+
+    #[test]
+    fn port_set_empty_input() {
+        let empty = PortSet::try_from("   ");
+        assert!(empty.is_ok());
+        let set = empty.unwrap();
+        assert!(set.tcp.is_empty());
+        assert!(set.udp.is_empty());
+    }
+
+    #[test]
+    fn port_set_boundaries() {
+        let limits = PortSet::try_from("0, 65535, u:0-65535").unwrap();
+        assert!(limits.has_tcp(0));
+        assert!(limits.has_tcp(65535));
+        assert!(limits.has_udp(0));
+        assert!(limits.has_udp(32768));
+        assert!(limits.has_udp(65535));
+    }
+
+    #[test]
+    fn port_set_messy_delimiters() {
+        let messy = PortSet::try_from(", 80, , 443 ,").unwrap();
+        assert!(messy.has_tcp(80));
+        assert!(messy.has_tcp(443));
+    }
+
+    #[test]
+    fn port_set_try_from_str_throws_errors() {
+        let port_set_invalid_port = PortSet::try_from("80 70000 22");
+        let port_set_invalid_range = PortSet::try_from("21 8000-80");
+        let port_set_malformed_spec = PortSet::try_from("22 60-70-80 8080");
+        let port_set_not_numeric = PortSet::try_from("u:53 abcdef 80");
+
+        assert!(matches!(
+            port_set_invalid_port,
+            Err(PortSetParseError::InvalidPort { .. })
+        ));
+
+        assert!(matches!(
+            port_set_invalid_range,
+            Err(PortSetParseError::InvalidRange {
+                start: 8000,
+                end: 80
+            })
+        ));
+
+        assert!(matches!(
+            port_set_not_numeric,
+            Err(PortSetParseError::InvalidPort { .. })
+        ));
+
+        assert!(matches!(
+            port_set_malformed_spec,
+            Err(PortSetParseError::MalformedSpec(_))
+        ));
+    }
+
+    #[test]
+    fn port_set_try_from_string_parses_correctly() {
+        let port_set = PortSet::try_from(String::from("21 80-100 u:5353"));
+
+        assert!(port_set.is_ok());
+
+        let port_set = port_set.unwrap();
+
+        assert!(port_set.has_tcp(21));
+        assert!(port_set.has_tcp(80));
+        assert!(port_set.has_tcp(92));
+        assert!(port_set.has_tcp(100));
+        assert!(port_set.has_udp(5353));
     }
 }
