@@ -56,6 +56,10 @@ pub struct CommandLine {
     #[arg(short = 'n', long = "no-dns", global = true)]
     pub no_dns: bool,
 
+    /// Ports to target (e.g. 80,443, 1-1024, u:53)
+    #[arg(short = 'p', long = "ports", global = true, value_delimiter = ',')]
+    pub ports: Vec<String>,
+
     /// Reduce UI visual density (-q: reduce styling, -qq: raw IPs)
     #[arg(short = 'q', long = "quiet", action = ArgAction::Count, global = true)]
     pub quiet: u8,
