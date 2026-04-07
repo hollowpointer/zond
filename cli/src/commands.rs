@@ -19,8 +19,8 @@
 //! 1.  **Input Normalization**: It uses `clap` to validate user inputs, making sure that necessary
 //!     arguments are present and types are correct (e.g., strictly typed numbers vs strings)
 //!     before the application attempts to run.
-//! 2.  **State Translation**: via the `From<&CommandLine> for Config` implementation, it
-//!     decouples the external interface (CLI flags) from the internal application state (`Config`).
+//! 2.  **State Translation**: via the `From<&CommandLine> for ZondConfig` implementation, it
+//!     decouples the external interface (CLI flags) from the internal application state (`ZondConfig`).
 //!     This allows the core libraries to remain agnostic of the user interface layer.
 //!
 //! ## Structure
@@ -39,7 +39,7 @@ pub mod listen;
 pub mod scan;
 
 use clap::{ArgAction, Parser, Subcommand};
-use zond_common::{config::Config, models::port::PortSet};
+use zond_common::{config::ZondConfig, models::port::PortSet};
 
 #[derive(Parser)]
 #[command(name = "zond")]
@@ -56,7 +56,7 @@ pub struct CommandLine {
     #[arg(short = 'n', long = "no-dns", global = true)]
     pub no_dns: bool,
 
-    /// Ports to target (e.g. 80,443, 1-1024, u:53)
+    /// Ports to target (e.g. 80, 443, 1-1024, u:53)
     #[arg(
         short = 'p',
         long = "ports",
@@ -108,7 +108,7 @@ impl CommandLine {
     }
 }
 
-impl From<&CommandLine> for Config {
+impl From<&CommandLine> for ZondConfig {
     fn from(cmd: &CommandLine) -> Self {
         Self {
             no_banner: cmd.no_banner,

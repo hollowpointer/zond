@@ -18,8 +18,8 @@
 //!     runtime, setting up the thread pool and I/O drivers required for non-blocking operations.
 //! 2.  **Global State Setup**: Initializes the `tracing` subscriber for logging and configures
 //!     terminal output modes (verbosity, quiet mode, banners).
-//! 3.  **Configuration Mapping**: Converts raw command-line arguments (parsed via `clap`) into
-//!     the internal `Config` struct used by the core libraries.
+//! 3.  **ZondConfiguration Mapping**: Converts raw command-line arguments (parsed via `clap`) into
+//!     the internal `ZondConfig` struct used by the core libraries.
 //! 4.  **Command Dispatch**: Routes execution to the appropriate module in `commands/`.
 //! 5.  **Error Boundary**: Acts as the top-level error handler. Any errors propagated up from
 //!     subcommands are caught here, logged to the error stream, and converted into a
@@ -30,7 +30,7 @@ mod terminal;
 
 use std::process::ExitCode;
 
-use zond_common::{config::Config, error};
+use zond_common::{config::ZondConfig, error};
 
 use crate::{
     commands::{CommandLine, Commands, discover, info, listen, scan},
@@ -41,7 +41,7 @@ use crate::{
 async fn main() -> ExitCode {
     let commands = CommandLine::parse_args();
     spinner::init_logging(commands.verbosity);
-    let cfg = Config::from(&commands);
+    let cfg = ZondConfig::from(&commands);
     let _ = Print::init(&cfg);
 
     Print::banner();

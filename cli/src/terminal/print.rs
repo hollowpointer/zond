@@ -10,7 +10,7 @@ use crate::terminal::{banner, colors, format};
 use anyhow::bail;
 use colored::*;
 use unicode_width::UnicodeWidthStr;
-use zond_common::{config::Config, models::host::Host, success};
+use zond_common::{config::ZondConfig, models::host::Host, success};
 
 #[macro_export]
 macro_rules! zprint {
@@ -38,7 +38,7 @@ pub struct Print {
 }
 
 impl Print {
-    fn new(cfg: &Config) -> Self {
+    fn new(cfg: &ZondConfig) -> Self {
         Self {
             no_banner: cfg.no_banner,
             q_level: cfg.quiet,
@@ -46,7 +46,7 @@ impl Print {
         }
     }
 
-    pub fn init(cfg: &Config) -> anyhow::Result<()> {
+    pub fn init(cfg: &ZondConfig) -> anyhow::Result<()> {
         let term = Self::new(cfg);
         if PRINT.set(term).is_err() {
             bail!("terminal has already been initialized")

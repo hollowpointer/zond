@@ -39,6 +39,7 @@ pub enum Protocol {
     Udp,
 }
 
+#[non_exhaustive]
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum PortState {
     /// Actively accepting connections.

@@ -24,7 +24,7 @@ use crate::{
     zprint,
 };
 use zond_common::{
-    config::Config,
+    config::ZondConfig,
     models::localhost::{FirewallStatus, IpServiceGroup, Service},
 };
 
@@ -32,7 +32,7 @@ use zond_common::{
 ///
 /// This function gathers data from the system (hostname, OS, etc.) and network interfaces.
 /// If run as root, it also performs a deeper analysis of running services and firewall status.
-pub fn info(_cfg: &Config) -> anyhow::Result<()> {
+pub fn info(_cfg: &ZondConfig) -> anyhow::Result<()> {
     print::Print::header("about the tool");
     zprint!(
         "{}",

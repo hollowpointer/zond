@@ -20,7 +20,7 @@ use std::time::Duration;
 
 use async_trait::async_trait;
 use is_root::is_root;
-use zond_common::config::Config;
+use zond_common::config::ZondConfig;
 use zond_common::interface;
 use zond_common::models::host::Host;
 use zond_common::models::range::IpCollection;
@@ -56,6 +56,8 @@ trait NetworkExplorer {
     async fn discover_hosts(&mut self) -> anyhow::Result<Vec<Host>>;
 }
 
+pub async fn scan(cfg: &ZondConfig) {}
+
 /// The primary entry point for network discovery.
 ///
 /// ### Capabilities
@@ -66,7 +68,7 @@ trait NetworkExplorer {
 /// ### Integration Notes
 /// - **State**: Updates [`FOUND_HOST_COUNT`] and reacts to [`STOP_SIGNAL`].
 /// - **Concurrency**: Spawns multiple Tokio tasks; ensure the caller is within a multi-threaded runtime.
-pub async fn discover(targets: IpCollection, cfg: &Config) -> anyhow::Result<Vec<Host>> {
+pub async fn discover(targets: IpCollection, cfg: &ZondConfig) -> anyhow::Result<Vec<Host>> {
     if !cfg.disable_input {
         spawn_user_input_listener();
     }

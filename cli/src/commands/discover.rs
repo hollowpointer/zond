@@ -31,7 +31,7 @@ use crate::terminal::spinner::SpinnerGuard;
 
 use zond_common::models::range::IpCollection;
 use zond_common::models::target;
-use zond_common::{config::Config, models::host::Host};
+use zond_common::{config::ZondConfig, models::host::Host};
 use zond_core::scanner;
 
 /// Runs the active discovery scan on the provided targets.
@@ -51,7 +51,7 @@ use zond_core::scanner;
 /// Returns an error if:
 /// * The target strings cannot be parsed into valid IPs or CIDRs.
 /// * The underlying scanner encounters a fatal network error.
-pub async fn discover(targets: &[String], cfg: &Config) -> anyhow::Result<()> {
+pub async fn discover(targets: &[String], cfg: &ZondConfig) -> anyhow::Result<()> {
     Print::header("performing host discovery");
 
     let _guard: SpinnerGuard = run_spinner();

@@ -4,11 +4,11 @@
 // If a copy of the MPL was not distributed with this file, You can obtain one at
 // https://mozilla.org/MPL/2.0/.
 
-use zond_common::config::Config;
+use zond_common::config::ZondConfig;
 
 use crate::terminal::print;
 
-pub fn listen(_cfg: &Config) -> anyhow::Result<()> {
+pub fn listen(_cfg: &ZondConfig) -> anyhow::Result<()> {
     print::Print::header("starting listener");
     anyhow::bail!("'listen' subcommand not implemented yet");
 }
