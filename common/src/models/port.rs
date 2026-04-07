@@ -12,8 +12,10 @@
 //! "Rich" model. It encapsulates not just the port number and protocol, but also
 //! state information (Open/Closed) and service metadata gathered during fingerprinting.
 
-use std::{num::ParseIntError, ops::RangeInclusive};
+use std::{num::ParseIntError, ops::RangeInclusive, str::FromStr};
 use thiserror::Error;
+
+const DEFAULT_PORTSET_PORTS: &str = "22, 80, 443, 445, 3389";
 
 #[derive(Debug, Error)]
 pub enum PortSetParseError {
@@ -72,7 +74,7 @@ pub struct Port {
     pub service_info: Option<String>,
 }
 
-#[derive(Debug, Clone, Default)]
+#[derive(Debug, Clone)]
 pub struct PortSet {
     tcp: Vec<RangeInclusive<u16>>,
     udp: Vec<RangeInclusive<u16>>,
@@ -93,6 +95,36 @@ impl Port {
     pub fn with_banner(mut self, banner: &str) -> Self {
         self.service_info = Some(banner.to_string());
         self
+    }
+}
+
+impl PortSet {
+    pub fn has_tcp(&self, port: u16) -> bool {
+        self.tcp.iter().any(|range| range.contains(&port))
+    }
+
+    pub fn has_udp(&self, port: u16) -> bool {
+        self.udp.iter().any(|range| range.contains(&port))
+    }
+}
+
+impl Default for PortSet {
+    /// Returns a default [`PortSet`] optimized for rapid host discovery.
+    ///
+    /// Rather than an empty set, this provides a "Greatest Hits" list of
+    /// common TCP services. This allows for high-probability host
+    /// verification with a minimal network footprint.
+    ///
+    /// ### Included Ports
+    /// | Port | Service | Reason |
+    /// |------|---------|--------|
+    /// | 22   | SSH     | Standard Linux/IoT remote access |
+    /// | 80   | HTTP    | Unencrypted web traffic / captive portals |
+    /// | 443  | HTTPS   | Standard encrypted web traffic |
+    /// | 445  | SMB     | Windows networking / Active Directory |
+    /// | 3389 | RDP     | Windows Remote Desktop |
+    fn default() -> Self {
+        Self::try_from(DEFAULT_PORTSET_PORTS).expect("Static discovery ports must be valid.")
     }
 }
 
@@ -194,13 +226,11 @@ impl TryFrom<String> for PortSet {
     }
 }
 
-impl PortSet {
-    pub fn has_tcp(&self, port: u16) -> bool {
-        self.tcp.iter().any(|range| range.contains(&port))
-    }
+impl FromStr for PortSet {
+    type Err = PortSetParseError;
 
-    pub fn has_udp(&self, port: u16) -> bool {
-        self.udp.iter().any(|range| range.contains(&port))
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        Self::try_from(s)
     }
 }
 

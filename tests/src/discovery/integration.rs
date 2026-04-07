@@ -10,6 +10,7 @@ use std::sync::atomic::Ordering;
 use std::time::Duration;
 use zond_common::config::Config;
 use zond_common::models::host::Host;
+use zond_common::models::port::PortSet;
 use zond_common::models::range::{IpCollection, Ipv4Range};
 use zond_core::scanner::{self, STOP_SIGNAL};
 
@@ -20,6 +21,7 @@ async fn test_discovery_single_loopback() {
     let config: Config = Config {
         no_banner: true,
         no_dns: true,
+        ports: PortSet::default(),
         redact: false,
         quiet: 0,
         disable_input: true,
@@ -49,6 +51,7 @@ async fn test_discovery_range_loopback() {
     let cfg: Config = Config {
         no_banner: true,
         no_dns: true,
+        ports: PortSet::default(),
         redact: false,
         quiet: 0,
         disable_input: true,
@@ -83,6 +86,7 @@ async fn test_stop_signal_aborts() {
     let cfg: Config = Config {
         no_banner: false,
         no_dns: true,
+        ports: PortSet::default(),
         redact: false,
         quiet: 0,
         disable_input: true,
@@ -117,6 +121,7 @@ async fn test_privileged_discovery_netns() {
     let config: Config = Config {
         no_banner: true,
         no_dns: true,
+        ports: PortSet::default(),
         redact: false,
         quiet: 0,
         disable_input: true,

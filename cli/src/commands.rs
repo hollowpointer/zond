@@ -39,7 +39,7 @@ pub mod listen;
 pub mod scan;
 
 use clap::{ArgAction, Parser, Subcommand};
-use zond_common::config::Config;
+use zond_common::{config::Config, models::port::PortSet};
 
 #[derive(Parser)]
 #[command(name = "zond")]
@@ -57,8 +57,13 @@ pub struct CommandLine {
     pub no_dns: bool,
 
     /// Ports to target (e.g. 80,443, 1-1024, u:53)
-    #[arg(short = 'p', long = "ports", global = true, value_delimiter = ',')]
-    pub ports: Vec<String>,
+    #[arg(
+        short = 'p',
+        long = "ports",
+        global = true,
+        default_value = "22, 80, 443, 445, 3389"
+    )]
+    pub ports: PortSet,
 
     /// Reduce UI visual density (-q: reduce styling, -qq: raw IPs)
     #[arg(short = 'q', long = "quiet", action = ArgAction::Count, global = true)]
@@ -108,6 +113,7 @@ impl From<&CommandLine> for Config {
         Self {
             no_banner: cmd.no_banner,
             no_dns: cmd.no_dns,
+            ports: cmd.ports.clone(),
             redact: cmd.redact,
             quiet: cmd.quiet,
             disable_input: false,
