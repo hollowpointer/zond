@@ -27,7 +27,7 @@ use zond_common::models::range::IpCollection;
 use zond_common::utils::input::InputHandle;
 use zond_common::{error, info, success, warn};
 
-mod handshake;
+mod connect;
 mod local;
 mod resolver;
 mod routed;
@@ -75,7 +75,7 @@ pub async fn scan(cfg: &ZondConfig) {
 pub async fn discover(targets: IpCollection, cfg: &ZondConfig) -> anyhow::Result<Vec<Host>> {
     let use_raw_sockets = preflight_check(cfg);
     if !use_raw_sockets {
-        return handshake::range_discovery(targets, handshake::prober).await;
+        return connect::range_discovery(targets, connect::prober).await;
     }
 
     let (dns_tx, resolver_task) = if !cfg.no_dns {
@@ -149,9 +149,10 @@ async fn spawn_explorers(
             verbosity = 1,
             "Spawning FALLBACK scanner for unmapped targets"
         );
-        let handle = tokio::spawn(async move {
-            handshake::range_discovery(unmapped_ips, handshake::prober).await
-        });
+        let handle =
+            tokio::spawn(
+                async move { connect::range_discovery(unmapped_ips, connect::prober).await },
+            );
         handles.push(handle);
     }
 
