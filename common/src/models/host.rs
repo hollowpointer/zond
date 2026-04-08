@@ -13,7 +13,7 @@
 //! * **Identity**: A host is primarily identified by its IP address for the duration of a scan.
 //! * **Enrichment**: The model is mutable and strictly additive; scans populate optional fields (hostname, vendor) as data becomes available.
 
-use crate::utils::mac;
+use crate::{models::port::Port, utils::mac};
 use pnet::datalink::MacAddr;
 use std::{
     collections::{BTreeSet, HashSet, VecDeque},
@@ -44,8 +44,7 @@ pub struct Host {
     pub ips: BTreeSet<IpAddr>,
 
     /// Open ports found on the host.
-    /// TODO: Refactor to a rich `Port` struct in a future iteration.
-    pub ports: BTreeSet<u16>,
+    ports: Vec<Port>,
 
     /// The MAC address (only available if the host is on the same LAN).
     pub mac: Option<MacAddr>,
@@ -70,11 +69,34 @@ impl Host {
             primary_ip,
             hostname: None,
             ips,
-            ports: BTreeSet::new(),
+            ports: Vec::new(),
             mac: None,
             vendor: None,
             network_roles: HashSet::new(),
             rtt_history: VecDeque::with_capacity(10),
+        }
+    }
+
+    /// Safely retrieves a read-only slice of the discovered ports.
+    ///
+    /// The returned slice is guaranteed to be sorted by port number
+    /// in ascending order.
+    pub fn ports(&self) -> &[Port] {
+        &self.ports
+    }
+
+    /// Ingests a port finding, either adding it to the host or updating
+    /// an existing record if the port is already known.
+    ///
+    /// Maintains a strictly sorted internal vector for rapid `O(log N)`
+    /// lookups and immediate output-readiness.
+    pub fn add_port(&mut self, new_port: Port) {
+        match self
+            .ports
+            .binary_search_by_key(&new_port.number, |p| p.number)
+        {
+            Ok(idx) => self.ports[idx].merge(new_port),
+            Err(idx) => self.ports.insert(idx, new_port),
         }
     }
 
