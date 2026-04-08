@@ -42,6 +42,7 @@ use crate::scanner::resolver::HostnameResolver;
 
 pub static FOUND_HOST_COUNT: AtomicUsize = AtomicUsize::new(0);
 pub static STOP_SIGNAL: AtomicBool = AtomicBool::new(false);
+static INPUT_LISTENER_SPAWNED: AtomicBool = AtomicBool::new(false);
 
 pub fn increment_host_count() {
     FOUND_HOST_COUNT.fetch_add(1, Ordering::Relaxed);
@@ -56,7 +57,10 @@ trait NetworkExplorer {
     async fn discover_hosts(&mut self) -> anyhow::Result<Vec<Host>>;
 }
 
-pub async fn scan(cfg: &ZondConfig) {}
+pub async fn scan(cfg: &ZondConfig) {
+    let use_raw_sockets = preflight_check(cfg);
+    if !use_raw_sockets {}
+}
 
 /// The primary entry point for network discovery.
 ///
@@ -69,15 +73,10 @@ pub async fn scan(cfg: &ZondConfig) {}
 /// - **State**: Updates [`FOUND_HOST_COUNT`] and reacts to [`STOP_SIGNAL`].
 /// - **Concurrency**: Spawns multiple Tokio tasks; ensure the caller is within a multi-threaded runtime.
 pub async fn discover(targets: IpCollection, cfg: &ZondConfig) -> anyhow::Result<Vec<Host>> {
-    if !cfg.disable_input {
-        spawn_user_input_listener();
-    }
-
-    if !is_root() {
-        warn!("Root privileges missing, defaulting to unprivileged TCP scan");
+    let use_raw_sockets = preflight_check(cfg);
+    if !use_raw_sockets {
         return handshake::range_discovery(targets, handshake::prober).await;
     }
-    success!("Root privileges detected, raw socket scan enabled");
 
     let (dns_tx, resolver_task) = if !cfg.no_dns {
         let (tx, rx) = mpsc::unbounded_channel();
@@ -174,7 +173,28 @@ async fn spawn_resolver(dns_rx: UnboundedReceiver<IpAddr>) -> JoinHandle<Option<
     })
 }
 
+/// Prepares the environment for a session.
+///
+/// Handles global side-effects like input listeners and returns whether
+/// the process has the necessary privileges for raw socket operations.
+fn preflight_check(cfg: &ZondConfig) -> bool {
+    if !cfg.disable_input {
+        spawn_user_input_listener();
+    }
+
+    if !is_root() {
+        warn!("Root privileges missing, defaulting to unprivileged TCP scan");
+        return false;
+    }
+    success!("Root privileges detected, raw socket scan enabled");
+    true
+}
+
 fn spawn_user_input_listener() {
+    if INPUT_LISTENER_SPAWNED.swap(true, Ordering::SeqCst) {
+        return;
+    }
+
     std::thread::spawn(|| {
         let mut input_handle = InputHandle::new();
         input_handle.start();

@@ -8,7 +8,7 @@
 use std::net::{IpAddr, Ipv4Addr};
 use std::sync::atomic::Ordering;
 use std::time::Duration;
-use zond_common::config::Config;
+use zond_common::config::ZondConfig;
 use zond_common::models::host::Host;
 use zond_common::models::port::PortSet;
 use zond_common::models::range::{IpCollection, Ipv4Range};
@@ -18,7 +18,7 @@ use crate::utils::NetnsContext;
 
 #[tokio::test]
 async fn test_discovery_single_loopback() {
-    let config: Config = Config {
+    let config: ZondConfig = ZondConfig {
         no_banner: true,
         no_dns: true,
         ports: PortSet::default(),
@@ -48,7 +48,7 @@ async fn test_discovery_single_loopback() {
 
 #[tokio::test]
 async fn test_discovery_range_loopback() {
-    let cfg: Config = Config {
+    let cfg: ZondConfig = ZondConfig {
         no_banner: true,
         no_dns: true,
         ports: PortSet::default(),
@@ -83,7 +83,7 @@ async fn test_stop_signal_aborts() {
     let range: Ipv4Range = Ipv4Range::new(start_addr, end_addr);
     targets.add_range(range);
 
-    let cfg: Config = Config {
+    let cfg: ZondConfig = ZondConfig {
         no_banner: false,
         no_dns: true,
         ports: PortSet::default(),
@@ -118,7 +118,7 @@ async fn test_privileged_discovery_netns() {
 
     let target_ip: IpAddr = IpAddr::V4(Ipv4Addr::new(10, 200, 0, 2));
 
-    let config: Config = Config {
+    let config: ZondConfig = ZondConfig {
         no_banner: true,
         no_dns: true,
         ports: PortSet::default(),
