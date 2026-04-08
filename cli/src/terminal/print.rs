@@ -4,14 +4,18 @@
 // If a copy of the MPL was not distributed with this file, You can obtain one at
 // https://mozilla.org/MPL/2.0/.
 
-use std::{net::IpAddr, sync::OnceLock, time::Duration};
+use std::{sync::OnceLock, time::Duration};
 
-use crate::terminal::{banner, colors, format};
 use anyhow::bail;
 use colored::*;
-use unicode_width::UnicodeWidthStr;
 use zond_common::{config::ZondConfig, models::host::Host, success};
 
+use crate::terminal::{banner, colors, host::PrintableHost};
+
+/// Central logging macro for terminal output.
+///
+/// Wraps `tracing::info!` targeting the `zond::print` span.
+/// Standardizes stdout formatting across the CLI application.
 #[macro_export]
 macro_rules! zprint {
     () => {
@@ -25,19 +29,26 @@ macro_rules! zprint {
     };
 }
 
+/// The absolute maximum character width for standardized terminal blocks.
 pub const TOTAL_WIDTH: usize = 64;
 
 static PRINT: OnceLock<Print> = OnceLock::new();
 
-type Detail = (String, ColoredString);
+/// Type alias for standardizing key-value pair strings in terminal trees.
+pub type Detail = (String, ColoredString);
 
+/// Global terminal state manager.
+///
+/// Holds the runtime configuration for verbosity, redaction, and visual
+/// preferences to ensure consistent output formatting across the application.
 pub struct Print {
-    no_banner: bool,
-    q_level: u8,
-    redact: bool,
+    pub(crate) no_banner: bool,
+    pub(crate) q_level: u8,
+    pub(crate) redact: bool,
 }
 
 impl Print {
+    /// Constructs a new `Print` instance from the global application configuration.
     fn new(cfg: &ZondConfig) -> Self {
         Self {
             no_banner: cfg.no_banner,
@@ -46,6 +57,10 @@ impl Print {
         }
     }
 
+    /// Initializes the global terminal state.
+    ///
+    /// # Errors
+    /// Returns an error if the terminal state has already been initialized.
     pub fn init(cfg: &ZondConfig) -> anyhow::Result<()> {
         let term = Self::new(cfg);
         if PRINT.set(term).is_err() {
@@ -54,10 +69,15 @@ impl Print {
         Ok(())
     }
 
-    fn get() -> &'static Self {
+    /// Retrieves a reference to the global terminal state.
+    ///
+    /// # Panics
+    /// Panics if called before `Print::init`.
+    pub(crate) fn get() -> &'static Self {
         PRINT.get().expect("terminal has not been initialized")
     }
 
+    /// Prints the application banner if permitted by the current configuration.
     pub fn banner() {
         let p = Self::get();
         if p.no_banner || p.q_level > 0 {
@@ -71,6 +91,9 @@ impl Print {
         banner::print();
     }
 
+    /// Prints a standardized, centered section header.
+    ///
+    /// Silenced automatically if quiet mode (`q_level > 0`) is active.
     pub fn header(msg: &str) {
         if Self::get().q_level > 0 {
             zprint!();
@@ -83,12 +106,16 @@ impl Print {
         zprint!("{}", output);
     }
 
+    /// Iterates over discovered hosts and triggers their visual representation.
+    ///
+    /// # Errors
+    /// Returns an error if an unsupported quiet level is requested.
     pub fn hosts(hosts: &[Host]) -> anyhow::Result<()> {
         let p = Self::get();
         for (idx, host) in hosts.iter().enumerate() {
             match p.q_level {
                 2 => bail!("-qq is currently unimplemented"),
-                _ => Self::host_tree(host, idx),
+                _ => host.print(idx),
             }
             if idx + 1 != hosts.len() {
                 zprint!();
@@ -97,72 +124,7 @@ impl Print {
         Ok(())
     }
 
-    fn host_tree(host: &Host, idx: usize) {
-        let p = Self::get();
-        let primary_ip: IpAddr = host.primary_ip;
-        Print::host_head(idx, &primary_ip, host);
-        let mut details: Vec<Detail> = format::ip_to_detail(host, p.redact);
-
-        if let Some(mac_detai) = format::mac_to_detail(&host.mac, p.redact) {
-            details.push(mac_detai);
-        }
-
-        if let Some(vendor_detail) = format::vendor_to_detail(&host.vendor) {
-            details.push(vendor_detail);
-        }
-
-        if let Some(hostname_detail) = format::hostname_to_detail(&host.hostname, p.redact) {
-            details.push(hostname_detail);
-        }
-
-        as_tree(details);
-    }
-
-    fn host_head(idx: usize, primary_ip: &IpAddr, host: &Host) {
-        let rtt_string: String = Self::rtt_to_string(host);
-        let rtt_width: usize = rtt_string.width();
-
-        let block_width: usize = 20;
-        let local_pad: usize = block_width.saturating_sub(rtt_width);
-        let right_part: String = format!("{}{}", " ".repeat(local_pad), rtt_string);
-
-        let left_part: String = format!("[{}] {}", idx, primary_ip);
-
-        let used_width: usize = left_part.width() + block_width;
-
-        let padding_len: usize = TOTAL_WIDTH.saturating_sub(used_width + 1);
-        let padding: String = " ".repeat(padding_len);
-
-        zprint!(
-            "{} {}{}{}",
-            format!("[{}]", idx.to_string().color(colors::ACCENT)).color(colors::SEPARATOR),
-            primary_ip.to_string().color(colors::PRIMARY),
-            padding,
-            right_part.color(colors::SECONDARY)
-        );
-    }
-
-    fn rtt_to_string(host: &Host) -> String {
-        let (Some(min_rtt), Some(max_rtt), Some(avg_rtt)) =
-            (host.min_rtt(), host.max_rtt(), host.average_rtt())
-        else {
-            return String::new();
-        };
-
-        if min_rtt == max_rtt {
-            return format!("⌛ {}ms", min_rtt.as_millis());
-        }
-
-        let spread = max_rtt.saturating_sub(min_rtt);
-        let tolerance = min_rtt.mul_f64(0.05).max(Duration::from_millis(2));
-
-        if tolerance > spread {
-            return format!("⌛ ~{}ms", avg_rtt.as_millis());
-        }
-
-        format!("⌛ {}ms - {}ms", min_rtt.as_millis(), max_rtt.as_millis())
-    }
-
+    /// Prints the completion summary for the network discovery phase.
     pub fn discovery_summary(hosts_len: usize, total_time: Duration) {
         let p = Self::get();
         let active_hosts: ColoredString = format!("{hosts_len} active hosts").bold().green();
@@ -183,6 +145,7 @@ impl Print {
         }
     }
 
+    /// Prints the fallback output when zero hosts are detected during a scan.
     pub fn no_results() {
         let p = Self::get();
         if p.q_level == 0 && !p.no_banner {
@@ -193,6 +156,7 @@ impl Print {
         zond_common::error!("Scan completed: 0 devices responded.");
     }
 
+    /// Prints the standardized terminating line for the program output.
     pub fn end_of_program() {
         let p = Self::get();
         if p.q_level > 0 {
@@ -202,10 +166,12 @@ impl Print {
     }
 }
 
+/// Prints a horizontal divider line across the standard output width.
 pub fn divider() {
     zprint!("{}", format_centered("", "═", TOTAL_WIDTH));
 }
 
+/// Prints a categorized tree header line with an index identifier.
 pub fn tree_head(idx: usize, name: &str) {
     let idx_str: String = format!("[{}]", idx.to_string().color(colors::ACCENT));
     zprint!(
@@ -215,7 +181,8 @@ pub fn tree_head(idx: usize, name: &str) {
     );
 }
 
-pub fn as_tree(details: Vec<(String, ColoredString)>) {
+/// Iterates through a collection of details and prints them as a visual tree structure.
+pub fn as_tree(details: Vec<Detail>) {
     let padding_width: usize = "Hostname".len();
 
     for (i, (key, value)) in details.iter().enumerate() {
@@ -236,10 +203,12 @@ pub fn as_tree(details: Vec<(String, ColoredString)>) {
     }
 }
 
+/// Prints a centered line of text padded with blank spaces up to `TOTAL_WIDTH`.
 pub fn centerln(msg: &str) {
     zprint!("{}", format_centered(msg, " ", TOTAL_WIDTH));
 }
 
+/// Centers a text string dynamically by padding it with a specified fill character.
 fn format_centered(text: &str, fill_char: &str, total_width: usize) -> String {
     let text_width = console::measure_text_width(text);
 
