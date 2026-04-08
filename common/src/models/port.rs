@@ -92,6 +92,25 @@ impl Port {
         }
     }
 
+    /// Merges new findings into an existing port record in place.
+    ///
+    /// Prioritizes the most definitive port state (`Open` > `Blocked`/`Ghosted` > `Closed`).
+    /// Captures service information/banners if the current record lacks one.
+    pub fn merge(&mut self, other: Port) {
+        match (&self.state, &other.state) {
+            (PortState::Open, _) => {}
+            (_, PortState::Open) => self.state = PortState::Open,
+            (PortState::Closed, PortState::Blocked | PortState::Ghosted) => {
+                self.state = other.state.clone();
+            }
+            _ => {}
+        }
+
+        if self.service_info.is_none() && other.service_info.is_some() {
+            self.service_info = other.service_info;
+        }
+    }
+
     /// Adds service banner or version information to the port.
     pub fn with_banner(mut self, banner: &str) -> Self {
         self.service_info = Some(banner.to_string());
@@ -247,6 +266,82 @@ impl FromStr for PortSet {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn merge_state_upgrades_to_open() {
+        let mut port = Port::new(80, Protocol::Tcp, PortState::Closed);
+        port.merge(Port::new(80, Protocol::Tcp, PortState::Open));
+        assert_eq!(port.state, PortState::Open);
+
+        let mut port = Port::new(80, Protocol::Tcp, PortState::Blocked);
+        port.merge(Port::new(80, Protocol::Tcp, PortState::Open));
+        assert_eq!(port.state, PortState::Open);
+
+        let mut port = Port::new(80, Protocol::Tcp, PortState::Ghosted);
+        port.merge(Port::new(80, Protocol::Tcp, PortState::Open));
+        assert_eq!(port.state, PortState::Open);
+    }
+
+    #[test]
+    fn merge_state_remains_open() {
+        let mut port = Port::new(80, Protocol::Tcp, PortState::Open);
+        port.merge(Port::new(80, Protocol::Tcp, PortState::Closed));
+        assert_eq!(port.state, PortState::Open);
+
+        let mut port = Port::new(80, Protocol::Tcp, PortState::Open);
+        port.merge(Port::new(80, Protocol::Tcp, PortState::Blocked));
+        assert_eq!(port.state, PortState::Open);
+    }
+
+    #[test]
+    fn merge_state_upgrades_closed_to_intermediate() {
+        let mut port = Port::new(80, Protocol::Tcp, PortState::Closed);
+        port.merge(Port::new(80, Protocol::Tcp, PortState::Blocked));
+        assert_eq!(port.state, PortState::Blocked);
+
+        let mut port = Port::new(80, Protocol::Tcp, PortState::Closed);
+        port.merge(Port::new(80, Protocol::Tcp, PortState::Ghosted));
+        assert_eq!(port.state, PortState::Ghosted);
+    }
+
+    #[test]
+    fn merge_state_preserves_intermediate_over_closed() {
+        let mut port = Port::new(80, Protocol::Tcp, PortState::Blocked);
+        port.merge(Port::new(80, Protocol::Tcp, PortState::Closed));
+        assert_eq!(port.state, PortState::Blocked);
+
+        let mut port = Port::new(80, Protocol::Tcp, PortState::Ghosted);
+        port.merge(Port::new(80, Protocol::Tcp, PortState::Closed));
+        assert_eq!(port.state, PortState::Ghosted);
+    }
+
+    #[test]
+    fn merge_adds_missing_service_info() {
+        let mut port = Port::new(22, Protocol::Tcp, PortState::Open);
+        let other = Port::new(22, Protocol::Tcp, PortState::Open).with_banner("OpenSSH 8.9p1");
+
+        port.merge(other);
+        assert_eq!(port.service_info.as_deref(), Some("OpenSSH 8.9p1"));
+    }
+
+    #[test]
+    fn merge_retains_existing_service_info() {
+        let mut port = Port::new(80, Protocol::Tcp, PortState::Open).with_banner("nginx/1.21.0");
+        let other = Port::new(80, Protocol::Tcp, PortState::Open).with_banner("Apache/2.4.41");
+
+        port.merge(other);
+        assert_eq!(port.service_info.as_deref(), Some("nginx/1.21.0"));
+    }
+
+    #[test]
+    fn merge_handles_simultaneous_state_and_banner_upgrade() {
+        let mut port = Port::new(443, Protocol::Tcp, PortState::Closed);
+        let other = Port::new(443, Protocol::Tcp, PortState::Open).with_banner("cloudflare");
+
+        port.merge(other);
+        assert_eq!(port.state, PortState::Open);
+        assert_eq!(port.service_info.as_deref(), Some("cloudflare"));
+    }
 
     #[test]
     fn port_set_try_from_str_parses_correctly() {
