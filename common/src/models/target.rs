@@ -1,0 +1,195 @@
+// Copyright (c) 2026 OverTheFlow and Contributors
+//
+// This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+// If a copy of the MPL was not distributed with this file, You can obtain one at
+// https://mozilla.org/MPL/2.0/.
+
+//! # Network Target Composition
+//!
+//! This module defines the atomic units of a scan. It bridges the gap between
+//! high-level network definitions ([`IpSet`], [`PortSet`]) and the low-level
+//! packets sent by the scanner engine.
+
+use crate::models::ip::set::IpSet;
+use crate::models::port::{PortSet, Protocol};
+use std::net::IpAddr;
+
+/// Represents a single, atomic connection attempt.
+///
+/// This is the pixel of the scan. Scanners (TCP, SYN, UDP) ingest these
+/// objects to perform individual probes.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub struct Target {
+    pub ip: IpAddr,
+    pub port: u16,
+    pub protocol: Protocol,
+}
+
+/// A blueprint pairing a set of IP addresses with a set of ports.
+///
+/// `TargetSet` does not store individual probes in memory; instead, it
+/// defines the boundaries of a Scan Area. This allows Zond to handle
+/// massive ranges without significant RAM overhead.
+#[derive(Debug, Clone, Default)]
+pub struct TargetSet {
+    pub ips: IpSet,
+    pub ports: PortSet,
+}
+
+impl TargetSet {
+    /// Creates a new scan blueprint.
+    pub fn new(ips: IpSet, ports: PortSet) -> Self {
+        Self { ips, ports }
+    }
+
+    /// Returns the total number of probes defined by this set.
+    ///
+    /// Calculated as (Number of IPs) × (Number of Ports).
+    pub fn total_probes(&self) -> u128 {
+        (self.ips.len() * (self.ports.len()) as u64) as u128
+    }
+
+    /// Creates a lazy iterator over every IP/Port combination in the set.
+    ///
+    /// This is a linear iterator. For high-concurrency or stealth scanning,
+    /// use the specialized dispatcher/shuffler instead.
+    pub fn iter(&self) -> impl Iterator<Item = Target> + '_ {
+        self.ips.iter().flat_map(move |ip| {
+            // Destructure the (u16, Protocol) tuple from PortSet::iter()
+            self.ports
+                .iter()
+                .map(move |(port, protocol)| Target { ip, port, protocol })
+        })
+    }
+}
+
+/// A collection of multiple [`TargetSet`] units.
+///
+/// This acts as the final "Task List" for the engine, supporting mixed
+/// configurations (e.g., scanning one range for HTTP and another for SMB).
+#[derive(Debug, Clone, Default)]
+pub struct TargetMap {
+    pub units: Vec<TargetSet>,
+}
+
+impl TargetMap {
+    pub fn new() -> Self {
+        Self::default()
+    }
+
+    pub fn add_unit(&mut self, unit: TargetSet) {
+        self.units.push(unit);
+    }
+
+    /// Returns the total targets across all defined units.
+    pub fn total_targets(&self) -> u128 {
+        self.units.iter().map(|u| u.total_probes()).sum()
+    }
+
+    /// Returns the total number of unique IP addresses targeted.
+    pub fn total_ips(&self) -> usize {
+        self.units.iter().map(|u| u.ips.len() as usize).sum()
+    }
+
+    /// Returns true if no targets are defined.
+    pub fn is_empty(&self) -> bool {
+        self.units.is_empty() || self.total_targets() == 0
+    }
+}
+
+// ╔════════════════════════════════════════════╗
+// ║ ████████╗███████╗███████╗████████╗███████╗ ║
+// ║ ╚══██╔══╝██╔════╝██╔════╝╚══██╔══╝██╔════╝ ║
+// ║    ██║   █████╗  ███████╗   ██║   ███████╗ ║
+// ║    ██║   ██╔══╝  ╚════██║   ██║   ╚════██║ ║
+// ║    ██║   ███████╗███████║   ██║   ███████║ ║
+// ║    ╚═╝   ╚══════╝╚══════╝   ╚═╝   ╚══════╝ ║
+// ╚════════════════════════════════════════════╝
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::models::port::Protocol;
+
+    // Helper to build a simple IpSet from a string
+    fn mock_ip_set(input: &str) -> IpSet {
+        IpSet::try_from(input).expect("Valid IP input for tests")
+    }
+
+    // Helper to build a simple PortSet from a string
+    fn mock_port_set(input: &str) -> PortSet {
+        PortSet::try_from(input).expect("Valid Port input for tests")
+    }
+
+    #[test]
+    fn test_target_set_math() {
+        let ips = mock_ip_set("192.168.1.0/24"); // 256 IPs
+        let ports = mock_port_set("80, 443, 1000-1007"); // 10 Ports
+        let ts = TargetSet::new(ips, ports);
+
+        assert_eq!(ts.total_probes(), 2560);
+    }
+
+    #[test]
+    fn test_target_set_iteration() {
+        let ips = mock_ip_set("1.1.1.1, 1.1.1.2");
+        let ports = mock_port_set("80, u:53");
+        let ts = TargetSet::new(ips, ports);
+
+        let targets: Vec<Target> = ts.iter().collect();
+
+        // Check total count: 2 IPs * 2 Ports = 4 Targets
+        assert_eq!(targets.len(), 4);
+
+        // Verify specific combinations exist
+        assert!(targets.contains(&Target {
+            ip: "1.1.1.1".parse().unwrap(),
+            port: 80,
+            protocol: Protocol::Tcp
+        }));
+        assert!(targets.contains(&Target {
+            ip: "1.1.1.2".parse().unwrap(),
+            port: 53,
+            protocol: Protocol::Udp
+        }));
+    }
+
+    #[test]
+    fn test_target_map_aggregation() {
+        let mut map = TargetMap::new();
+
+        // Unit 1: 5 IPs, 2 Ports = 10 Probes
+        map.add_unit(TargetSet::new(
+            mock_ip_set("10.0.0.1-10.0.0.5"),
+            mock_port_set("80, 443"),
+        ));
+
+        // Unit 2: 1 IP, 5 Ports = 5 Probes
+        map.add_unit(TargetSet::new(
+            mock_ip_set("1.1.1.1"),
+            mock_port_set("22, 80, 443, 8080, 8443"),
+        ));
+
+        assert_eq!(map.total_targets(), 15);
+        assert_eq!(map.total_ips(), 6);
+        assert!(!map.is_empty());
+    }
+
+    #[test]
+    fn test_empty_behavior() {
+        let map = TargetMap::new();
+        assert!(map.is_empty());
+
+        let ts_empty = TargetSet::new(mock_ip_set(""), mock_port_set(""));
+        assert_eq!(ts_empty.total_probes(), 0);
+    }
+
+    #[test]
+    fn test_u128_overflow_safety() {
+        let large_ips = u32::MAX as u128 + 1; // 4,294,967,296
+        let large_ports = u16::MAX as u128 + 1; // 65,536
+
+        let result = large_ips * large_ports;
+        assert_eq!(result, 281_474_976_710_656);
+    }
+}

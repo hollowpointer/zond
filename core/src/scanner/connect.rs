@@ -17,24 +17,17 @@ use super::STOP_SIGNAL;
 
 use crate::scanner::increment_host_count;
 
-pub async fn port_probe() -> anyhow::Result<Vec<Host>> {
-    todo!()
-}
-
-pub async fn range_discovery<F, Fut>(
-    targets: IpSet,
-    mut prober: F,
-) -> anyhow::Result<Vec<Host>>
+pub async fn range_discovery<F, Fut>(ips: IpSet, mut prober: F) -> anyhow::Result<Vec<Host>>
 where
     F: FnMut(IpAddr) -> Fut,
     Fut: Future<Output = anyhow::Result<Option<Host>>>,
 {
     let mut result: Vec<Host> = Vec::new();
-    for target in targets {
+    for ip in ips {
         if STOP_SIGNAL.load(Ordering::Relaxed) {
             break;
         }
-        if let Some(found) = prober(target).await? {
+        if let Some(found) = prober(ip).await? {
             result.push(found);
         }
     }

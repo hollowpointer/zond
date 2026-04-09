@@ -10,7 +10,15 @@
 //! are unique and contiguous blocks are merged upon insertion.
 
 use super::range::Ipv4Range;
-use std::net::IpAddr;
+use std::{net::IpAddr, str::FromStr};
+
+/// Errors that can occur when processing an `IpSet`.
+#[derive(Debug, thiserror::Error)]
+pub enum IpSetError {
+    /// Indicates that an invalid IP range or address was provided.
+    #[error("Invalid target in set: {0}")]
+    InvalidTarget(#[from] crate::models::ip::range::IpError),
+}
 
 /// A collection of IPv4 addresses stored as non-overlapping ranges.
 #[derive(Debug, Clone, Default)]
@@ -85,7 +93,7 @@ impl IpSet {
 
     /// Returns the total count of unique IP addresses in the set.
     pub fn len(&self) -> u64 {
-        self.ranges.iter().map(|r| r.len() as u64).sum()
+        self.ranges.iter().map(|r| r.len()).sum()
     }
 
     /// Returns true if the set contains no addresses.
@@ -108,6 +116,7 @@ impl IntoIterator for IpSet {
     type Item = IpAddr;
     type IntoIter = std::vec::IntoIter<IpAddr>;
 
+    /// Consumes the `IpSet` and returns an iterator over its individual IP addresses.
     fn into_iter(self) -> Self::IntoIter {
         let mut all_ips = Vec::with_capacity(self.len() as usize);
         for range in self.ranges {
@@ -118,6 +127,7 @@ impl IntoIterator for IpSet {
 }
 
 impl FromIterator<IpSet> for IpSet {
+    /// Combines an iterator of `IpSet`s into a single `IpSet`.
     fn from_iter<I: IntoIterator<Item = IpSet>>(iter: I) -> Self {
         let mut master = IpSet::new();
         for set in iter {
@@ -126,6 +136,87 @@ impl FromIterator<IpSet> for IpSet {
             }
         }
         master
+    }
+}
+
+impl From<IpAddr> for IpSet {
+    /// Converts a single IP address into an IpSet.
+    fn from(ip: IpAddr) -> Self {
+        let mut set = Self::new();
+        set.insert(ip);
+        set
+    }
+}
+
+impl From<Ipv4Range> for IpSet {
+    /// Converts a single range into an IpSet.
+    fn from(range: Ipv4Range) -> Self {
+        let mut set = Self::new();
+        set.insert_range(range);
+        set
+    }
+}
+
+impl From<Vec<Ipv4Range>> for IpSet {
+    /// Creates an `IpSet` from a vector of `Ipv4Range`s, automatically sorting and merging overlaps.
+    fn from(mut ranges: Vec<Ipv4Range>) -> Self {
+        if ranges.is_empty() {
+            return Self::default();
+        }
+
+        ranges.sort_by_key(|r| r.start_addr);
+        let mut merged: Vec<Ipv4Range> = Vec::with_capacity(ranges.len());
+        let mut current = ranges[0];
+
+        for next in ranges.into_iter().skip(1) {
+            let curr_end = u32::from(current.end_addr);
+            let next_start = u32::from(next.start_addr);
+
+            if next_start <= curr_end.saturating_add(1) {
+                let next_end = u32::from(next.end_addr);
+                if next_end > curr_end {
+                    current.end_addr = next.end_addr;
+                }
+            } else {
+                merged.push(current);
+                current = next;
+            }
+        }
+        merged.push(current);
+        Self { ranges: merged }
+    }
+}
+
+impl TryFrom<&str> for IpSet {
+    type Error = IpSetError;
+
+    /// Attempts to parse a comma- or space-separated list of IP ranges or CIDRs.
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        let ranges = value
+            .split([',', ' '])
+            .filter(|part| !part.trim().is_empty())
+            .map(|part| part.parse::<Ipv4Range>())
+            .collect::<Result<Vec<_>, _>>()?;
+
+        Ok(IpSet::from(ranges))
+    }
+}
+
+impl TryFrom<String> for IpSet {
+    type Error = IpSetError;
+
+    /// Attempts to parse a comma- or space-separated string of IP ranges or CIDRs.
+    fn try_from(value: String) -> Result<Self, Self::Error> {
+        Self::try_from(value.as_str())
+    }
+}
+
+impl FromStr for IpSet {
+    type Err = IpSetError;
+
+    /// Parses a string representation (comma- or space-separated list) into an `IpSet`.
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        Self::try_from(s)
     }
 }
 
@@ -295,5 +386,29 @@ mod tests {
         );
         assert_eq!(set.ranges.len(), 1);
         assert_eq!(set.len(), 4294967296);
+    }
+
+    #[test]
+    fn parse_from_str() {
+        let set: IpSet = "192.168.1.1/32, 10.0.0.1-10.0.0.5".parse().unwrap();
+        assert_eq!(set.ranges.len(), 2);
+        assert_eq!(set.len(), 6);
+        assert!(set.contains(&IpAddr::V4(Ipv4Addr::new(10, 0, 0, 3))));
+    }
+
+    #[test]
+    fn try_from_string() {
+        let s = String::from("172.16.0.0/24");
+        let set = IpSet::try_from(s).unwrap();
+        assert_eq!(set.len(), 256);
+    }
+
+    #[test]
+    fn from_vec_ranges() {
+        let r1 = Ipv4Range::new(Ipv4Addr::new(10, 0, 0, 1), Ipv4Addr::new(10, 0, 0, 5)).unwrap();
+        let r2 = Ipv4Range::new(Ipv4Addr::new(10, 0, 0, 3), Ipv4Addr::new(10, 0, 0, 8)).unwrap();
+        let set = IpSet::from(vec![r1, r2]);
+        assert_eq!(set.ranges.len(), 1);
+        assert_eq!(set.len(), 8);
     }
 }

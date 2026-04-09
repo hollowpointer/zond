@@ -9,7 +9,10 @@
 //! This module provides the [`Ipv4Range`] struct, which represents a contiguous
 //! block of IPv4 addresses, and utilities for generating ranges from CIDR notation.
 
-use std::net::{IpAddr, Ipv4Addr};
+use std::{
+    net::{IpAddr, Ipv4Addr},
+    str::FromStr,
+};
 use thiserror::Error;
 
 /// Errors associated with IP address range operations.
@@ -19,13 +22,25 @@ pub enum IpError {
     #[error("Invalid range: start address {0} is greater than end address {1}")]
     InvalidRange(Ipv4Addr, Ipv4Addr),
 
-    /// Occurs when a CIDR prefix is outside the valid range (0-32 for IPv4).
+    /// Occurs when a CIDR prefix is outside the valid range (0-32).
     #[error("Invalid CIDR prefix: {0}")]
     InvalidPrefix(u8),
 
-    /// Wrapper for underlying network library errors.
+    /// Occurs when a network calculation error arises from the underlying network library.
     #[error("Network error: {0}")]
     NetworkError(String),
+
+    /// Occurs when an IP address string cannot be parsed.
+    #[error("Failed to parse IP address: {0}")]
+    AddrParse(#[from] std::net::AddrParseError),
+
+    /// Occurs when the provided string format for an IP range is recognized as invalid.
+    #[error("Invalid IP range format: {0}")]
+    InvalidFormat(String),
+
+    /// Occurs when parsing an integer value for a prefix length fails.
+    #[error("Invalid prefix number format: {0}")]
+    PrefixParse(#[from] std::num::ParseIntError),
 }
 
 /// A contiguous range of IPv4 addresses defined by a start and end point.
@@ -87,6 +102,35 @@ impl Ipv4Range {
     /// for a successfully constructed range.
     pub fn is_empty(&self) -> bool {
         self.len() == 0
+    }
+}
+
+impl FromStr for Ipv4Range {
+    type Err = IpError;
+
+    /// Parses an IPv4 range from a string.
+    ///
+    /// Accepts the following formats:
+    /// - CIDR notation: `"192.168.1.0/24"`
+    /// - Start and end addresses: `"10.0.0.1-10.0.0.10"`
+    /// - Single IP address: `"127.0.0.1"`
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        let s = s.trim();
+
+        if let Some(pos) = s.find('/') {
+            let ip = s[..pos].parse::<Ipv4Addr>()?;
+            let prefix = s[pos + 1..].parse::<u8>()?;
+            return cidr_range(ip, prefix);
+        }
+
+        if let Some(pos) = s.find('-') {
+            let start = s[..pos].trim().parse::<Ipv4Addr>()?;
+            let end = s[pos + 1..].trim().parse::<Ipv4Addr>()?;
+            return Ipv4Range::new(start, end);
+        }
+
+        let ip = s.parse::<Ipv4Addr>()?;
+        Ipv4Range::new(ip, ip)
     }
 }
 
@@ -259,5 +303,32 @@ mod tests {
 
         let prefix_err = IpError::InvalidPrefix(40);
         assert_eq!(format!("{prefix_err}"), "Invalid CIDR prefix: 40");
+    }
+
+    #[test]
+    fn from_str_cidr() {
+        let range: Ipv4Range = "192.168.1.0/24".parse().unwrap();
+        assert_eq!(range.start_addr, Ipv4Addr::new(192, 168, 1, 0));
+        assert_eq!(range.end_addr, Ipv4Addr::new(192, 168, 1, 255));
+    }
+
+    #[test]
+    fn from_str_hyphenated() {
+        let range: Ipv4Range = "10.0.0.1 - 10.0.0.10".parse().unwrap();
+        assert_eq!(range.start_addr, Ipv4Addr::new(10, 0, 0, 1));
+        assert_eq!(range.end_addr, Ipv4Addr::new(10, 0, 0, 10));
+    }
+
+    #[test]
+    fn from_str_single() {
+        let range: Ipv4Range = "8.8.8.8".parse().unwrap();
+        assert_eq!(range.start_addr, Ipv4Addr::new(8, 8, 8, 8));
+        assert_eq!(range.end_addr, Ipv4Addr::new(8, 8, 8, 8));
+    }
+
+    #[test]
+    fn from_str_invalid() {
+        assert!(matches!("invalid".parse::<Ipv4Range>(), Err(IpError::AddrParse(_))));
+        assert!(matches!("10.0.0.1/40".parse::<Ipv4Range>(), Err(IpError::InvalidPrefix(40))));
     }
 }

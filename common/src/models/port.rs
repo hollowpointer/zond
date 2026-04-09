@@ -33,7 +33,7 @@ pub enum PortSetParseError {
     MalformedSpec(String),
 }
 
-#[derive(Debug, Clone, PartialEq, Eq)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub enum Protocol {
     Tcp,
     Udp,
@@ -119,6 +119,47 @@ impl Port {
 }
 
 impl PortSet {
+    /// Returns the total number of ports across both TCP and UDP sets.
+    pub fn len(&self) -> usize {
+        let tcp_count: usize = self
+            .tcp
+            .iter()
+            .map(|r| (r.end() - r.start() + 1) as usize)
+            .sum();
+        let udp_count: usize = self
+            .udp
+            .iter()
+            .map(|r| (r.end() - r.start() + 1) as usize)
+            .sum();
+        tcp_count + udp_count
+    }
+
+    /// Returns true if the set contains no TCP or UDP ports.
+    ///
+    /// This is O(1) as it only checks the length of the underlying vectors.
+    pub fn is_empty(&self) -> bool {
+        self.tcp.is_empty() && self.udp.is_empty()
+    }
+
+    /// Returns an iterator over all ports.
+    /// Note: This yields ports as they are defined (TCP ranges first, then UDP).
+    pub fn iter(&self) -> impl Iterator<Item = (u16, Protocol)> + '_ {
+        let tcp_iter = self
+            .tcp
+            .iter()
+            .flat_map(|r| r.clone().map(|p| (p, Protocol::Tcp)));
+        let udp_iter = self
+            .udp
+            .iter()
+            .flat_map(|r| r.clone().map(|p| (p, Protocol::Udp)));
+
+        tcp_iter.chain(udp_iter)
+    }
+
+    /// Useful for shuffling: flattens the set into a simple Vector.
+    pub fn to_vec(&self) -> Vec<(u16, Protocol)> {
+        self.iter().collect()
+    }
     pub fn has_tcp(&self, port: u16) -> bool {
         self.tcp.iter().any(|range| range.contains(&port))
     }
