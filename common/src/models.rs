@@ -9,3 +9,4 @@ pub mod ip;
 pub mod localhost;
 pub mod port;
 pub mod target;
+pub mod fingerprint;

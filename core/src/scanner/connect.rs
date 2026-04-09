@@ -77,8 +77,10 @@ async fn port_prober(target: Target) -> anyhow::Result<Option<(IpAddr, Port)>> {
     let probe_timeout = Duration::from_millis(1000);
 
     match timeout(probe_timeout, TcpStream::connect(socket_addr)).await {
-        Ok(Ok(_stream)) => {
-            let port = Port::new(target.port, Protocol::Tcp, PortState::Open);
+        Ok(Ok(stream)) => {
+            let mut port = Port::new(target.port, Protocol::Tcp, PortState::Open);
+            port.service_info = zond_plugins::lookup_service_name(target.port, Protocol::Tcp);
+            let port = zond_plugins::fingerprint_tcp(stream, port).await;
             Ok(Some((target.ip, port)))
         }
         Ok(Err(e)) => {
@@ -89,7 +91,8 @@ async fn port_prober(target: Target) -> anyhow::Result<Option<(IpAddr, Port)>> {
             };
 
             if state != PortState::Closed {
-                let port = Port::new(target.port, Protocol::Tcp, state);
+                let mut port = Port::new(target.port, Protocol::Tcp, state);
+                port.service_info = zond_plugins::lookup_service_name(target.port, Protocol::Tcp);
                 Ok(Some((target.ip, port)))
             } else {
                 Ok(None)
@@ -97,7 +100,8 @@ async fn port_prober(target: Target) -> anyhow::Result<Option<(IpAddr, Port)>> {
         }
         Err(_) => {
             // Timeout elapsed, implies a DROP -> Ghosted/Filtered
-            let port = Port::new(target.port, Protocol::Tcp, PortState::Ghosted);
+            let mut port = Port::new(target.port, Protocol::Tcp, PortState::Ghosted);
+            port.service_info = zond_plugins::lookup_service_name(target.port, Protocol::Tcp);
             Ok(Some((target.ip, port)))
         }
     }
