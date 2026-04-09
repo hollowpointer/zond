@@ -8,5 +8,3 @@ pub mod host;
 pub mod ip;
 pub mod localhost;
 pub mod port;
-pub mod range;
-pub mod target;

@@ -21,9 +21,9 @@ use std::time::Duration;
 use async_trait::async_trait;
 use is_root::is_root;
 use zond_common::config::ZondConfig;
-use zond_common::interface;
+use zond_common::net::interface;
 use zond_common::models::host::Host;
-use zond_common::models::range::IpCollection;
+use zond_common::models::ip::set::IpSet;
 use zond_common::utils::input::InputHandle;
 use zond_common::{error, info, success, warn};
 
@@ -72,7 +72,7 @@ pub async fn scan(cfg: &ZondConfig) {
 /// ### Integration Notes
 /// - **State**: Updates [`FOUND_HOST_COUNT`] and reacts to [`STOP_SIGNAL`].
 /// - **Concurrency**: Spawns multiple Tokio tasks; ensure the caller is within a multi-threaded runtime.
-pub async fn discover(targets: IpCollection, cfg: &ZondConfig) -> anyhow::Result<Vec<Host>> {
+pub async fn discover(targets: IpSet, cfg: &ZondConfig) -> anyhow::Result<Vec<Host>> {
     let use_raw_sockets = preflight_check(cfg);
     if !use_raw_sockets {
         return connect::range_discovery(targets, connect::prober).await;
@@ -108,7 +108,7 @@ pub async fn discover(targets: IpCollection, cfg: &ZondConfig) -> anyhow::Result
 }
 
 async fn spawn_explorers(
-    targets: IpCollection,
+    targets: IpSet,
     dns_tx: Option<mpsc::UnboundedSender<IpAddr>>,
 ) -> Vec<JoinHandle<anyhow::Result<Vec<Host>>>> {
     let mut handles = Vec::new();

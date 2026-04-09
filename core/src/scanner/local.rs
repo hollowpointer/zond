@@ -32,7 +32,8 @@ use pnet::{
 
 use zond_common::{
     error,
-    models::{host::Host, range::IpCollection, target::IS_LAN_SCAN},
+    models::{host::Host, ip::set::IpSet},
+    parse::IS_LAN_SCAN,
     sender::{PacketType, SenderConfig},
     success,
     utils::timing::ScanTimer,
@@ -113,12 +114,12 @@ impl NetworkExplorer for LocalScanner {
 impl LocalScanner {
     pub fn new(
         intf: NetworkInterface,
-        collection: IpCollection,
+        collection: IpSet,
         dns_tx: Option<UnboundedSender<IpAddr>>,
     ) -> anyhow::Result<Self> {
         let eth_handle: EthernetHandle = channel::start_capture(&intf)?;
         let timer: ScanTimer = ScanTimer::new(MAX_CHANNEL_TIME, MIN_CHANNEL_TIME, MAX_SILENCE_MS);
-        let ips_len: usize = collection.len();
+        let ips_len: usize = collection.len() as usize;
 
         let mut sender_cfg: SenderConfig = SenderConfig::from(&intf);
         sender_cfg.add_packet_type(PacketType::ARP);
@@ -128,14 +129,8 @@ impl LocalScanner {
 
         let mut target_ips: HashSet<IpAddr> = HashSet::new();
 
-        for single in collection.singles {
-            target_ips.insert(single);
-        }
-
-        for range in collection.ranges {
-            for ip in range.to_iter() {
-                target_ips.insert(ip);
-            }
+        for ip in collection.into_iter() {
+            target_ips.insert(ip);
         }
 
         sender_cfg.add_targets(target_ips);

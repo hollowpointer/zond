@@ -29,8 +29,8 @@ use crate::terminal::colors;
 use crate::terminal::print::Print;
 use crate::terminal::spinner::SpinnerGuard;
 
-use zond_common::models::range::IpCollection;
-use zond_common::models::target;
+use zond_common::models::ip::set::IpSet;
+use zond_common::parse;
 use zond_common::{config::ZondConfig, models::host::Host};
 use zond_core::scanner;
 
@@ -56,7 +56,7 @@ pub async fn discover(targets: &[String], cfg: &ZondConfig) -> anyhow::Result<()
 
     let _guard: SpinnerGuard = run_spinner();
 
-    let ips: IpCollection = target::to_collection(targets)?;
+    let ips: IpSet = parse::to_ipset(targets)?;
     let start_time: Instant = Instant::now();
 
     let mut hosts: Vec<Host> = scanner::discover(ips, cfg).await?;

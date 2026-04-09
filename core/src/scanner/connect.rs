@@ -11,14 +11,18 @@ use std::time::{Duration, Instant};
 use tokio::net::TcpStream;
 use tokio::time::timeout;
 use zond_common::models::host::Host;
-use zond_common::models::range::IpCollection;
+use zond_common::models::ip::set::IpSet;
 
 use super::STOP_SIGNAL;
 
 use crate::scanner::increment_host_count;
 
+pub async fn port_probe() -> anyhow::Result<Vec<Host>> {
+    todo!()
+}
+
 pub async fn range_discovery<F, Fut>(
-    targets: IpCollection,
+    targets: IpSet,
     mut prober: F,
 ) -> anyhow::Result<Vec<Host>>
 where

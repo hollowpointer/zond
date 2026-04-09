@@ -4,112 +4,129 @@
 // If a copy of the MPL was not distributed with this file, You can obtain one at
 // https://mozilla.org/MPL/2.0/.
 
-//! IP range management and CIDR calculations.
+//! A set of IPv4 addresses that automatically manages overlapping ranges.
 //!
-//! This module provides the [`Ipv4Range`] struct, which represents a contiguous
-//! block of IPv4 addresses, and utilities for generating ranges from CIDR notation.
+//! This module provides [`IpSet`], which ensures that all stored addresses
+//! are unique and contiguous blocks are merged upon insertion.
 
-use std::net::{IpAddr, Ipv4Addr};
-use thiserror::Error;
+use super::range::Ipv4Range;
+use std::net::IpAddr;
 
-/// Errors associated with IP address range operations.
-#[derive(Debug, Error, PartialEq)]
-pub enum IpError {
-    /// Occurs when the start address is numerically greater than the end address.
-    #[error("Invalid range: start address {0} is greater than end address {1}")]
-    InvalidRange(Ipv4Addr, Ipv4Addr),
-
-    /// Occurs when a CIDR prefix is outside the valid range (0-32 for IPv4).
-    #[error("Invalid CIDR prefix: {0}")]
-    InvalidPrefix(u8),
-
-    /// Wrapper for underlying network library errors.
-    #[error("Network error: {0}")]
-    NetworkError(String),
+/// A collection of IPv4 addresses stored as non-overlapping ranges.
+#[derive(Debug, Clone, Default)]
+pub struct IpSet {
+    ranges: Vec<Ipv4Range>,
 }
 
-/// A contiguous range of IPv4 addresses defined by a start and end point.
-///
-/// Both boundaries are inclusive.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
-pub struct Ipv4Range {
-    /// The inclusive starting address of the range.
-    pub start_addr: Ipv4Addr,
-    /// The inclusive ending address of the range.
-    pub end_addr: Ipv4Addr,
-}
+impl IpSet {
+    /// Creates a new, empty `IpSet`.
+    pub fn new() -> Self {
+        Self::default()
+    }
 
-impl Ipv4Range {
-    /// Creates a new `Ipv4Range`.
-    ///
-    /// # Errors
-    ///
-    /// Returns [`IpError::InvalidRange`] if `start` is numerically greater than `end`.
-    pub fn new(start: Ipv4Addr, end: Ipv4Addr) -> Result<Self, IpError> {
-        if u32::from(start) <= u32::from(end) {
-            Ok(Self {
-                start_addr: start,
-                end_addr: end,
-            })
-        } else {
-            Err(IpError::InvalidRange(start, end))
+    /// Adds an IP address to the set.
+    pub fn insert(&mut self, ip: IpAddr) {
+        if let IpAddr::V4(v4) = ip {
+            self.insert_range(Ipv4Range::new(v4, v4).unwrap());
         }
     }
 
-    /// Returns an iterator over every [`IpAddr`] within the range.
-    pub fn to_iter(&self) -> impl Iterator<Item = IpAddr> {
-        let start: u32 = self.start_addr.into();
-        let end: u32 = self.end_addr.into();
-        (start..=end).map(|ip| IpAddr::V4(Ipv4Addr::from(ip)))
+    /// Adds a range of addresses to the set, merging any overlaps.
+    pub fn insert_range(&mut self, new_range: Ipv4Range) {
+        self.ranges.push(new_range);
+
+        if self.ranges.len() < 2 {
+            return;
+        }
+
+        self.ranges.sort_by_key(|r| r.start_addr);
+
+        let mut merged: Vec<Ipv4Range> = Vec::with_capacity(self.ranges.len());
+        let mut current = self.ranges[0];
+
+        for next in self.ranges.drain(1..) {
+            let curr_end = u32::from(current.end_addr);
+            let next_start = u32::from(next.start_addr);
+
+            if next_start <= curr_end.saturating_add(1) {
+                let next_end = u32::from(next.end_addr);
+                if next_end > curr_end {
+                    current.end_addr = next.end_addr;
+                }
+            } else {
+                merged.push(current);
+                current = next;
+            }
+        }
+        merged.push(current);
+        self.ranges = merged;
     }
 
-    /// Checks if the given [`Ipv4Addr`] falls within this range (inclusive).
-    pub fn contains(&self, ip: &Ipv4Addr) -> bool {
-        let start: u32 = self.start_addr.into();
-        let end: u32 = self.end_addr.into();
-        let ip_u32: u32 = (*ip).into();
-        ip_u32 >= start && ip_u32 <= end
+    /// Checks if the set contains the given IP address.
+    pub fn contains(&self, ip: &IpAddr) -> bool {
+        let IpAddr::V4(v4) = ip else { return false };
+        let target = u32::from(*v4);
+
+        self.ranges
+            .binary_search_by(|range| {
+                let start = u32::from(range.start_addr);
+                let end = u32::from(range.end_addr);
+
+                if target < start {
+                    std::cmp::Ordering::Greater
+                } else if target > end {
+                    std::cmp::Ordering::Less
+                } else {
+                    std::cmp::Ordering::Equal
+                }
+            })
+            .is_ok()
     }
 
-    /// Returns the number of IP addresses in the range.
-    ///
-    /// Note: A range where start == end has a length of 1.
-    pub fn len(&self) -> u32 {
-        let s_u32: u32 = u32::from(self.start_addr);
-        let e_u32: u32 = u32::from(self.end_addr);
-
-        // Since new() enforces e_u32 >= s_u32, this is safe from underflow.
-        (e_u32 - s_u32) + 1
+    /// Returns the total count of unique IP addresses in the set.
+    pub fn len(&self) -> u64 {
+        self.ranges.iter().map(|r| r.len() as u64).sum()
     }
 
-    /// Returns true if the range contains no addresses.
-    ///
-    /// Given the constraints of [`Ipv4Range::new`], this will effectively always be false
-    /// for a successfully constructed range.
+    /// Returns true if the set contains no addresses.
     pub fn is_empty(&self) -> bool {
-        self.len() == 0
+        self.ranges.is_empty()
+    }
+
+    /// Returns the underlying ranges of the set.
+    pub fn ranges(&self) -> &[Ipv4Range] {
+        &self.ranges
+    }
+
+    /// Returns an iterator over every individual IP address in the set.
+    pub fn iter(&self) -> impl Iterator<Item = IpAddr> + '_ {
+        self.ranges.iter().flat_map(|range| range.to_iter())
     }
 }
 
-/// Creates an [`Ipv4Range`] from an IP address and a CIDR prefix.
-///
-/// # Errors
-///
-/// Returns [`IpError::InvalidPrefix`] if the prefix is greater than 32, or
-/// [`IpError::NetworkError`] if the underlying CIDR calculation fails.
-pub fn cidr_range(ip: Ipv4Addr, prefix: u8) -> Result<Ipv4Range, IpError> {
-    if prefix > 32 {
-        return Err(IpError::InvalidPrefix(prefix));
+impl IntoIterator for IpSet {
+    type Item = IpAddr;
+    type IntoIter = std::vec::IntoIter<IpAddr>;
+
+    fn into_iter(self) -> Self::IntoIter {
+        let mut all_ips = Vec::with_capacity(self.len() as usize);
+        for range in self.ranges {
+            all_ips.extend(range.to_iter());
+        }
+        all_ips.into_iter()
     }
+}
 
-    let network = pnet::ipnetwork::Ipv4Network::new(ip, prefix)
-        .map_err(|e| IpError::NetworkError(e.to_string()))?;
-
-    let start = network.network();
-    let end = network.broadcast();
-
-    // This is safe to unwrap because pnet ensures broadcast >= network.
-    Ok(Ipv4Range::new(start, end).unwrap())
+impl FromIterator<IpSet> for IpSet {
+    fn from_iter<I: IntoIterator<Item = IpSet>>(iter: I) -> Self {
+        let mut master = IpSet::new();
+        for set in iter {
+            for range in set.ranges {
+                master.insert_range(range);
+            }
+        }
+        master
+    }
 }
 
 // ╔════════════════════════════════════════════╗
@@ -124,141 +141,159 @@ pub fn cidr_range(ip: Ipv4Addr, prefix: u8) -> Result<Ipv4Range, IpError> {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use std::net::{IpAddr, Ipv4Addr};
+    use std::net::Ipv4Addr;
 
     #[test]
-    fn test_new_valid() {
-        let start = Ipv4Addr::new(192, 168, 1, 1);
-        let end = Ipv4Addr::new(192, 168, 1, 10);
-        let range = Ipv4Range::new(start, end).unwrap();
+    fn insert_single_ips() {
+        let mut set = IpSet::new();
+        set.insert(IpAddr::V4(Ipv4Addr::new(192, 168, 1, 1)));
+        set.insert(IpAddr::V4(Ipv4Addr::new(192, 168, 1, 2)));
 
-        assert_eq!(range.start_addr, start);
-        assert_eq!(range.end_addr, end);
+        // Should merge into a single range [1, 2]
+        assert_eq!(set.ranges.len(), 1);
+        assert_eq!(set.len(), 2);
     }
 
     #[test]
-    fn test_new_invalid_order() {
-        let start = Ipv4Addr::new(10, 0, 0, 2);
-        let end = Ipv4Addr::new(10, 0, 0, 1);
-        let result = Ipv4Range::new(start, end);
-
-        assert!(matches!(result, Err(IpError::InvalidRange(_, _))));
-        if let Err(IpError::InvalidRange(s, e)) = result {
-            assert_eq!(s, start);
-            assert_eq!(e, end);
-        }
-    }
-
-    #[test]
-    fn test_new_identical_addr() {
-        let ip = Ipv4Addr::new(127, 0, 0, 1);
-        let range = Ipv4Range::new(ip, ip).unwrap();
-        assert_eq!(range.len(), 1);
-        assert!(!range.is_empty());
-    }
-
-    #[test]
-    fn test_len_calculations() {
-        let cases = vec![
-            (Ipv4Addr::new(10, 0, 0, 0), Ipv4Addr::new(10, 0, 0, 0), 1),
-            (
-                Ipv4Addr::new(10, 0, 0, 0),
-                Ipv4Addr::new(10, 0, 0, 255),
-                256,
-            ),
-            (Ipv4Addr::new(0, 0, 0, 0), Ipv4Addr::new(0, 0, 0, 10), 11),
-        ];
-
-        for (start, end, expected_len) in cases {
-            let range = Ipv4Range::new(start, end).unwrap();
-            assert_eq!(range.len(), expected_len);
-        }
-    }
-
-    #[test]
-    fn test_contains_logic() {
+    fn insert_range() {
+        let mut set = IpSet::new();
         let range =
-            Ipv4Range::new(Ipv4Addr::new(172, 16, 0, 10), Ipv4Addr::new(172, 16, 0, 20)).unwrap();
+            Ipv4Range::new(Ipv4Addr::new(10, 0, 0, 1), Ipv4Addr::new(10, 0, 0, 10)).unwrap();
+        set.insert_range(range);
 
-        assert!(range.contains(&Ipv4Addr::new(172, 16, 0, 10)));
-        assert!(range.contains(&Ipv4Addr::new(172, 16, 0, 15)));
-        assert!(range.contains(&Ipv4Addr::new(172, 16, 0, 20)));
-
-        assert!(!range.contains(&Ipv4Addr::new(172, 16, 0, 9)));
-        assert!(!range.contains(&Ipv4Addr::new(172, 16, 0, 21)));
-        assert!(!range.contains(&Ipv4Addr::new(8, 8, 8, 8)));
+        assert_eq!(set.len(), 10);
+        assert!(set.contains(&IpAddr::V4(Ipv4Addr::new(10, 0, 0, 5))));
     }
 
     #[test]
-    fn test_iteration_values() {
-        let range = Ipv4Range::new(
-            Ipv4Addr::new(192, 168, 1, 254),
-            Ipv4Addr::new(192, 168, 2, 1),
-        )
-        .unwrap();
-        let results: Vec<IpAddr> = range.to_iter().collect();
-
-        let expected = vec![
-            IpAddr::V4(Ipv4Addr::new(192, 168, 1, 254)),
-            IpAddr::V4(Ipv4Addr::new(192, 168, 1, 255)),
-            IpAddr::V4(Ipv4Addr::new(192, 168, 2, 0)),
-            IpAddr::V4(Ipv4Addr::new(192, 168, 2, 1)),
-        ];
-
-        assert_eq!(results, expected);
-        assert_eq!(results.len() as u32, range.len());
-    }
-
-    #[test]
-    fn test_cidr_conversions() {
-        // Standard /24
-        let r24 = cidr_range(Ipv4Addr::new(192, 168, 5, 123), 24).unwrap();
-        assert_eq!(r24.start_addr, Ipv4Addr::new(192, 168, 5, 0));
-        assert_eq!(r24.end_addr, Ipv4Addr::new(192, 168, 5, 255));
-        assert_eq!(r24.len(), 256);
-
-        // Host /32
-        let r32 = cidr_range(Ipv4Addr::new(1, 1, 1, 1), 32).unwrap();
-        assert_eq!(r32.start_addr, Ipv4Addr::new(1, 1, 1, 1));
-        assert_eq!(r32.end_addr, Ipv4Addr::new(1, 1, 1, 1));
-        assert_eq!(r32.len(), 1);
-
-        // Entire IPv4 Internet /0
-        let r0 = cidr_range(Ipv4Addr::new(8, 8, 8, 8), 0).unwrap();
-        assert_eq!(r0.start_addr, Ipv4Addr::new(0, 0, 0, 0));
-        assert_eq!(r0.end_addr, Ipv4Addr::new(255, 255, 255, 255));
-    }
-
-    #[test]
-    fn test_cidr_invalid_prefix() {
-        let result = cidr_range(Ipv4Addr::new(127, 0, 0, 1), 33);
-        assert_eq!(result, Err(IpError::InvalidPrefix(33)));
-    }
-
-    #[test]
-    fn test_max_u32_range_boundaries() {
-        // Tests handling of u32::MAX boundaries without panic
-        let start = Ipv4Addr::new(255, 255, 255, 254);
-        let end = Ipv4Addr::new(255, 255, 255, 255);
-        let range = Ipv4Range::new(start, end).unwrap();
-
-        assert_eq!(range.len(), 2);
-
-        let mut iter = range.to_iter();
-        assert_eq!(iter.next(), Some(IpAddr::V4(start)));
-        assert_eq!(iter.next(), Some(IpAddr::V4(end)));
-        assert_eq!(iter.next(), None);
-    }
-
-    #[test]
-    fn test_error_formatting() {
-        let err = IpError::InvalidRange(Ipv4Addr::new(10, 0, 0, 2), Ipv4Addr::new(10, 0, 0, 1));
-        assert_eq!(
-            format!("{err}"),
-            "Invalid range: start address 10.0.0.2 is greater than end address 10.0.0.1"
+    fn merge_overlapping_ranges() {
+        let mut set = IpSet::new();
+        // 10.0.0.1 - 10.0.0.10
+        set.insert_range(
+            Ipv4Range::new(Ipv4Addr::new(10, 0, 0, 1), Ipv4Addr::new(10, 0, 0, 10)).unwrap(),
+        );
+        // 10.0.0.5 - 10.0.0.15
+        set.insert_range(
+            Ipv4Range::new(Ipv4Addr::new(10, 0, 0, 5), Ipv4Addr::new(10, 0, 0, 15)).unwrap(),
         );
 
-        let prefix_err = IpError::InvalidPrefix(40);
-        assert_eq!(format!("{prefix_err}"), "Invalid CIDR prefix: 40");
+        assert_eq!(set.ranges.len(), 1);
+        assert_eq!(set.len(), 15);
+        assert_eq!(set.ranges[0].end_addr, Ipv4Addr::new(10, 0, 0, 15));
+    }
+
+    #[test]
+    fn merge_adjacent_ranges() {
+        let mut set = IpSet::new();
+        // 10.0.0.1 - 10.0.0.10
+        set.insert_range(
+            Ipv4Range::new(Ipv4Addr::new(10, 0, 0, 1), Ipv4Addr::new(10, 0, 0, 10)).unwrap(),
+        );
+        // 10.0.0.11 - 10.0.0.20
+        set.insert_range(
+            Ipv4Range::new(Ipv4Addr::new(10, 0, 0, 11), Ipv4Addr::new(10, 0, 0, 20)).unwrap(),
+        );
+
+        assert_eq!(set.ranges.len(), 1);
+        assert_eq!(set.len(), 20);
+    }
+
+    #[test]
+    fn disjoint_ranges() {
+        let mut set = IpSet::new();
+        set.insert_range(
+            Ipv4Range::new(Ipv4Addr::new(10, 0, 0, 1), Ipv4Addr::new(10, 0, 0, 5)).unwrap(),
+        );
+        set.insert_range(
+            Ipv4Range::new(Ipv4Addr::new(10, 0, 0, 10), Ipv4Addr::new(10, 0, 0, 15)).unwrap(),
+        );
+
+        assert_eq!(set.ranges.len(), 2);
+        assert_eq!(set.len(), 11);
+    }
+
+    #[test]
+    fn contains_binary_search() {
+        let mut set = IpSet::new();
+        set.insert_range(
+            Ipv4Range::new(Ipv4Addr::new(172, 16, 0, 1), Ipv4Addr::new(172, 16, 0, 255)).unwrap(),
+        );
+        set.insert_range(
+            Ipv4Range::new(
+                Ipv4Addr::new(192, 168, 1, 1),
+                Ipv4Addr::new(192, 168, 1, 10),
+            )
+            .unwrap(),
+        );
+
+        assert!(set.contains(&IpAddr::V4(Ipv4Addr::new(172, 16, 0, 100))));
+        assert!(set.contains(&IpAddr::V4(Ipv4Addr::new(192, 168, 1, 5))));
+        assert!(!set.contains(&IpAddr::V4(Ipv4Addr::new(172, 16, 1, 1))));
+        assert!(!set.contains(&IpAddr::V4(Ipv4Addr::new(8, 8, 8, 8))));
+    }
+
+    #[test]
+    fn iteration_order() {
+        let mut set = IpSet::new();
+        set.insert(IpAddr::V4(Ipv4Addr::new(10, 0, 0, 2)));
+        set.insert(IpAddr::V4(Ipv4Addr::new(10, 0, 0, 1)));
+
+        let ips: Vec<IpAddr> = set.iter().collect();
+        assert_eq!(
+            ips,
+            vec![
+                IpAddr::V4(Ipv4Addr::new(10, 0, 0, 1)),
+                IpAddr::V4(Ipv4Addr::new(10, 0, 0, 2))
+            ]
+        );
+    }
+
+    #[test]
+    fn from_iterator() {
+        let set1 = {
+            let mut s = IpSet::new();
+            s.insert(IpAddr::V4(Ipv4Addr::new(10, 0, 0, 1)));
+            s
+        };
+        let set2 = {
+            let mut s = IpSet::new();
+            s.insert(IpAddr::V4(Ipv4Addr::new(10, 0, 0, 2)));
+            s
+        };
+
+        let master: IpSet = vec![set1, set2].into_iter().collect();
+        assert_eq!(master.len(), 2);
+        assert_eq!(master.ranges.len(), 1);
+    }
+
+    #[test]
+    fn is_empty() {
+        let mut set = IpSet::new();
+        assert!(set.is_empty());
+        set.insert(IpAddr::V4(Ipv4Addr::new(1, 1, 1, 1)));
+        assert!(!set.is_empty());
+    }
+
+    #[test]
+    fn max_u32_range_boundaries() {
+        let mut set = IpSet::new();
+        set.insert_range(
+            Ipv4Range::new(Ipv4Addr::new(0, 0, 0, 0), Ipv4Addr::new(0, 0, 0, 0)).unwrap(),
+        );
+        set.insert_range(
+            Ipv4Range::new(
+                Ipv4Addr::new(255, 255, 255, 255),
+                Ipv4Addr::new(255, 255, 255, 255),
+            )
+            .unwrap(),
+        );
+
+        assert_eq!(set.ranges.len(), 2);
+
+        set.insert_range(
+            Ipv4Range::new(Ipv4Addr::new(0, 0, 0, 0), Ipv4Addr::new(255, 255, 255, 255)).unwrap(),
+        );
+        assert_eq!(set.ranges.len(), 1);
+        assert_eq!(set.len(), 4294967296);
     }
 }

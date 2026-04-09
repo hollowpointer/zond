@@ -6,8 +6,9 @@
 
 pub mod config;
 pub mod insights;
-pub mod interface;
 pub mod logging;
+pub mod net;
 pub mod models;
+pub mod parse;
 pub mod sender;
 pub mod utils;

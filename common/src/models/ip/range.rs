@@ -74,11 +74,10 @@ impl Ipv4Range {
     /// Returns the number of IP addresses in the range.
     ///
     /// Note: A range where start == end has a length of 1.
-    pub fn len(&self) -> u32 {
-        let s_u32: u32 = u32::from(self.start_addr);
-        let e_u32: u32 = u32::from(self.end_addr);
+    pub fn len(&self) -> u64 {
+        let s_u32: u64 = u32::from(self.start_addr) as u64;
+        let e_u32: u64 = u32::from(self.end_addr) as u64;
 
-        // Since new() enforces e_u32 >= s_u32, this is safe from underflow.
         (e_u32 - s_u32) + 1
     }
 
@@ -127,7 +126,7 @@ mod tests {
     use std::net::{IpAddr, Ipv4Addr};
 
     #[test]
-    fn test_new_valid() {
+    fn new_valid() {
         let start = Ipv4Addr::new(192, 168, 1, 1);
         let end = Ipv4Addr::new(192, 168, 1, 10);
         let range = Ipv4Range::new(start, end).unwrap();
@@ -137,7 +136,7 @@ mod tests {
     }
 
     #[test]
-    fn test_new_invalid_order() {
+    fn new_invalid_order() {
         let start = Ipv4Addr::new(10, 0, 0, 2);
         let end = Ipv4Addr::new(10, 0, 0, 1);
         let result = Ipv4Range::new(start, end);
@@ -150,7 +149,7 @@ mod tests {
     }
 
     #[test]
-    fn test_new_identical_addr() {
+    fn new_identical_addr() {
         let ip = Ipv4Addr::new(127, 0, 0, 1);
         let range = Ipv4Range::new(ip, ip).unwrap();
         assert_eq!(range.len(), 1);
@@ -158,7 +157,7 @@ mod tests {
     }
 
     #[test]
-    fn test_len_calculations() {
+    fn len_calculations() {
         let cases = vec![
             (Ipv4Addr::new(10, 0, 0, 0), Ipv4Addr::new(10, 0, 0, 0), 1),
             (
@@ -176,7 +175,7 @@ mod tests {
     }
 
     #[test]
-    fn test_contains_logic() {
+    fn contains_logic() {
         let range =
             Ipv4Range::new(Ipv4Addr::new(172, 16, 0, 10), Ipv4Addr::new(172, 16, 0, 20)).unwrap();
 
@@ -190,7 +189,7 @@ mod tests {
     }
 
     #[test]
-    fn test_iteration_values() {
+    fn iteration_values() {
         let range = Ipv4Range::new(
             Ipv4Addr::new(192, 168, 1, 254),
             Ipv4Addr::new(192, 168, 2, 1),
@@ -206,11 +205,11 @@ mod tests {
         ];
 
         assert_eq!(results, expected);
-        assert_eq!(results.len() as u32, range.len());
+        assert_eq!(results.len() as u64, range.len());
     }
 
     #[test]
-    fn test_cidr_conversions() {
+    fn cidr_conversions() {
         // Standard /24
         let r24 = cidr_range(Ipv4Addr::new(192, 168, 5, 123), 24).unwrap();
         assert_eq!(r24.start_addr, Ipv4Addr::new(192, 168, 5, 0));
@@ -230,13 +229,13 @@ mod tests {
     }
 
     #[test]
-    fn test_cidr_invalid_prefix() {
+    fn cidr_invalid_prefix() {
         let result = cidr_range(Ipv4Addr::new(127, 0, 0, 1), 33);
         assert_eq!(result, Err(IpError::InvalidPrefix(33)));
     }
 
     #[test]
-    fn test_max_u32_range_boundaries() {
+    fn max_u32_range_boundaries() {
         // Tests handling of u32::MAX boundaries without panic
         let start = Ipv4Addr::new(255, 255, 255, 254);
         let end = Ipv4Addr::new(255, 255, 255, 255);
@@ -251,7 +250,7 @@ mod tests {
     }
 
     #[test]
-    fn test_error_formatting() {
+    fn error_formatting() {
         let err = IpError::InvalidRange(Ipv4Addr::new(10, 0, 0, 2), Ipv4Addr::new(10, 0, 0, 1));
         assert_eq!(
             format!("{err}"),

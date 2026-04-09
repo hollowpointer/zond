@@ -11,7 +11,7 @@ use std::time::Duration;
 use zond_common::config::ZondConfig;
 use zond_common::models::host::Host;
 use zond_common::models::port::PortSet;
-use zond_common::models::range::{IpCollection, Ipv4Range};
+use zond_common::models::ip::{set::IpSet, range::Ipv4Range};
 use zond_core::scanner::{self, STOP_SIGNAL};
 
 use crate::utils::NetnsContext;
@@ -27,9 +27,9 @@ async fn test_discovery_single_loopback() {
         disable_input: true,
     };
 
-    let mut targets: IpCollection = IpCollection::new();
+    let mut targets = IpSet::new();
     let localhost: IpAddr = IpAddr::V4(Ipv4Addr::new(127, 0, 0, 1));
-    targets.add_single(localhost);
+    targets.insert(localhost);
 
     let result = scanner::discover(targets, &config).await;
 
@@ -57,11 +57,11 @@ async fn test_discovery_range_loopback() {
         disable_input: true,
     };
 
-    let mut targets: IpCollection = IpCollection::new();
+    let mut targets = IpSet::new();
     let start: Ipv4Addr = Ipv4Addr::new(127, 0, 0, 1);
     let end: Ipv4Addr = Ipv4Addr::new(127, 0, 0, 3);
-    let range: Ipv4Range = Ipv4Range::new(start, end);
-    targets.add_range(range);
+    let range: Ipv4Range = Ipv4Range::new(start, end).unwrap();
+    targets.insert_range(range);
 
     let result = scanner::discover(targets, &cfg).await;
 
@@ -77,11 +77,11 @@ async fn test_discovery_range_loopback() {
 
 #[tokio::test]
 async fn test_stop_signal_aborts() {
-    let mut targets: IpCollection = IpCollection::new();
+    let mut targets = IpSet::new();
     let start_addr: Ipv4Addr = Ipv4Addr::new(127, 0, 0, 1);
     let end_addr: Ipv4Addr = Ipv4Addr::new(127, 0, 255, 255);
-    let range: Ipv4Range = Ipv4Range::new(start_addr, end_addr);
-    targets.add_range(range);
+    let range: Ipv4Range = Ipv4Range::new(start_addr, end_addr).unwrap();
+    targets.insert_range(range);
 
     let cfg: ZondConfig = ZondConfig {
         no_banner: false,
@@ -127,8 +127,8 @@ async fn test_privileged_discovery_netns() {
         disable_input: true,
     };
 
-    let mut collection: IpCollection = IpCollection::new();
-    collection.add_single(target_ip);
+    let mut collection = IpSet::new();
+    collection.insert(target_ip);
 
     let result = scanner::discover(collection, &config).await;
 

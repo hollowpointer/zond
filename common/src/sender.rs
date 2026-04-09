@@ -29,7 +29,7 @@ use std::{
 };
 use thiserror::Error;
 
-use crate::interface::NetworkInterfaceExtension;
+use crate::net::interface::NetworkInterfaceExtension;
 
 #[derive(PartialEq, Eq, Hash, Debug, Clone, Copy)]
 pub enum PacketType {

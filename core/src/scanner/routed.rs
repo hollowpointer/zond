@@ -17,7 +17,7 @@ use pnet::{datalink::NetworkInterface, packet::tcp::TcpPacket};
 use tokio::sync::mpsc::UnboundedSender;
 use zond_common::{error, success};
 
-use zond_common::models::{host::Host, range::IpCollection};
+use zond_common::models::{host::Host, ip::set::IpSet};
 use zond_protocols as protocol;
 
 use crate::network::transport::{self, TransportHandle, TransportType};
@@ -35,7 +35,7 @@ pub struct RoutedScanner {
     src_v4: Option<Ipv4Addr>,
     src_v6: Option<Ipv6Addr>,
     responded_ips: HashMap<IpAddr, VecDeque<Duration>>,
-    ips: IpCollection,
+    ips: IpSet,
     tcp_handle: TransportHandle,
     dns_tx: Option<UnboundedSender<IpAddr>>,
     rtt_map: HashMap<(IpAddr, SeqNum), Instant>,
@@ -48,11 +48,11 @@ impl NetworkExplorer for RoutedScanner {
             error!("Failed to send packets: {e}");
         }
 
-        let deadline: Instant = calculate_deadline(self.ips.len());
+        let deadline: Instant = calculate_deadline(self.ips.len() as usize);
 
         loop {
             if super::STOP_SIGNAL.load(Ordering::Relaxed)
-                || self.ips.len() == self.responded_ips.len()
+                || self.ips.len() == (self.responded_ips.len() as u64)
             {
                 break;
             }
@@ -116,7 +116,7 @@ impl NetworkExplorer for RoutedScanner {
 impl RoutedScanner {
     pub fn new(
         intf: NetworkInterface,
-        ips: IpCollection,
+        ips: IpSet,
         dns_tx: Option<UnboundedSender<IpAddr>>,
     ) -> anyhow::Result<Self> {
         let tcp_handle: TransportHandle =

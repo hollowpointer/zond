@@ -56,7 +56,7 @@ pub fn info(_cfg: &ZondConfig) -> anyhow::Result<()> {
         printer.print_local_services(&system_info.services)?;
     }
 
-    let interfaces = zond_common::interface::get_prioritized_interfaces(5)?;
+    let interfaces = zond_common::net::interface::get_prioritized_interfaces(5)?;
     print_network_interfaces(&interfaces)?;
 
     Ok(())
