@@ -113,7 +113,6 @@ impl From<&CommandLine> for ZondConfig {
         Self {
             no_banner: cmd.no_banner,
             no_dns: cmd.no_dns,
-            ports: cmd.ports.clone(),
             redact: cmd.redact,
             quiet: cmd.quiet,
             disable_input: false,

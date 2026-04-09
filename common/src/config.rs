@@ -4,7 +4,7 @@
 // If a copy of the MPL was not distributed with this file, You can obtain one at
 // https://mozilla.org/MPL/2.0/.
 
-use crate::models::port::PortSet;
+
 
 /// Global configuration options for the scanner execution.
 ///
@@ -30,24 +30,7 @@ pub struct ZondConfig {
     /// processing incoming DNS packets if they were initiated elsewhere.
     pub no_dns: bool,
 
-    /// The collection of network ports targeted during discovery and scanning.
-    ///
-    /// This field defines the breadth of the reconnaissance. It supports complex
-    /// specifications including individual ports, inclusive ranges, and
-    /// transport-layer protocol overrides.
-    ///
-    /// # Protocol Handling
-    /// * **TCP** (Default): Ports are assigned to TCP unless prefixed.
-    /// * **UDP**: Ports prefixed with `u:` (e.g., `u:53`) are assigned to UDP.
-    ///
-    /// # Default Behavior
-    /// If not explicitly provided via the CLI, this defaults to a "Greatest Hits"
-    /// list of common TCP services (**22, 80, 443, 445, 3389**). This ensures
-    /// high-probability discovery with minimal network noise.
-    ///
-    /// # Example Syntax
-    /// Input string: `"22, 80-443, u:53, u:67-68"`
-    pub ports: PortSet,
+
 
     /// Enables privacy mode for sensitive data in the output.
     ///

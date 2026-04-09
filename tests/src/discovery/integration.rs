@@ -10,8 +10,7 @@ use std::sync::atomic::Ordering;
 use std::time::Duration;
 use zond_common::config::ZondConfig;
 use zond_common::models::host::Host;
-use zond_common::models::port::PortSet;
-use zond_common::models::ip::{set::IpSet, range::Ipv4Range};
+use zond_common::models::ip::{range::Ipv4Range, set::IpSet};
 use zond_core::scanner::{self, STOP_SIGNAL};
 
 #[cfg(target_os = "linux")]
@@ -22,7 +21,6 @@ async fn test_discovery_single_loopback() {
     let config: ZondConfig = ZondConfig {
         no_banner: true,
         no_dns: true,
-        ports: PortSet::default(),
         redact: false,
         quiet: 0,
         disable_input: true,
@@ -52,7 +50,6 @@ async fn test_discovery_range_loopback() {
     let cfg: ZondConfig = ZondConfig {
         no_banner: true,
         no_dns: true,
-        ports: PortSet::default(),
         redact: false,
         quiet: 0,
         disable_input: true,
@@ -89,7 +86,6 @@ async fn test_stop_signal_aborts() {
     let cfg: ZondConfig = ZondConfig {
         no_banner: false,
         no_dns: true,
-        ports: PortSet::default(),
         redact: false,
         quiet: 0,
         disable_input: true,
@@ -126,7 +122,6 @@ async fn test_privileged_discovery_netns() {
     let config: ZondConfig = ZondConfig {
         no_banner: true,
         no_dns: true,
-        ports: PortSet::default(),
         redact: false,
         quiet: 0,
         disable_input: true,
@@ -157,11 +152,14 @@ async fn test_privileged_discovery_netns() {
 
 #[test]
 fn test_lan_network_resolution() {
-    // Assert that the machine running the integration test has at least 1 viable interface 
+    // Assert that the machine running the integration test has at least 1 viable interface
     // that resolves via our platform agnostics hooks (macOS networksetup, Linux sysfs, Windows GetIfTable2).
     let result = zond_common::net::interface::get_lan_network();
-    assert!(result.is_ok(), "Expected no OS or Viability errors during interface parsing");
-    
+    assert!(
+        result.is_ok(),
+        "Expected no OS or Viability errors during interface parsing"
+    );
+
     // Virtualized headless CI runners might return None here since they use virtual bridges,
     // but the FFI/Syscalls must execute safely regardless!
     println!("Resolved LAN network: {:?}", result.unwrap());
@@ -172,5 +170,8 @@ fn test_prioritized_interfaces_resolution() {
     let interfaces_res = zond_common::net::interface::get_prioritized_interfaces(10);
     assert!(interfaces_res.is_ok());
     let interfaces = interfaces_res.unwrap();
-    assert!(!interfaces.is_empty(), "Expected at least 1 UP, non-loopback network interface on the host natively");
+    assert!(
+        !interfaces.is_empty(),
+        "Expected at least 1 UP, non-loopback network interface on the host natively"
+    );
 }

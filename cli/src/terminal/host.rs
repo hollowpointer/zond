@@ -9,6 +9,7 @@ use std::{net::IpAddr, time::Duration};
 use colored::*;
 use unicode_width::UnicodeWidthStr;
 use zond_common::models::host::Host;
+use zond_common::models::port::{Port, PortState, Protocol};
 
 use crate::{
     terminal::{
@@ -54,6 +55,10 @@ impl PrintableHost for Host {
         }
 
         print::as_tree(details);
+
+        if !self.ports().is_empty() {
+            print_services(self.ports());
+        }
     }
 }
 
@@ -118,4 +123,76 @@ fn rtt_to_string(host: &Host) -> String {
     }
 
     format!("⌛ {}ms - {}ms", min_rtt.as_millis(), max_rtt.as_millis())
+}
+
+fn print_services(ports: &[Port]) {
+    let mut open_c = 0;
+    let mut ghosted_c = 0;
+    let mut blocked_c = 0;
+    for p in ports {
+        match p.state {
+            PortState::Open => open_c += 1,
+            PortState::Ghosted => ghosted_c += 1,
+            PortState::Blocked => blocked_c += 1,
+            PortState::Closed => (),
+            _ => (),
+        }
+    }
+
+    let mut stats = Vec::new();
+    if open_c > 0 {
+        stats.push(format!("{} OPEN", open_c).green().bold().to_string());
+    }
+    if ghosted_c > 0 {
+        stats.push(format!("{} GHOSTED", ghosted_c).cyan().bold().to_string());
+    }
+    if blocked_c > 0 {
+        stats.push(format!("{} BLOCKED", blocked_c).yellow().bold().to_string());
+    }
+
+    let stats_str = if stats.is_empty() {
+        "ALL CHECKS CLOSED".dimmed().to_string()
+    } else {
+        stats.join(&format!("{}", "  /  ".bright_black().bold()))
+    };
+
+    zprint!(
+        " {} {}{}{} {}",
+        "└─".bright_black(),
+        "SERVICES".color(colors::TEXT_DEFAULT),
+        ".".repeat(2).color(colors::SEPARATOR),
+        ":".color(colors::SEPARATOR),
+        stats_str
+    );
+
+    for (i, p) in ports.iter().enumerate() {
+        let last = i + 1 == ports.len();
+        let branch = if !last { "├─" } else { "└─" }.bright_black();
+
+        let proto_str = match p.protocol {
+            Protocol::Tcp => "tcp",
+            Protocol::Udp => "udp",
+        };
+        let port_spec = format!("{}/{}", p.number, proto_str);
+        let port_spec_padded = format!("{:width$}", port_spec, width = 9);
+
+        let (state_str, state_color) = match p.state {
+            PortState::Open => ("OPEN   ", colored::Color::Green),
+            PortState::Ghosted => ("GHOSTED", colored::Color::Cyan),
+            PortState::Blocked => ("BLOCKED", colored::Color::Yellow),
+            PortState::Closed => ("CLOSED ", colored::Color::Red),
+            _ => ("UNKNOWN", colored::Color::White),
+        };
+
+        let state_fmt = format!("[ {} ]", state_str.color(state_color));
+        let svc_name = p.service_info.as_deref().unwrap_or("???");
+
+        zprint!(
+            "      {} {} {}  {}",
+            branch,
+            port_spec_padded.color(colors::PRIMARY),
+            state_fmt,
+            svc_name.color(colors::TEXT_DEFAULT)
+        );
+    }
 }

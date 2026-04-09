@@ -17,6 +17,35 @@ pub mod ip;
 
 pub use ip::{IS_LAN_SCAN, IpParseError, to_set as to_ipset};
 
+use crate::models::ip::set::IpSet;
+use crate::models::port::PortSet;
+use crate::models::target::{TargetMap, TargetSet};
+
+/// Parses a list of target strings (e.g. `["1.1.1.1:80,443", "8.8.8.8"]`) into a `TargetMap`.
+/// Combines per-target specified ports, or falls back to `global_ports`.
+pub fn to_target_map(
+    targets: &[String],
+    global_ports: PortSet,
+) -> Result<TargetMap, anyhow::Error> {
+    let mut map = TargetMap::new();
+
+    for target in targets {
+        if let Some((ip_str, port_str)) = target.split_once(':') {
+            let ip_set = IpSet::try_from(ip_str)
+                .map_err(|e| anyhow::anyhow!("Invalid IP in '{}': {}", ip_str, e))?;
+            let port_set = PortSet::try_from(port_str)
+                .map_err(|e| anyhow::anyhow!("Invalid Port in '{}': {}", port_str, e))?;
+            map.add_unit(TargetSet::new(ip_set, port_set));
+        } else {
+            let ip_set = IpSet::try_from(target.as_str())
+                .map_err(|e| anyhow::anyhow!("Invalid IP '{}': {}", target, e))?;
+            map.add_unit(TargetSet::new(ip_set, global_ports.clone()));
+        }
+    }
+
+    Ok(map)
+}
+
 // ╔════════════════════════════════════════════╗
 // ║ ████████╗███████╗███████╗████████╗███████╗ ║
 // ║ ╚══██╔══╝██╔════╝██╔════╝╚══██╔══╝██╔════╝ ║

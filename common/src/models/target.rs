@@ -17,7 +17,7 @@ use std::net::IpAddr;
 /// Represents a single, atomic connection attempt.
 ///
 /// This is the pixel of the scan. Scanners (TCP, SYN, UDP) ingest these
-/// objects to perform individual probes.
+/// objects to perform individual targets.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub struct Target {
     pub ip: IpAddr,
@@ -27,7 +27,7 @@ pub struct Target {
 
 /// A blueprint pairing a set of IP addresses with a set of ports.
 ///
-/// `TargetSet` does not store individual probes in memory; instead, it
+/// `TargetSet` does not store individual targets in memory; instead, it
 /// defines the boundaries of a Scan Area. This allows Zond to handle
 /// massive ranges without significant RAM overhead.
 #[derive(Debug, Clone, Default)]
@@ -42,10 +42,10 @@ impl TargetSet {
         Self { ips, ports }
     }
 
-    /// Returns the total number of probes defined by this set.
+    /// Returns the total number of targets defined by this set.
     ///
     /// Calculated as (Number of IPs) × (Number of Ports).
-    pub fn total_probes(&self) -> u128 {
+    pub fn total_targets(&self) -> u128 {
         (self.ips.len() * (self.ports.len()) as u64) as u128
     }
 
@@ -83,7 +83,7 @@ impl TargetMap {
 
     /// Returns the total targets across all defined units.
     pub fn total_targets(&self) -> u128 {
-        self.units.iter().map(|u| u.total_probes()).sum()
+        self.units.iter().map(|u| u.total_targets()).sum()
     }
 
     /// Returns the total number of unique IP addresses targeted.
@@ -111,12 +111,10 @@ mod tests {
     use super::*;
     use crate::models::port::Protocol;
 
-    // Helper to build a simple IpSet from a string
     fn mock_ip_set(input: &str) -> IpSet {
         IpSet::try_from(input).expect("Valid IP input for tests")
     }
 
-    // Helper to build a simple PortSet from a string
     fn mock_port_set(input: &str) -> PortSet {
         PortSet::try_from(input).expect("Valid Port input for tests")
     }
@@ -127,7 +125,7 @@ mod tests {
         let ports = mock_port_set("80, 443, 1000-1007"); // 10 Ports
         let ts = TargetSet::new(ips, ports);
 
-        assert_eq!(ts.total_probes(), 2560);
+        assert_eq!(ts.total_targets(), 2560);
     }
 
     #[test]
@@ -158,13 +156,13 @@ mod tests {
     fn test_target_map_aggregation() {
         let mut map = TargetMap::new();
 
-        // Unit 1: 5 IPs, 2 Ports = 10 Probes
+        // Unit 1: 5 IPs, 2 Ports = 10 targets
         map.add_unit(TargetSet::new(
             mock_ip_set("10.0.0.1-10.0.0.5"),
             mock_port_set("80, 443"),
         ));
 
-        // Unit 2: 1 IP, 5 Ports = 5 Probes
+        // Unit 2: 1 IP, 5 Ports = 5 targets
         map.add_unit(TargetSet::new(
             mock_ip_set("1.1.1.1"),
             mock_port_set("22, 80, 443, 8080, 8443"),
@@ -181,7 +179,7 @@ mod tests {
         assert!(map.is_empty());
 
         let ts_empty = TargetSet::new(mock_ip_set(""), mock_port_set(""));
-        assert_eq!(ts_empty.total_probes(), 0);
+        assert_eq!(ts_empty.total_targets(), 0);
     }
 
     #[test]

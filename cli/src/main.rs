@@ -50,7 +50,7 @@ async fn main() -> ExitCode {
         Commands::Info => info::info(&cfg),
         Commands::Listen => listen::listen(&cfg),
         Commands::Discover { targets } => discover::discover(targets, &cfg).await,
-        Commands::Scan { targets } => scan::scan(targets, &cfg).await,
+        Commands::Scan { targets } => scan::scan(targets, commands.ports.clone(), &cfg).await,
     };
 
     let exit_code = match result {

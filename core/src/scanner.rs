@@ -21,13 +21,15 @@ use std::time::Duration;
 use async_trait::async_trait;
 use is_root::is_root;
 use zond_common::config::ZondConfig;
-use zond_common::net::interface;
 use zond_common::models::host::Host;
 use zond_common::models::ip::set::IpSet;
+use zond_common::models::target::TargetMap;
+use zond_common::net::interface;
 use zond_common::utils::input::InputHandle;
 use zond_common::{error, info, success, warn};
 
 mod connect;
+pub mod dispatcher;
 mod local;
 mod resolver;
 mod routed;
@@ -57,9 +59,18 @@ trait NetworkExplorer {
     async fn discover_hosts(&mut self) -> anyhow::Result<Vec<Host>>;
 }
 
-pub async fn scan(cfg: &ZondConfig) {
+pub async fn scan(target_map: TargetMap, cfg: &ZondConfig) -> anyhow::Result<Vec<Host>> {
     let use_raw_sockets = preflight_check(cfg);
-    if !use_raw_sockets {}
+
+    // Non-root TCP connect scan
+    if !use_raw_sockets {
+        let dispatcher = dispatcher::Dispatcher::new(target_map);
+        let rx = dispatcher.run_shuffled();
+        return connect::scan(rx, 50).await;
+    }
+
+    // Root privileged scan logic not implemented yet
+    Ok(Vec::new())
 }
 
 /// The primary entry point for network discovery.
@@ -75,7 +86,7 @@ pub async fn scan(cfg: &ZondConfig) {
 pub async fn discover(targets: IpSet, cfg: &ZondConfig) -> anyhow::Result<Vec<Host>> {
     let use_raw_sockets = preflight_check(cfg);
     if !use_raw_sockets {
-        return connect::range_discovery(targets, connect::prober).await;
+        return connect::discover(targets).await;
     }
 
     let (dns_tx, resolver_task) = if !cfg.no_dns {
@@ -149,10 +160,7 @@ async fn spawn_explorers(
             verbosity = 1,
             "Spawning FALLBACK scanner for unmapped targets"
         );
-        let handle =
-            tokio::spawn(
-                async move { connect::range_discovery(unmapped_ips, connect::prober).await },
-            );
+        let handle = tokio::spawn(async move { connect::discover(unmapped_ips).await });
         handles.push(handle);
     }
 
