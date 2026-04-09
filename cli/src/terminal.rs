@@ -12,3 +12,4 @@ pub mod logging;
 pub mod network_fmt;
 pub mod print;
 pub mod spinner;
+pub mod insights;

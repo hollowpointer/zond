@@ -33,7 +33,7 @@ use indicatif::ProgressStyle;
 use tracing::Span;
 use tracing_indicatif::{IndicatifLayer, span_ext::IndicatifSpanExt};
 use tracing_subscriber::{EnvFilter, layer::SubscriberExt, util::SubscriberInitExt};
-use zond_common::insights;
+use crate::terminal::insights;
 
 use crate::terminal::{colors, logging};
 
