@@ -4,15 +4,17 @@
 // If a copy of the MPL was not distributed with this file, You can obtain one at
 // https://mozilla.org/MPL/2.0/.
 
-use std::collections::HashMap;
-use std::net::{IpAddr, Ipv4Addr, UdpSocket};
 use pnet::datalink::{self, NetworkInterface};
 use rayon::prelude::*;
+use std::collections::HashMap;
+use std::net::{IpAddr, Ipv4Addr, UdpSocket};
 
 use crate::models::ip::set::IpSet;
 
 /// Maps target IPs to the interface used to reach them, split by Local vs Routed.
-/// Returns: Map<Interface, (Local_Targets, Routed_Targets)>
+/// Returns: Map<Interface, (Local_Targets, Routed_Targets)> and a set of Unmapped Targets.
+///
+/// Under the hood, this evaluates `pnet::datalink::interfaces()`.
 pub fn map_ips_to_interfaces(
     collection: IpSet,
 ) -> (HashMap<NetworkInterface, (IpSet, IpSet)>, IpSet) {
@@ -21,6 +23,13 @@ pub fn map_ips_to_interfaces(
         .filter(|i| i.is_up() && !i.is_loopback() && !i.ips.is_empty())
         .collect();
 
+    map_ips_to_interfaces_with(collection, interfaces)
+}
+
+pub(crate) fn map_ips_to_interfaces_with(
+    collection: IpSet,
+    interfaces: Vec<NetworkInterface>,
+) -> (HashMap<NetworkInterface, (IpSet, IpSet)>, IpSet) {
     let ip_to_idx: HashMap<IpAddr, usize> = interfaces
         .iter()
         .enumerate()
@@ -145,4 +154,61 @@ fn resolve_route_source_ip(
 
     socket.connect((target, 53)).ok()?;
     socket.local_addr().ok().map(|s| s.ip())
+}
+
+// ╔════════════════════════════════════════════╗
+// ║ ████████╗███████╗███████╗████████╗███████╗ ║
+// ║ ╚══██╔══╝██╔════╝██╔════╝╚══██╔══╝██╔════╝ ║
+// ║    ██║   █████╗  ███████╗   ██║   ███████╗ ║
+// ║    ██║   ██╔══╝  ╚════██║   ██║   ╚════██║ ║
+// ║    ██║   ███████╗███████║   ██║   ███████║ ║
+// ║    ╚═╝   ╚══════╝╚══════╝   ╚═╝   ╚══════╝ ║
+// ╚════════════════════════════════════════════╝
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use pnet::ipnetwork::{IpNetwork, Ipv4Network};
+
+    fn mock_interface(ip: IpAddr, prefix: u8) -> NetworkInterface {
+        let net = match ip {
+            IpAddr::V4(v4) => IpNetwork::V4(Ipv4Network::new(v4, prefix).unwrap()),
+            IpAddr::V6(_v6) => unimplemented!(),
+        };
+
+        NetworkInterface {
+            name: "test0".to_string(),
+            description: "".to_string(),
+            index: 0,
+            mac: None,
+            ips: vec![net],
+            flags: 0,
+        }
+    }
+
+    #[test]
+    fn test_find_local_index() {
+        let interfaces = vec![
+            mock_interface(IpAddr::V4(Ipv4Addr::new(192, 168, 1, 100)), 24),
+            mock_interface(IpAddr::V4(Ipv4Addr::new(10, 0, 0, 5)), 8),
+        ];
+
+        // 192.168.1.50 is in 192.168.1.0/24 (index 0)
+        assert_eq!(
+            find_local_index(&interfaces, IpAddr::V4(Ipv4Addr::new(192, 168, 1, 50))),
+            Some(0)
+        );
+
+        // 10.50.0.1 is in 10.0.0.0/8 (index 1)
+        assert_eq!(
+            find_local_index(&interfaces, IpAddr::V4(Ipv4Addr::new(10, 50, 0, 1))),
+            Some(1)
+        );
+
+        // 172.16.0.1 is unmapped
+        assert_eq!(
+            find_local_index(&interfaces, IpAddr::V4(Ipv4Addr::new(172, 16, 0, 1))),
+            None
+        );
+    }
 }

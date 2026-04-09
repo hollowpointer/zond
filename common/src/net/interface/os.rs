@@ -4,14 +4,24 @@
 // If a copy of the MPL was not distributed with this file, You can obtain one at
 // https://mozilla.org/MPL/2.0/.
 
+//! Hardware detection heuristics specialized for target Operating Systems.
+//!
+//! Bridges platform-specific techniques (sysfs, CLI tools, Windows API)
+//! to classify network adapters seamlessly.
+
 use pnet::datalink::NetworkInterface;
 
 #[cfg(target_os = "linux")]
+#[doc(inline)]
 pub use linux_impl::{is_physical, is_wireless};
 #[cfg(target_os = "macos")]
+#[doc(inline)]
 pub use macos_impl::{is_physical, is_wireless};
 #[cfg(target_os = "windows")]
+#[doc(inline)]
 pub use windows_impl::{is_physical, is_wireless};
+
+/// Determines if the interface corresponds to a physical adapter (not virtual).
 
 
 #[cfg(target_os = "linux")]

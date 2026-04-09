@@ -4,11 +4,12 @@
 // If a copy of the MPL was not distributed with this file, You can obtain one at
 // https://mozilla.org/MPL/2.0/.
 
+use super::os::{is_physical, is_wireless};
 use crate::info;
 use pnet::datalink::NetworkInterface;
 use pnet::ipnetwork::{IpNetwork, Ipv4Network};
-use super::os::{is_physical, is_wireless};
 
+/// Errors arising from network validation constraints during LAN interface selection.
 #[derive(Debug, PartialEq, Eq, Clone, Copy)]
 pub enum ViabilityError {
     /// The interface is operationally down.
@@ -25,10 +26,18 @@ pub enum ViabilityError {
     NoValidLanIp,
 }
 
-/// Finds the primary LAN network and returns the ipv4 network
+/// Identifies the best local area network (LAN) connected to the current host context.
+///
+/// Under the hood, this iterates over `pnet::datalink::interfaces()` directly.
 pub fn get_lan_network() -> anyhow::Result<Option<Ipv4Network>> {
     let interfaces: Vec<NetworkInterface> = pnet::datalink::interfaces();
+    get_lan_network_with(interfaces)
+}
 
+/// Core LAN selection logic, decoupled from OS interface dependencies for testing.
+pub(crate) fn get_lan_network_with(
+    interfaces: Vec<NetworkInterface>,
+) -> anyhow::Result<Option<Ipv4Network>> {
     let interfaces_str: &str = match interfaces.len() {
         1 => "interface",
         _ => "interfaces",
@@ -116,6 +125,102 @@ fn select_best_lan_interface(
     }
 }
 
+/// Identifies if the specified interface is wired directly to the machine locally.
+///
+/// Considers virtual and remote connections as non-wired.
 pub fn is_wired(interface: &NetworkInterface) -> bool {
     is_physical(interface) && !is_wireless(interface)
+}
+
+// ╔════════════════════════════════════════════╗
+// ║ ████████╗███████╗███████╗████████╗███████╗ ║
+// ║ ╚══██╔══╝██╔════╝██╔════╝╚══██╔══╝██╔════╝ ║
+// ║    ██║   █████╗  ███████╗   ██║   ███████╗ ║
+// ║    ██║   ██╔══╝  ╚════██║   ██║   ╚════██║ ║
+// ║    ██║   ███████╗███████║   ██║   ███████║ ║
+// ║    ╚═╝   ╚══════╝╚══════╝   ╚═╝   ╚══════╝ ║
+// ╚════════════════════════════════════════════╝
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use pnet::datalink::MacAddr;
+    use pnet::ipnetwork::IpNetwork;
+    use std::net::Ipv4Addr;
+
+    fn mock_interface(
+        up: bool,
+        mac: bool,
+        broadcast: bool,
+        p2p: bool,
+        loopback: bool,
+        ip: bool,
+    ) -> NetworkInterface {
+        NetworkInterface {
+            name: "test0".to_string(),
+            description: "".to_string(),
+            index: 0,
+            mac: if mac {
+                Some(MacAddr::new(1, 2, 3, 4, 5, 6))
+            } else {
+                None
+            },
+            ips: if ip {
+                vec![IpNetwork::V4(
+                    Ipv4Network::new(Ipv4Addr::new(192, 168, 1, 100), 24).unwrap(),
+                )]
+            } else {
+                vec![]
+            },
+            flags: {
+                let mut flags = 0;
+                if up {
+                    flags |= 1;
+                }
+                if broadcast {
+                    flags |= 2;
+                }
+                if p2p {
+                    flags |= 16;
+                }
+                if loopback {
+                    flags |= 8;
+                } // roughly matching bitmasks
+                flags
+            },
+        }
+    }
+
+    #[test]
+    fn test_is_viable_down() {
+        let intf = mock_interface(false, true, true, false, false, true);
+        assert_eq!(
+            is_viable_lan_interface(&intf, |_| true),
+            Err(ViabilityError::IsDown)
+        );
+    }
+
+    #[test]
+    fn test_is_viable_not_physical() {
+        let intf = mock_interface(true, true, true, false, false, true);
+        assert_eq!(
+            is_viable_lan_interface(&intf, |_| false),
+            Err(ViabilityError::NotPhysical)
+        );
+    }
+
+    #[test]
+    fn test_is_viable_no_mac() {
+        let intf = mock_interface(true, false, true, false, false, true);
+        assert_eq!(
+            is_viable_lan_interface(&intf, |_| true),
+            Err(ViabilityError::NoMacAddress)
+        );
+    }
+
+    #[test]
+    fn test_is_viable_success() {
+        let intf = mock_interface(true, true, true, false, false, true);
+        assert_eq!(is_viable_lan_interface(&intf, |_| true), Ok(()));
+    }
 }
