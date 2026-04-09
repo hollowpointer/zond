@@ -3,6 +3,8 @@ name: Build Zond
 on:
   release:
     types: [published]
+  push:
+    branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 
@@ -35,13 +37,18 @@ jobs:
           Expand-Archive -Path "npcap-sdk.zip" -DestinationPath "npcap-sdk"
           echo "LIB=$env:GITHUB_WORKSPACE\npcap-sdk\Lib\x64;$env:LIB" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
 
+      - name: Run Tests (macOS & Linux)
+        if: matrix.os != 'windows-latest'
+        run: cargo test --workspace
+
+      - name: Verify Compilation (Windows)
+        if: matrix.os == 'windows-latest'
+        run: cargo check --workspace
+
       - name: Build Release Binary
+        if: github.event_name == 'release'
         run: cargo build --release
 
-      - name: Package Windows Binary
-        if: matrix.os == 'windows-latest' && github.event_name == 'release'
-        run: |
-          powershell Compress-Archive -Path target/release/zond.exe -DestinationPath target/release/zond-windows.zip
 
       - name: Package MacOS Binary
         if: matrix.os == 'macos-latest' && github.event_name == 'release'
@@ -73,7 +80,6 @@ jobs:
         with:
           # The action automatically detects the tag from the release event
           files: |
-            target/release/zond-windows.zip
             target/release/zond-macos.zip
             target/release/zond-linux.tar.gz
             target/release/Zond_Setup.exe
