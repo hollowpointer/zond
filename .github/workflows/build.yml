@@ -5,8 +5,32 @@ on:
     types: [published]
   push:
     branches: [ "main" ]
+    paths:
+      - 'common/**'
+      - 'core/**'
+      - 'cli/**'
+      - 'plugins/**'
+      - 'protocols/**'
+      - 'tests/**'
+      - 'scripts/**'
+      - 'docker/**'
+      - 'Cargo.toml'
+      - 'Cargo.lock'
+      - '.github/workflows/build.yml'
   pull_request:
     branches: [ "main" ]
+    paths:
+      - 'common/**'
+      - 'core/**'
+      - 'cli/**'
+      - 'plugins/**'
+      - 'protocols/**'
+      - 'tests/**'
+      - 'scripts/**'
+      - 'docker/**'
+      - 'Cargo.toml'
+      - 'Cargo.lock'
+      - '.github/workflows/build.yml'
 
 permissions:
   contents: write

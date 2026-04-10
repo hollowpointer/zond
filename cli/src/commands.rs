@@ -43,7 +43,9 @@ use zond_common::{config::ZondConfig, models::port::PortSet};
 
 #[derive(Parser)]
 #[command(name = "zond")]
-#[command(about = "Deep network reconnaissance and probing tool.")]
+#[command(version = env!("CARGO_PKG_VERSION"))]
+#[command(about = "Deep network reconnaissance and probing tool.", long_about = None)]
+#[command(propagate_version = true)]
 pub struct CommandLine {
     #[command(subcommand)]
     pub command: Commands,

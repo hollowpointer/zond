@@ -63,16 +63,14 @@ pub async fn scan(target_map: TargetMap, cfg: &ZondConfig) -> anyhow::Result<Vec
     STOP_SIGNAL.store(false, Ordering::Relaxed);
     let use_raw_sockets = preflight_check(cfg);
 
-    // Currently, even if we are root, we default to the TCP connect scanner for port scanning
-    // until a specialized privileged strategy (e.g. SYN scan) is fully implemented.
-    if !use_raw_sockets || true {
-        let dispatcher = dispatcher::Dispatcher::new(target_map);
-        let rx = dispatcher.run_shuffled();
-        return connect::scan(rx, 50).await;
+    if use_raw_sockets {
+        // Future: Remove this fallback once SYN scanner is ready
+        warn!("Privileged port scanning (SYN) not yet implemented; using TCP connect fallback");
     }
 
-    // Future: Implement privileged SYN scan strategy here
-    Ok(Vec::new())
+    let dispatcher = dispatcher::Dispatcher::new(target_map);
+    let rx = dispatcher.run_shuffled();
+    connect::scan(rx, 50).await
 }
 
 /// The primary entry point for network discovery.
