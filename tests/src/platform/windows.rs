@@ -4,18 +4,21 @@
 // If a copy of the MPL was not distributed with this file, You can obtain one at
 // https://mozilla.org/MPL/2.0/.
 
+use pnet::datalink;
 use std::net::{IpAddr, TcpListener};
 use zond_common::config::ZondConfig;
 use zond_common::models::ip::set::IpSet;
 use zond_core::scanner;
-use pnet::datalink;
 
 /// Verifies that Windows hardware heuristics (physical/wireless detection)
 /// execute correctly and find plausible adapters.
 #[tokio::test]
 async fn windows_hardware_heuristics() {
     let interfaces = datalink::interfaces();
-    assert!(!interfaces.is_empty(), "No network interfaces found on the system");
+    assert!(
+        !interfaces.is_empty(),
+        "No network interfaces found on the system"
+    );
 
     let mut physically_found = 0;
     for iface in interfaces {
@@ -29,12 +32,19 @@ async fn windows_hardware_heuristics() {
 
         // Integrity check: Wireless adapters are always physical
         if wireless {
-            assert!(physical, "Interface {} identified as wireless but not physical", iface.name);
+            assert!(
+                physical,
+                "Interface {} identified as wireless but not physical",
+                iface.name
+            );
         }
     }
 
     // On a real machine, at least one interface (Ethernet or Wi-Fi) should be physical
-    assert!(physically_found > 0, "No physical adapters detected - verify Administrator privileges");
+    assert!(
+        physically_found > 0,
+        "No physical adapters detected - verify Administrator privileges"
+    );
 }
 
 /// Performs a full unprivileged discovery scan against a local mock listener.
@@ -50,7 +60,8 @@ async fn windows_local_discovery_integration() {
 
     // 1. Find a valid local IPv4 interface
     let interfaces = datalink::interfaces();
-    let target_ip = interfaces.iter()
+    let target_ip = interfaces
+        .iter()
         .filter(|i| i.is_up() && !i.is_loopback())
         .flat_map(|i| i.ips.iter())
         .find(|ip| ip.is_ipv4())
@@ -66,20 +77,25 @@ async fn windows_local_discovery_integration() {
     let mut targets = IpSet::new();
     targets.insert(target_ip);
 
-    let handle = tokio::spawn(async move {
-        scanner::discover(targets, &cfg).await
-    });
+    let handle = tokio::spawn(async move { scanner::discover(targets, &cfg).await });
 
     // We give the scanner a moment. Since it's local, RTT is near zero.
     let result = handle.await.unwrap();
-    assert!(result.is_ok(), "Scanner failed on Windows: {:?}", result.err());
-    
+    assert!(
+        result.is_ok(),
+        "Scanner failed on Windows: {:?}",
+        result.err()
+    );
+
     let hosts = result.unwrap();
-    
+
     // 4. Verify the host was found
-    assert!(!hosts.is_empty(), "Scanner did not find the local host on Windows");
+    assert!(
+        !hosts.is_empty(),
+        "Scanner did not find the local host on Windows"
+    );
     assert_eq!(hosts[0].primary_ip, target_ip);
-    
+
     // Explicitly keep listener alive until here
     drop(listener);
 }

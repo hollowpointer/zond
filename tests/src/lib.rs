@@ -29,8 +29,8 @@
 #[cfg(test)]
 pub mod discovery;
 #[cfg(test)]
+pub mod platform;
+#[cfg(test)]
 pub mod port_scan;
 #[cfg(test)]
 pub mod utils;
-#[cfg(test)]
-pub mod platform;
