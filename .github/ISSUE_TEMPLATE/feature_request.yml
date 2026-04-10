@@ -1,0 +1,42 @@
+name: ✨ Feature Request
+description: Suggest an idea or a new capability for zond
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ### Share your idea!
+        We're always looking to make `zond` more powerful. Please describe the feature you'd like to see.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Is your feature request related to a problem?
+      description: A clear and concise description of what the problem is.
+      placeholder: e.g. I'm always frustrated when I can't export results to JSON...
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: Describe the solution you'd like
+      description: A clear and concise description of what you want to happen.
+      placeholder: Add a --json flag that outputs scan results in a machine-readable format.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Describe alternatives you've considered
+      description: A clear and concise description of any alternative solutions or features you've considered.
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Add any other context, screenshots, or examples of other tools that have this feature.
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: Would you like to work on this?
+      description: We love community contributions!
+      options:
+        - label: I would be willing to submit a Pull Request for this feature.

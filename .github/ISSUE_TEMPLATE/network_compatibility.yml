@@ -1,0 +1,62 @@
+name: 🌐 Network Compatibility Report
+description: Report issues related to specific network hardware or environments
+labels: ["environment", "compatibility"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Network tools often behave differently depending on the local hardware and environment. 
+        Providing these details helps us understand if an issue is a software bug or a compatibility restriction.
+  - type: dropdown
+    id: environment
+    attributes:
+      label: Environment Type
+      description: Where are you running Zond?
+      options:
+        - Physical Machine (Bare Metal)
+        - Virtual Machine (KVM/VirtualBox/VMWare)
+        - WSL2
+        - Docker Container
+        - Cloud Provider (AWS/Azure/GCP)
+        - Other
+    validations:
+      required: true
+  - type: dropdown
+    id: interface
+    attributes:
+      label: Network Interface Type
+      options:
+        - Ethernet (Wired)
+        - Wi-Fi (Wireless)
+        - VPN (OpenVPN/Wireguard/Tailscale)
+        - Loopback
+        - Bridged/NAT (Virtual)
+    validations:
+      required: true
+  - type: input
+    id: nic_model
+    attributes:
+      label: Network Card / Interface Model
+      description: e.g. Intel I219-V, Realtek RTL8111, Apple Silicon Internal
+      placeholder: e.g. Intel Wi-Fi 6 AX201
+  - type: textarea
+    id: topology
+    attributes:
+      label: Network Topology
+      description: Describe your connection to the target (e.g. Home Router -> Target, Corporate Switch -> Firewall -> Target)
+      placeholder: |
+        Local machine -> Home Router (ASUS) -> Target across Wi-Fi
+  - type: textarea
+    id: symptoms
+    attributes:
+      label: Symptoms
+      description: What exactly is failing?
+      placeholder: |
+        e.g. Host discovery works for my own IP but not for other hosts on the subnet.
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Trace Logs
+      description: Please run the command with `-vv` and paste the relevant output.

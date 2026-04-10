@@ -65,6 +65,12 @@ jobs:
         if: matrix.os != 'windows-latest'
         run: cargo test --workspace
 
+      - name: Run Docker Integration Tests (Linux)
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          chmod +x scripts/run_integration_docker.sh
+          ./scripts/run_integration_docker.sh
+
       - name: Verify Compilation (Windows)
         if: matrix.os == 'windows-latest'
         run: cargo check --workspace

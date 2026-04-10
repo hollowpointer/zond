@@ -1,0 +1,44 @@
+name: 🔍 New Fingerprint Request
+description: Request detection for a new service or protocol
+labels: ["enhancement", "fingerprint"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Zond's detection accuracy depends on high-quality service signatures. Thanks for helping us expand the database!
+  - type: input
+    id: port
+    attributes:
+      label: Port Number
+      description: What is the default port for this service?
+      placeholder: e.g. 5432
+    validations:
+      required: true
+  - type: dropdown
+    id: protocol
+    attributes:
+      label: Protocol
+      options:
+        - TCP
+        - UDP
+  - type: textarea
+    id: banner
+    attributes:
+      label: Service Banner / Response
+      description: |
+        If possible, provide the raw response from the service. 
+        You can get this by running `zond scan <target> -p <port> -vv`
+      placeholder: |
+        e.g. 220 ProFTPD Server (ProFTPD) [127.0.0.1]
+    validations:
+      required: true
+  - type: input
+    id: service_name
+    attributes:
+      label: Expected Service Name
+      placeholder: e.g. PostgreSQL
+  - type: textarea
+    id: additional_info
+    attributes:
+      label: Additional Information
+      description: Any links to protocol documentation or specific software versions.

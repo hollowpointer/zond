@@ -35,6 +35,16 @@ body:
       label: Zond Version
       description: Run `zond --version`
       placeholder: v0.1.0
+  - type: textarea
+    id: logs
+    attributes:
+      label: Trace Logs
+      description: Please run the command with `-vv` and paste the relevant output.
+      placeholder: |
+        [TRACE] ...
+        [DEBUG] ...
+    validations:
+      required: false
   - type: dropdown
     id: os
     attributes:

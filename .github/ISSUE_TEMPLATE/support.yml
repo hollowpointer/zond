@@ -1,0 +1,24 @@
+name: 🙋 Support / Question
+description: Having trouble with a scan or need help with a command?
+labels: ["question"]
+body:
+  - type: textarea
+    id: goal
+    attributes:
+      label: What are you trying to do?
+      description: Describe the target environment or the specific scan you're attempting.
+      placeholder: e.g. "I'm trying to scan a local subnet but I'm getting intermittent timeouts."
+    validations:
+      required: true
+  - type: textarea
+    id: command
+    attributes:
+      label: Command used
+      description: Please provide the exact command you ran (hide sensitive IPs if needed).
+      placeholder: "zond scan --range 192.168.1.0/24 --ports 80,443"
+  - type: textarea
+    id: logs
+    attributes:
+      label: Output/Logs
+      description: Paste any error messages or unexpected output here.
+      render: shell
