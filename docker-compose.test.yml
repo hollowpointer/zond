@@ -1,5 +1,5 @@
-# Docker Compose for Zond Integration Testing
-# Simulates a multi-node, mixed-service network environment.
+# Docker Compose for Zond Topological Integration Testing
+# Simulates LAN discovery, multi-NIC usage, and Routed segments.
 
 services:
   scanner:
@@ -7,32 +7,44 @@ services:
       context: .
       dockerfile: docker/scanner/Dockerfile
     container_name: zond-integration-scanner
-    volumes:
-      - .:/app
     cap_add:
       - NET_ADMIN
       - NET_RAW
     networks:
       - lan_network
-      - isolated_network
+      - extra_network
     environment:
       - ZOND_LOG=trace
 
-  target-lan-1:
+  gateway:
+    image: debian:bookworm-slim
+    container_name: zond-gateway
+    cap_add:
+      - NET_ADMIN
+    command: >
+      sh -c "apt-get update && apt-get install -y iproute2 iptables &&
+             echo 1 > /proc/sys/net/ipv4/ip_forward &&
+             iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE &&
+             tail -f /dev/null"
+    networks:
+      - lan_network
+      - isolated_network
+
+  target-lan:
     build:
       context: .
       dockerfile: docker/targets/Dockerfile
-    container_name: zond-target-1
+    container_name: zond-target-lan
     networks:
       - lan_network
 
-  target-lan-2:
+  target-extra:
     build:
       context: .
       dockerfile: docker/targets/Dockerfile
-    container_name: zond-target-2
+    container_name: zond-target-extra
     networks:
-      - lan_network
+      - extra_network
 
   target-isolated:
     build:
@@ -48,6 +60,11 @@ networks:
     ipam:
       config:
         - subnet: 172.20.0.0/24
+  extra_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.25.0.0/24
   isolated_network:
     driver: bridge
     ipam:

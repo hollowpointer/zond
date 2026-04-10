@@ -60,10 +60,11 @@ trait NetworkExplorer {
 }
 
 pub async fn scan(target_map: TargetMap, cfg: &ZondConfig) -> anyhow::Result<Vec<Host>> {
+    STOP_SIGNAL.store(false, Ordering::Relaxed);
     let use_raw_sockets = preflight_check(cfg);
 
-    // Currently, even if we are root, we use the TCP connect scanner for port scanning
-    // until the privileged SYN scanner is fully implemented.
+    // Currently, even if we are root, we default to the TCP connect scanner for port scanning
+    // until a specialized privileged strategy (e.g. SYN scan) is fully implemented.
     if !use_raw_sockets || true {
         let dispatcher = dispatcher::Dispatcher::new(target_map);
         let rx = dispatcher.run_shuffled();
@@ -85,6 +86,7 @@ pub async fn scan(target_map: TargetMap, cfg: &ZondConfig) -> anyhow::Result<Vec
 /// - **State**: Updates [`FOUND_HOST_COUNT`] and reacts to [`STOP_SIGNAL`].
 /// - **Concurrency**: Spawns multiple Tokio tasks; ensure the caller is within a multi-threaded runtime.
 pub async fn discover(targets: IpSet, cfg: &ZondConfig) -> anyhow::Result<Vec<Host>> {
+    STOP_SIGNAL.store(false, Ordering::Relaxed);
     let use_raw_sockets = preflight_check(cfg);
     if !use_raw_sockets {
         return connect::discover(targets).await;
