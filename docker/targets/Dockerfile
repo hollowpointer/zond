@@ -5,6 +5,7 @@ RUN apt-get update && apt-get install -y \
     netcat-openbsd \
     python3 \
     nginx \
+    iproute2 \
     && rm -rf /var/lib/apt/lists/*
 
 RUN echo '#!/bin/bash\n\

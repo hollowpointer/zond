@@ -3,8 +3,28 @@ name: Lint & Format
 on:
   push:
     branches: [ "main" ]
+    paths:
+      - 'common/**'
+      - 'core/**'
+      - 'cli/**'
+      - 'plugins/**'
+      - 'protocols/**'
+      - 'tests/**'
+      - 'Cargo.toml'
+      - 'Cargo.lock'
+      - '.github/workflows/lint.yml'
   pull_request:
     branches: [ "main" ]
+    paths:
+      - 'common/**'
+      - 'core/**'
+      - 'cli/**'
+      - 'plugins/**'
+      - 'protocols/**'
+      - 'tests/**'
+      - 'Cargo.toml'
+      - 'Cargo.lock'
+      - '.github/workflows/lint.yml'
 
 jobs:
   lint:

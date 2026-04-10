@@ -155,7 +155,7 @@ mod tests {
     }
 
     #[test]
-    fn test_get_ip_addr_success() {
+    fn get_ip_addr_success() {
         let expected_ip = Ipv4Addr::new(192, 168, 1, 123);
         let valid_arp_payload_size = ARP_LEN;
         let buffer = build_mock_arp_packet(expected_ip, valid_arp_payload_size);
@@ -167,7 +167,7 @@ mod tests {
     }
 
     #[test]
-    fn test_get_ip_addr_truncated_payload() {
+    fn get_ip_addr_truncated_payload() {
         let truncated_payload_size = 10;
         let buffer = build_mock_arp_packet(Ipv4Addr::UNSPECIFIED, truncated_payload_size);
         let ethernet_packet = EthernetPacket::new(&buffer).unwrap();

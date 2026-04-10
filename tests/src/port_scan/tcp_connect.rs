@@ -13,7 +13,7 @@ use zond_common::models::target::{TargetMap, TargetSet};
 use zond_core::scanner;
 
 #[tokio::test]
-async fn test_tcp_connect_scan_open_port() {
+async fn tcp_connect_scan_open_port() {
     let listener = TcpListener::bind("127.0.0.1:0")
         .await
         .expect("Failed to bind listener");
@@ -57,7 +57,7 @@ async fn test_tcp_connect_scan_open_port() {
 }
 
 #[tokio::test]
-async fn test_tcp_connect_scan_closed_port() {
+async fn tcp_connect_scan_closed_port() {
     let port_num = {
         let listener = TcpListener::bind("127.0.0.1:0")
             .await

@@ -14,7 +14,7 @@ use crate::utils::NetnsContext;
 
 #[tokio::test]
 #[cfg(target_os = "linux")]
-async fn test_privileged_discovery_netns() {
+async fn privileged_discovery_netns() {
     let _ctx: NetnsContext = match NetnsContext::new("test1") {
         Some(c) => c,
         None => {
@@ -58,7 +58,7 @@ async fn test_privileged_discovery_netns() {
 
 #[tokio::test]
 #[cfg(target_os = "linux")]
-async fn test_privileged_discovery_hostname_resolution() {
+async fn privileged_discovery_hostname_resolution() {
     let ctx: NetnsContext = match NetnsContext::new("res-test") {
         Some(c) => c,
         None => return,
@@ -108,7 +108,7 @@ async fn test_privileged_discovery_hostname_resolution() {
 
 #[tokio::test]
 #[cfg(target_os = "linux")]
-async fn test_privileged_discovery_stress_multi_alias() {
+async fn privileged_discovery_stress_multi_alias() {
     let ctx: NetnsContext = match NetnsContext::new("stress-test") {
         Some(c) => c,
         None => return,

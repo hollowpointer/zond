@@ -35,6 +35,8 @@ services:
       context: .
       dockerfile: docker/targets/Dockerfile
     container_name: zond-target-lan
+    cap_add:
+      - NET_ADMIN
     networks:
       - lan_network
 
@@ -43,6 +45,8 @@ services:
       context: .
       dockerfile: docker/targets/Dockerfile
     container_name: zond-target-extra
+    cap_add:
+      - NET_ADMIN
     networks:
       - extra_network
 
@@ -51,6 +55,8 @@ services:
       context: .
       dockerfile: docker/targets/Dockerfile
     container_name: zond-target-isolated
+    cap_add:
+      - NET_ADMIN
     networks:
       - isolated_network
 

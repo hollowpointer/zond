@@ -84,7 +84,7 @@ mod tests {
     }
 
     #[test]
-    fn test_get_ipv4_nets() {
+    fn get_ipv4_nets() {
         let intf = mock_interface();
         let v4s = intf.get_ipv4_nets();
         assert_eq!(v4s.len(), 2);
@@ -93,7 +93,7 @@ mod tests {
     }
 
     #[test]
-    fn test_get_ipv6_nets() {
+    fn get_ipv6_nets() {
         let intf = mock_interface();
         let v6s = intf.get_ipv6_nets();
         assert_eq!(v6s.len(), 1);
@@ -101,7 +101,7 @@ mod tests {
     }
 
     #[test]
-    fn test_get_ipv4_range_ignores_loopback() {
+    fn get_ipv4_range_ignores_loopback() {
         let intf = mock_interface();
         let best_range = intf.get_ipv4_range();
         assert!(best_range.is_some());

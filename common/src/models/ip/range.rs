@@ -165,6 +165,60 @@ pub fn cidr_range(ip: Ipv4Addr, prefix: u8) -> Result<Ipv4Range, IpError> {
 // ╚════════════════════════════════════════════╝
 
 #[cfg(test)]
+mod property_tests {
+    use super::*;
+    use proptest::prelude::*;
+
+    fn any_ipv4() -> impl Strategy<Value = Ipv4Addr> {
+        proptest::prelude::any::<u32>().prop_map(Ipv4Addr::from)
+    }
+
+    // Strategy to generate a random Ipv4Range of reasonable size for iteration.
+    fn any_ipv4_range() -> impl Strategy<Value = Ipv4Range> {
+        (any_ipv4(), 0..5000u32).prop_map(|(start, len)| {
+            let start_u32 = u32::from(start);
+            let end_u32 = start_u32.saturating_add(len);
+            Ipv4Range::new(start, Ipv4Addr::from(end_u32)).unwrap()
+        })
+    }
+
+    proptest::proptest! {
+        #[test]
+        fn range_contains_boundaries(a in any_ipv4(), b in any_ipv4()) {
+            let start = std::cmp::min(a, b);
+            let end = std::cmp::max(a, b);
+            let range = Ipv4Range::new(start, end).unwrap();
+            prop_assert!(range.contains(&start));
+            prop_assert!(range.contains(&end));
+        }
+
+        #[test]
+        fn iterator_containment(range in any_ipv4_range()) {
+            let count = range.to_iter().count();
+            prop_assert_eq!(count as u64, range.len());
+        }
+
+        #[test]
+        fn cidr_length(ip in any_ipv4(), prefix in 0..=32u8) {
+            let range = cidr_range(ip, prefix).unwrap();
+            if prefix > 0 {
+                prop_assert_eq!(range.len(), 1u64 << (32 - prefix));
+            }
+        }
+
+        #[test]
+        fn parse_hyphenated_roundtrip(a in any_ipv4(), b in any_ipv4()) {
+            let start = std::cmp::min(a, b);
+            let end = std::cmp::max(a, b);
+            let s = format!("{}-{}", start, end);
+            let range = Ipv4Range::from_str(&s).unwrap();
+            prop_assert_eq!(range.start_addr, start);
+            prop_assert_eq!(range.end_addr, end);
+        }
+    }
+}
+
+#[cfg(test)]
 mod tests {
     use super::*;
     use std::net::{IpAddr, Ipv4Addr};

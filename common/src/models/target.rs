@@ -120,7 +120,7 @@ mod tests {
     }
 
     #[test]
-    fn test_target_set_math() {
+    fn target_set_math() {
         let ips = mock_ip_set("192.168.1.0/24"); // 256 IPs
         let ports = mock_port_set("80, 443, 1000-1007"); // 10 Ports
         let ts = TargetSet::new(ips, ports);
@@ -129,7 +129,7 @@ mod tests {
     }
 
     #[test]
-    fn test_target_set_iteration() {
+    fn target_set_iteration() {
         let ips = mock_ip_set("1.1.1.1, 1.1.1.2");
         let ports = mock_port_set("80, u:53");
         let ts = TargetSet::new(ips, ports);
@@ -153,7 +153,7 @@ mod tests {
     }
 
     #[test]
-    fn test_target_map_aggregation() {
+    fn target_map_aggregation() {
         let mut map = TargetMap::new();
 
         // Unit 1: 5 IPs, 2 Ports = 10 targets
@@ -174,7 +174,7 @@ mod tests {
     }
 
     #[test]
-    fn test_empty_behavior() {
+    fn empty_behavior() {
         let map = TargetMap::new();
         assert!(map.is_empty());
 
@@ -183,11 +183,70 @@ mod tests {
     }
 
     #[test]
-    fn test_u128_overflow_safety() {
+    fn u128_overflow_safety() {
         let large_ips = u32::MAX as u128 + 1; // 4,294,967,296
         let large_ports = u16::MAX as u128 + 1; // 65,536
 
         let result = large_ips * large_ports;
         assert_eq!(result, 281_474_976_710_656);
+    }
+}
+
+#[cfg(test)]
+mod property_tests {
+    use super::*;
+    use proptest::prelude::*;
+    use std::net::Ipv4Addr;
+
+    fn any_ipv4() -> impl Strategy<Value = Ipv4Addr> {
+        proptest::prelude::any::<u32>().prop_map(Ipv4Addr::from)
+    }
+
+    fn any_ip_set() -> impl Strategy<Value = IpSet> {
+        (any_ipv4(), any_ipv4()).prop_map(|(a, b)| {
+            let start = std::cmp::min(a, b);
+            let mut set = IpSet::new();
+            set.insert(std::net::IpAddr::V4(start));
+            set
+        })
+    }
+
+    // Generate a simple port set with a random number of ports
+    fn any_port_set() -> impl Strategy<Value = PortSet> {
+        (0..=100u16).prop_map(|count| {
+            let mut s = String::new();
+            for i in 0..count {
+                if i > 0 {
+                    s.push(',');
+                }
+                s.push_str(&format!("{}", i));
+            }
+            PortSet::try_from(s.as_str()).unwrap_or_default()
+        })
+    }
+
+    proptest::proptest! {
+        /// Verify that total_targets is always exactly (IPs * Ports).
+        #[test]
+        fn target_set_volume_invariant(ips in any_ip_set(), ports in any_port_set()) {
+            let ts = TargetSet::new(ips.clone(), ports.clone());
+            let expected = (ips.len() * ports.len() as u64) as u128;
+            prop_assert_eq!(ts.total_targets(), expected);
+        }
+
+        /// Verify that target maps correctly sum volumes from multiple units.
+        #[test]
+        fn target_map_summation(ips1 in any_ip_set(), ips2 in any_ip_set()) {
+            let mut map = TargetMap::new();
+            let ports = PortSet::default();
+
+            let ts1 = TargetSet::new(ips1.clone(), ports.clone());
+            let ts2 = TargetSet::new(ips2.clone(), ports.clone());
+
+            map.add_unit(ts1.clone());
+            map.add_unit(ts2.clone());
+
+            prop_assert_eq!(map.total_targets(), ts1.total_targets() + ts2.total_targets());
+        }
     }
 }

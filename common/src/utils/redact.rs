@@ -28,15 +28,22 @@ use pnet::util::MacAddr;
 /// assert_eq!(redact::hostname("pc"), "XXXXX");
 /// ```
 pub fn hostname(name: &str) -> String {
-    let len = name.len();
+    let char_count = name.chars().count();
 
     // If the name is too short to leave 2 chars on each side, just redact it fully
-    if len <= 4 {
+    if char_count <= 4 {
         return "XXXXX".to_string();
     }
 
-    let first_two = &name[..2];
-    let last_two = &name[len - 2..];
+    let first_two: String = name.chars().take(2).collect();
+    let last_two: String = name
+        .chars()
+        .rev()
+        .take(2)
+        .collect::<String>()
+        .chars()
+        .rev()
+        .collect();
 
     format!("{}XXXXX{}", first_two, last_two)
 }
@@ -138,45 +145,6 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_redact_mac_addr() {
-        let mac = pnet::util::MacAddr::new(0x2c, 0xcf, 0x67, 0xf2, 0x51, 0xe3);
-        assert_eq!(mac_addr(&mac), "2c:cf:67:XX:XX:XX");
-    }
-
-    #[test]
-    fn test_redact_hostname_standard() {
-        assert_eq!(hostname("kabelbox.local"), "kaXXXXXal");
-        assert_eq!(hostname("raspberrypi"), "raXXXXXpi");
-    }
-
-    #[test]
-    fn test_redact_hostname_short() {
-        // Names 4 chars or less should be fully masked
-        assert_eq!(hostname("ipad"), "XXXXX");
-        assert_eq!(hostname("pc"), "XXXXX");
-        assert_eq!(hostname(""), "XXXXX");
-    }
-
-    #[test]
-    fn test_redact_hostname_medium() {
-        // Just enough to show first 2 and last 2
-        assert_eq!(hostname("iphone"), "ipXXXXXne");
-    }
-
-    #[test]
-    fn mac_redaction_standard() {
-        let mac = MacAddr::new(0x2c, 0xcf, 0x67, 0xf2, 0x51, 0xe3);
-        assert_eq!(mac_addr(&mac), "2c:cf:67:XX:XX:XX");
-    }
-
-    #[test]
-    fn mac_redaction_leading_zeros() {
-        // Tests that 0x05 becomes "05" and not "5"
-        let mac = MacAddr::new(0x00, 0x05, 0x09, 0xaa, 0xbb, 0xcc);
-        assert_eq!(mac_addr(&mac), "00:05:09:XX:XX:XX");
-    }
-
-    #[test]
     fn mac_redaction_upper_boundary() {
         let mac = MacAddr::new(0xff, 0xff, 0xff, 0x00, 0x11, 0x22);
         assert_eq!(mac_addr(&mac), "ff:ff:ff:XX:XX:XX");
@@ -224,5 +192,56 @@ mod tests {
         let ip2 = "fd00:2222:2222::1".parse::<Ipv6Addr>().unwrap();
         assert_eq!(unique_local(&ip1), unique_local(&ip2));
         assert_eq!(unique_local(&ip1), "fd00::XXXX");
+    }
+}
+
+#[cfg(test)]
+mod property_tests {
+    use super::*;
+    use proptest::prelude::*;
+
+    proptest::proptest! {
+        /// Verify that any hostname over 4 characters never leaks its middle content.
+        #[test]
+        fn hostname_privacy_preserving(name in "[a-zA-Z0-9.-]{5,64}") {
+            let redacted = hostname(&name);
+            prop_assert!(redacted.contains("XXXXX"));
+            prop_assert!(redacted.starts_with(&name[..2]));
+            prop_assert!(redacted.ends_with(&name[name.len()-2..]));
+        }
+
+        /// Verify that short hostnames are always fully masked to a fixed constant.
+        #[test]
+        fn short_hostname_fully_masked(name in "[a-zA-Z0-9.-]{0,4}") {
+            let redacted = hostname(&name);
+            prop_assert_eq!(redacted, "XXXXX");
+        }
+
+        /// Verify that MAC redaction always preserves only the first 3 octets (OUI).
+        #[test]
+        fn mac_redaction_preserves_oui(
+            o1 in 0..=255u8, o2 in 0..=255u8, o3 in 0..=255u8,
+            o4 in 0..=255u8, o5 in 0..=255u8, o6 in 0..=255u8
+        ) {
+            let mac = MacAddr::new(o1, o2, o3, o4, o5, o6);
+            let redacted = mac_addr(&mac);
+            let expected_prefix = format!("{:02x}:{:02x}:{:02x}", o1, o2, o3);
+            prop_assert!(redacted.starts_with(&expected_prefix));
+            prop_assert!(redacted.ends_with("XX:XX:XX"));
+        }
+
+        /// Verify that Unique Local Address redaction always masks everything except the first segment.
+        #[test]
+        fn ula_masking_consistency(
+            s0 in 0xfc00..=0xfdffu16, // ULA range
+            s1 in 0..u16::MAX, s2 in 0..u16::MAX, s3 in 0..u16::MAX,
+            s4 in 0..u16::MAX, s5 in 0..u16::MAX, s6 in 0..u16::MAX, s7 in 0..u16::MAX
+        ) {
+            let ip = Ipv6Addr::new(s0, s1, s2, s3, s4, s5, s6, s7);
+            let redacted = unique_local(&ip);
+            let expected_prefix = format!("{:x}", s0);
+            prop_assert!(redacted.starts_with(&expected_prefix));
+            prop_assert!(redacted.ends_with("::XXXX"));
+        }
     }
 }

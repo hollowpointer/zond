@@ -192,7 +192,7 @@ mod tests {
     }
 
     #[test]
-    fn test_is_viable_down() {
+    fn is_viable_down() {
         let intf = mock_interface(false, true, true, false, false, true);
         assert_eq!(
             is_viable_lan_interface(&intf, |_| true),
@@ -201,7 +201,7 @@ mod tests {
     }
 
     #[test]
-    fn test_is_viable_not_physical() {
+    fn is_viable_not_physical() {
         let intf = mock_interface(true, true, true, false, false, true);
         assert_eq!(
             is_viable_lan_interface(&intf, |_| false),
@@ -210,7 +210,7 @@ mod tests {
     }
 
     #[test]
-    fn test_is_viable_no_mac() {
+    fn is_viable_no_mac() {
         let intf = mock_interface(true, false, true, false, false, true);
         assert_eq!(
             is_viable_lan_interface(&intf, |_| true),
@@ -219,7 +219,7 @@ mod tests {
     }
 
     #[test]
-    fn test_is_viable_success() {
+    fn is_viable_success() {
         let intf = mock_interface(true, true, true, false, false, true);
         assert_eq!(is_viable_lan_interface(&intf, |_| true), Ok(()));
     }

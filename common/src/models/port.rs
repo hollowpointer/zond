@@ -385,7 +385,7 @@ mod tests {
     }
 
     #[test]
-    fn port_set_try_from_str_parses_correctly() {
+    fn set_try_from_str_parses_correctly() {
         let port_set_single = PortSet::try_from("21");
         let port_set_multiple = PortSet::try_from("21, 22 80, 800-1000, u:53 8080");
 
@@ -406,7 +406,7 @@ mod tests {
     }
 
     #[test]
-    fn port_set_try_from_str_parses_udp_variants() {
+    fn set_try_from_str_parses_udp_variants() {
         let port_set_udp = PortSet::try_from("u:22 u:53-100, u:1024");
 
         assert!(port_set_udp.is_ok());
@@ -421,7 +421,7 @@ mod tests {
     }
 
     #[test]
-    fn port_set_empty_input() {
+    fn set_empty_input() {
         let empty = PortSet::try_from("   ");
         assert!(empty.is_ok());
         let set = empty.unwrap();
@@ -430,7 +430,7 @@ mod tests {
     }
 
     #[test]
-    fn port_set_boundaries() {
+    fn set_boundaries() {
         let limits = PortSet::try_from("0, 65535, u:0-65535").unwrap();
         assert!(limits.has_tcp(0));
         assert!(limits.has_tcp(65535));
@@ -440,14 +440,14 @@ mod tests {
     }
 
     #[test]
-    fn port_set_messy_delimiters() {
+    fn set_messy_delimiters() {
         let messy = PortSet::try_from(", 80, , 443 ,").unwrap();
         assert!(messy.has_tcp(80));
         assert!(messy.has_tcp(443));
     }
 
     #[test]
-    fn port_set_try_from_str_throws_errors() {
+    fn set_try_from_str_throws_errors() {
         let port_set_invalid_port = PortSet::try_from("80 70000 22");
         let port_set_invalid_range = PortSet::try_from("21 8000-80");
         let port_set_malformed_spec = PortSet::try_from("22 60-70-80 8080");
@@ -478,7 +478,7 @@ mod tests {
     }
 
     #[test]
-    fn port_set_try_from_string_parses_correctly() {
+    fn set_try_from_string_parses_correctly() {
         let port_set = PortSet::try_from(String::from("21 80-100 u:5353"));
 
         assert!(port_set.is_ok());
@@ -490,5 +490,54 @@ mod tests {
         assert!(port_set.has_tcp(92));
         assert!(port_set.has_tcp(100));
         assert!(port_set.has_udp(5353));
+    }
+}
+
+#[cfg(test)]
+mod property_tests {
+    use super::*;
+    use proptest::prelude::*;
+
+    proptest::proptest! {
+        /// Verify that any single port inserted is correctly contained in the set.
+        #[test]
+        fn single_port_containment(p in 0..=65535u16) {
+            let s = format!("{}", p);
+            let set = PortSet::from_str(&s).unwrap();
+            prop_assert!(set.has_tcp(p));
+            prop_assert_eq!(set.len(), 1);
+        }
+
+        /// Verify that any port range [a, b] contains all values within it.
+        #[test]
+        fn port_range_containment(a in 0..=65535u16, b in 0..=65535u16) {
+            let start = std::cmp::min(a, b);
+            let end = std::cmp::max(a, b);
+            let s = format!("{}-{}", start, end);
+            let set = PortSet::from_str(&s).unwrap();
+
+            prop_assert!(set.has_tcp(start));
+            prop_assert!(set.has_tcp(end));
+            prop_assert_eq!(set.len(), (end - start + 1) as usize);
+        }
+
+        /// Verify that UDP prefix 'u:' correctly assigns ports to the UDP set.
+        #[test]
+        fn udp_prefix_honored(p in 0..=65535u16) {
+            let s = format!("u:{}", p);
+            let set = PortSet::from_str(&s).unwrap();
+            prop_assert!(set.has_udp(p));
+            prop_assert!(!set.has_tcp(p));
+        }
+
+        /// Verify that comma-separated lists correctly aggregate multiple ports.
+        #[test]
+        fn multiple_ports_aggregation(p1 in 0..=1000u16, p2 in 2000..=3000u16) {
+            let s = format!("{}, {}", p1, p2);
+            let set = PortSet::from_str(&s).unwrap();
+            prop_assert!(set.has_tcp(p1));
+            prop_assert!(set.has_tcp(p2));
+            prop_assert_eq!(set.len(), 2);
+        }
     }
 }

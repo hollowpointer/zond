@@ -46,7 +46,7 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_known_vendor_lookup() {
+    fn vendor_lookup() {
         let cisco_mac = MacAddr::new(0x00, 0x00, 0x0C, 0x01, 0x02, 0x03);
         let raspberry_mac = MacAddr::new(0x2c, 0xcf, 0x67, 0x03, 0x02, 0x01);
         let asrock_mac = MacAddr::new(0xa8, 0xa1, 0x59, 0xff, 0xff, 0xff);
@@ -77,7 +77,7 @@ mod tests {
     }
 
     #[test]
-    fn test_unknown_vendor_lookup() {
+    fn unknown_vendor_lookup() {
         // This is a locally administered address (no vendors linked to it)
         let mac = MacAddr::new(0xDE, 0xAD, 0xBE, 0xEF, 0x00, 0x00);
         let vendor = get_vendor(mac);

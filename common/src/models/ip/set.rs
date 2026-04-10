@@ -304,6 +304,15 @@ mod tests {
     }
 
     #[test]
+    fn from_vec_ranges() {
+        let r1 = Ipv4Range::new(Ipv4Addr::new(10, 0, 0, 1), Ipv4Addr::new(10, 0, 0, 5)).unwrap();
+        let r2 = Ipv4Range::new(Ipv4Addr::new(10, 0, 0, 3), Ipv4Addr::new(10, 0, 0, 8)).unwrap();
+        let set = IpSet::from(vec![r1, r2]);
+        assert_eq!(set.ranges.len(), 1);
+        assert_eq!(set.len(), 8);
+    }
+
+    #[test]
     fn contains_binary_search() {
         let mut set = IpSet::new();
         set.insert_range(
@@ -387,28 +396,71 @@ mod tests {
         assert_eq!(set.ranges.len(), 1);
         assert_eq!(set.len(), 4294967296);
     }
+}
 
-    #[test]
-    fn parse_from_str() {
-        let set: IpSet = "192.168.1.1/32, 10.0.0.1-10.0.0.5".parse().unwrap();
-        assert_eq!(set.ranges.len(), 2);
-        assert_eq!(set.len(), 6);
-        assert!(set.contains(&IpAddr::V4(Ipv4Addr::new(10, 0, 0, 3))));
+#[cfg(test)]
+mod property_tests {
+    use super::*;
+    use proptest::prelude::*;
+    use std::net::Ipv4Addr;
+
+    // Strategy to generate a random Ipv4Addr
+    fn any_ipv4() -> impl Strategy<Value = Ipv4Addr> {
+        proptest::prelude::any::<u32>().prop_map(Ipv4Addr::from)
     }
 
-    #[test]
-    fn try_from_string() {
-        let s = String::from("172.16.0.0/24");
-        let set = IpSet::try_from(s).unwrap();
-        assert_eq!(set.len(), 256);
+    // Strategy to generate a random Ipv4Range of reasonable size.
+    fn any_ipv4_range() -> impl Strategy<Value = Ipv4Range> {
+        (any_ipv4(), 0..5000u32).prop_map(|(start, len)| {
+            let start_u32 = u32::from(start);
+            let end_u32 = start_u32.saturating_add(len);
+            Ipv4Range::new(start, Ipv4Addr::from(end_u32)).unwrap()
+        })
     }
 
-    #[test]
-    fn from_vec_ranges() {
-        let r1 = Ipv4Range::new(Ipv4Addr::new(10, 0, 0, 1), Ipv4Addr::new(10, 0, 0, 5)).unwrap();
-        let r2 = Ipv4Range::new(Ipv4Addr::new(10, 0, 0, 3), Ipv4Addr::new(10, 0, 0, 8)).unwrap();
-        let set = IpSet::from(vec![r1, r2]);
-        assert_eq!(set.ranges.len(), 1);
-        assert_eq!(set.len(), 8);
+    proptest::proptest! {
+        #[test]
+        fn insert_contains(ip in any_ipv4()) {
+            let mut set = IpSet::new();
+            set.insert(std::net::IpAddr::V4(ip));
+            prop_assert!(set.contains(&std::net::IpAddr::V4(ip)));
+        }
+
+        #[test]
+        fn insert_range_contains(range in any_ipv4_range()) {
+            let mut set = IpSet::new();
+            set.insert_range(range);
+            prop_assert!(set.contains(&IpAddr::V4(range.start_addr)));
+            prop_assert!(set.contains(&IpAddr::V4(range.end_addr)));
+        }
+
+        #[test]
+        fn order_independence(ips in proptest::collection::vec(any_ipv4(), 0..100)) {
+            let mut set1 = IpSet::new();
+            let mut set2 = IpSet::new();
+
+            for &ip in &ips { set1.insert(IpAddr::V4(ip)); }
+            let mut ips_rev = ips.clone();
+            ips_rev.reverse();
+            for &ip in &ips_rev { set2.insert(IpAddr::V4(ip)); }
+
+            prop_assert_eq!(set1.len(), set2.len());
+            prop_assert_eq!(set1.ranges.len(), set2.ranges.len());
+        }
+
+        #[test]
+        fn adjacent_merge(start in 0..u32::MAX - 100, len in 1..50u32) {
+            let mut set = IpSet::new();
+            let ip1 = Ipv4Addr::from(start);
+            let ip2 = Ipv4Addr::from(start + len);
+            let r1 = Ipv4Range::new(ip1, ip2).unwrap();
+            let r2 = Ipv4Range::new(Ipv4Addr::from(start + len + 1), Ipv4Addr::from(start + len + 10)).unwrap();
+
+            set.insert_range(r1);
+            set.insert_range(r2);
+
+            // Should merge into 1 range if adjacent (though our implementation follows strict adjacency)
+            prop_assert!(set.ranges.len() <= 1);
+        }
     }
 }

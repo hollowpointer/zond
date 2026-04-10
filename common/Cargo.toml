@@ -19,3 +19,5 @@ windows-sys = { version = "0.61.2", features = ["Win32_NetworkManagement_IpHelpe
 serde = { version = "1.0.228", features = ["derive"] }
 bincode = "1.3.3"
 
+[dev-dependencies]
+proptest = "1.6.0"

@@ -16,7 +16,7 @@ use crate::utils::NetnsContext;
 
 #[tokio::test]
 #[cfg(target_os = "linux")]
-async fn test_port_state_fidelity_unprivileged() {
+async fn port_state_fidelity_unprivileged() {
     let ctx = match NetnsContext::new("fidelity") {
         Some(c) => c,
         None => return,

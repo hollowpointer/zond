@@ -13,7 +13,7 @@ use zond_common::models::ip::{range::Ipv4Range, set::IpSet};
 use zond_core::scanner::{self, STOP_SIGNAL};
 
 #[tokio::test]
-async fn test_discovery_single_loopback() {
+async fn discovery_single_loopback() {
     let config: ZondConfig = ZondConfig {
         no_banner: true,
         no_dns: true,
@@ -42,7 +42,7 @@ async fn test_discovery_single_loopback() {
 }
 
 #[tokio::test]
-async fn test_discovery_range_loopback() {
+async fn discovery_range_loopback() {
     let cfg: ZondConfig = ZondConfig {
         no_banner: true,
         no_dns: true,
@@ -72,7 +72,7 @@ async fn test_discovery_range_loopback() {
 }
 
 #[tokio::test]
-async fn test_stop_signal_aborts() {
+async fn stop_signal_aborts() {
     let mut targets = IpSet::new();
     let start_addr: Ipv4Addr = Ipv4Addr::new(127, 0, 0, 1);
     let end_addr: Ipv4Addr = Ipv4Addr::new(127, 0, 255, 255);
@@ -103,7 +103,7 @@ async fn test_stop_signal_aborts() {
 }
 
 #[tokio::test]
-async fn test_discovery_empty_set() {
+async fn discovery_empty_set() {
     let cfg: ZondConfig = ZondConfig {
         no_banner: true,
         no_dns: true,
@@ -124,7 +124,7 @@ async fn test_discovery_empty_set() {
 }
 
 #[tokio::test]
-async fn test_discovery_redundant_ranges() {
+async fn discovery_redundant_ranges() {
     let cfg: ZondConfig = ZondConfig {
         no_banner: true,
         no_dns: true,
@@ -146,7 +146,7 @@ async fn test_discovery_redundant_ranges() {
 }
 
 #[tokio::test]
-async fn test_discovery_loopback_stress() {
+async fn discovery_loopback_stress() {
     let cfg: ZondConfig = ZondConfig {
         no_banner: true,
         no_dns: true,
