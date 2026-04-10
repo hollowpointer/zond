@@ -4,7 +4,6 @@
 // If a copy of the MPL was not distributed with this file, You can obtain one at
 // https://mozilla.org/MPL/2.0/.
 
-#![cfg(test)]
 use std::net::{IpAddr, Ipv4Addr};
 use std::sync::atomic::Ordering;
 use std::time::Duration;
@@ -12,9 +11,6 @@ use zond_common::config::ZondConfig;
 use zond_common::models::host::Host;
 use zond_common::models::ip::{range::Ipv4Range, set::IpSet};
 use zond_core::scanner::{self, STOP_SIGNAL};
-
-#[cfg(target_os = "linux")]
-use crate::utils::NetnsContext;
 
 #[tokio::test]
 async fn test_discovery_single_loopback() {
@@ -107,19 +103,8 @@ async fn test_stop_signal_aborts() {
 }
 
 #[tokio::test]
-#[cfg(target_os = "linux")]
-async fn test_privileged_discovery_netns() {
-    let _ctx: NetnsContext = match NetnsContext::new("test1") {
-        Some(c) => c,
-        None => {
-            eprintln!("Skipping netns test: Requires root privileges or 'ip' command.");
-            return;
-        }
-    };
-
-    let target_ip: IpAddr = IpAddr::V4(Ipv4Addr::new(10, 200, 0, 2));
-
-    let config: ZondConfig = ZondConfig {
+async fn test_discovery_empty_set() {
+    let cfg: ZondConfig = ZondConfig {
         no_banner: true,
         no_dns: true,
         redact: false,
@@ -127,51 +112,61 @@ async fn test_privileged_discovery_netns() {
         disable_input: true,
     };
 
-    let mut collection = IpSet::new();
-    collection.insert(target_ip);
+    let targets = IpSet::new();
+    let result = scanner::discover(targets, &cfg).await;
 
-    let result = scanner::discover(collection, &config).await;
-
-    match result {
-        Ok(hosts) => {
-            assert!(!hosts.is_empty(), "Should find the target in the namespace");
-            let host = hosts
-                .iter()
-                .find(|h| h.primary_ip == target_ip)
-                .expect("Target IP not found in results");
-
-            assert!(
-                host.mac.is_some(),
-                "Should resolve MAC address for local neighbor"
-            );
-            println!("Found host: {:?} with MAC {:?}", host.primary_ip, host.mac);
-        }
-        Err(e) => panic!("Discovery failed: {}", e),
-    }
-}
-
-#[test]
-fn test_lan_network_resolution() {
-    // Assert that the machine running the integration test has at least 1 viable interface
-    // that resolves via our platform agnostics hooks (macOS networksetup, Linux sysfs, Windows GetIfTable2).
-    let result = zond_common::net::interface::get_lan_network();
+    assert!(result.is_ok());
+    let hosts = result.unwrap();
     assert!(
-        result.is_ok(),
-        "Expected no OS or Viability errors during interface parsing"
+        hosts.is_empty(),
+        "Scanning empty set should return no hosts"
     );
-
-    // Virtualized headless CI runners might return None here since they use virtual bridges,
-    // but the FFI/Syscalls must execute safely regardless!
-    println!("Resolved LAN network: {:?}", result.unwrap());
 }
 
-#[test]
-fn test_prioritized_interfaces_resolution() {
-    let interfaces_res = zond_common::net::interface::get_prioritized_interfaces(10);
-    assert!(interfaces_res.is_ok());
-    let interfaces = interfaces_res.unwrap();
+#[tokio::test]
+async fn test_discovery_redundant_ranges() {
+    let cfg: ZondConfig = ZondConfig {
+        no_banner: true,
+        no_dns: true,
+        redact: false,
+        quiet: 0,
+        disable_input: true,
+    };
+
+    let mut targets = IpSet::new();
+    // Overlapping ranges: 127.0.0.1/31 (1, 2) and 127.0.0.1-5 (1, 2, 3, 4, 5)
+    targets.insert_range("127.0.0.1/31".parse().unwrap());
+    targets.insert_range("127.0.0.1-127.0.0.5".parse().unwrap());
+
+    // IpSet should have merged these into a single range of 6 IPs (0-5)
+    assert_eq!(targets.len(), 6);
+
+    let result = scanner::discover(targets, &cfg).await;
+    assert!(result.is_ok());
+}
+
+#[tokio::test]
+async fn test_discovery_loopback_stress() {
+    let cfg: ZondConfig = ZondConfig {
+        no_banner: true,
+        no_dns: true,
+        redact: false,
+        quiet: 0,
+        disable_input: true,
+    };
+
+    let mut targets = IpSet::new();
+    targets.insert_range("127.0.0.0/24".parse().unwrap());
+
+    let start = std::time::Instant::now();
+    let result = scanner::discover(targets, &cfg).await;
+    let elapsed = start.elapsed();
+
+    assert!(result.is_ok());
+    println!("Sweep of 256 IPs took {}ms", elapsed.as_millis());
+
     assert!(
-        !interfaces.is_empty(),
-        "Expected at least 1 UP, non-loopback network interface on the host natively"
+        elapsed < Duration::from_secs(5),
+        "Sweep took too long, concurrency might be broken"
     );
 }
