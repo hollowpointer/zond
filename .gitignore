@@ -29,3 +29,7 @@ coverage/
 # Packaging
 packaging/aur/src/
 packaging/aur/pkg/
+
+# Proptests
+**/proptest-regressions/
+

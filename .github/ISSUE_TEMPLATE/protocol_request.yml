@@ -39,7 +39,7 @@ body:
       placeholder: e.g. https://docs.oasis-open.org/mqtt/mqtt/v5.0/mqtt-v5.0.html
     validations:
       required: true
-  - type: checkbox
+  - type: checkboxes
     id: priority
     attributes:
       label: Desired Depth

@@ -45,6 +45,14 @@ body:
         [DEBUG] ...
     validations:
       required: false
+  - type: textarea
+    id: fix
+    attributes:
+      label: Proposed Fix
+      description: If you have a technical suggestion or a snippet, please share it!
+      placeholder: e.g. We should use zond_common::net::interface to filter the scan targets.
+    validations:
+      required: false
   - type: dropdown
     id: os
     attributes:
