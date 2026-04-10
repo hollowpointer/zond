@@ -1,0 +1,55 @@
+# Docker Compose for Zond Integration Testing
+# Simulates a multi-node, mixed-service network environment.
+
+services:
+  scanner:
+    build:
+      context: .
+      dockerfile: docker/scanner/Dockerfile
+    container_name: zond-integration-scanner
+    volumes:
+      - .:/app
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    networks:
+      - lan_network
+      - isolated_network
+    environment:
+      - ZOND_LOG=trace
+
+  target-lan-1:
+    build:
+      context: .
+      dockerfile: docker/targets/Dockerfile
+    container_name: zond-target-1
+    networks:
+      - lan_network
+
+  target-lan-2:
+    build:
+      context: .
+      dockerfile: docker/targets/Dockerfile
+    container_name: zond-target-2
+    networks:
+      - lan_network
+
+  target-isolated:
+    build:
+      context: .
+      dockerfile: docker/targets/Dockerfile
+    container_name: zond-target-isolated
+    networks:
+      - isolated_network
+
+networks:
+  lan_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/24
+  isolated_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.30.0.0/24

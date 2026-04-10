@@ -62,14 +62,15 @@ trait NetworkExplorer {
 pub async fn scan(target_map: TargetMap, cfg: &ZondConfig) -> anyhow::Result<Vec<Host>> {
     let use_raw_sockets = preflight_check(cfg);
 
-    // Non-root TCP connect scan
-    if !use_raw_sockets {
+    // Currently, even if we are root, we use the TCP connect scanner for port scanning
+    // until the privileged SYN scanner is fully implemented.
+    if !use_raw_sockets || true {
         let dispatcher = dispatcher::Dispatcher::new(target_map);
         let rx = dispatcher.run_shuffled();
         return connect::scan(rx, 50).await;
     }
 
-    // Root privileged scan logic not implemented yet
+    // Future: Implement privileged SYN scan strategy here
     Ok(Vec::new())
 }
 
