@@ -29,9 +29,9 @@ use std::net::{IpAddr, Ipv4Addr};
 use std::sync::atomic::{AtomicBool, Ordering};
 use thiserror::Error;
 
-use crate::net::interface;
 use crate::models::ip::range::{IpError, Ipv4Range};
 use crate::models::ip::set::IpSet;
+use crate::net::interface;
 use crate::{info, success, warn};
 
 /// Global indicator set to `true` if a "lan" resolution was successfully performed.

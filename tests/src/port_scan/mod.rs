@@ -9,5 +9,5 @@
 //! These tests focus on the accuracy of port state identification (Open,
 //! Closed, Filtered) across different protocols and scanning strategies.
 
-pub mod tcp_connect;
 pub mod fidelity;
+pub mod tcp_connect;

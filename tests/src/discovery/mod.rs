@@ -10,5 +10,5 @@
 //! network environments using both unprivileged (TCP sweeps) and
 //! privileged (ARP/ICMP) techniques.
 
-pub mod unprivileged;
 pub mod privileged;
+pub mod unprivileged;

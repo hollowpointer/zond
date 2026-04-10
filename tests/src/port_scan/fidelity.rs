@@ -29,15 +29,35 @@ async fn test_port_state_fidelity_unprivileged() {
     std::thread::spawn({
         let ns = ns_name.clone();
         move || {
-            let _ = crate::utils::netns::run_ns_cmd(&ns, "nc", &["-l", "-p", "80", "-e", "echo hi"]);
+            let _ =
+                crate::utils::netns::run_ns_cmd(&ns, "nc", &["-l", "-p", "80", "-e", "echo hi"]);
         }
     });
 
     // 2. FILTERED: Use iptables to DROP port 443
-    let _ = crate::utils::netns::run_ns_cmd(&ns_name, "iptables", &["-A", "INPUT", "-p", "tcp", "--dport", "443", "-j", "DROP"]);
+    let _ = crate::utils::netns::run_ns_cmd(
+        &ns_name,
+        "iptables",
+        &["-A", "INPUT", "-p", "tcp", "--dport", "443", "-j", "DROP"],
+    );
 
     // 3. BLOCKED: Use iptables to REJECT port 22
-    let _ = crate::utils::netns::run_ns_cmd(&ns_name, "iptables", &["-A", "INPUT", "-p", "tcp", "--dport", "22", "-j", "REJECT", "--reject-with", "tcp-reset"]);
+    let _ = crate::utils::netns::run_ns_cmd(
+        &ns_name,
+        "iptables",
+        &[
+            "-A",
+            "INPUT",
+            "-p",
+            "tcp",
+            "--dport",
+            "22",
+            "-j",
+            "REJECT",
+            "--reject-with",
+            "tcp-reset",
+        ],
+    );
 
     let config = ZondConfig {
         no_banner: true,

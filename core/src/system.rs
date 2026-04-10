@@ -200,7 +200,7 @@ pub fn get_firewall_status() -> anyhow::Result<FirewallStatus> {
         let output = Command::new("netsh")
             .args(["advfirewall", "show", "allprofiles", "state"])
             .output()?;
-        
+
         if output.status.success() {
             let stdout = String::from_utf8_lossy(&output.stdout);
             if stdout.to_lowercase().contains("on") {
@@ -271,10 +271,11 @@ mod windows_impl {
             let row = unsafe { &*tcp_table.table.as_ptr().add(i) };
             if row.dwState == MIB_TCP_STATE_LISTEN as u32 {
                 let pid = row.dwOwningPid;
-                let process_name = sys.process(Pid::from(pid as usize))
+                let process_name = sys
+                    .process(Pid::from(pid as usize))
                     .map(|p| p.name().to_string_lossy().into_owned())
                     .unwrap_or_else(|| "Unknown".to_string());
-                
+
                 entries.push(SocketInfo {
                     ip: IpAddr::V4(Ipv4Addr::from(u32::from_be(row.dwLocalAddr))),
                     port: u16::from_be(row.dwLocalPort as u16),
@@ -289,10 +290,11 @@ mod windows_impl {
         for i in 0..udp_table.dwNumEntries as usize {
             let row = unsafe { &*udp_table.table.as_ptr().add(i) };
             let pid = row.dwOwningPid;
-            let process_name = sys.process(Pid::from(pid as usize))
+            let process_name = sys
+                .process(Pid::from(pid as usize))
                 .map(|p| p.name().to_string_lossy().into_owned())
                 .unwrap_or_else(|| "Unknown".to_string());
-            
+
             entries.push(SocketInfo {
                 ip: IpAddr::V4(Ipv4Addr::from(u32::from_be(row.dwLocalAddr))),
                 port: u16::from_be(row.dwLocalPort as u16),
@@ -330,7 +332,8 @@ mod windows_impl {
         };
 
         if ret == NO_ERROR {
-            let ptr = Box::into_raw(buffer.into_boxed_slice()) as *mut MIB_TCPTABLE_OWNER_PID_INTERNAL;
+            let ptr =
+                Box::into_raw(buffer.into_boxed_slice()) as *mut MIB_TCPTABLE_OWNER_PID_INTERNAL;
             Ok(unsafe { Box::from_raw(ptr) })
         } else {
             anyhow::bail!("Failed to get TCP table: {}", ret)
@@ -363,7 +366,8 @@ mod windows_impl {
         };
 
         if ret == NO_ERROR {
-            let ptr = Box::into_raw(buffer.into_boxed_slice()) as *mut MIB_UDPTABLE_OWNER_PID_INTERNAL;
+            let ptr =
+                Box::into_raw(buffer.into_boxed_slice()) as *mut MIB_UDPTABLE_OWNER_PID_INTERNAL;
             Ok(unsafe { Box::from_raw(ptr) })
         } else {
             anyhow::bail!("Failed to get UDP table: {}", ret)

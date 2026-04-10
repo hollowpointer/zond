@@ -28,12 +28,12 @@ use std::sync::Arc;
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::time::Duration;
 
+use crate::terminal::insights;
 use colored::*;
 use indicatif::ProgressStyle;
 use tracing::Span;
 use tracing_indicatif::{IndicatifLayer, span_ext::IndicatifSpanExt};
 use tracing_subscriber::{EnvFilter, layer::SubscriberExt, util::SubscriberInitExt};
-use crate::terminal::insights;
 
 use crate::terminal::{colors, logging};
 

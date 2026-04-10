@@ -65,7 +65,7 @@ async fn test_discovery_range_loopback() {
     // macOS defaults to only assigning 127.0.0.1, whereas Linux assigns the full /8 block.
     // So macOS might just find 1, while Linux finds 3.
     assert!(
-        hosts.len() >= 1 && hosts.len() <= 3,
+        !hosts.is_empty() && hosts.len() <= 3,
         "Found anomalous amount of hosts: {}",
         hosts.len()
     );

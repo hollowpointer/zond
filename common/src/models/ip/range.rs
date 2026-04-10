@@ -328,7 +328,13 @@ mod tests {
 
     #[test]
     fn from_str_invalid() {
-        assert!(matches!("invalid".parse::<Ipv4Range>(), Err(IpError::AddrParse(_))));
-        assert!(matches!("10.0.0.1/40".parse::<Ipv4Range>(), Err(IpError::InvalidPrefix(40))));
+        assert!(matches!(
+            "invalid".parse::<Ipv4Range>(),
+            Err(IpError::AddrParse(_))
+        ));
+        assert!(matches!(
+            "10.0.0.1/40".parse::<Ipv4Range>(),
+            Err(IpError::InvalidPrefix(40))
+        ));
     }
 }

@@ -22,8 +22,6 @@ pub use macos_impl::{is_physical, is_wireless};
 pub use windows_impl::{is_physical, is_wireless};
 
 /// Determines if the interface corresponds to a physical adapter (not virtual).
-
-
 #[cfg(target_os = "linux")]
 pub mod linux_impl {
     use super::*;

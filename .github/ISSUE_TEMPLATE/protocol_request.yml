@@ -1,0 +1,49 @@
+name: 🚀 Protocol Support Request
+description: Request support for a new network protocol (L4/L7)
+labels: ["enhancement", "protocol"]
+body:
+  - type: textarea
+    id: protocol_description
+    attributes:
+      label: Protocol Overview
+      description: Provide a high-level description of the protocol.
+      placeholder: e.g. MQTT is a lightweight publish/subscribe messaging transport...
+    validations:
+      required: true
+  - type: input
+    id: port_ranges
+    attributes:
+      label: Port Numbers / Ranges
+      description: What are the standard/common ports used by this protocol?
+      placeholder: e.g. 1883, 8883
+  - type: dropdown
+    id: transport
+    attributes:
+      label: Transport Layer
+      options:
+        - TCP
+        - UDP
+        - SCTP
+        - Other
+  - type: textarea
+    id: use_case
+    attributes:
+      label: Use Case
+      description: How would Zond users benefit from this protocol support?
+      placeholder: e.g. Critical for discovering IoT devices on enterprise networks.
+  - type: textarea
+    id: documentation
+    attributes:
+      label: Documentation / RFCs
+      description: Please provide links to technical specifications or RFCs.
+      placeholder: e.g. https://docs.oasis-open.org/mqtt/mqtt/v5.0/mqtt-v5.0.html
+    validations:
+      required: true
+  - type: checkbox
+    id: priority
+    attributes:
+      label: Desired Depth
+      options:
+        - label: Basic Port Identification
+        - label: Service Fingerprinting (Banner Grabbing)
+        - label: Deep Probing (e.g. listing topics/resources)

@@ -4,8 +4,6 @@
 // If a copy of the MPL was not distributed with this file, You can obtain one at
 // https://mozilla.org/MPL/2.0/.
 
-
-
 /// Global configuration options for the scanner execution.
 ///
 /// This struct controls the runtime behavior of the application, including
@@ -29,8 +27,6 @@ pub struct ZondConfig {
     /// **Note:** This does not prevent the underlying OS or network stack from
     /// processing incoming DNS packets if they were initiated elsewhere.
     pub no_dns: bool,
-
-
 
     /// Enables privacy mode for sensitive data in the output.
     ///

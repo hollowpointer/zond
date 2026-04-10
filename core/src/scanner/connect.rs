@@ -6,15 +6,15 @@
 
 use std::collections::HashMap;
 
+use std::collections::HashSet;
 use std::net::{IpAddr, SocketAddr};
 use std::sync::atomic::Ordering;
+use std::sync::{Arc, Mutex};
 use std::time::{Duration, Instant};
 use tokio::net::TcpStream;
 use tokio::sync::mpsc;
 use tokio::task::JoinSet;
 use tokio::time::timeout;
-use std::collections::HashSet;
-use std::sync::{Arc, Mutex};
 use zond_common::models::host::Host;
 use zond_common::models::ip::set::IpSet;
 use zond_common::models::port::{Port, PortSet, PortState, Protocol};
@@ -30,8 +30,8 @@ const DISCOVERY_PORTS: &[u16] = &[22, 80, 443, 445, 3389];
 /// Performs a high-concurrency, unprivileged port scan.
 ///
 /// This engine is the primary scanning strategy for users without root privileges.
-/// It consumes a randomized stream of [`Target`]s from a [`Dispatcher`], maintaining 
-/// a strictly bounded concurrency set to prevent OS socket exhaustion. Discovered 
+/// It consumes a randomized stream of [`Target`]s from a [`Dispatcher`], maintaining
+/// a strictly bounded concurrency set to prevent OS socket exhaustion. Discovered
 /// open or filtered ports are aggregated into a collection of [`Host`] entities.
 pub async fn scan(
     mut rx: mpsc::Receiver<Target>,
@@ -46,22 +46,18 @@ pub async fn scan(
         }
 
         while set.len() >= concurrency_limit {
-            if let Some(res) = set.join_next().await {
-                if let Ok(Ok(Some((ip, port)))) = res {
-                    let host = results_map.entry(ip).or_insert_with(|| Host::new(ip));
-                    host.add_port(port);
-                }
+            if let Some(Ok(Ok(Some((ip, port))))) = set.join_next().await {
+                let host = results_map.entry(ip).or_insert_with(|| Host::new(ip));
+                host.add_port(port);
             }
         }
 
         set.spawn(async move { port_prober(target).await });
     }
 
-    while let Some(res) = set.join_next().await {
-        if let Ok(Ok(Some((ip, port)))) = res {
-            let host = results_map.entry(ip).or_insert_with(|| Host::new(ip));
-            host.add_port(port);
-        }
+    while let Some(Ok(Ok(Some((ip, port))))) = set.join_next().await {
+        let host = results_map.entry(ip).or_insert_with(|| Host::new(ip));
+        host.add_port(port);
     }
 
     Ok(results_map.into_values().collect())
@@ -113,29 +109,30 @@ async fn port_prober(target: Target) -> anyhow::Result<Option<(IpAddr, Port)>> {
 
 /// High-fidelity, multi-port host discovery for unprivileged environments.
 ///
-/// This engine performs a rapid sweep of target networks by probing a curated 
-/// set of infrastructure ports: SSH (22), HTTP (80), HTTPS (443), SMB (445), 
-/// and RDP (3389). This multi-port approach ensures high discovery fidelity 
+/// This engine performs a rapid sweep of target networks by probing a curated
+/// set of infrastructure ports: SSH (22), HTTP (80), HTTPS (443), SMB (445),
+/// and RDP (3389). This multi-port approach ensures high discovery fidelity
 /// across Linux, Windows, and embedded network targets.
 ///
 /// ### Characteristics
-/// - **Early-Exit**: Probes for an IP are immediately bypassed if the host 
+/// - **Early-Exit**: Probes for an IP are immediately bypassed if the host
 ///   has already been confirmed alive by a parallel task.
-/// - **Randomized**: Target distribution is handled by a shuffling [`Dispatcher`] 
+/// - **Randomized**: Target distribution is handled by a shuffling [`Dispatcher`]
 ///   to minimize local network congestion.
-/// - **Fidelity Range**: Uses an adjustable 1000ms timeout window to capture 
+/// - **Fidelity Range**: Uses an adjustable 1000ms timeout window to capture
 ///   hosts on high-latency or geographically distant links.
 pub async fn discover(ips: IpSet) -> anyhow::Result<Vec<Host>> {
     const CONCURRENCY_LIMIT: usize = 2048;
-    
+
     // 1. Prepare Target Map for all IP x Common Port combinations
     let mut target_map = TargetMap::new();
     let port_set = PortSet::try_from(
-        DISCOVERY_PORTS.iter()
+        DISCOVERY_PORTS
+            .iter()
             .map(|p| p.to_string())
             .collect::<Vec<_>>()
             .join(",")
-            .as_str()
+            .as_str(),
     )?;
     target_map.add_unit(TargetSet::new(ips, port_set));
 
@@ -153,10 +150,8 @@ pub async fn discover(ips: IpSet) -> anyhow::Result<Vec<Host>> {
         }
 
         while set.len() >= CONCURRENCY_LIMIT {
-            if let Some(res) = set.join_next().await {
-                if let Ok(Ok(Some(host))) = res {
-                    hosts.push(host);
-                }
+            if let Some(Ok(Ok(Some(host)))) = set.join_next().await {
+                hosts.push(host);
             }
         }
 
@@ -165,10 +160,8 @@ pub async fn discover(ips: IpSet) -> anyhow::Result<Vec<Host>> {
     }
 
     // 4. Final Collection
-    while let Some(res) = set.join_next().await {
-        if let Ok(Ok(Some(host))) = res {
-            hosts.push(host);
-        }
+    while let Some(Ok(Ok(Some(host)))) = set.join_next().await {
+        hosts.push(host);
     }
 
     Ok(hosts)
@@ -176,11 +169,14 @@ pub async fn discover(ips: IpSet) -> anyhow::Result<Vec<Host>> {
 
 /// Concurrent network host prober.
 ///
-/// Attempts a TCP connection to a specific [`Target`]. To minimize unnecessary 
-/// network traffic and OS resource usage, it employs a thread-safe early-exit 
-/// mechanism: if the host has already been identified by a parallel probe 
+/// Attempts a TCP connection to a specific [`Target`]. To minimize unnecessary
+/// network traffic and OS resource usage, it employs a thread-safe early-exit
+/// mechanism: if the host has already been identified by a parallel probe
 /// (e.g., SSH responded before HTTP), this task terminates immediately.
-async fn prober(target: Target, found_set: Arc<Mutex<HashSet<IpAddr>>>) -> anyhow::Result<Option<Host>> {
+async fn prober(
+    target: Target,
+    found_set: Arc<Mutex<HashSet<IpAddr>>>,
+) -> anyhow::Result<Option<Host>> {
     // 1. Early exit if already discovered
     {
         let set = found_set.lock().unwrap();
@@ -209,7 +205,9 @@ async fn prober(target: Target, found_set: Arc<Mutex<HashSet<IpAddr>>>) -> anyho
             use std::io::ErrorKind;
             // 3. Only specific TCP errors imply the target host responded at the IP/TCP layer
             match e.kind() {
-                ErrorKind::ConnectionRefused | ErrorKind::ConnectionReset | ErrorKind::ConnectionAborted => {
+                ErrorKind::ConnectionRefused
+                | ErrorKind::ConnectionReset
+                | ErrorKind::ConnectionAborted => {
                     let mut set = found_set.lock().unwrap();
                     if set.insert(target.ip) {
                         increment_host_count();
