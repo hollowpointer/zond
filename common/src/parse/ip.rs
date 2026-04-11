@@ -31,11 +31,15 @@ use thiserror::Error;
 
 use crate::models::ip::range::{IpError, Ipv4Range};
 use crate::models::ip::set::IpSet;
-use crate::net::interface;
 use crate::{info, success, warn};
 
 /// Global indicator set to `true` if a "lan" resolution was successfully performed.
 pub static IS_LAN_SCAN: AtomicBool = AtomicBool::new(false);
+
+pub enum Keyword {
+    Lan,
+    Vpn,
+}
 
 /// Errors encountered during the parsing or resolution of IP-related strings.
 #[derive(Debug, Error, PartialEq, Eq)]
@@ -89,7 +93,11 @@ pub enum IpParseError {
 /// // /24 (256) + single (1) + range 5-10 (6) = 263
 /// assert_eq!(set.len(), 263);
 /// ```
-pub fn to_set<S: AsRef<str>>(inputs: &[S]) -> Result<IpSet, IpParseError> {
+pub fn to_set<S, F>(inputs: &[S], resolve_fn: &F) -> Result<IpSet, IpParseError>
+where
+    S: AsRef<str>,
+    F: Fn(Keyword, &mut IpSet) -> Result<(), IpParseError>,
+{
     let mut set = IpSet::new();
 
     for input in inputs {
@@ -100,10 +108,10 @@ pub fn to_set<S: AsRef<str>>(inputs: &[S]) -> Result<IpSet, IpParseError> {
 
         if s.contains(',') {
             for part in s.split(',').map(|p| p.trim()).filter(|p| !p.is_empty()) {
-                parse_and_insert(part, &mut set)?;
+                parse_and_insert(part, &mut set, resolve_fn)?;
             }
         } else {
-            parse_and_insert(s, &mut set)?;
+            parse_and_insert(s, &mut set, resolve_fn)?;
         }
     }
 
@@ -119,9 +127,12 @@ pub fn to_set<S: AsRef<str>>(inputs: &[S]) -> Result<IpSet, IpParseError> {
 }
 
 /// Identifies the format of a single target string and inserts it into the set.
-fn parse_and_insert(s: &str, set: &mut IpSet) -> Result<(), IpParseError> {
+fn parse_and_insert<F>(s: &str, set: &mut IpSet, resolve_fn: F) -> Result<(), IpParseError>
+where
+    F: Fn(Keyword, &mut IpSet) -> Result<(), IpParseError>,
+{
     if s.eq_ignore_ascii_case("lan") {
-        return resolve_lan(set);
+        return resolve_fn(Keyword::Lan, set);
     }
 
     if s.contains('/') {
@@ -140,37 +151,6 @@ fn parse_and_insert(s: &str, set: &mut IpSet) -> Result<(), IpParseError> {
         .parse::<IpAddr>()
         .map_err(|_| IpParseError::Malformed(s.to_string()))?;
     set.insert(ip);
-
-    Ok(())
-}
-
-/// Dynamically resolves the host's primary LAN interface into an inclusive range.
-fn resolve_lan(set: &mut IpSet) -> Result<(), IpParseError> {
-    let net = interface::get_lan_network()
-        .map_err(|e| IpParseError::LanError(e.to_string()))?
-        .ok_or_else(|| IpParseError::LanError("No active network interface found".into()))?;
-
-    let start_u32 = u32::from(net.network()).saturating_add(1);
-    let end_u32 = u32::from(net.broadcast()).saturating_sub(1);
-
-    if start_u32 <= end_u32 {
-        IS_LAN_SCAN.store(true, Ordering::Relaxed);
-        let range = Ipv4Range::new(Ipv4Addr::from(start_u32), Ipv4Addr::from(end_u32)).map_err(
-            |e| match e {
-                IpError::InvalidRange(s, e) => IpParseError::InvalidRange(s, e),
-                _ => IpParseError::LanError("Invalid LAN range".into()),
-            },
-        )?;
-
-        info!(
-            verbosity = 1,
-            "Resolved LAN: {} - {}", range.start_addr, range.end_addr
-        );
-        set.insert_range(range);
-    } else {
-        warn!("Small subnet; scanning full network range.");
-        set.insert_range(Ipv4Range::new(net.network(), net.broadcast()).unwrap());
-    }
 
     Ok(())
 }
@@ -248,10 +228,14 @@ mod tests {
     use super::*;
     use std::net::Ipv4Addr;
 
+    fn noop_resolver(_: Keyword, _: &mut IpSet) -> Result<(), IpParseError> {
+        Ok(())
+    }
+
     #[test]
     fn to_set_basic_single() {
         let input = vec!["192.168.1.1"];
-        let set = to_set(&input).expect("Should parse single IP");
+        let set = to_set(&input, &noop_resolver).expect("Should parse single IP");
         assert_eq!(set.len(), 1);
         assert!(set.contains(&IpAddr::V4(Ipv4Addr::new(192, 168, 1, 1))));
     }
@@ -259,7 +243,7 @@ mod tests {
     #[test]
     fn to_set_comma_separated() {
         let input = vec!["10.0.0.1, 10.0.0.2, 10.0.0.5"];
-        let set = to_set(&input).expect("Should parse comma list");
+        let set = to_set(&input, &noop_resolver).expect("Should parse comma list");
         assert_eq!(set.len(), 3);
         assert!(set.contains(&IpAddr::V4(Ipv4Addr::new(10, 0, 0, 1))));
     }
@@ -267,35 +251,54 @@ mod tests {
     #[test]
     fn parse_cidr_blocks() {
         let input = vec!["172.16.0.0/24"];
-        let set = to_set(&input).expect("Should parse CIDR");
+        let set = to_set(&input, &noop_resolver).expect("Should parse CIDR");
         assert_eq!(set.len(), 256);
     }
 
     #[test]
     fn parse_short_range_suffix() {
         let input = vec!["192.168.1.250-2.10"];
-        let set = to_set(&input).unwrap();
+        let set = to_set(&input, &noop_resolver).unwrap();
         assert_eq!(set.len(), 17);
     }
 
     #[test]
     fn error_invalid_cidr() {
         let input = vec!["192.168.1.1/33"];
-        let result = to_set(&input);
+        let result = to_set(&input, &noop_resolver);
         assert_eq!(result.unwrap_err(), IpParseError::InvalidPrefix(33));
     }
 
     #[test]
     fn error_invalid_range_order() {
         let input = vec!["10.0.0.10-1"];
-        let result = to_set(&input);
+        let result = to_set(&input, &noop_resolver);
         assert!(matches!(result, Err(IpParseError::InvalidRange(_, _))));
     }
 
     #[test]
     fn empty_input_error() {
         let input: Vec<&str> = vec!["", " "];
-        let result = to_set(&input);
+        let result = to_set(&input, &noop_resolver);
         assert_eq!(result.unwrap_err(), IpParseError::EmptySet);
+    }
+
+    #[test]
+    fn lan_keyword_resolution() {
+        let input = vec!["lan"];
+
+        // We define a closure that simulates finding a LAN interface
+        let mock_lan = |key: Keyword, set: &mut IpSet| match key {
+            Keyword::Lan => {
+                set.insert("10.0.0.1".parse().unwrap());
+                Ok(())
+            }
+            _ => Ok(()),
+        };
+
+        let set = to_set(&input, &mock_lan).expect("Should resolve LAN keyword");
+
+        assert!(set.contains(&"10.0.0.1".parse().unwrap()));
+        assert_eq!(set.len(), 1);
     }
 }

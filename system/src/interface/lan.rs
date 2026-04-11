@@ -5,9 +5,9 @@
 // https://mozilla.org/MPL/2.0/.
 
 use super::os::{is_physical, is_wireless};
-use crate::info;
 use pnet::datalink::NetworkInterface;
 use pnet::ipnetwork::{IpNetwork, Ipv4Network};
+use zond_common::info;
 
 /// Errors arising from network validation constraints during LAN interface selection.
 #[derive(Debug, PartialEq, Eq, Clone, Copy)]

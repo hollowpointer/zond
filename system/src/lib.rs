@@ -11,13 +11,5 @@
 //! and routing an arbitrary set of network targets securely out of the host boundaries.
 //!
 //! Exposes a clean facade for all interface management logic to consumers.
-pub mod ext;
-pub mod lan;
-pub mod os;
-pub mod routing;
-pub mod utils;
 
-pub use ext::NetworkInterfaceExtension;
-pub use lan::{ViabilityError, get_lan_network};
-pub use routing::map_ips_to_interfaces;
-pub use utils::{get_prioritized_interfaces, is_layer_2_capable, is_on_link};
+pub mod interface;

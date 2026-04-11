@@ -5,12 +5,14 @@
 // https://mozilla.org/MPL/2.0/.
 
 use serde::{Deserialize, Serialize};
+use std::collections::HashMap;
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ServiceSignature {
     pub name: String,
     pub default_ports: Vec<u16>,
     pub description: Option<String>,
+    pub attribution: Option<String>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -27,6 +29,9 @@ pub struct MatchRule {
     pub version_group: Option<u8>,
     pub vendor: Option<String>,
     pub product: Option<String>,
+    pub context: Option<String>,
+    pub example: Option<String>,
+    pub metadata: Option<HashMap<String, String>>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]

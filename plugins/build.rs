@@ -5,6 +5,7 @@
 // https://mozilla.org/MPL/2.0/.
 
 use serde::{Deserialize, Serialize};
+use std::collections::HashMap;
 use std::env;
 use std::fs;
 use std::path::Path;
@@ -14,6 +15,7 @@ pub struct ServiceSignature {
     pub name: String,
     pub default_ports: Vec<u16>,
     pub description: Option<String>,
+    pub attribution: Option<String>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -30,6 +32,9 @@ pub struct MatchRule {
     pub version_group: Option<u8>,
     pub vendor: Option<String>,
     pub product: Option<String>,
+    pub context: Option<String>,
+    pub example: Option<String>,
+    pub metadata: Option<HashMap<String, String>>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -69,7 +74,7 @@ fn main() {
     for path in toml_files {
         let content = fs::read_to_string(&path).unwrap();
         let def: ServiceDefinition = toml::from_str(&content)
-            .unwrap_or_else(|_| panic!("Failed to parse {:?}", path));
+            .unwrap_or_else(|e| panic!("Failed to parse {:?}: {}", path, e));
         services.push(def);
     }
 
