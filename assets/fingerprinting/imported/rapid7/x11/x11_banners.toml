@@ -1,0 +1,207 @@
+# This file contains fingerprints imported from Rapid7 Recog.
+# Source: https://github.com/rapid7/recog
+# License: BSD-2-Clause
+
+[service]
+attribution = "Rapid7 Recog"
+name = "x11"
+default_ports = []
+description = "Imported from Rapid7 x11_banners"
+
+[[match]]
+name = "AT&T Laboratories Cambridge"
+pattern = "^AT&T Laboratories Cambridge$"
+vendor = "AT&T Laboratories Cambridge"
+product = "Xvnc"
+context = "x11.vendor"
+example = "AT&T Laboratories Cambridge"
+
+[[match]]
+name = "CentOS"
+pattern = "^CentOS$"
+vendor = "X.Org"
+product = "X.Org X11"
+context = "x11.vendor"
+example = "CentOS"
+metadata = { "os.vendor" = "CentOS", "service.cpe23" = "cpe:/a:x.org:x11:-", "os.product" = "Linux", "os.family" = "Linux", "os.cpe23" = "cpe:/o:centos:centos:-" }
+
+[[match]]
+name = "Colin Harrison"
+pattern = "^Colin Harrison$"
+vendor = "Colin Harrison"
+product = "Xming"
+context = "x11.vendor"
+example = "Colin Harrison"
+metadata = { "os.vendor" = "Microsoft", "os.product" = "Windows", "os.family" = "Windows", "os.cpe23" = "cpe:/o:microsoft:windows:-" }
+
+[[match]]
+name = "DECWINDOWS DigitalEquipmentCorporation, eXcursion"
+pattern = "^DECWINDOWS DigitalEquipmentCorporation, eXcursion$"
+vendor = "DEC"
+product = "DEC eXcursion X Server"
+context = "x11.vendor"
+example = "DECWINDOWS DigitalEquipmentCorporation, eXcursion"
+metadata = { "os.vendor" = "Microsoft", "os.product" = "Windows", "os.family" = "Windows", "os.cpe23" = "cpe:/o:microsoft:windows:-" }
+
+[[match]]
+name = "DECWINDOWS Hewlett-Packard Development Company OpenVMS"
+pattern = "^DECWINDOWS Hewlett-Packard Development Company OpenVMS$"
+vendor = "DEC"
+product = "OpenVMS"
+context = "x11.vendor"
+example = "DECWINDOWS Hewlett-Packard Development Company OpenVMS"
+metadata = { "os.vendor" = "DEC", "os.product" = "OpenVMS", "os.family" = "OpenVMS" }
+
+[[match]]
+name = "Fedora Project"
+pattern = "^Fedora Project$"
+vendor = "X.Org"
+product = "X.Org X11"
+context = "x11.vendor"
+example = "Fedora Project"
+metadata = { "os.vendor" = "Fedora Project", "service.cpe23" = "cpe:/a:x.org:x11:-", "os.product" = "Fedora Core", "os.family" = "Linux", "os.cpe23" = "cpe:/o:fedoraproject:fedora_core:-" }
+
+[[match]]
+name = "freedesktop.org"
+pattern = "^freedesktop\\.org$"
+vendor = "X.Org"
+product = "X.Org X11"
+context = "x11.vendor"
+example = "freedesktop.org"
+metadata = { "os.vendor" = "Linux", "service.cpe23" = "cpe:/a:x.org:x11:-", "os.product" = "Linux", "os.family" = "Linux", "os.cpe23" = "cpe:/o:linux:linux_kernel:-" }
+
+[[match]]
+name = "HC-Consult"
+pattern = "^HC-Consult$"
+vendor = "VcXsrv"
+product = "VcXsrv"
+context = "x11.vendor"
+example = "HC-Consult"
+metadata = { "os.vendor" = "Microsoft", "os.product" = "Windows", "os.family" = "Windows", "os.cpe23" = "cpe:/o:microsoft:windows:-" }
+
+[[match]]
+name = "Hummingbird Communications Ltd."
+pattern = "^Hummingbird Communications Ltd\\.$|^Hummingbird Ltd\\.$"
+vendor = "Hummingbird Ltd."
+product = "Hummingbird Exceed X server"
+context = "x11.vendor"
+example = "Hummingbird Communications Ltd."
+metadata = { "os.vendor" = "Microsoft", "os.product" = "Windows", "os.family" = "Windows", "os.cpe23" = "cpe:/o:microsoft:windows:-" }
+
+[[match]]
+name = "Labtam Inc"
+pattern = "^Labtam Inc$"
+vendor = "Labtam"
+product = "XSecurePro"
+context = "x11.vendor"
+example = "Labtam Inc"
+metadata = { "os.vendor" = "Microsoft", "os.product" = "Windows", "os.family" = "Windows", "os.cpe23" = "cpe:/o:microsoft:windows:-" }
+
+[[match]]
+name = "Moba/X"
+pattern = "^Moba\\/X$"
+vendor = "Mobatek"
+product = "MobaXterm"
+context = "x11.vendor"
+example = "Moba/X"
+metadata = { "os.vendor" = "Microsoft", "service.cpe23" = "cpe:/a:mobatek:mobaxterm:-", "os.product" = "Windows", "os.family" = "Windows", "os.cpe23" = "cpe:/o:microsoft:windows:-" }
+
+[[match]]
+name = "MobaXterm"
+pattern = "^MobaXterm$"
+vendor = "Mobatek"
+product = "MobaXterm"
+context = "x11.vendor"
+example = "MobaXterm"
+metadata = { "os.vendor" = "Microsoft", "service.cpe23" = "cpe:/a:mobatek:mobaxterm:-", "os.product" = "Windows", "os.family" = "Windows", "os.cpe23" = "cpe:/o:microsoft:windows:-" }
+
+[[match]]
+name = "NetSarang Computer, Inc."
+pattern = "^NetSarang Computer, Inc\\.$"
+vendor = "NetSarang Computer, Inc."
+product = "NetSarang XManager"
+context = "x11.vendor"
+example = "NetSarang Computer, Inc."
+metadata = { "os.vendor" = "Microsoft", "os.product" = "Windows", "os.family" = "Windows", "os.cpe23" = "cpe:/o:microsoft:windows:-" }
+
+[[match]]
+name = "Open Text"
+pattern = "^Open Text$"
+vendor = "Open Text"
+product = "OpenText Exceed"
+context = "x11.vendor"
+example = "Open Text"
+metadata = { "os.vendor" = "Microsoft", "os.product" = "Windows", "os.family" = "Windows", "os.cpe23" = "cpe:/o:microsoft:windows:-" }
+
+[[match]]
+name = "Red Hat, Inc."
+pattern = "^Red Hat, Inc\\.$"
+vendor = "X.Org"
+product = "X.Org X11"
+context = "x11.vendor"
+example = "Red Hat, Inc."
+metadata = { "os.vendor" = "Red Hat", "service.cpe23" = "cpe:/a:x.org:x11:-", "os.product" = "Linux", "os.family" = "Linux", "os.cpe23" = "cpe:/o:redhat:linux:-" }
+
+[[match]]
+name = "Santa Cruz Operation Inc."
+pattern = "^Santa Cruz Operation Inc\\.$"
+vendor = "SCO"
+product = "SCO X server"
+context = "x11.vendor"
+example = "Santa Cruz Operation Inc."
+metadata = { "os.vendor" = "SCO", "os.product" = "SCO UNIX", "os.family" = "SCO UNIX", "os.cpe23" = "cpe:/o:sco:sco_unix:-" }
+
+[[match]]
+name = "StarNet Communications Corp."
+pattern = "^StarNet Communications Corp\\.$"
+vendor = "StarNet Communications Corp."
+product = "StarNet X-Win32"
+context = "x11.vendor"
+example = "StarNet Communications Corp."
+metadata = { "os.vendor" = "Microsoft", "os.product" = "Windows", "os.family" = "Windows", "os.cpe23" = "cpe:/o:microsoft:windows:-" }
+
+[[match]]
+name = "Sun Microsystems, Inc."
+pattern = "^Sun Microsystems, Inc\\.$"
+vendor = "Sun"
+product = "XSun Solaris X11 server"
+context = "x11.vendor"
+example = "Sun Microsystems, Inc."
+metadata = { "os.vendor" = "Sun", "os.product" = "Solaris", "os.family" = "Solaris", "os.cpe23" = "cpe:/o:sun:solaris:-" }
+
+[[match]]
+name = "The Cygwin/X Project"
+pattern = "^The Cygwin\\/X Project$"
+vendor = "Red Hat"
+product = "Cygwin X Server Project"
+context = "x11.vendor"
+example = "The Cygwin/X Project"
+metadata = { "os.vendor" = "Microsoft", "service.cpe23" = "cpe:/a:redhat:cygwin:-", "os.product" = "Windows", "os.family" = "Windows", "os.cpe23" = "cpe:/o:microsoft:windows:-" }
+
+[[match]]
+name = "The X.Org Foundation"
+pattern = "^The X\\.Org Foundation$"
+vendor = "X.Org"
+product = "X.Org X11"
+context = "x11.vendor"
+example = "The X.Org Foundation"
+metadata = { "os.vendor" = "UNIX", "service.cpe23" = "cpe:/a:x.org:x11:-", "os.product" = "UNIX", "os.family" = "UNIX" }
+
+[[match]]
+name = "The XFree86 Project, Inc"
+pattern = "^The XFree86 Project, Inc$"
+vendor = "XFree86"
+product = "XFree86"
+context = "x11.vendor"
+example = "The XFree86 Project, Inc"
+metadata = { "os.vendor" = "UNIX", "service.cpe23" = "cpe:/a:xfree86:xfree86:-", "os.product" = "UNIX", "os.family" = "UNIX" }
+
+[[match]]
+name = "WRQ, Inc."
+pattern = "^WRQ, Inc\\.$"
+vendor = "WRQ, Inc."
+product = "ReflectionX"
+context = "x11.vendor"
+example = "WRQ, Inc."
+metadata = { "os.vendor" = "Microsoft", "os.product" = "Windows", "os.family" = "Windows", "os.cpe23" = "cpe:/o:microsoft:windows:-" }
+

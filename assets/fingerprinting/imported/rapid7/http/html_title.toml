@@ -1,0 +1,3644 @@
+# This file contains fingerprints imported from Rapid7 Recog.
+# Source: https://github.com/rapid7/recog
+# License: BSD-2-Clause
+
+[service]
+attribution = "Rapid7 Recog"
+name = "http"
+default_ports = []
+description = "Imported from Rapid7 html_title"
+
+[[match]]
+name = "301 Moved Permanently - generic -- assert nothing."
+pattern = "^301 Moved Permanently$"
+context = "html_title"
+example = "301 Moved Permanently"
+metadata = { "hw.certainty" = "0.0", "os.certainty" = "0.0", "service.certainty" = "0.0" }
+
+[[match]]
+name = "302 Found - generic -- assert nothing."
+pattern = "^302 Found$"
+context = "html_title"
+example = "302 Found"
+metadata = { "hw.certainty" = "0.0", "os.certainty" = "0.0", "service.certainty" = "0.0" }
+
+[[match]]
+name = "400 Bad Request - generic -- assert nothing."
+pattern = "^400 Bad Request$"
+context = "html_title"
+example = "400 Bad Request"
+metadata = { "hw.certainty" = "0.0", "os.certainty" = "0.0", "service.certainty" = "0.0" }
+
+[[match]]
+name = "401 Unauthorized - generic -- assert nothing."
+pattern = "^401 Unauthorized$"
+context = "html_title"
+example = "401 Unauthorized"
+metadata = { "hw.certainty" = "0.0", "os.certainty" = "0.0", "service.certainty" = "0.0" }
+
+[[match]]
+name = "403 Forbidden - generic -- assert nothing."
+pattern = "^403 Forbidden$"
+context = "html_title"
+example = "403 Forbidden"
+metadata = { "hw.certainty" = "0.0", "os.certainty" = "0.0", "service.certainty" = "0.0" }
+
+[[match]]
+name = "404 Not Found - generic -- assert nothing."
+pattern = "^(?:404 )?Not Found$"
+context = "html_title"
+example = "404 Not Found"
+metadata = { "hw.certainty" = "0.0", "os.certainty" = "0.0", "service.certainty" = "0.0" }
+
+[[match]]
+name = "Invalid URL - generic -- assert nothing."
+pattern = "^Invalid URL$"
+context = "html_title"
+example = "Invalid URL"
+metadata = { "hw.certainty" = "0.0", "os.certainty" = "0.0", "service.certainty" = "0.0" }
+
+[[match]]
+name = "Amazon CloudFront web load balancer endpoint"
+pattern = "^ERROR: The request could not be satisfied$"
+vendor = "Amazon"
+product = "CloudFront Load Balancer"
+context = "html_title"
+example = "ERROR: The request could not be satisfied"
+metadata = { "service.family" = "CloudFront", "service.cpe23" = "cpe:/a:amazon:amazon_cloudfront:-" }
+
+[[match]]
+name = "Microsoft Azure Web App - Error 404"
+pattern = "^Microsoft Azure Web App - Error 404$"
+vendor = "Microsoft"
+product = "Azure App Service on Azure Stack"
+context = "html_title"
+example = "Microsoft Azure Web App - Error 404"
+metadata = { "service.family" = "Azure", "service.cpe23" = "cpe:/a:microsoft:azure_app_service_on_azure_stack:-" }
+
+[[match]]
+name = "Apache HTTPD indexes"
+pattern = "^Index of /"
+vendor = "Apache"
+product = "HTTPD"
+context = "html_title"
+example = "Index of /"
+metadata = { "service.family" = "Apache", "service.cpe23" = "cpe:/a:apache:http_server:-" }
+
+[[match]]
+name = "Apache HTTPD default installation on Amazon Linux"
+pattern = "^Test Page for the Nginx HTTP Server on (?:the )?Amazon Linux(?: AMI)?$"
+vendor = "Apache"
+product = "HTTPD"
+context = "html_title"
+example = "Test Page for the Nginx HTTP Server on the Amazon Linux AMI"
+metadata = { "service.family" = "Apache", "service.cpe23" = "cpe:/a:apache:http_server:-", "os.vendor" = "Amazon", "os.family" = "Linux", "os.product" = "Linux AMI" }
+
+[[match]]
+name = "Apache HTTPD default installation on CentOS"
+pattern = "^Apache HTTP Server Test Page powered by CentOS$"
+vendor = "Apache"
+product = "HTTPD"
+context = "html_title"
+example = "Apache HTTP Server Test Page powered by CentOS"
+metadata = { "service.family" = "Apache", "service.cpe23" = "cpe:/a:apache:http_server:-", "os.vendor" = "CentOS", "os.family" = "Linux", "os.product" = "Linux", "os.cpe23" = "cpe:/o:centos:centos:-" }
+
+[[match]]
+name = "Apache HTTPD default installation on Debian"
+pattern = "^Apache2 Debian Default Page: It works$"
+vendor = "Apache"
+product = "HTTPD"
+context = "html_title"
+example = "Apache2 Debian Default Page: It works"
+metadata = { "service.family" = "Apache", "service.cpe23" = "cpe:/a:apache:http_server:-", "os.vendor" = "Debian", "os.product" = "Linux", "os.cpe23" = "cpe:/o:debian:debian_linux:-" }
+
+[[match]]
+name = "Apache HTTPD default installation on Ubuntu"
+pattern = "^Apache2 Ubuntu Default Page: It works$"
+vendor = "Apache"
+product = "HTTPD"
+context = "html_title"
+example = "Apache2 Ubuntu Default Page: It works"
+metadata = { "service.family" = "Apache", "service.cpe23" = "cpe:/a:apache:http_server:-", "os.vendor" = "Ubuntu", "os.product" = "Linux", "os.cpe23" = "cpe:/o:canonical:ubuntu_linux:-" }
+
+[[match]]
+name = "IBM iSeries Apache Default Page"
+pattern = "^Sample Home Page for APACHEDFT Server$"
+vendor = "Apache"
+product = "HTTPD"
+context = "html_title"
+example = "Sample Home Page for APACHEDFT Server"
+metadata = { "os.vendor" = "IBM", "os.family" = "OS/400", "os.product" = "OS/400", "os.cpe23" = "cpe:/o:ibm:os_400:-", "service.family" = "Apache", "service.cpe23" = "cpe:/a:apache:http_server:-" }
+
+[[match]]
+name = "Apache Tomcat with no version"
+pattern = "^Apache Tomcat$"
+vendor = "Apache"
+product = "Tomcat"
+context = "html_title"
+example = "Apache Tomcat"
+metadata = { "service.family" = "Tomcat", "service.cpe23" = "cpe:/a:apache:tomcat:-" }
+
+[[match]]
+name = "Apache tomcat with minimal version information"
+pattern = "^Apache Tomcat/(\\S+)(?: - Error report)?$"
+version_group = 1
+vendor = "Apache"
+product = "Tomcat"
+context = "html_title"
+example = "Apache Tomcat/8.0.32"
+metadata = { "service.family" = "Tomcat", "service.cpe23" = "cpe:/a:apache:tomcat:{service.version}" }
+
+[[match]]
+name = "Apache Tomcat - Error report on Ubuntu"
+pattern = "^Apache Tomcat/(\\S+) \\(Ubuntu\\) - Error report$"
+version_group = 1
+vendor = "Apache"
+product = "Tomcat"
+context = "html_title"
+example = "Apache Tomcat/8.0.32 (Ubuntu) - Error report"
+metadata = { "service.family" = "Tomcat", "service.cpe23" = "cpe:/a:apache:tomcat:{service.version}", "os.vendor" = "Ubuntu", "os.product" = "Linux", "os.cpe23" = "cpe:/o:canonical:ubuntu_linux:-" }
+
+[[match]]
+name = "Apache Tomcat - Error report on Debian"
+pattern = "^Apache Tomcat/(\\S+) \\(Debian\\) - Error report$"
+version_group = 1
+vendor = "Apache"
+product = "Tomcat"
+context = "html_title"
+example = "Apache Tomcat/7.0.56 (Debian) - Error report"
+metadata = { "service.family" = "Tomcat", "service.cpe23" = "cpe:/a:apache:tomcat:{service.version}", "os.vendor" = "Debian", "os.product" = "Linux", "os.cpe23" = "cpe:/o:debian:debian_linux:-" }
+
+[[match]]
+name = "ASUS AiCloud"
+pattern = "^AiCloud"
+context = "html_title"
+example = "AiCloud"
+metadata = { "hw.vendor" = "Asus", "hw.device" = "WAP" }
+
+[[match]]
+name = "Web server found on DVR and webcam servers sourced from HiSilicon"
+pattern = "^DVR Components Download$"
+vendor = "HiSilicon"
+product = "Cross Web Server"
+context = "html_title"
+example = "DVR Components Download"
+metadata = { "os.vendor" = "HiSilicon", "os.device" = "DVR", "hw.device" = "DVR" }
+
+[[match]]
+name = "NetSurveillance web interface on DVR and IP Camera devices sourced from Xiongmai Technology"
+pattern = "^NETSurveillance WEB$"
+vendor = "Xiongmai Technology"
+product = "uc-httpd"
+context = "html_title"
+example = "NETSurveillance WEB"
+metadata = { "service.cpe23" = "cpe:/a:xiongmaitech:uc-httpd:-", "os.vendor" = "Xiongmai Technology" }
+
+[[match]]
+name = "AVM FRITZ!Box"
+pattern = "^FRITZ!Box$"
+context = "html_title"
+example = "FRITZ!Box"
+metadata = { "hw.vendor" = "AVM", "hw.device" = "WAP", "hw.family" = "FRITZ!Box" }
+
+[[match]]
+name = "AVM FRITZ!Powerline"
+pattern = "^FRITZ!Powerline$"
+context = "html_title"
+example = "FRITZ!Powerline"
+metadata = { "hw.vendor" = "AVM", "hw.device" = "Powerline", "hw.family" = "FRITZ!Powerline" }
+
+[[match]]
+name = "FRITZ!WLAN Repeater"
+pattern = "^FRITZ!(?:WLAN )?Repeater$"
+context = "html_title"
+example = "FRITZ!WLAN Repeater"
+metadata = { "hw.vendor" = "AVM", "hw.device" = "WLAN Repeater", "hw.family" = "FRITZ!WLAN Repeater" }
+
+[[match]]
+name = "cPanel"
+pattern = "^cPanel Login$"
+vendor = "cPanel"
+product = "cPanel"
+context = "html_title"
+example = "cPanel Login"
+metadata = { "service.cpe23" = "cpe:/a:cpanel:cpanel:-" }
+
+[[match]]
+name = "cPanel Web Host Manager"
+pattern = "^WHM Login$"
+vendor = "cPanel"
+product = "WHM"
+context = "html_title"
+example = "WHM Login"
+metadata = { "service.cpe23" = "cpe:/a:cpanel:whm:-" }
+
+[[match]]
+name = "Windows CE"
+pattern = "^Windows CE$"
+context = "html_title"
+example = "Windows CE"
+metadata = { "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows CE", "os.cpe23" = "cpe:/o:microsoft:windows_ce:-" }
+
+[[match]]
+name = "Default IIS 7"
+pattern = "^IIS7$"
+vendor = "Microsoft"
+product = "IIS"
+context = "html_title"
+example = "IIS7"
+metadata = { "service.family" = "IIS", "service.version" = "7", "service.cpe23" = "cpe:/a:microsoft:iis:7", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows", "os.cpe23" = "cpe:/o:microsoft:windows:-" }
+
+[[match]]
+name = "Default IIS 8"
+pattern = "^Microsoft Internet Information Services 8"
+vendor = "Microsoft"
+product = "IIS"
+context = "html_title"
+example = "Microsoft Internet Information Services 8"
+metadata = { "service.family" = "IIS", "service.version" = "8", "service.cpe23" = "cpe:/a:microsoft:iis:8", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows", "os.cpe23" = "cpe:/o:microsoft:windows:-" }
+
+[[match]]
+name = "IIS Detailed Error"
+pattern = "^IIS (\\d\\.\\d) Detailed Error"
+version_group = 1
+vendor = "Microsoft"
+product = "IIS"
+context = "html_title"
+example = "IIS 7.0 Detailed Error - 401.2 - Unauthorized"
+metadata = { "service.family" = "IIS", "service.cpe23" = "cpe:/a:microsoft:iis:{service.version}", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows", "os.cpe23" = "cpe:/o:microsoft:windows:-" }
+
+[[match]]
+name = "Default IIS"
+pattern = "^IIS Windows(?: Server)?$"
+vendor = "Microsoft"
+product = "IIS"
+context = "html_title"
+example = "IIS Windows"
+metadata = { "service.family" = "IIS", "service.cpe23" = "cpe:/a:microsoft:iis:-", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows", "os.cpe23" = "cpe:/o:microsoft:windows:-" }
+
+[[match]]
+name = "Netia Spot wireless router"
+pattern = "^(?:NETIASPOT Management Console|Konsola zarzdzania NETIASPOT)$"
+context = "html_title"
+example = "Konsola zarzdzania NETIASPOT"
+metadata = { "hw.vendor" = "Netia", "hw.product" = "Spot", "hw.device" = "WAP" }
+
+[[match]]
+name = "Philips Hue Personal Wireless Lighting"
+pattern = "^hue personal wireless lighting$"
+context = "html_title"
+example = "hue personal wireless lighting"
+metadata = { "hw.vendor" = "Philips", "hw.product" = "Hue", "hw.device" = "Light Bulb", "hw.cpe23" = "cpe:/h:philips:hue:-" }
+
+[[match]]
+name = "LANDesk Management Agent"
+pattern = "LANDesk\\(R\\) Management Agent$"
+vendor = "LANDesk"
+product = "Management Agent"
+context = "html_title"
+example = "LANDesk(R) Management Agent"
+metadata = { "service.family" = "Management Agent" }
+
+[[match]]
+name = "Plesk web hosting platform with a version"
+pattern = "^(?:Parallels )?Plesk (?:(?:Onyx|Panel) )?([\\d\\.]+)$"
+version_group = 1
+vendor = "Parallels"
+product = "Plesk"
+context = "html_title"
+example = "Plesk 12.0.18"
+metadata = { "service.cpe23" = "cpe:/a:parallels:parallels_plesk_panel:{service.version}" }
+
+[[match]]
+name = "Plesk web hosting platform with a version on Windows"
+pattern = "^(?:Parallels )?Plesk (?:(?:Onyx|Panel) )?([\\d\\.]+) for Microsoft Windows$"
+version_group = 1
+vendor = "Parallels"
+product = "Plesk"
+context = "html_title"
+example = "Plesk 12.5.30 for Microsoft Windows"
+metadata = { "service.cpe23" = "cpe:/a:parallels:parallels_plesk_panel:{service.version}", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows", "os.cpe23" = "cpe:/o:microsoft:windows:-" }
+
+[[match]]
+name = "Plesk web hosting platform with no version"
+pattern = "(?i)^Default (?:Parallels )?Plesk (?:Panel )?Page$"
+vendor = "Parallels"
+product = "Plesk"
+context = "html_title"
+example = "Default Parallels Plesk Panel Page"
+metadata = { "service.cpe23" = "cpe:/a:parallels:parallels_plesk_panel:-" }
+
+[[match]]
+name = "Sage X3 Syracuse Web Server"
+pattern = "^Sage X3$"
+vendor = "Sage"
+product = "Sage X3 Syracuse Web Server"
+context = "html_title"
+example = "Sage X3"
+metadata = { "service.family" = "Sage X3 Syracuse Web Server" }
+
+[[match]]
+name = "Samsung DVRs"
+pattern = "^Web Viewer for Samsung DVR$"
+context = "html_title"
+example = "Web Viewer for Samsung DVR"
+metadata = { "hw.vendor" = "Samsung", "hw.device" = "DVR" }
+
+[[match]]
+name = "Sonicwall firewalls"
+pattern = "(?i)^(?:Dell )?Sonicwall - Authentication$"
+context = "html_title"
+example = "SonicWall - Authentication"
+metadata = { "os.vendor" = "SonicWall", "os.device" = "Firewall", "os.family" = "SonicOS", "os.product" = "SonicOS", "os.cpe23" = "cpe:/o:sonicwall:sonicos:-" }
+
+[[match]]
+name = "SonicWall Universal Management Appliance - with version"
+pattern = "^SonicWall Universal Management Suite v(\\d+\\.\\d+)$"
+version_group = 1
+vendor = "SonicWall"
+product = "Universal Management Appliance"
+context = "html_title"
+example = "SonicWall Universal Management Suite v8.7"
+metadata = { "service.cpe23" = "cpe:/a:sonicwall:universal_management_appliance:{service.version}", "os.vendor" = "SonicWall", "os.family" = "SonicOS", "os.product" = "SonicOS", "os.cpe23" = "cpe:/o:sonicwall:sonicos:-" }
+
+[[match]]
+name = "WatchGuard Fireware XTM login page"
+pattern = "^Fireware XTM User Authentication$"
+vendor = "WatchGuard"
+product = "Fireware XTM"
+context = "html_title"
+example = "Fireware XTM User Authentication"
+metadata = { "service.device" = "Firewall", "service.cpe23" = "cpe:/a:watchguard:fireware_xtm:-", "service.component.vendor" = "nginx", "service.component.product" = "nginx", "service.component.cpe23" = "cpe:/a:f5:nginx:-", "os.vendor" = "WatchGuard", "os.product" = "Fireware", "os.device" = "Firewall", "os.cpe23" = "cpe:/o:watchguard:fireware:-" }
+
+[[match]]
+name = "Synology DiskStation"
+pattern = "^(.{0,512}).nbsp;-.nbsp;Synology.nbsp;DiskStation$"
+context = "html_title"
+example = "DiskStation&nbsp;-&nbsp;Synology&nbsp;DiskStation"
+metadata = { "hw.vendor" = "Synology", "hw.family" = "DiskStation", "hw.device" = "NAS", "os.device" = "NAS", "os.family" = "Linux", "os.product" = "DSM", "os.vendor" = "Synology", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "Synology with WebStation web hosting"
+pattern = "Synology Web Station!$"
+vendor = "Synology"
+product = "Web Station"
+context = "html_title"
+example = "Hello! Welcome to Synology Web Station!"
+metadata = { "service.family" = "Diskstation", "service.cpe23" = "cpe:/a:synology:web_station:-", "hw.vendor" = "Synology", "hw.family" = "DiskStation", "hw.device" = "NAS", "os.device" = "NAS", "os.family" = "Linux", "os.product" = "DSM", "os.vendor" = "Synology" }
+
+[[match]]
+name = "Synology Router"
+pattern = "^Synology.nbsp;Router.nbsp;-.nbsp;synology$"
+context = "html_title"
+example = "Synology&nbsp;Router&nbsp;-&nbsp;synology"
+metadata = { "hw.vendor" = "Synology", "hw.device" = "Router", "hw.certainty" = "0.7" }
+
+[[match]]
+name = "Fortinet FortiGate/Fortiguard Web Filter"
+pattern = "^Web Filter Block Override$"
+context = "html_title"
+example = "Web Filter Block Override"
+metadata = { "os.vendor" = "Fortinet", "os.family" = "FortiOS", "os.product" = "FortiOS", "os.device" = "Firewall", "os.cpe23" = "cpe:/o:fortinet:fortios:-", "hw.vendor" = "Fortinet", "hw.family" = "FortiGate", "hw.device" = "Firewall" }
+
+[[match]]
+name = "Fortinet FortiGate Network Firewall"
+pattern = "^FortiGate$"
+context = "html_title"
+example = "FortiGate"
+metadata = { "os.vendor" = "Fortinet", "os.family" = "FortiOS", "os.product" = "FortiOS", "os.device" = "Firewall", "os.cpe23" = "cpe:/o:fortinet:fortios:-", "hw.vendor" = "Fortinet", "hw.family" = "FortiGate", "hw.device" = "Firewall" }
+
+[[match]]
+name = "Generic products by Ubiquiti Networks"
+pattern = "^Ubiquiti Networks$"
+context = "html_title"
+example = "Ubiquiti Networks"
+metadata = { "hw.vendor" = "Ubiquiti" }
+
+[[match]]
+name = "Ubiquiti Security Gateway"
+pattern = "^UniFi Security Gateway$"
+context = "html_title"
+example = "UniFi Security Gateway"
+metadata = { "hw.vendor" = "Ubiquiti", "hw.device" = "Router", "hw.product" = "UniFi Security Gateway" }
+
+[[match]]
+name = "Ubiquiti EdgeSwitch"
+pattern = "^Ubiquiti EdgeSwitch$"
+context = "html_title"
+example = "Ubiquiti EdgeSwitch"
+metadata = { "os.vendor" = "Ubiquiti", "os.family" = "Linux", "os.product" = "EdgeOS", "os.cpe23" = "cpe:/o:ui:edgeos:-", "hw.vendor" = "Ubiquiti", "hw.product" = "EdgeSwitch", "hw.cpe23" = "cpe:/h:ui:edgeswitch:-" }
+
+[[match]]
+name = "Ubiquiti EdgeRouter/EdgeSwitch/etc"
+pattern = "^EdgeOS$"
+context = "html_title"
+example = "EdgeOS"
+metadata = { "os.vendor" = "Ubiquiti", "os.family" = "Linux", "os.product" = "EdgeOS", "os.cpe23" = "cpe:/o:ui:edgeos:-", "hw.vendor" = "Ubiquiti" }
+
+[[match]]
+name = "Ubiquiti UniFi Cloud Key"
+pattern = "^Cloud\\s*Key$"
+context = "html_title"
+example = "CloudKey"
+metadata = { "hw.vendor" = "Ubiquiti", "hw.product" = "UniFi Cloud Key" }
+
+[[match]]
+name = "Ubiquiti airCube WAP"
+pattern = "^airCube$"
+context = "html_title"
+example = "airCube"
+metadata = { "hw.vendor" = "Ubiquiti", "hw.product" = "airCube", "hw.device" = "WAP" }
+
+[[match]]
+name = "Various UniFi Video web service"
+pattern = "^UniFi Video$"
+vendor = "Ubiquiti"
+product = "UniFi Video"
+context = "html_title"
+example = "UniFi Video"
+metadata = { "service.cpe23" = "cpe:/a:ui:unifi_video:-" }
+
+[[match]]
+name = "UniFi NVR for recording from UniFi video cameras"
+pattern = "^(?:UniFi NVR: Software Portal|airVision: \\[NVR\\] - Software Portal)$"
+context = "html_title"
+example = "UniFi NVR: Software Portal"
+metadata = { "hw.vendor" = "Ubiquiti", "hw.family" = "UniFi", "hw.product" = "UniFi NVR", "hw.device" = "DVR" }
+
+[[match]]
+name = "Ubiquiti AmpliFi Router"
+pattern = "^Welcome to AmpliFi$"
+context = "html_title"
+example = "Welcome to AmpliFi"
+metadata = { "hw.vendor" = "Ubiquiti", "hw.product" = "AmpliFi", "hw.device" = "Router" }
+
+[[match]]
+name = "Zyxel USG60 Unified Security Gateway"
+pattern = "^USG60$"
+context = "html_title"
+example = "USG60"
+metadata = { "os.vendor" = "Zyxel", "os.product" = "USG60 firmware", "os.device" = "Firewall", "os.cpe23" = "cpe:/o:zyxel:usg60_firmware:-", "hw.vendor" = "Zyxel", "hw.family" = "Unified Security Gateway", "hw.product" = "USG60", "hw.device" = "Firewall", "hw.cpe23" = "cpe:/h:zyxel:usg60:-" }
+
+[[match]]
+name = "Zyxel USG40 Unified Security Gateway"
+pattern = "^USG40$"
+context = "html_title"
+example = "USG40"
+metadata = { "os.vendor" = "Zyxel", "os.product" = "USG40 firmware", "os.device" = "Firewall", "os.cpe23" = "cpe:/o:zyxel:usg40_firmware:-", "hw.vendor" = "Zyxel", "hw.family" = "Unified Security Gateway", "hw.product" = "USG40", "hw.device" = "Firewall", "hw.cpe23" = "cpe:/h:zyxel:usg40:-" }
+
+[[match]]
+name = "Zyxel USG20-VPN Unified Security Gateway"
+pattern = "^USG20-VPN$"
+context = "html_title"
+example = "USG20-VPN"
+metadata = { "os.vendor" = "Zyxel", "os.product" = "USG20-VPN firmware", "os.device" = "Firewall", "os.cpe23" = "cpe:/o:zyxel:usg20-vpn_firmware:-", "hw.vendor" = "Zyxel", "hw.family" = "Unified Security Gateway", "hw.product" = "USG20-VPN", "hw.device" = "Firewall", "hw.cpe23" = "cpe:/h:zyxel:usg20-vpn:-" }
+
+[[match]]
+name = "Embedded HTTP server used by many vendors and device\n      types, including APC, 3Com, Andover Controls, Cisco VoIP, D-Link,\n      Extreme Networks, Foundry Networks, Konica Minolta, Kronos\n      Timekeeper, McDATA, Netopia, Nortel Networks, Power Measurement Ltd,\n      and Xerox."
+pattern = "^RomPager Embedded Web Server Toolkit$"
+vendor = "Allegro Software"
+product = "RomPager"
+context = "html_title"
+example = "RomPager Embedded Web Server Toolkit"
+
+[[match]]
+name = "Wowza Streaming Engine"
+pattern = "^Wowza Streaming Engine 4 (Subscription|Perpetual Pro) Edition (\\d\\.[\\w.]+) build(\\d+)$"
+version_group = 2
+vendor = "Wowza"
+product = "Streaming Engine"
+context = "html_title"
+example = "Wowza Streaming Engine 4 Subscription Edition 4.7.7.01 build20190222144406"
+metadata = { "service.edition" = "{capture:1}", "service.version.version" = "{capture:3}", "service.cpe23" = "cpe:/a:wowza:streaming_engine:{service.version}" }
+
+[[match]]
+name = "MikroTik RouterOS router configuration page"
+pattern = "^RouterOS router configuration page$"
+context = "html_title"
+example = "RouterOS router configuration page"
+metadata = { "os.vendor" = "MikroTik", "os.device" = "Router", "os.product" = "RouterOS", "os.cpe23" = "cpe:/o:mikrotik:routeros:-", "hw.vendor" = "MikroTik", "hw.device" = "Router" }
+
+[[match]]
+name = "MikroTik SwOS switch configuration page"
+pattern = "^MikroTik SwOS$"
+context = "html_title"
+example = "MikroTik SwOS"
+metadata = { "os.vendor" = "MikroTik", "os.device" = "Switch", "os.product" = "SwOS", "hw.vendor" = "MikroTik", "hw.device" = "Switch" }
+
+[[match]]
+name = "Default OS-agnostic nginx"
+pattern = "^(?:Welcome to nginx!|Test Page for the Nginx HTTP Server)$"
+vendor = "nginx"
+product = "nginx"
+context = "html_title"
+example = "Welcome to nginx!"
+metadata = { "service.family" = "nginx", "service.cpe23" = "cpe:/a:f5:nginx:-" }
+
+[[match]]
+name = "Default nginx on Fedora"
+pattern = "^Test Page for the Nginx HTTP Server on (?:Fedora|EPEL)$"
+vendor = "nginx"
+product = "nginx"
+context = "html_title"
+example = "Test Page for the Nginx HTTP Server on Fedora"
+metadata = { "service.family" = "nginx", "service.cpe23" = "cpe:/a:f5:nginx:-", "os.family" = "Linux", "os.vendor" = "Fedora Project", "os.product" = "Fedora Core", "os.cpe23" = "cpe:/o:fedoraproject:fedora_core:-" }
+
+[[match]]
+name = "Default nginx on Debian"
+pattern = "^Welcome to nginx on Debian!$"
+vendor = "nginx"
+product = "nginx"
+context = "html_title"
+example = "Welcome to nginx on Debian!"
+metadata = { "service.family" = "nginx", "service.cpe23" = "cpe:/a:f5:nginx:-", "os.vendor" = "Debian", "os.product" = "Linux", "os.cpe23" = "cpe:/o:debian:debian_linux:-" }
+
+[[match]]
+name = "Eagle Eye Networks to manage IoT cameras home webpage"
+pattern = "^Eagle Eye Networks "
+context = "html_title"
+example = "Eagle Eye Networks (Local)"
+metadata = { "hw.product" = "Bridge", "hw.vendor" = "Eagle Eye Networks" }
+
+[[match]]
+name = "Eagle Eye Networks to manage IoT cameras unauthorized webpage"
+pattern = "^Web Local Display Unauthorized$"
+context = "html_title"
+example = "Web Local Display Unauthorized"
+metadata = { "hw.product" = "Bridge", "hw.vendor" = "Eagle Eye Networks" }
+
+[[match]]
+name = "NETGEAR ReadyNAS"
+pattern = "^NETGEAR ReadyNAS$"
+context = "html_title"
+example = "NETGEAR ReadyNAS"
+metadata = { "os.vendor" = "Netgear", "os.product" = "Linux", "hw.vendor" = "Netgear", "hw.device" = "NAS", "hw.family" = "ReadyNAS", "hw.product" = "ReadyNAS" }
+
+[[match]]
+name = "Netgear Switches"
+pattern = "^(?:NETGEAR|NetGear) ([a-zA-Z0-9\\-\\+]+)$"
+context = "html_title"
+example = "NETGEAR GS108T"
+metadata = { "hw.vendor" = "Netgear", "hw.device" = "Switch", "hw.product" = "{capture:1}" }
+
+[[match]]
+name = "Netgear Routers"
+pattern = "^(?:NETGEAR|NetGear) Router ([a-zA-Z0-9\\-\\+]+)$"
+context = "html_title"
+example = "NETGEAR Router WNR2000v4"
+metadata = { "hw.vendor" = "Netgear", "hw.device" = "Router", "hw.product" = "{capture:1}" }
+
+[[match]]
+name = "Netgear Prosafe Plus Switch"
+pattern = "(?i)^Netgear Prosafe Plus Switch$"
+context = "html_title"
+example = "Netgear Prosafe Plus Switch"
+metadata = { "os.vendor" = "Netgear", "os.device" = "Switch", "os.product" = "Prosafe Firmware", "os.cpe23" = "cpe:/o:netgear:prosafe_firmware:-", "hw.vendor" = "Netgear", "hw.device" = "Switch", "hw.product" = "Prosafe Plus" }
+
+[[match]]
+name = "Digi Terminal Servers"
+pattern = "^(.{0,256}).nbsp;Configuration and Management$"
+context = "html_title"
+example = "Digi One SP&nbsp;Configuration and Management"
+metadata = { "hw.vendor" = "Digi", "hw.device" = "Device Server", "hw.product" = "{capture:1}", "os.vendor" = "Digi", "os.device" = "Device Server", "os.product" = "NET+OS" }
+
+[[match]]
+name = "Digi Cellular Routers"
+pattern = "^(?:TransPort )?(WR\\S+) \\(SN: (\\d+)\\) Configuration and Management$"
+context = "html_title"
+example = "WR44v2 (SN: 888111) Configuration and Management"
+metadata = { "hw.vendor" = "Digi", "hw.device" = "Router", "hw.product" = "{capture:1}", "digi.serial_number" = "{capture:2}", "hw.serial_number" = "{capture:2}" }
+
+[[match]]
+name = "Digi TX Cellular Routers"
+pattern = "^Digi (\\S+) - ([a-fA-F0-9]{12})"
+context = "html_title"
+example = "Digi TX54-Dual-Cellular - 0040FF100000"
+metadata = { "hw.vendor" = "Digi", "hw.device" = "Router", "hw.product" = "{capture:1}", "host.mac" = "{capture:2}" }
+
+[[match]]
+name = "Digi Cellular Routers (Generic)"
+pattern = "^Digi Configuration and Management$"
+context = "html_title"
+example = "Digi Configuration and Management"
+metadata = { "hw.vendor" = "Digi", "hw.device" = "Router", "hw.certainty" = "0.25" }
+
+[[match]]
+name = "Moxa NPort Terminal Servers"
+pattern = "^NPort Web Console$"
+context = "html_title"
+example = "NPort Web Console"
+metadata = { "hw.vendor" = "Moxa", "hw.device" = "Device Server", "hw.product" = "NPort" }
+
+[[match]]
+name = "Lantronix terminal server"
+pattern = "^Lantronix (SL[BC].*)$"
+context = "html_title"
+example = "Lantronix SLB882/8824"
+metadata = { "hw.vendor" = "Lantronix", "hw.device" = "Device Server", "hw.product" = "{capture:1}" }
+
+[[match]]
+name = "Lantronix UDS terminal server"
+pattern = "^Lantronix WEB-Manager$"
+context = "html_title"
+example = "Lantronix WEB-Manager"
+metadata = { "hw.vendor" = "Lantronix", "hw.device" = "Device Server", "hw.product" = "UDS" }
+
+[[match]]
+name = "ATEN KVM over IP"
+pattern = "^(KN\\S+) - Cover$"
+context = "html_title"
+example = "KN4140v - Cover"
+metadata = { "hw.vendor" = "ATEN", "hw.device" = "KVM", "hw.product" = "{capture:1}" }
+
+[[match]]
+name = "AVT.pl Ethernet Relay Module"
+pattern = "^Ethernet Relay Module$"
+context = "html_title"
+example = "Ethernet Relay Module"
+metadata = { "hw.vendor" = "AVT", "hw.device" = "Power Relay", "hw.product" = "Ethernet Relay Module" }
+
+[[match]]
+name = "Inveo Lantick Ethernet Relay Controller"
+pattern = "^Inveo Lantick Ethernet Relay Controller$"
+context = "html_title"
+example = "Inveo Lantick Ethernet Relay Controller"
+metadata = { "hw.vendor" = "Inveo", "hw.device" = "Power Relay", "hw.product" = "Lantick Ethernet Relay Controller" }
+
+[[match]]
+name = "Xytronix Relay"
+pattern = "^XYTRONIX Relay$"
+context = "html_title"
+example = "XYTRONIX Relay"
+metadata = { "hw.vendor" = "Xytronix", "hw.device" = "Relay Controller", "hw.product" = "Ethernet Relay Controller" }
+
+[[match]]
+name = "myUTN Device Server"
+pattern = "^(myUTN(?:-[a-zA-Z0-9]+)?) Control Center$"
+context = "html_title"
+example = "myUTN-50a Control Center"
+metadata = { "hw.vendor" = "SEH Technology", "hw.device" = "Device Server", "hw.product" = "{capture:1}" }
+
+[[match]]
+name = "Liebert iCOM Cooling Unit Control Board"
+pattern = "^iCOM Control Board$"
+context = "html_title"
+example = "iCOM Control Board"
+metadata = { "hw.vendor" = "Liebert", "hw.device" = "Environment Control", "hw.product" = "iCOM Control Panel" }
+
+[[match]]
+name = "Sigma Control 2 Air Compressor Controls"
+pattern = "^Sigma Control 2$"
+context = "html_title"
+example = "Sigma Control 2"
+metadata = { "hw.vendor" = "Kaeser Compressors", "hw.device" = "Environment Control", "hw.product" = "Sigma Control 2" }
+
+[[match]]
+name = "Eltek Power Controller"
+pattern = "^WebPower$"
+context = "html_title"
+example = "WebPower"
+metadata = { "hw.vendor" = "Eltek", "hw.device" = "Power Device" }
+
+[[match]]
+name = "Gude Expert Power Control"
+pattern = "(Expert Power Control NET \\d+x\\d+) - (.*)$"
+context = "html_title"
+example = "Expert Power Control NET 2x6 - Rack42"
+metadata = { "hw.vendor" = "Gude", "hw.device" = "Power Device", "hw.product" = "{capture:1}", "host.name" = "{capture:2}" }
+
+[[match]]
+name = "Server Technology Sentry Switched CDU"
+pattern = "^Sentry Switched CDU$"
+context = "html_title"
+example = "Sentry Switched CDU"
+metadata = { "os.vendor" = "Server Technology", "os.product" = "{hw.product} Firmware", "hw.vendor" = "Server Technology", "hw.product" = "Sentry Switched CDU", "hw.device" = "Power Device" }
+
+[[match]]
+name = "Emerson Network Power Rack PDU Card"
+pattern = "^Emerson Network Power Rack PDU Card$"
+context = "html_title"
+example = "Emerson Network Power Rack PDU Card"
+metadata = { "hw.vendor" = "Emerson", "hw.device" = "Power Device", "hw.product" = "Rack PDU Card" }
+
+[[match]]
+name = "Emerson Network Power IntelliSlot Web Card and rebrands"
+pattern = "^(.{0,256}) IntelliSlot Web(?:/\\d+)? Card?$"
+context = "html_title"
+example = "Emerson Network Power IntelliSlot Web Card"
+metadata = { "hw.vendor" = "{capture:1}", "hw.device" = "Power Device", "hw.product" = "IntelliSlot Web Card" }
+
+[[match]]
+name = "ConnectUPS Web/SNMP Card"
+pattern = "^ConnectUPS Web/SNMP Card$"
+context = "html_title"
+example = "ConnectUPS Web/SNMP Card"
+metadata = { "hw.vendor" = "APC", "hw.device" = "Power Device", "hw.product" = "ConnectUPS Web Card" }
+
+[[match]]
+name = "Calient Photonic Switch"
+pattern = "^Calient Technologies Inc\\.$"
+context = "html_title"
+example = "Calient Technologies Inc."
+metadata = { "hw.vendor" = "Calient", "hw.device" = "Switch", "hw.product" = "Photonic Switch", "os.vendor" = "Calient", "os.device" = "Switch", "os.family" = "Linux" }
+
+[[match]]
+name = "Google Fiber Router"
+pattern = "^Google Fiber Network Box Diagnostics$"
+context = "html_title"
+example = "Google Fiber Network Box Diagnostics"
+metadata = { "hw.vendor" = "Google", "hw.device" = "Router", "hw.product" = "Fiber Network Box" }
+
+[[match]]
+name = "Fujitsu iRMC BMC"
+pattern = "ServerView.* (iRMC S\\d+) Web Server"
+context = "html_title"
+example = "ServerView Remote Management iRMC S3 Web Server"
+metadata = { "hw.device" = "Lights Out Management", "hw.vendor" = "Fujitsu", "hw.product" = "{capture:1}", "os.vendor" = "Fujitsu", "os.product" = "{capture:1}" }
+
+[[match]]
+name = "Cisco KVM"
+pattern = "^Cisco (?:UCS KVM Direct|KVM)$"
+context = "html_title"
+example = "Cisco UCS KVM Direct"
+metadata = { "hw.vendor" = "Cisco", "hw.device" = "Lights Out Management", "hw.product" = "UCS Manager", "os.vendor" = "Cisco", "os.family" = "Linux", "os.product" = "NX-OS", "os.certainty" = "0.8", "os.cpe23" = "cpe:/o:cisco:nx-os:-" }
+
+[[match]]
+name = "Cisco UCS Manager"
+pattern = "^Cisco UCS Manager$"
+context = "html_title"
+example = "Cisco UCS Manager"
+metadata = { "hw.device" = "Lights Out Management", "hw.vendor" = "Cisco", "hw.product" = "UCS Manager", "os.vendor" = "Cisco", "os.family" = "Linux", "os.product" = "NX-OS", "os.certainty" = "0.8", "os.cpe23" = "cpe:/o:cisco:nx-os:-" }
+
+[[match]]
+name = "Cisco Integrated Management Controller"
+pattern = "^Cisco (?:IMC Login|Integrated Management Controller)"
+context = "html_title"
+example = "Cisco Integrated Management Controller"
+metadata = { "hw.device" = "Lights Out Management", "hw.vendor" = "Cisco", "hw.product" = "IMC", "os.vendor" = "Cisco", "os.family" = "Linux", "os.product" = "IMC" }
+
+[[match]]
+name = "Cisco Meeting Management Virtual Appliance"
+pattern = "^Cisco Meeting Management$"
+context = "html_title"
+example = "Cisco Meeting Management"
+metadata = { "hw.vendor" = "Cisco", "hw.device" = "Video Conferencing", "hw.product" = "Meeting Management", "os.vendor" = "Cisco", "os.family" = "Linux", "os.product" = "Meeting Management" }
+
+[[match]]
+name = "Cisco Crosswork SON"
+pattern = "^Cisco SON$"
+context = "html_title"
+example = "Cisco SON"
+metadata = { "hw.vendor" = "Cisco", "hw.device" = "Network Management Device", "hw.product" = "Crosswork SON Appliance" }
+
+[[match]]
+name = "HPE Virtual Connect Manager"
+pattern = "^HPE Virtual Connect Manager$"
+context = "html_title"
+example = "HPE Virtual Connect Manager"
+metadata = { "hw.device" = "Lights Out Management", "hw.vendor" = "HPE", "hw.product" = "Virtual Connect Manager", "os.vendor" = "HPE", "os.device" = "Lights Out Management", "os.product" = "iLO" }
+
+[[match]]
+name = "HPE BladeSystem Onboard Administrator"
+pattern = "^HPE BladeSystem Onboard Administrator$"
+context = "html_title"
+example = "HPE BladeSystem Onboard Administrator"
+metadata = { "hw.device" = "Lights Out Management", "hw.vendor" = "HPE", "hw.product" = "BladeSystem Onboard Administrator" }
+
+[[match]]
+name = "HPE System Management Homepage"
+pattern = "^HPE System Management Homepage$"
+context = "html_title"
+example = "HPE System Management Homepage"
+metadata = { "hw.device" = "Lights Out Management", "hw.vendor" = "HPE", "hw.product" = "System Management", "os.vendor" = "HPE", "os.device" = "Lights Out Management", "os.product" = "iLO" }
+
+[[match]]
+name = "HP Integrated Lights-Out"
+pattern = "^HP Integrated Lights-Out$"
+context = "html_title"
+example = "HP Integrated Lights-Out"
+metadata = { "hw.device" = "Lights Out Management", "hw.vendor" = "HP", "hw.product" = "iLO", "hw.cpe23" = "cpe:/h:hp:integrated_lights-out:-", "os.vendor" = "HP", "os.device" = "Lights Out Management", "os.family" = "iLO", "os.product" = "iLO", "os.cpe23" = "cpe:/o:hp:integrated_lights-out_firmware:-" }
+
+[[match]]
+name = "HP Integrated Lights-Out 2"
+pattern = "^HP Integrated Lights-Out 2$"
+context = "html_title"
+example = "HP Integrated Lights-Out 2"
+metadata = { "hw.device" = "Lights Out Management", "hw.vendor" = "HP", "hw.product" = "iLO", "hw.cpe23" = "cpe:/h:hp:integrated_lights-out:-", "os.vendor" = "HP", "os.device" = "Lights Out Management", "os.family" = "iLO", "os.product" = "iLO 2", "os.cpe23" = "cpe:/o:hp:integrated_lights-out_2_firmware:-" }
+
+[[match]]
+name = "HP Integrated Lights-Out 3"
+pattern = "^iLO 3$"
+context = "html_title"
+example = "iLO 3"
+metadata = { "hw.device" = "Lights Out Management", "hw.vendor" = "HP", "hw.product" = "iLO 3", "hw.cpe23" = "cpe:/h:hp:integrated_lights-out_3:-", "os.vendor" = "HP", "os.device" = "Lights Out Management", "os.family" = "iLO", "os.product" = "iLO 3", "os.cpe23" = "cpe:/o:hp:integrated_lights-out_3_firmware:-" }
+
+[[match]]
+name = "HP Integrated Lights-Out 4"
+pattern = "^iLO 4$"
+context = "html_title"
+example = "iLO 4"
+metadata = { "hw.device" = "Lights Out Management", "hw.vendor" = "HP", "hw.product" = "iLO 4", "hw.cpe23" = "cpe:/h:hp:integrated_lights-out_4:-", "os.vendor" = "HP", "os.device" = "Lights Out Management", "os.family" = "iLO", "os.product" = "iLO 4", "os.cpe23" = "cpe:/o:hp:integrated_lights-out_4_firmware:-" }
+
+[[match]]
+name = "HPE SimpliVity OmniStack"
+pattern = "^HPE SimpliVity OmniStack$"
+context = "html_title"
+example = "HPE SimpliVity OmniStack"
+metadata = { "hw.device" = "NAS", "hw.vendor" = "HPE", "hw.product" = "SimpliVity OmniStack" }
+
+[[match]]
+name = "HPE StoreEver"
+pattern = "^HPE (StoreEver \\S+)$"
+context = "html_title"
+example = "HPE StoreEver MSL3040"
+metadata = { "hw.device" = "Tape Library", "hw.vendor" = "HPE", "hw.product" = "{capture:1}" }
+
+[[match]]
+name = "Dell OpenManage Switch Administrator"
+pattern = "^Dell OpenManage Switch Administrator$"
+context = "html_title"
+example = "Dell OpenManage Switch Administrator"
+metadata = { "hw.vendor" = "Dell", "hw.device" = "Switch", "hw.product" = "OpenManage Switch" }
+
+[[match]]
+name = "HPE ProCurve Switch w/Hostname"
+pattern = "^(\\S{1,512})\\s{1,8}-\\s{1,8}ProCurve Switch (\\S+) \\((.*)\\)$"
+context = "html_title"
+example = "SW1 - ProCurve Switch 4204vl (J8770A)"
+metadata = { "hw.vendor" = "HPE", "hw.device" = "Switch", "hw.product" = "{capture:2}", "host.name" = "{capture:1}", "procurve.model" = "{capture:3}" }
+
+[[match]]
+name = "HPE ProCurve Switch w/o Hostname"
+pattern = "^ProCurve Switch (\\S+) \\((.*)\\)$"
+context = "html_title"
+example = "ProCurve Switch 2610-24/12PWR (J9086A)"
+metadata = { "hw.vendor" = "HPE", "hw.device" = "Switch", "hw.product" = "{capture:1}", "procurve.model" = "{capture:2}" }
+
+[[match]]
+name = "Nokia Siemens FlexiPacket Hub"
+pattern = "^FlexiPacket Hub$"
+context = "html_title"
+example = "FlexiPacket Hub"
+metadata = { "hw.vendor" = "Nokia-Siemens", "hw.device" = "Switch", "hw.product" = "FlexiPacket Hub" }
+
+[[match]]
+name = "Rohde and Schwarz Remote Instrument (vnc)"
+pattern = "^R&S Instrument VNC desktop$"
+context = "html_title"
+example = "R&S Instrument VNC desktop"
+metadata = { "hw.device" = "Test Instrument", "hw.vendor" = "Rohde & Schwarz", "os.device" = "Test Instrument", "os.vendor" = "Rohde & Schwarz", "os.family" = "Linux" }
+
+[[match]]
+name = "Rohde and Schwarz Remote Instrument (web admin)"
+pattern = "^Rohde & Schwarz remote instrument$"
+context = "html_title"
+example = "Rohde & Schwarz remote instrument"
+metadata = { "hw.device" = "Test Instrument", "hw.vendor" = "Rohde & Schwarz" }
+
+[[match]]
+name = "Keysight EXA Signal Analyzer"
+pattern = "^EXA$"
+context = "html_title"
+example = "EXA"
+metadata = { "hw.vendor" = "Keysight", "hw.device" = "Test Instrument", "hw.product" = "EXA Signal Analyzer", "os.device" = "Test Instrument" }
+
+[[match]]
+name = "Keysight MXA Signal Analyzer"
+pattern = "^MXA$"
+context = "html_title"
+example = "MXA"
+metadata = { "hw.vendor" = "Keysight", "hw.device" = "Test Instrument", "hw.product" = "MXA Signal Analyzer", "os.device" = "Test Instrument" }
+
+[[match]]
+name = "Calnex Paragon-100G"
+pattern = "^Paragon-100G$"
+context = "html_title"
+example = "Paragon-100G"
+metadata = { "hw.vendor" = "Calnex", "hw.device" = "Test Instrument", "hw.product" = "Paragon-100G" }
+
+[[match]]
+name = "Keysight 33521A Waveform Generator"
+pattern = "^33521A$"
+context = "html_title"
+example = "33521A"
+metadata = { "hw.vendor" = "Keysight", "hw.device" = "Test Instrument", "hw.product" = "33521A Waveform Generator" }
+
+[[match]]
+name = "Keysight 34972A Data Logger"
+pattern = "^34972A$"
+context = "html_title"
+example = "34972A"
+metadata = { "hw.vendor" = "Keysight", "hw.device" = "Test Instrument", "hw.product" = "34972A Data Logger" }
+
+[[match]]
+name = "Agilent 53230A Frequency Counter"
+pattern = "^53230A$"
+context = "html_title"
+example = "53230A"
+metadata = { "hw.vendor" = "Agilent", "hw.device" = "Test Instrument", "hw.product" = "53230A Frequency Counter" }
+
+[[match]]
+name = "Agilent 33220A"
+pattern = "^Agilent 33220A \\((.*)\\)$"
+context = "html_title"
+example = "Agilent 33220A (MY44041111)"
+metadata = { "hw.vendor" = "Agilent", "hw.device" = "Test Instrument", "hw.product" = "33220A Waveform Generator", "agilent.serial" = "{capture:1}", "hw.serial_number" = "{capture:1}" }
+
+[[match]]
+name = "Agilent N5172B"
+pattern = "^Agilent N5172B (?:EXG )?(MY\\S+)$"
+context = "html_title"
+example = "Agilent N5172B EXG MY44041111"
+metadata = { "hw.vendor" = "Agilent", "hw.device" = "Test Instrument", "hw.product" = "N5172B Signal Generator", "agilent.serial" = "{capture:1}", "hw.serial_number" = "{capture:1}" }
+
+[[match]]
+name = "Agilent E5810 Instrument Gateway Device"
+pattern = "^Agilent E5810 \\(([a-fA-F0-9-]{17})\\)$"
+context = "html_title"
+example = "Agilent E5810 (00-30-D3-01-01-01)"
+metadata = { "hw.vendor" = "Agilent", "hw.device" = "Test Instrument", "hw.product" = "E5810 Gateway Device", "host.mac" = "{capture:1}" }
+
+[[match]]
+name = "Agilent N1913A EPM Series Power Meter"
+pattern = "^LXI - Agilent Technologies - N1913A -  EPM Series Power Meter$"
+context = "html_title"
+example = "LXI - Agilent Technologies - N1913A -  EPM Series Power Meter"
+metadata = { "hw.vendor" = "Agilent", "hw.device" = "Test Instrument", "hw.product" = "N1913A Power Meter" }
+
+[[match]]
+name = "Polycom IP Phone"
+pattern = "^Polycom - Configuration Utility$"
+context = "html_title"
+example = "Polycom - Configuration Utility"
+metadata = { "hw.vendor" = "Polycom", "hw.family" = "SoundPoint", "hw.device" = "VoIP", "os.vendor" = "Polycom", "os.product" = "Polycom" }
+
+[[match]]
+name = "Digium Phone Settings"
+pattern = "^Digium Phone Settings$"
+context = "html_title"
+example = "Digium Phone Settings"
+metadata = { "hw.vendor" = "Digium", "hw.device" = "VoIP" }
+
+[[match]]
+name = "3CX Phone System Management Console"
+pattern = "^3CX Phone System Management Console$"
+vendor = "3CX"
+product = "3CX Web Server"
+context = "html_title"
+example = "3CX Phone System Management Console"
+metadata = { "service.cpe23" = "cpe:/a:3cx:3cx_web_server:-" }
+
+[[match]]
+name = "Cisco IP Phone - SPA504G Configuration Utility"
+pattern = "^(SPA\\S+) Configuration Utility$"
+context = "html_title"
+example = "SPA504G Configuration Utility"
+metadata = { "hw.vendor" = "Cisco", "hw.device" = "VoIP", "hw.product" = "{capture:1}" }
+
+[[match]]
+name = "Cisco IP Phone - SPA504G"
+pattern = "^(SPA\\S+) Device Information \\(SEP(\\S+)\\)$"
+context = "html_title"
+example = "SPA504G Device Information (SEP0123456789ab)"
+metadata = { "hw.vendor" = "Cisco", "hw.device" = "VoIP", "hw.product" = "{capture:1}", "host.mac" = "{capture:2}" }
+
+[[match]]
+name = "Cisco IP Phone "
+pattern = "^Cisco (?:SPA Configuration|IP Phone)$"
+context = "html_title"
+example = "Cisco SPA Configuration"
+metadata = { "hw.vendor" = "Cisco", "hw.device" = "VoIP" }
+
+[[match]]
+name = "Cisco IP Camera"
+pattern = "^Cisco IP Camera$"
+context = "html_title"
+example = "Cisco IP Camera"
+metadata = { "hw.vendor" = "Cisco", "hw.device" = "IP Camera" }
+
+[[match]]
+name = "Cisco TelePresence MCU - Home page"
+pattern = "^Cisco TelePresence MCU"
+context = "html_title"
+example = "Cisco TelePresence MCU - Home page"
+metadata = { "hw.vendor" = "Cisco", "hw.device" = "Video Conferencing", "hw.product" = "TelePresence MCU" }
+
+[[match]]
+name = "Cisco Nexus Virtual Switch"
+pattern = "^Cisco (Nexus \\d+\\S+)$"
+context = "html_title"
+example = "Cisco Nexus 1000V"
+metadata = { "hw.vendor" = "Cisco", "hw.device" = "Switch", "hw.product" = "{capture:1}" }
+
+[[match]]
+name = "Cisco Catalyst Switch"
+pattern = "^Cisco Catalyst Switch - Home$"
+context = "html_title"
+example = "Cisco Catalyst Switch - Home"
+metadata = { "hw.vendor" = "Cisco", "hw.device" = "Switch", "hw.product" = "Catalyst", "os.vendor" = "Cisco", "os.product" = "CatOS", "os.cpe23" = "cpe:/o:cisco:catos:-" }
+
+[[match]]
+name = "Cisco MDS 9000/Nexus 5000"
+pattern = "^Cisco MDS 9000(?: and Nexus 5000)? Management Modules (\\d+\\.\\d+\\S+)$"
+context = "html_title"
+example = "Cisco MDS 9000 and Nexus 5000 Management Modules 7.3(1)D1(1)"
+metadata = { "hw.vendor" = "Cisco", "hw.device" = "Switch", "hw.product" = "MDS 9000", "hw.cpe23" = "cpe:/h:cisco:mds_9000:-", "os.vendor" = "Cisco", "os.device" = "Switch", "os.product" = "MDS 9000", "os.version" = "{capture:1}", "os.cpe23" = "cpe:/o:cisco:mds_9000_san-os:{os.version}" }
+
+[[match]]
+name = "Stealthwatch Management Console"
+pattern = "^Stealthwatch Management Console$"
+context = "html_title"
+example = "Stealthwatch Management Console"
+metadata = { "hw.vendor" = "Cisco", "hw.device" = "Security Appliance", "hw.product" = "Stealthwatch", "os.vendor" = "Cisco", "os.device" = "Security Appliance", "os.product" = "Stealthwatch" }
+
+[[match]]
+name = "Cisco vManage SD-WAN"
+pattern = "^Cisco vManage$"
+context = "html_title"
+example = "Cisco vManage"
+metadata = { "hw.vendor" = "Cisco", "hw.device" = "SD-WAN Appliance", "hw.product" = "vManage", "os.vendor" = "Cisco", "os.device" = "SD-WAN Appliance", "os.product" = "vManage" }
+
+[[match]]
+name = "Cisco DNA Center Appliance"
+pattern = "^Login - Cisco DNA Center$"
+context = "html_title"
+example = "Login - Cisco DNA Center"
+metadata = { "hw.vendor" = "Cisco", "hw.device" = "Network Management Device", "hw.product" = "DNA Center", "os.vendor" = "Cisco", "os.device" = "Network Management Device", "os.product" = "DNA Center" }
+
+[[match]]
+name = "Cisco NFVIS"
+pattern = "^Cisco (?:Enterprise )?NFVIS$"
+context = "html_title"
+example = "Cisco NFVIS"
+metadata = { "hw.vendor" = "Cisco", "hw.device" = "Network Management Device", "hw.product" = "NFVIS", "os.vendor" = "Cisco", "os.device" = "Network Management Device", "os.product" = "NFVIS" }
+
+[[match]]
+name = "Cisco WLC"
+pattern = "^Cisco Systems Login$"
+context = "html_title"
+example = "Cisco Systems Login"
+metadata = { "os.vendor" = "Cisco", "os.device" = "Wireless Controller", "os.product" = "Wireless LAN Controller", "os.cpe23" = "cpe:/o:cisco:wireless_lan_controller_software:-", "hw.vendor" = "Cisco", "hw.device" = "Wireless Controller", "hw.product" = "Wireless LAN Controller", "hw.cpe23" = "cpe:/h:cisco:wireless_lan_controller:-" }
+
+[[match]]
+name = "Cisco Adaptive Security Device Manager Application"
+pattern = "^Cisco ASDM (\\S+)$"
+version_group = 1
+vendor = "Cisco"
+product = "ASDM"
+context = "html_title"
+example = "Cisco ASDM 6.4(7)"
+
+[[match]]
+name = "Duo Access Gateway"
+pattern = "^Duo Access Gateway$"
+context = "html_title"
+example = "Duo Access Gateway"
+metadata = { "hw.vendor" = "Duo", "hw.device" = "Security Appliance", "hw.product" = "Access Gateway", "os.vendor" = "Duo", "os.device" = "Security Appliance", "os.product" = "Access Gateway" }
+
+[[match]]
+name = "Duo Network Gateway"
+pattern = "^Login - Duo Network Gateway$"
+context = "html_title"
+example = "Login - Duo Network Gateway"
+metadata = { "hw.vendor" = "Duo", "hw.device" = "Security Appliance", "hw.product" = "Network Gateway", "os.vendor" = "Duo", "os.device" = "Security Appliance", "os.product" = "Network Gateway" }
+
+[[match]]
+name = "VBrick Rev"
+pattern = "^VBrick Rev"
+context = "html_title"
+example = "VBrick Rev"
+metadata = { "hw.vendor" = "Cisco", "hw.device" = "Video Conferencing", "hw.product" = "VBrick Rev", "os.vendor" = "Cisco", "os.device" = "Video Conferencing", "os.product" = "VBrick Rev" }
+
+[[match]]
+name = "LinxVII-5S Data Terminal"
+pattern = "^(LinxVII-\\S+) Remote Access$"
+context = "html_title"
+example = "LinxVII-5S Remote Access"
+metadata = { "hw.vendor" = "LINX", "hw.device" = "Data Terminal", "hw.product" = "{capture:1}" }
+
+[[match]]
+name = "Datalogic Mobile Portable"
+pattern = "^Datalogic Mobile Portable$"
+context = "html_title"
+example = "Datalogic Mobile Portable"
+metadata = { "hw.vendor" = "Datalogic Mobile", "hw.device" = "Handheld Scanner" }
+
+[[match]]
+name = "Axis Communications Web Cam"
+pattern = "^AXIS$"
+context = "html_title"
+example = "AXIS"
+metadata = { "hw.vendor" = "AXIS", "hw.device" = "IP Camera", "os.vendor" = "AXIS", "os.family" = "Linux", "os.device" = "IP Camera" }
+
+[[match]]
+name = "Hanwha Techwin IP Camera"
+pattern = "^Hanwha Techwin$"
+context = "html_title"
+example = "Hanwha Techwin"
+metadata = { "hw.vendor" = "Hanwha Techwin", "hw.device" = "IP Camera", "os.vendor" = "Hanwha Techwin", "os.device" = "IP Camera", "os.family" = "Linux" }
+
+[[match]]
+name = "WV-NS202A Network Camera"
+pattern = "^(WV-NS\\S+) Network Camera$"
+context = "html_title"
+example = "WV-NS202A Network Camera"
+metadata = { "hw.vendor" = "Panasonic", "hw.device" = "IP Camera", "hw.product" = "{capture:1}", "os.vendor" = "Panasonic", "os.device" = "IP Camera", "os.family" = "Linux" }
+
+[[match]]
+name = "KACE Systems Management Appliances"
+pattern = "^KACE (?:Systems Management|Systems Deployment|Remote Site) Appliance"
+context = "html_title"
+example = "KACE Systems Management Appliance Service Center"
+metadata = { "hw.vendor" = "KACE", "hw.device" = "Support Appliance", "os.vendor" = "KACE", "os.family" = "FreeBSD" }
+
+[[match]]
+name = "Dell K1000 Systems Management Appliances (KACE)"
+pattern = "^K1000 Service Center$"
+context = "html_title"
+example = "K1000 Service Center"
+metadata = { "hw.vendor" = "KACE", "hw.device" = "Support Appliance", "hw.product" = "K1000", "hw.cpe23" = "cpe:/h:dell:kace_k1000_systems_management_appliance:-", "os.vendor" = "KACE", "os.family" = "FreeBSD" }
+
+[[match]]
+name = "Bomgar Appliances"
+pattern = "Portal.*Powered by BOMGAR$"
+context = "html_title"
+example = "Remote Support Portal | Powered by BOMGAR"
+metadata = { "hw.vendor" = "Bomgar", "hw.device" = "Support Appliance", "os.vendor" = "Bomgar", "os.family" = "Linux" }
+
+[[match]]
+name = "XRoads SD-WAN Network Appliance "
+pattern = "^XRoads Network Appliance Administration$"
+context = "html_title"
+example = "XRoads Network Appliance Administration"
+metadata = { "hw.vendor" = "XRoads", "hw.device" = "SD-WAN Appliance", "os.vendor" = "XRoads", "os.family" = "Linux" }
+
+[[match]]
+name = "PowerVault 124T Tape Library"
+pattern = "^On Board Remote Management$"
+context = "html_title"
+example = "On Board Remote Management"
+metadata = { "hw.vendor" = "Dell", "hw.device" = "Tape Library", "hw.product" = "PowerVault 124T", "os.vendor" = "Dell" }
+
+[[match]]
+name = "Crestron Multiformat Receivers"
+pattern = "^(HD-RX-\\S+)$"
+context = "html_title"
+example = "HD-RX-201-C-E"
+metadata = { "hw.vendor" = "Crestron", "hw.device" = "Media Receiver", "hw.product" = "{capture:1}", "os.vendor" = "Crestron" }
+
+[[match]]
+name = "Lencore Sound Manager 2"
+pattern = "^Lencore Sound Manager 2$"
+context = "html_title"
+example = "Lencore Sound Manager 2"
+metadata = { "hw.vendor" = "Lencore", "hw.device" = "Media Receiver", "hw.product" = "Lencore Sound Manager 2", "os.vendor" = "i.LON", "os.product" = "SmartServer" }
+
+[[match]]
+name = "Avocent AutoView KVM"
+pattern = "^Avocent AutoView ([^/$]+)"
+context = "html_title"
+example = "Avocent AutoView 3100/3200"
+metadata = { "hw.vendor" = "Avocent", "hw.device" = "KVM", "hw.model" = "{capture:1}", "hw.product" = "AutoView {hw.model}" }
+
+[[match]]
+name = "Aerohive Access Point"
+pattern = "^Aerohive HiveUI$"
+context = "html_title"
+example = "Aerohive HiveUI"
+metadata = { "hw.vendor" = "Aerohive", "hw.device" = "WAP" }
+
+[[match]]
+name = "Ruckus Wireless Access Point"
+pattern = "^Ruckus Wireless Admin$"
+context = "html_title"
+example = "Ruckus Wireless Admin"
+metadata = { "hw.vendor" = "Ruckus", "hw.device" = "WAP" }
+
+[[match]]
+name = "Siemens 257x Ethernet Adapter (CTI Branded)"
+pattern = "^CTI (25\\S+) Main Menu$"
+context = "html_title"
+example = "CTI 2572-A Main Menu"
+metadata = { "hw.vendor" = "Siemens", "hw.device" = "Ethernet Adapter", "hw.product" = "{capture:1}", "os.vendor" = "Siemens" }
+
+[[match]]
+name = "Siemens 257x Ethernet Adapter"
+pattern = "^(25\\S+) Ethernet TCP/IP Module$"
+context = "html_title"
+example = "2572-B Ethernet TCP/IP Module"
+metadata = { "hw.vendor" = "Siemens", "hw.device" = "Ethernet Adapter", "hw.product" = "{capture:1}", "os.vendor" = "Siemens" }
+
+[[match]]
+name = "DirectLOGIC DL205 communication module"
+pattern = "^ECOM100 Main$"
+context = "html_title"
+example = "ECOM100 Main"
+metadata = { "hw.vendor" = "DirectLOGIC", "hw.device" = "Ethernet Adapter", "hw.product" = "ECOM100", "os.vendor" = "DirectLOGIC" }
+
+[[match]]
+name = "Allen-Bradley 1794-AENTR FLEX Ethernet Adapter"
+pattern = "^(1794-\\S+) FLEX Ethernet Adapter$"
+context = "html_title"
+example = "1794-AENTR FLEX Ethernet Adapter"
+metadata = { "hw.vendor" = "Allen-Bradley", "hw.device" = "Ethernet Adapter", "hw.product" = "{capture:1}", "os.vendor" = "Allen-Bradley" }
+
+[[match]]
+name = "Anybus-CC EtherNet/IP"
+pattern = "^Anybus-CC EtherNet/IP$"
+context = "html_title"
+example = "Anybus-CC EtherNet/IP"
+metadata = { "hw.vendor" = "AnyBus", "hw.device" = "Ethernet Adapter", "hw.product" = "CC EtherNet/IP", "os.vendor" = "AnyBus" }
+
+[[match]]
+name = "AMAG Technology Symmetry EN-2DBC Access Controller"
+pattern = "^Symmetry 2DBC"
+context = "html_title"
+example = "Symmetry 2DBC STD APP (EN2DBC_00_EF_4F)"
+metadata = { "hw.vendor" = "AMAG Technology", "hw.device" = "Access Control", "hw.product" = "Symmetry EN-2DBC", "os.vendor" = "AMAG Technology" }
+
+[[match]]
+name = "Allen-Bradley 1747-LXXX SLC 5/05 Controller"
+pattern = "^(1747-\\S+) Home Page$"
+context = "html_title"
+example = "1747-L551 Home Page"
+metadata = { "hw.vendor" = "Allen-Bradley", "hw.device" = "HMI Controller", "hw.product" = "{capture:1}", "os.vendor" = "Allen-Bradley" }
+
+[[match]]
+name = "Allen-Bradley 1766-L32BXB PLC"
+pattern = "^(1766-\\S+) (B/\\S+)$"
+context = "html_title"
+example = "1766-L32BXB B/11.00"
+metadata = { "hw.vendor" = "Allen-Bradley", "hw.device" = "PLC", "hw.product" = "{capture:1}", "os.vendor" = "Allen-Bradley", "os.device" = "PLC", "os.product" = "{capture:1}", "os.version" = "{capture:2}" }
+
+[[match]]
+name = "PLC-5 Ethernet Interface Module"
+pattern = "^PLC-5 Ethernet Base Page$"
+context = "html_title"
+example = "PLC-5 Ethernet Base Page"
+metadata = { "hw.vendor" = "Rockwell Automation", "hw.device" = "PLC", "hw.product" = "PLC-5", "os.vendor" = "Rockwell Automation", "os.device" = "PLC", "os.product" = "PLC-5" }
+
+[[match]]
+name = "Allen-Bradley Ethernet Module"
+pattern = "^(1761-NET-\\S+)$"
+context = "html_title"
+example = "1761-NET-EN"
+metadata = { "hw.vendor" = "Allen-Bradley", "hw.device" = "Ethernet Adapter", "hw.product" = "{capture:1}", "os.vendor" = "Allen-Bradley" }
+
+[[match]]
+name = "Allen-Bradley 1785 Ethernet Module"
+pattern = "^(1785-\\S+) Ethernet Base Page$"
+context = "html_title"
+example = "1785-ENET Ethernet Base Page"
+metadata = { "hw.vendor" = "Allen-Bradley", "hw.device" = "Ethernet Adapter", "hw.product" = "{capture:1}", "os.vendor" = "Allen-Bradley" }
+
+[[match]]
+name = "NFT DALI S7 Ethernet Module"
+pattern = "^NFT S7 - DALI-Gateway\\(Ethernet\\)$"
+context = "html_title"
+example = "NFT S7 - DALI-Gateway(Ethernet)"
+metadata = { "hw.vendor" = "NFT", "hw.device" = "Ethernet Adapter", "hw.product" = "S7 DALI Gateway", "os.vendor" = "NFT" }
+
+[[match]]
+name = "IBHsofte IBHLink S7++"
+pattern = "^IBHLink S7\\+\\+$"
+context = "html_title"
+example = "IBHLink S7++"
+metadata = { "hw.vendor" = "IBHsofte", "hw.device" = "Ethernet Adapter", "hw.product" = "IBHLink S7++", "os.vendor" = "IBHsofte" }
+
+[[match]]
+name = "Softing Industrial S7/S5 OPC Server"
+pattern = "^S7/S5 OPC Server$"
+vendor = "Softing"
+product = "S7/S5 OPC Server"
+context = "html_title"
+example = "S7/S5 OPC Server"
+
+[[match]]
+name = "Nessus"
+pattern = "^Nessus$"
+vendor = "Tenable"
+product = "Nessus"
+context = "html_title"
+example = "Nessus"
+metadata = { "service.cpe23" = "cpe:/a:tenable:nessus:-" }
+
+[[match]]
+name = "Tenable Appliance"
+pattern = "^Tenable Appliance$"
+context = "html_title"
+example = "Tenable Appliance"
+metadata = { "hw.vendor" = "Tenable", "hw.device" = "Security Appliance", "hw.product" = "Tenable Appliance" }
+
+[[match]]
+name = "XenServer"
+pattern = "^(?:Welcome to Citrix )?XenServer ([0-9\\.]+)$"
+version_group = 1
+vendor = "Citrix"
+product = "XenServer"
+context = "html_title"
+example = "Welcome to Citrix XenServer 7.2.0"
+metadata = { "service.device" = "Hypervisor", "service.cpe23" = "cpe:/a:citrix:xenserver:{service.version}", "os.vendor" = "Citrix", "os.product" = "XenServer", "os.device" = "Hypervisor", "hw.device" = "Hypervisor" }
+
+[[match]]
+name = "XenServer - Hypervisor variant"
+pattern = "^Welcome to Citrix Hypervisor ([0-9\\.]+)$"
+version_group = 1
+vendor = "Citrix"
+product = "XenServer"
+context = "html_title"
+example = "Welcome to Citrix Hypervisor 8.2.0"
+metadata = { "service.device" = "Hypervisor", "service.cpe23" = "cpe:/a:citrix:xenserver:{service.version}", "os.vendor" = "Citrix", "os.product" = "XenServer", "os.device" = "Hypervisor", "hw.device" = "Hypervisor" }
+
+[[match]]
+name = "RabbitMQ Management"
+pattern = "^RabbitMQ Management$"
+vendor = "RabbitMQ"
+product = "Management Server"
+context = "html_title"
+example = "RabbitMQ Management"
+
+[[match]]
+name = "HAProxy Stats Server"
+pattern = "^Statistics Report for HAProxy$"
+vendor = "HAProxy"
+product = "HAProxy Stats Server"
+context = "html_title"
+example = "Statistics Report for HAProxy"
+
+[[match]]
+name = "Dell OpenManage Admin"
+pattern = "^Open Manage&trade;$"
+vendor = "Dell"
+product = "OpenManage"
+context = "html_title"
+example = "Open Manage&trade;"
+metadata = { "service.cpe23" = "cpe:/a:dell:openmanage:-" }
+
+[[match]]
+name = "TightVNC Web Server"
+pattern = "^TightVNC desktop \\[(.*)\\]$"
+vendor = "TightVNC"
+product = "Desktop"
+context = "html_title"
+example = "TightVNC desktop [teller01]"
+metadata = { "service.cpe23" = "cpe:/a:tightvnc:tightvnc:-", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "noVNC Web Server"
+pattern = "^noVNC$"
+vendor = "noVNC"
+product = "noVNC"
+context = "html_title"
+example = "noVNC"
+metadata = { "service.cpe23" = "cpe:/a:novnc:novnc:-" }
+
+[[match]]
+name = "RealVNC built-in webserver"
+pattern = "^VNC Viewer for Java$"
+vendor = "RealVNC Ltd."
+product = "RealVNC"
+context = "html_title"
+example = "VNC Viewer for Java"
+metadata = { "service.cpe23" = "cpe:/a:realvnc:realvnc:-" }
+
+[[match]]
+name = "Jenkins Customized Dashboard"
+pattern = "^.{0,1000} \\[Jenkins\\]$"
+vendor = "Jenkins"
+product = "Jenkins"
+context = "html_title"
+example = "Continuous Integrations [Jenkins]"
+metadata = { "service.cpe23" = "cpe:/a:jenkins:jenkins:-" }
+
+[[match]]
+name = "Shell In A Box (OSS Project)"
+pattern = "^Shell In A Box$"
+vendor = "ShellInABox"
+product = "ShellInABox"
+context = "html_title"
+example = "Shell In A Box"
+
+[[match]]
+name = "Agilent License Manager Service"
+pattern = "^AgilentLicenseManagerService Service$"
+vendor = "Agilent"
+product = "License Manager"
+context = "html_title"
+example = "AgilentLicenseManagerService Service"
+
+[[match]]
+name = "Red Hat OpenStack Platform Director"
+pattern = "^Red Hat(?:.reg;)? OpenStack (?:Platform )?Director$"
+vendor = "Red Hat"
+product = "Open Stack Platform Director"
+context = "html_title"
+example = "Red Hat OpenStack Platform Director"
+
+[[match]]
+name = "OpenStack Horizon Dashboard"
+pattern = "^Login - OpenStack Dashboard$"
+vendor = "OpenStack"
+product = "Horizon"
+context = "html_title"
+example = "Login - OpenStack Dashboard"
+metadata = { "service.cpe23" = "cpe:/a:openstack:horizon:-" }
+
+[[match]]
+name = "Splunk HTTP server used in the web interface, forwarders, indexers and more"
+pattern = "^splunkd$"
+vendor = "Splunk"
+product = "Splunk"
+context = "html_title"
+example = "splunkd"
+metadata = { "service.cpe23" = "cpe:/a:splunk:splunk:-" }
+
+[[match]]
+name = "VMware Horizon"
+pattern = "^VMware(?: Horizon(?: View)?|.nbsp;Horizon| View Portal)?$"
+vendor = "VMware"
+product = "Horizon"
+context = "html_title"
+example = "VMware Horizon"
+metadata = { "service.cpe23" = "cpe:/a:vmware:horizon:-" }
+
+[[match]]
+name = "VMware SRM"
+pattern = "^Welcome to VMware Site Recovery Manager$"
+vendor = "VMware"
+product = "Site Recovery Manager"
+context = "html_title"
+example = "Welcome to VMware Site Recovery Manager"
+metadata = { "os.vendor" = "VMware", "os.product" = "Linux", "hw.vendor" = "VMware", "hw.device" = "Appliance", "hw.product" = "Site Recovery Manager" }
+
+[[match]]
+name = "VMware vCenter"
+pattern = "^\" \\+ ID_VC_Welcome \\+ \"$"
+vendor = "VMware"
+product = "vCenter"
+context = "html_title"
+example = "\" + ID_VC_Welcome + \""
+metadata = { "service.cpe23" = "cpe:/a:vmware:vcenter_server:-" }
+
+[[match]]
+name = "VMware ESXi"
+pattern = "^\" \\+ ID_EESX_Welcome \\+ \"$"
+vendor = "VMware"
+context = "html_title"
+example = "\" + ID_EESX_Welcome + \""
+metadata = { "os.vendor" = "VMware", "os.family" = "VMware ESX/ESXi", "os.product" = "VMware ESXi Server", "os.device" = "Hypervisor", "os.cpe23" = "cpe:/o:vmware:esxi:-", "hw.device" = "Hypervisor" }
+
+[[match]]
+name = "VMware Converter"
+pattern = "^\" \\+ ID_Converter_Welcome \\+ \"$"
+vendor = "VMware"
+product = "vCenter Converter"
+context = "html_title"
+example = "\" + ID_Converter_Welcome + \""
+metadata = { "service.cpe23" = "cpe:/a:vmware:vcenter_converter:-" }
+
+[[match]]
+name = "Graylog Web Interface"
+pattern = "^Graylog Web Interface$"
+vendor = "Graylog"
+product = "Graylog"
+context = "html_title"
+example = "Graylog Web Interface"
+metadata = { "service.cpe23" = "cpe:/a:graylog:graylog:-" }
+
+[[match]]
+name = "Kibana Web Interface"
+pattern = "^(?:Elastic\\s+)?Kibana$"
+vendor = "Elastic"
+product = "Kibana"
+context = "html_title"
+example = "Kibana"
+metadata = { "service.cpe23" = "cpe:/a:elastic:kibana:-" }
+
+[[match]]
+name = "Grafana Web Interface"
+pattern = "^Grafana$"
+vendor = "Grafana"
+product = "Grafana"
+context = "html_title"
+example = "Grafana"
+metadata = { "service.cpe23" = "cpe:/a:grafana:grafana:-" }
+
+[[match]]
+name = "Prometheus Web Interface"
+pattern = "^Prometheus Time Series Collection and Processing Server$"
+vendor = "Prometheus"
+product = "Prometheus"
+context = "html_title"
+example = "Prometheus Time Series Collection and Processing Server"
+metadata = { "service.cpe23" = "cpe:/a:prometheus:prometheus:-" }
+
+[[match]]
+name = "Symantec Endpoint Protection Manager"
+pattern = "^Symantec Endpoint Protection Manager$"
+vendor = "Symantec"
+product = "Endpoint Protection Manager"
+context = "html_title"
+example = "Symantec Endpoint Protection Manager"
+metadata = { "service.cpe23" = "cpe:/a:symantec:endpoint_protection_manager:-" }
+
+[[match]]
+name = "Hadoop Administration Web Service"
+pattern = "^Hadoop Administration$"
+vendor = "Hadoop"
+product = "Hadoop Web Admin"
+context = "html_title"
+example = "Hadoop Administration"
+
+[[match]]
+name = "ManageEngine OpManager"
+pattern = "^ManageEngine OpManager$"
+vendor = "ManageEngine"
+product = "OpManager"
+context = "html_title"
+example = "ManageEngine OpManager"
+metadata = { "service.cpe23" = "cpe:/a:zohocorp:manageengine_opmanager:-" }
+
+[[match]]
+name = "ManageEngine Desktop Central 9"
+pattern = "^ManageEngine Desktop Central 9$"
+vendor = "ManageEngine"
+product = "Desktop Central"
+context = "html_title"
+example = "ManageEngine Desktop Central 9"
+metadata = { "service.cpe23" = "cpe:/a:manageengine:desktop_central:-" }
+
+[[match]]
+name = "ManageEngine ADAudit Plus"
+pattern = "^ADAudit Plus$"
+vendor = "ManageEngine"
+product = "ADAudit Plus"
+context = "html_title"
+example = "ADAudit Plus"
+metadata = { "service.cpe23" = "cpe:/a:zohocorp:manageengine_adaudit_plus:-" }
+
+[[match]]
+name = "ManageEngine ADManager Plus"
+pattern = "^ManageEngine - ADManager Plus$"
+vendor = "ManageEngine"
+product = "ADManager Plus"
+context = "html_title"
+example = "ManageEngine - ADManager Plus"
+metadata = { "service.cpe23" = "cpe:/a:zohocorp:manageengine_admanager_plus:-" }
+
+[[match]]
+name = "ManageEngine AssetExplorer"
+pattern = "^ManageEngine AssetExplorer$"
+vendor = "ManageEngine"
+product = "AssetExplorer"
+context = "html_title"
+example = "ManageEngine AssetExplorer"
+metadata = { "service.cpe23" = "cpe:/a:zohocorp:manageengine_assetexplorer:-" }
+
+[[match]]
+name = "ManageEngine Endpoint Central (formerly Desktop Central)"
+pattern = "^ManageEngine Endpoint Central$"
+vendor = "ManageEngine"
+product = "Endpoint Central"
+context = "html_title"
+example = "ManageEngine Endpoint Central"
+metadata = { "service.cpe23" = "cpe:/a:zohocorp:manageengine_desktop_central:-" }
+
+[[match]]
+name = "ManageEngine PAM360"
+pattern = "^ManageEngine PAM360$"
+vendor = "ManageEngine"
+product = "PAM360"
+context = "html_title"
+example = "ManageEngine PAM360"
+metadata = { "service.cpe23" = "cpe:/a:zohocorp:manageengine_pam360:-" }
+
+[[match]]
+name = "ManageEngine Password Manager Pro"
+pattern = "^ManageEngine PasswordManager Pro$"
+vendor = "ManageEngine"
+product = "ManageEngine Password Manager Pro"
+context = "html_title"
+example = "ManageEngine PasswordManager Pro"
+metadata = { "service.cpe23" = "cpe:/a:zohocorp:manageengine_password_manager_pro:-" }
+
+[[match]]
+name = "ManageEngine Access Manager Plus"
+pattern = "^ManageEngine Access Manager Plus$"
+vendor = "ManageEngine"
+product = "Access Manager Plus"
+context = "html_title"
+example = "ManageEngine Access Manager Plus"
+metadata = { "service.cpe23" = "cpe:/a:zohocorp:manageengine_access_manager_plus:-" }
+
+[[match]]
+name = "ManageEngine ServiceDesk Plus"
+pattern = "^ManageEngine ServiceDesk Plus$"
+vendor = "ManageEngine"
+product = "ManageEngine ServiceDesk Plus"
+context = "html_title"
+example = "ManageEngine ServiceDesk Plus"
+metadata = { "service.cpe23" = "cpe:/a:zohocorp:manageengine_servicedesk_plus:-" }
+
+[[match]]
+name = "ManageEngine ServiceDesk Plus MSP"
+pattern = "^ManageEngine ServiceDesk Plus - MSP$"
+vendor = "ManageEngine"
+product = "ServiceDesk Plus MSP"
+context = "html_title"
+example = "ManageEngine ServiceDesk Plus - MSP"
+metadata = { "service.cpe23" = "cpe:/a:zohocorp:manageengine_servicedesk_plus_msp:-" }
+
+[[match]]
+name = "ManageEngine SupportCenter Plus"
+pattern = "^ManageEngine SupportCenter Plus$"
+vendor = "ManageEngine"
+product = "SupportCenter Plus"
+context = "html_title"
+example = "ManageEngine SupportCenter Plus"
+metadata = { "service.cpe23" = "cpe:/a:zohocorp:manageengine_supportcenter_plus:-" }
+
+[[match]]
+name = "Canon ScanFront"
+pattern = "^(ScanFront \\d.+)Web Menu$"
+context = "html_title"
+example = "ScanFront 220Web Menu"
+metadata = { "hw.device" = "Scanner", "hw.vendor" = "Canon", "hw.product" = "{capture:1}", "os.device" = "Scanner", "os.vendor" = "Canon", "os.product" = "{capture:1}" }
+
+[[match]]
+name = "CDVI Door Control System"
+pattern = "^CDVI Update$"
+context = "html_title"
+example = "CDVI Update"
+metadata = { "hw.vendor" = "CDVI", "hw.device" = "Access Control" }
+
+[[match]]
+name = "Liebert UPS"
+pattern = "^Liebert OpenComms Network Interface Card$"
+context = "html_title"
+example = "Liebert OpenComms Network Interface Card"
+metadata = { "hw.device" = "Power Device", "hw.vendor" = "Liebert", "os.device" = "Power Device", "os.vendor" = "Liebert" }
+
+[[match]]
+name = "MagTek Excella STX Check Scanner"
+pattern = "^Excella Main Page$"
+context = "html_title"
+example = "Excella Main Page"
+metadata = { "hw.device" = "Check Scanner", "hw.vendor" = "MagTek", "hw.product" = "Excella", "os.device" = "Check Scanner", "os.vendor" = "MagTek", "os.product" = "Excella" }
+
+[[match]]
+name = "Bosch Security Systems Ethernet Module (Alarm Panel)"
+pattern = "^B426$"
+context = "html_title"
+example = "B426"
+metadata = { "hw.device" = "Alarm Panel", "hw.vendor" = "Bosch", "os.device" = "Alarm Panel", "os.vendor" = "Bosch" }
+
+[[match]]
+name = "Citrix NetScaler"
+pattern = "^Citrix Login$"
+vendor = "Citrix"
+product = "NetScaler"
+context = "html_title"
+example = "Citrix Login"
+metadata = { "os.vendor" = "Citrix", "os.family" = "NetScaler", "os.device" = "Network Management Device", "os.product" = "NetScaler", "os.cpe23" = "cpe:/o:citrix:netscaler_firmware:-", "service.family" = "NetScaler", "service.device" = "Network Management Device", "service.cpe23" = "cpe:/a:citrix:netscaler:-", "hw.vendor" = "Citrix", "hw.family" = "NetScaler", "hw.device" = "Network Management Device", "hw.product" = "NetScaler Gateway", "hw.cpe23" = "cpe:/h:citrix:netscaler_gateway:-" }
+
+[[match]]
+name = "Citrix Netscaler Gateway"
+pattern = "^Netscaler Gateway$"
+vendor = "Citrix"
+product = "NetScaler Gateway"
+context = "html_title"
+example = "Netscaler Gateway"
+metadata = { "os.vendor" = "Citrix", "os.family" = "NetScaler", "os.device" = "Network Management Device", "os.product" = "NetScaler Gateway", "os.cpe23" = "cpe:/o:citrix:netscaler_gateway_firmware:-", "service.family" = "NetScaler", "service.device" = "Network Management Device", "service.cpe23" = "cpe:/a:citrix:netscaler_gateway:-", "hw.vendor" = "Citrix", "hw.family" = "NetScaler", "hw.device" = "Network Management Device", "hw.product" = "NetScaler Gateway", "hw.cpe23" = "cpe:/h:citrix:netscaler_gateway:-" }
+
+[[match]]
+name = "Citrix NetScaler SDX Gateway"
+pattern = "^Citrix (?:NetScaler SDX|ADC SDX)$"
+vendor = "Citrix"
+product = "NetScaler SDX Gateway"
+context = "html_title"
+example = "Citrix NetScaler SDX"
+metadata = { "os.vendor" = "Citrix", "os.family" = "NetScaler", "os.device" = "Network Management Device", "os.product" = "NetScaler SDX Gateway", "service.family" = "NetScaler", "service.device" = "Network Management Device", "hw.vendor" = "Citrix", "hw.family" = "NetScaler", "hw.device" = "Network Management Device", "hw.product" = "NetScaler SDX Gateway", "hw.cpe23" = "cpe:/h:citrix:netscaler_sdx:-" }
+
+[[match]]
+name = "Citrix NetScaler Insight Center"
+pattern = "^Citrix NetScaler Insight Center$"
+vendor = "Citrix"
+product = "NetScaler Insight Center"
+context = "html_title"
+example = "Citrix NetScaler Insight Center"
+metadata = { "service.family" = "NetScaler" }
+
+[[match]]
+name = "Brother Printers"
+pattern = "^Brother ([^\\s]+) series$"
+context = "html_title"
+example = "Brother MFC-L5900DW series"
+metadata = { "hw.vendor" = "Brother", "hw.device" = "Printer", "hw.product" = "{capture:1}" }
+
+[[match]]
+name = "HP LaserJet"
+pattern = "^HP (?:Color )?LaserJet ([^&]+)&"
+context = "html_title"
+example = "HP LaserJet M1536dnf MFP&nbsp;&nbsp;&nbsp;1.1.1.1"
+metadata = { "hw.vendor" = "HP", "hw.family" = "LaserJet", "hw.device" = "Printer", "hw.product" = "{capture:1}" }
+
+[[match]]
+name = "Jamf Pro"
+pattern = "^Jamf Pro Login - Jamf Pro v(\\S+)$"
+version_group = 1
+vendor = "Jamf"
+product = "Jamf Pro"
+context = "html_title"
+example = "Jamf Pro Login - Jamf Pro v10.14.0-t1563397490"
+metadata = { "service.cpe23" = "cpe:/a:jamf:jamf:{service.version}" }
+
+[[match]]
+name = "Keyper Systems Administration - Login"
+pattern = "^Keyper Systems Administration - Login$"
+context = "html_title"
+example = "Keyper Systems Administration - Login"
+metadata = { "hw.vendor" = "Keyper", "hw.device" = "Access Control", "hw.product" = "Key Management" }
+
+[[match]]
+name = "FireEye Investigation Analysis System Appliance"
+pattern = "FireEye:\\s*$"
+context = "html_title"
+example = "FireEye:"
+metadata = { "hw.vendor" = "FireEye", "hw.product" = "IA Appliance", "hw.device" = "Security Appliance" }
+
+[[match]]
+name = "Gigamon GigaVUE Appliance"
+pattern = "^GigaVUE-OS$"
+context = "html_title"
+example = "GigaVUE-OS"
+metadata = { "hw.vendor" = "Gigamon", "hw.device" = "Monitoring", "hw.product" = "GigaVUE" }
+
+[[match]]
+name = "Pure Storage Appliance"
+pattern = "^Pure Storage Login$"
+context = "html_title"
+example = "Pure Storage Login"
+metadata = { "hw.vendor" = "Pure Storage", "hw.device" = "Storage Appliance", "hw.product" = "Appliance" }
+
+[[match]]
+name = "Axonius Appliance"
+pattern = "^Axonius Cybersecurity Asset Management Platform$"
+context = "html_title"
+example = "Axonius Cybersecurity Asset Management Platform"
+metadata = { "hw.vendor" = "Axonius", "hw.device" = "Security Appliance", "hw.product" = "Asset Management" }
+
+[[match]]
+name = "Crestron Video Conferencing"
+pattern = "^CRESTRON$"
+context = "html_title"
+example = "CRESTRON"
+metadata = { "hw.vendor" = "Crestron", "hw.device" = "Video Conferencing", "os.vendor" = "Crestron", "os.family" = "Linux", "os.device" = "Video Conferencing" }
+
+[[match]]
+name = "ELAN Smart Home Controller"
+pattern = "^ELAN Viewer Installation$"
+context = "html_title"
+example = "ELAN Viewer Installation"
+metadata = { "hw.vendor" = "ELAN", "hw.device" = "Building Automation", "hw.product" = "Home Controller", "os.vendor" = "ELAN", "os.family" = "Linux" }
+
+[[match]]
+name = "iTach IP2IR"
+pattern = "^iTach IP2IR Setup and Configuration$"
+context = "html_title"
+example = "iTach IP2IR Setup and Configuration"
+metadata = { "hw.vendor" = "iTach", "hw.device" = "Device", "hw.product" = "IP2IR" }
+
+[[match]]
+name = "AVTECH Device ManageR Software"
+pattern = "^AVTECH Device ManageR$"
+vendor = "AVTECH"
+product = "Device Manager"
+context = "html_title"
+example = "AVTECH Device ManageR"
+
+[[match]]
+name = "AVTECH RoomAlert"
+pattern = "^AVTECH Software, Inc\\. - Room Alert(?:&reg;)?\\s+([a-zA-Z0-9/]+) - Advanced"
+context = "html_title"
+example = "AVTECH Software, Inc. - Room Alert 11E - Advanced Computer Room Environment Monitoring, Alerting &amp; Automatic Corrective Action"
+metadata = { "hw.vendor" = "AVTECH", "hw.device" = "Monitoring", "hw.model" = "{capture:1}", "hw.product" = "Room Alert {hw.model}" }
+
+[[match]]
+name = "AVTECH TepPageR"
+pattern = "^AVTECH Software, Inc\\. - TemPageR\\s+([a-zA-Z0-9/]+) - Real-Time"
+context = "html_title"
+example = "AVTECH Software, Inc. - TemPageR 3E - Real-Time Temperature Monitor For IT &amp; Facilities Environment Monitoring"
+metadata = { "hw.vendor" = "AVTECH", "hw.device" = "Monitoring", "hw.model" = "{capture:1}", "hw.product" = "TemPageR {hw.model}" }
+
+[[match]]
+name = "Cisco AppDynamics Appliance"
+pattern = "^AppDynamics$"
+context = "html_title"
+example = "AppDynamics"
+metadata = { "hw.vendor" = "Cisco", "hw.device" = "Network Appliance", "hw.product" = "AppDynamics" }
+
+[[match]]
+name = "INDECT Parking Management Console"
+pattern = "^INDECT - CarDetector Configurator$"
+context = "html_title"
+example = "INDECT - CarDetector Configurator"
+metadata = { "hw.vendor" = "INDECT", "hw.device" = "Network Appliance", "hw.product" = "CarDetector" }
+
+[[match]]
+name = "Segger J-Link Pro"
+pattern = "^J-Link Pro Webserver$"
+context = "html_title"
+example = "J-Link Pro Webserver"
+metadata = { "hw.vendor" = "Segger", "hw.device" = "JTAG Adapter", "hw.product" = "J-Link Pro" }
+
+[[match]]
+name = "EMC Isilon OneFS"
+pattern = "^OneFS$"
+context = "html_title"
+example = "OneFS"
+metadata = { "os.family" = "FreeBSD", "os.vendor" = "EMC", "os.product" = "Isilon OneFS OS", "hw.vendor" = "EMC", "hw.device" = "NAS", "hw.product" = "Isilon OneFS" }
+
+[[match]]
+name = "EMC Isilon InsightIQ"
+pattern = "^Isilon InsightIQ$"
+context = "html_title"
+example = "Isilon InsightIQ"
+metadata = { "os.family" = "FreeBSD", "os.vendor" = "EMC", "os.product" = "Isilon OneFS OS", "hw.vendor" = "EMC", "hw.device" = "Network Appliance", "hw.product" = "Isilon InsightIQ" }
+
+[[match]]
+name = "Attivio Active Intelligence Engine"
+pattern = "^Active Intelligence Engine$"
+vendor = "Attivio"
+product = "Active Intelligence Engine"
+context = "html_title"
+example = "Active Intelligence Engine"
+
+[[match]]
+name = "WildFly with version"
+pattern = "^Welcome to WildFly(?: Application Server)?\\s+(\\d+)"
+version_group = 1
+vendor = "Red Hat"
+product = "WildFly"
+context = "html_title"
+example = "Welcome to WildFly 11"
+metadata = { "service.cpe23" = "cpe:/a:redhat:wildfly:{service.version}" }
+
+[[match]]
+name = "WildFly with no version"
+pattern = "^Welcome to WildFly$"
+vendor = "Red Hat"
+product = "WildFly"
+context = "html_title"
+example = "Welcome to WildFly"
+metadata = { "service.cpe23" = "cpe:/a:redhat:wildfly:-" }
+
+[[match]]
+name = "JBoss Application Server w/ Version"
+pattern = "^Welcome to JBoss Application Server ([\\d\\.]+)$"
+version_group = 1
+vendor = "Red Hat"
+product = "JBoss AS"
+context = "html_title"
+example = "Welcome to JBoss Application Server 7"
+metadata = { "service.cpe23" = "cpe:/a:redhat:jboss_wildfly_application_server:{service.version}" }
+
+[[match]]
+name = "JBoss Application Server w/o Version"
+pattern = "^Welcome to JBoss(?: AS|.trade;)$"
+vendor = "Red Hat"
+product = "JBoss AS"
+context = "html_title"
+example = "Welcome to JBoss AS"
+metadata = { "service.cpe23" = "cpe:/a:redhat:jboss_wildfly_application_server:-" }
+
+[[match]]
+name = "JBoss EAP w/ Version"
+pattern = "^(?:JBoss )?EAP ([\\d\\.]+)$"
+version_group = 1
+vendor = "Red Hat"
+product = "JBoss EAP"
+context = "html_title"
+example = "JBoss EAP 7"
+metadata = { "service.cpe23" = "cpe:/a:redhat:jboss_enterprise_application_platform:{service.version}" }
+
+[[match]]
+name = "JBoss EAP w/o Version"
+pattern = "^Welcome to JBoss EAP$"
+vendor = "Red Hat"
+product = "JBoss EAP"
+context = "html_title"
+example = "Welcome to JBoss EAP"
+metadata = { "service.cpe23" = "cpe:/a:redhat:jboss_enterprise_application_platform:-" }
+
+[[match]]
+name = "S2 Network Node Appliance"
+pattern = "^S2 Network Node$"
+context = "html_title"
+example = "S2 Network Node"
+metadata = { "hw.vendor" = "S2", "hw.device" = "Access Control", "hw.product" = "Network Node" }
+
+[[match]]
+name = "S2 Netbox Appliance"
+pattern = "^(?:S2 Netbox Login|Home - NetBox)$"
+context = "html_title"
+example = "S2 Netbox Login"
+metadata = { "hw.vendor" = "S2", "hw.device" = "Access Control", "hw.product" = "Netbox" }
+
+[[match]]
+name = "S2 NetVR Appliance"
+pattern = "^S2 NetVR Login$"
+context = "html_title"
+example = "S2 NetVR Login"
+metadata = { "hw.vendor" = "S2", "hw.device" = "Access Control", "hw.product" = "NetVR" }
+
+[[match]]
+name = "IBM HTTP Server w/o Version"
+pattern = "^IBM HTTP Server$"
+vendor = "IBM"
+product = "HTTPD"
+context = "html_title"
+example = "IBM HTTP Server"
+metadata = { "service.family" = "Apache" }
+
+[[match]]
+name = "IBM HTTP Server with Version"
+pattern = "^IBM HTTP Server ([0-9\\.]+)$"
+version_group = 1
+vendor = "IBM"
+product = "HTTPD"
+context = "html_title"
+example = "IBM HTTP Server 8.5.5"
+metadata = { "service.family" = "Apache" }
+
+[[match]]
+name = "IBM Tivoli Storage Manager"
+pattern = "^IBM Tivoli Storage Manager$"
+vendor = "IBM"
+product = "Tivoli Storage Manager"
+context = "html_title"
+example = "IBM Tivoli Storage Manager"
+metadata = { "service.family" = "Tivoli", "service.cpe23" = "cpe:/a:ibm:tivoli_storage_manager:-" }
+
+[[match]]
+name = "IBM FlashCopy Manager"
+pattern = "^IBM FlashCopy Manager$"
+vendor = "IBM"
+product = "Tivoli Storage FlashCopy Manager"
+context = "html_title"
+example = "IBM FlashCopy Manager"
+metadata = { "service.family" = "Tivoli", "service.cpe23" = "cpe:/a:ibm:tivoli_storage_flashcopy_manager:-" }
+
+[[match]]
+name = "Jupyter Notebook Server"
+pattern = "^(?:Jupyter Notebook|JupyterLab|Home Page - Select or create a notebook)$"
+vendor = "Jupyter"
+product = "Notebook"
+context = "html_title"
+example = "Jupyter Notebook"
+metadata = { "service.cpe23" = "cpe:/a:jupyter:notebook:-" }
+
+[[match]]
+name = "Jupyter Server - backend to Jupyter web applications"
+pattern = "^Jupyter Server$"
+vendor = "Jupyter"
+product = "Jupyter Server"
+context = "html_title"
+example = "Jupyter Server"
+metadata = { "service.cpe23" = "cpe:/a:jupyter:jupyter_server:-" }
+
+[[match]]
+name = "JupyterHub - Multi-user server for Jupyter notebooks"
+pattern = "^JupyterHub$"
+vendor = "Jupyter"
+product = "JupyterHub"
+context = "html_title"
+example = "JupyterHub"
+metadata = { "service.cpe23" = "cpe:/a:jupyter:jupyterhub:-" }
+
+[[match]]
+name = "Mobotix Network Camera"
+pattern = "^Redirect to userimage: /control/userimage\\.html$"
+context = "html_title"
+example = "Redirect to userimage: /control/userimage.html"
+metadata = { "hw.vendor" = "Mobotix", "hw.device" = "IP Camera", "hw.product" = "IP Camera" }
+
+[[match]]
+name = "Apache ActiveMQ"
+pattern = "^Apache ActiveMQ$"
+vendor = "Apache"
+product = "ActiveMQ"
+context = "html_title"
+example = "Apache ActiveMQ"
+metadata = { "service.family" = "ActiveMQ", "service.cpe23" = "cpe:/a:apache:activemq:-" }
+
+[[match]]
+name = "Google OnHub Router"
+pattern = "^Google Wifi$"
+context = "html_title"
+example = "Google Wifi"
+metadata = { "os.vendor" = "Google", "os.family" = "Linux", "hw.vendor" = "Google", "hw.device" = "Router", "hw.product" = "OnHub" }
+
+[[match]]
+name = "PRTG Network Monitor (not anchored)"
+pattern = "PRTG Network Monitor"
+vendor = "PRTG"
+product = "Network Monitor"
+context = "html_title"
+example = "PRTG Network Monitor (WIN-R4C1T8HRRAA)"
+
+[[match]]
+name = "BrightSign Controller"
+pattern = "^(?:BrightSign&reg;|BrightSign Applications|Diagnostics Web Server)$"
+context = "html_title"
+example = "BrightSign&reg;"
+metadata = { "os.vendor" = "BrightSign", "os.family" = "Linux", "hw.vendor" = "BrightSign", "hw.device" = "Media Server", "hw.product" = "Digital Signage Player" }
+
+[[match]]
+name = "Linksys Smart Wi-Fi"
+pattern = "^Linksys Smart Wi-Fi$"
+context = "html_title"
+example = "Linksys Smart Wi-Fi"
+metadata = { "os.vendor" = "Linksys", "os.family" = "Linux", "hw.vendor" = "Linksys", "hw.device" = "WAP" }
+
+[[match]]
+name = "Data Domain System Manager"
+pattern = "^(?:DD System Manager|System Manager)$"
+context = "html_title"
+example = "DD System Manager"
+metadata = { "os.vendor" = "Data Domain", "os.product" = "DD OS", "os.device" = "Storage", "os.cpe23" = "cpe:/o:dell:emc_data_domain_os:-", "hw.vendor" = "Data Domain", "hw.product" = "DD OS", "hw.device" = "Storage" }
+
+[[match]]
+name = "SonarQube"
+pattern = "^SonarQube$"
+vendor = "SonarQube"
+product = "SonarQube"
+context = "html_title"
+example = "SonarQube"
+
+[[match]]
+name = "Opengear Management Console"
+pattern = "^(\\S{1,512}) - Opengear Management Console$"
+vendor = "Opengear"
+product = "Management Console"
+context = "html_title"
+example = "server01 - Opengear Management Console"
+metadata = { "host.name" = "{capture:1}" }
+
+[[match]]
+name = "Brocade Virtual Traffic Manager Appliance"
+pattern = "^Login \\(Virtual Traffic Manager Appliance :: (\\S+)\\)$"
+context = "html_title"
+example = "Login (Virtual Traffic Manager Appliance :: 10.0.0.1)"
+metadata = { "hw.vendor" = "Brocade", "hw.device" = "Network Management Device", "hw.product" = "Virtual Traffic Manager", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "Chronograf Dashboard"
+pattern = "^Chronograf$"
+vendor = "InfluxData"
+product = "Chronograf"
+context = "html_title"
+example = "Chronograf"
+
+[[match]]
+name = "InfluxDB 2.0 Dashboard"
+pattern = "^InfluxDB 2.0$"
+vendor = "InfluxData"
+product = "InfluxDB"
+context = "html_title"
+example = "InfluxDB 2.0"
+metadata = { "service.version" = "2.0", "service.cpe23" = "cpe:/a:influxdata:influxdb:2.0" }
+
+[[match]]
+name = "GitLab"
+pattern = "^(?:Sign in . GitLab|GitLab|GitLab is not responding)$"
+vendor = "GitLab"
+product = "GitLab"
+context = "html_title"
+example = "Sign in · GitLab"
+metadata = { "service.cpe23" = "cpe:/a:gitlab:gitlab:-" }
+
+[[match]]
+name = "GitHub Enterprise"
+pattern = "^(?:GitHub Enterprise|Setup GitHub Enterprise|GitHub Enterprise preflight check)$"
+vendor = "GitHub"
+product = "Enterprise"
+context = "html_title"
+example = "GitHub Enterprise"
+
+[[match]]
+name = "SAP NetWeaver Portal"
+pattern = "^(?:SAP NetWeaver Application Server Java|SAP&#x20;NetWeaver&#x20;Portal|Loading Portal\\.\\.\\.)$"
+vendor = "SAP"
+product = "NetWeaver Web AS"
+context = "html_title"
+example = "SAP NetWeaver Application Server Java"
+metadata = { "service.family" = "NetWeaver" }
+
+[[match]]
+name = "Lansweeper"
+pattern = "^Lansweeper (?:- Login|First Run Wizard)$"
+vendor = "Lansweeper"
+product = "Lansweeper"
+context = "html_title"
+example = "Lansweeper - Login"
+metadata = { "service.cpe23" = "cpe:/a:lansweeper:lansweeper:-" }
+
+[[match]]
+name = "Celery Flower Dashboard"
+pattern = "^(?:Celery Flower|Flower)$"
+vendor = "Celery"
+product = "Flower"
+context = "html_title"
+example = "Celery Flower"
+
+[[match]]
+name = "Rapid7 InsightVM Console"
+pattern = "^(?:Insight)?VM Security Console :: Login$"
+vendor = "Rapid7"
+product = "InsightVM"
+context = "html_title"
+example = "InsightVM Security Console :: Login"
+metadata = { "service.cpe23" = "cpe:/a:rapid7:insightvm:-" }
+
+[[match]]
+name = "Rapid7 Nexpose Console"
+pattern = "^Nexpose Security Console :: Login$"
+vendor = "Rapid7"
+product = "Nexpose"
+context = "html_title"
+example = "Nexpose Security Console :: Login"
+metadata = { "service.cpe23" = "cpe:/a:rapid7:nexpose:-" }
+
+[[match]]
+name = "Kiwi Syslog Web Access"
+pattern = "^(?:Login Gateway|Session Error) - Kiwi Syslog Web Access$"
+vendor = "SolarWinds"
+product = "Kiwi Syslog"
+context = "html_title"
+example = "Login Gateway - Kiwi Syslog Web Access"
+
+[[match]]
+name = "SolarWinds Orion"
+pattern = "^SolarWinds Orion$"
+vendor = "SolarWinds"
+product = "Orion Platform"
+context = "html_title"
+example = "SolarWinds Orion"
+metadata = { "service.cpe23" = "cpe:/a:solarwinds:orion_platform:-" }
+
+[[match]]
+name = "ClickShare Wireless Presenter"
+pattern = "^ClickShare Configurator$"
+context = "html_title"
+example = "ClickShare Configurator"
+metadata = { "hw.vendor" = "Barco", "hw.device" = "Wireless Presenter", "hw.product" = "ClickShare", "os.vendor" = "Barco", "os.family" = "ClickShareOS", "os.device" = "Wireless Presenter" }
+
+[[match]]
+name = "IQinVision IQeye Network Camera"
+pattern = "^(IQ\\S+) IQEYE\\S+: Live Images$"
+context = "html_title"
+example = "IQA22N IQEYE1A1613: Live Images"
+metadata = { "hw.vendor" = "IQinVision", "hw.device" = "IP Camera", "hw.product" = "{capture:1}" }
+
+[[match]]
+name = "Oracle Fusion Middleware"
+pattern = "^Welcome to Oracle Fusion Middleware$"
+vendor = "Oracle"
+product = "Fusion Middleware"
+context = "html_title"
+example = "Welcome to Oracle Fusion Middleware"
+metadata = { "service.cpe23" = "cpe:/a:oracle:fusion_middleware:-" }
+
+[[match]]
+name = "Oracle Secure Global Desktop"
+pattern = "^Oracle Secure Global Desktop(?: Redirect Page)?$"
+vendor = "Oracle"
+product = "Secure Global Desktop"
+context = "html_title"
+example = "Oracle Secure Global Desktop"
+metadata = { "service.cpe23" = "cpe:/a:oracle:secure_global_desktop:-" }
+
+[[match]]
+name = "Oracle Transportation Management"
+pattern = "^OTM - Oracle Transportation Management$"
+vendor = "Oracle"
+product = "Transportation Management"
+context = "html_title"
+example = "OTM - Oracle Transportation Management"
+metadata = { "service.cpe23" = "cpe:/a:oracle:transportation_management:-" }
+
+[[match]]
+name = "Oracle Access Manager - Bad Request"
+pattern = "^Bad Oracle Access Manager Request$"
+vendor = "Oracle"
+product = "Access Manager"
+context = "html_title"
+example = "Bad Oracle Access Manager Request"
+metadata = { "service.cpe23" = "cpe:/a:oracle:access_manager:-" }
+
+[[match]]
+name = "Oracle Access Manager - Operation Error"
+pattern = "^Oracle Access Manager Operation Error$"
+vendor = "Oracle"
+product = "Access Manager"
+context = "html_title"
+example = "Oracle Access Manager Operation Error"
+metadata = { "service.cpe23" = "cpe:/a:oracle:access_manager:-" }
+
+[[match]]
+name = "Oracle iLOM"
+pattern = "^(?:Oracle\\(R\\) )?Integrated Lights Out Manager$"
+context = "html_title"
+example = "Oracle(R) Integrated Lights Out Manager"
+metadata = { "hw.device" = "Lights Out Management", "hw.vendor" = "Oracle", "hw.family" = "ILOM", "hw.product" = "ILOM", "os.device" = "Lights Out Management", "os.vendor" = "Oracle", "os.family" = "ILOM", "os.product" = "ILOM", "os.cpe23" = "cpe:/o:oracle:integrated_lights_out_manager_firmware:-" }
+
+[[match]]
+name = "Genetec AutoVu SharpV ALPR Camera"
+pattern = "^Genetec - SHARPV\\S+$"
+context = "html_title"
+example = "Genetec - SHARPV01111"
+metadata = { "hw.vendor" = "Genetec", "hw.device" = "IP Camera", "hw.product" = "AutoVu SharpV" }
+
+[[match]]
+name = "Nexus Repository Manager"
+pattern = "^Nexus Repository Manager$"
+vendor = "Apache"
+product = "Nexus Repository Manager"
+context = "html_title"
+example = "Nexus Repository Manager"
+
+[[match]]
+name = "Apache Flink Web Dashboard"
+pattern = "^Apache Flink Web Dashboard$"
+vendor = "Apache"
+product = "Flink"
+context = "html_title"
+example = "Apache Flink Web Dashboard"
+metadata = { "service.cpe23" = "cpe:/a:apache:flink:-" }
+
+[[match]]
+name = "Twonky Server"
+pattern = "^(?:Twonky|Twonky Server|TwonkyMedia|TwonkyMedia server media browser)$"
+vendor = "Lynx Technology"
+product = "Twonky Media Server"
+context = "html_title"
+example = "Twonky"
+metadata = { "service.cpe23" = "cpe:/a:lynxtechnology:twonky_server:-" }
+
+[[match]]
+name = "Spiceworks"
+pattern = "^Spiceworks(?: Server Busy| Help Desk)?$"
+vendor = "Spiceworks"
+product = "Help Desk Server"
+context = "html_title"
+example = "Spiceworks"
+
+[[match]]
+name = "Spiceworks Network Monitor"
+pattern = "^Network Monitor$"
+vendor = "Spiceworks"
+product = "Network Monitor"
+context = "html_title"
+example = "Network Monitor"
+
+[[match]]
+name = "Spirent TestCenter IQ"
+pattern = "^Spirent TestCenter IQ(?: - (?:Free )?Preview)?$"
+vendor = "Spirent Communications"
+product = "TestCenter IQ"
+context = "html_title"
+example = "Spirent TestCenter IQ"
+
+[[match]]
+name = "SABnzbd Newsreader"
+pattern = "^SABnzbd(?: - Log in)?$"
+vendor = "SABnzbd"
+product = "SABnzbd"
+context = "html_title"
+example = "SABnzbd"
+metadata = { "service.cpe23" = "cpe:/a:sabnzbd:sabnzbd:-" }
+
+[[match]]
+name = "Zabbix"
+pattern = "^(?:Zabbix|.*: Zabbix)$"
+vendor = "Zabbix"
+product = "Zabbix"
+context = "html_title"
+example = "Zabbix"
+metadata = { "service.cpe23" = "cpe:/a:zabbix:zabbix:-" }
+
+[[match]]
+name = "DD-WRT"
+pattern = "^(\\S{1,512}) \\(build (\\S+)\\) - Info$"
+context = "html_title"
+example = "SubTerraVia-NUC (build 36104) - Info"
+metadata = { "os.vendor" = "DD-WRT", "os.product" = "DD-WRT", "os.device" = "Router", "host.name" = "{capture:1}", "os.version" = "{capture:2}", "os.build" = "{capture:2}", "os.cpe23" = "cpe:/o:dd-wrt:dd-wrt:{os.version}" }
+
+[[match]]
+name = "Apache Druid"
+pattern = "^(?:Apache Druid|Druid Console|Legacy Coordinator Console)$"
+vendor = "Apache"
+product = "Druid"
+context = "html_title"
+example = "Apache Druid"
+metadata = { "service.cpe23" = "cpe:/a:apache:druid:-" }
+
+[[match]]
+name = "Google's Gerrit Code Review"
+pattern = "^Gerrit Code Review$"
+vendor = "Google"
+product = "Gerrit"
+context = "html_title"
+example = "Gerrit Code Review"
+metadata = { "service.cpe23" = "cpe:/a:google:gerrit:-" }
+
+[[match]]
+name = "Inductive Automation Ignition Gateway"
+pattern = " - Ignition Gateway$"
+vendor = "Inductive Automation"
+product = "Ignition Gateway"
+context = "html_title"
+example = "QA-ROBOT3 - Ignition Gateway"
+
+[[match]]
+name = "Apache Airflow"
+pattern = "^Airflow(?: - (?:Login|DAGs))?$"
+vendor = "Apache"
+product = "Airflow"
+context = "html_title"
+example = "Airflow"
+metadata = { "service.cpe23" = "cpe:/a:apache:airflow:-" }
+
+[[match]]
+name = "CockroachDB Console"
+pattern = "^Cockroach Console$"
+vendor = "Cockroach Labs"
+product = "CockroachDB"
+context = "html_title"
+example = "Cockroach Console"
+
+[[match]]
+name = "OpenMediaVault"
+pattern = "^(?:openmediavault control panel|OpenMediaVault web administration interface) - (\\S+)$"
+vendor = "OpenMediaVault"
+product = "OpenMediaVault"
+context = "html_title"
+example = "openmediavault control panel - raspberrypi"
+metadata = { "service.cpe23" = "cpe:/a:openmediavault:openmediavault:-", "os.vendor" = "OpenMediaVault", "os.family" = "Linux", "os.product" = "OpenMediaVault", "os.device" = "NAS", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "TeamCity"
+pattern = "^Log in to TeamCity .mdash; TeamCity$"
+vendor = "JetBrains"
+product = "TeamCity"
+context = "html_title"
+example = "Log in to TeamCity &mdash; TeamCity"
+metadata = { "service.cpe23" = "cpe:/a:jetbrains:teamcity:-" }
+
+[[match]]
+name = "Apple CUPS"
+pattern = "^Home - CUPS ([\\d\\.]+)$"
+version_group = 1
+vendor = "Apple"
+product = "CUPS"
+context = "html_title"
+example = "Home - CUPS 2.3.1"
+metadata = { "service.family" = "CUPS", "service.cpe23" = "cpe:/a:apple:cups:{service.version}" }
+
+[[match]]
+name = "Rundeck Enterprise"
+pattern = "^RUNDECK ENTERPRISE - Login$"
+vendor = "Rundeck"
+product = "Rundeck Enterprise"
+context = "html_title"
+example = "RUNDECK ENTERPRISE - Login"
+
+[[match]]
+name = "Rundeck"
+pattern = "^Rundeck - Login$"
+vendor = "Rundeck"
+product = "Rundeck"
+context = "html_title"
+example = "Rundeck - Login"
+metadata = { "service.cpe23" = "cpe:/a:pagerduty:rundeck:-" }
+
+[[match]]
+name = "CrushFTP Web"
+pattern = "^CrushFTP WebInterface$"
+vendor = "CrushFTP"
+product = "CrushFTP Web Interface"
+context = "html_title"
+example = "CrushFTP WebInterface"
+metadata = { "service.certainty" = "0.5", "service.cpe23" = "cpe:/a:crushftp:crushftp:-" }
+
+[[match]]
+name = "Progress OpenEdge Explorer"
+pattern = "^OpenEdge Explorer$"
+vendor = "Progress"
+product = "OpenEdge Explorer"
+context = "html_title"
+example = "OpenEdge Explorer"
+metadata = { "service.cpe23" = "cpe:/a:progress:openedge:-" }
+
+[[match]]
+name = "HashiCorp Consul"
+pattern = "^Consul by HashiCorp$"
+vendor = "HashiCorp"
+product = "Consul"
+context = "html_title"
+example = "Consul by HashiCorp"
+metadata = { "service.cpe23" = "cpe:/a:hashicorp:consul:-" }
+
+[[match]]
+name = "Redmine"
+pattern = "^Redmine(?: 500 error)?$"
+vendor = "Redmine"
+product = "Redmine"
+context = "html_title"
+example = "Redmine"
+metadata = { "service.cpe23" = "cpe:/a:redmine:redmine:-" }
+
+[[match]]
+name = "Nagios Log Server"
+pattern = "; Nagios Log Server$"
+vendor = "Nagios"
+product = "Nagios Log Server"
+context = "html_title"
+example = "Database Offline &middot; Nagios Log Server"
+
+[[match]]
+name = "Nagios Network Analyzer"
+pattern = "; Nagios Network Analyzer$"
+vendor = "Nagios"
+product = "Nagios Network Analyzer"
+context = "html_title"
+example = "Login &bull; Nagios Network Analyzer"
+
+[[match]]
+name = "Zing Vision"
+pattern = "^Zing Vision$"
+vendor = "Azul Systems"
+product = "Zing Vision"
+context = "html_title"
+example = "Zing Vision"
+
+[[match]]
+name = "Swagger UI"
+pattern = "^Swagger (?:UI|Editor)$"
+vendor = "Swagger"
+product = "Swagger UI"
+context = "html_title"
+example = "Swagger UI"
+metadata = { "service.cpe23" = "cpe:/a:smartbear:swagger_ui:-" }
+
+[[match]]
+name = "Emby Media Server"
+pattern = "^Emby$"
+vendor = "Emby"
+product = "Web Client"
+context = "html_title"
+example = "Emby"
+metadata = { "service.device" = "Media Server" }
+
+[[match]]
+name = "Folding@home Work Server"
+pattern = "^WS - Folding@home Work Server$"
+vendor = "Folding@home"
+product = "Work Server"
+context = "html_title"
+example = "WS - Folding@home Work Server"
+
+[[match]]
+name = "IBM Lotus Sametime"
+pattern = "^Welcome to IBM Lotus Sametime$"
+vendor = "IBM"
+product = "Lotus Sametime"
+context = "html_title"
+example = "Welcome to IBM Lotus Sametime"
+metadata = { "service.certainty" = "0.5", "service.cpe23" = "cpe:/a:ibm:lotus_sametime:-" }
+
+[[match]]
+name = "HPE OfficeConnect Switch"
+pattern = "^HPE OfficeConnect Switch (.*)\\s+(J\\S+)$"
+context = "html_title"
+example = "HPE OfficeConnect Switch 1820 24G J9980A"
+metadata = { "hw.vendor" = "HPE", "hw.device" = "Switch", "hw.product" = "{capture:1}", "hw.model" = "{capture:2}" }
+
+[[match]]
+name = "Device42 Virtual Appliance"
+pattern = "^Device42$"
+context = "html_title"
+example = "Device42"
+metadata = { "os.vendor" = "Device42", "os.family" = "Linux", "os.product" = "Linux", "os.certainty" = "0.5", "hw.vendor" = "Device42", "hw.device" = "Network Appliance", "hw.product" = "Discovery", "hw.certainty" = "0.5" }
+
+[[match]]
+name = "SolarWinds Virtualization Manager"
+pattern = "^SolarWinds Virtualization Manager$"
+vendor = "SolarWinds"
+product = "Virtualization Manager"
+context = "html_title"
+example = "SolarWinds Virtualization Manager"
+metadata = { "service.cpe23" = "cpe:/a:solarwinds:virtualization_manager:-" }
+
+[[match]]
+name = "Gitea"
+pattern = "^(?:Gitea: .*|LocalRepo|TurnKey Gitea)$"
+vendor = "Gitea"
+product = "Gitea"
+context = "html_title"
+example = "Gitea: Git with a cup of tea"
+metadata = { "service.certainty" = "0.5", "service.cpe23" = "cpe:/a:gitea:gitea:-" }
+
+[[match]]
+name = "Metasploit Pro (and Community Edition Web UI)"
+pattern = "^Metasploit$"
+vendor = "Rapid7"
+product = "Metasploit"
+context = "html_title"
+example = "Metasploit"
+metadata = { "service.edition" = "Pro", "service.cpe23" = "cpe:/a:rapid7:metasploit:-" }
+
+[[match]]
+name = "Haivision Makito X Video Decoder"
+pattern = "^Makito X Decoder$"
+context = "html_title"
+example = "Makito X Decoder"
+metadata = { "hw.vendor" = "Haivision", "hw.device" = "Video Decoder", "hw.product" = "Makito X Decoder" }
+
+[[match]]
+name = "Ceph Dashboard"
+pattern = "^Ceph(?: Dashboard)?$"
+vendor = "Ceph"
+product = "Dashboard"
+context = "html_title"
+example = "Ceph Dashboard"
+
+[[match]]
+name = "Plixer Scrutinizer"
+pattern = "^Scrutinizer$"
+context = "html_title"
+example = "Scrutinizer"
+metadata = { "os.vendor" = "Plixer", "os.product" = "Linux", "os.certainty" = "0.5", "hw.vendor" = "Plixer", "hw.product" = "Scrutinizer", "hw.certainty" = "0.5" }
+
+[[match]]
+name = "Cloudera Hortonworks SmartSense Tool"
+pattern = "^Hortonworks SmartSense Tool is loading\\.\\.\\.$"
+vendor = "Cloudera"
+product = "SmartSense Tool"
+context = "html_title"
+example = "Hortonworks SmartSense Tool is loading..."
+metadata = { "service.certainty" = "0.5" }
+
+[[match]]
+name = "ownCloud"
+pattern = "^[oO]wn[cC]loud$"
+vendor = "ownCloud"
+product = "ownCloud Server"
+context = "html_title"
+example = "ownCloud"
+metadata = { "service.certainty" = "0.5", "service.cpe23" = "cpe:/a:owncloud:owncloud:-" }
+
+[[match]]
+name = "Octopus Deploy"
+pattern = "^Octopus Deploy$"
+vendor = "Octopus"
+product = "Deploy"
+context = "html_title"
+example = "Octopus Deploy"
+metadata = { "service.certainty" = "0.5" }
+
+[[match]]
+name = "Android Debug Database"
+pattern = "^Android Debug Database$"
+vendor = "Android Debug Database"
+product = "Android Debug Database"
+context = "html_title"
+example = "Android Debug Database"
+
+[[match]]
+name = "RStudio"
+pattern = "^RStudio Sign In$"
+vendor = "RStudio"
+product = "Connect"
+context = "html_title"
+example = "RStudio Sign In"
+metadata = { "service.cpe23" = "cpe:/a:rstudio:connect:-" }
+
+[[match]]
+name = "Moodle"
+pattern = "^(?:TurnKey Moodle|New Site)$"
+vendor = "Moodle"
+product = "Moodle"
+context = "html_title"
+example = "TurnKey Moodle"
+metadata = { "service.certainty" = "0.5", "service.cpe23" = "cpe:/a:moodle:moodle:-" }
+
+[[match]]
+name = "Internet Archive Warrior Appliance"
+pattern = "^ArchiveTeam Warrior$"
+context = "html_title"
+example = "ArchiveTeam Warrior"
+metadata = { "os.vendor" = "Internet Archive", "os.family" = "Linux", "os.product" = "Linux", "hw.vendor" = "Internet Archive", "hw.device" = "Storage Appliance", "hw.product" = "ArchiveTeam Warrior" }
+
+[[match]]
+name = "Atlassian Confluence"
+pattern = "^(?:Dashboard|Log In) - Confluence$"
+vendor = "Atlassian"
+product = "Confluence"
+context = "html_title"
+example = "Dashboard - Confluence"
+metadata = { "service.cpe23" = "cpe:/a:atlassian:confluence_server:-" }
+
+[[match]]
+name = "Atlassian Jira"
+pattern = "^System Dashboard - "
+vendor = "Atlassian"
+product = "Jira"
+context = "html_title"
+example = "System Dashboard - Jira"
+metadata = { "service.cpe23" = "cpe:/a:atlassian:jira:-" }
+
+[[match]]
+name = "Atlassian Bitbucket"
+pattern = "^Log in - Bitbucket$"
+vendor = "Atlassian"
+product = "Bitbucket"
+context = "html_title"
+example = "Log in - Bitbucket"
+metadata = { "service.cpe23" = "cpe:/a:atlassian:bitbucket:-" }
+
+[[match]]
+name = "XAMPP Server"
+pattern = "^(?:Welcome to XAMPP|XAMPP for Linux)"
+vendor = "XAMPP"
+product = "XAMPP Server"
+context = "html_title"
+example = "Welcome to XAMPP"
+
+[[match]]
+name = "Greenbone Security Scanner"
+pattern = "^Greenbone Security (?:Assistant|Manager)"
+vendor = "Greenbone"
+product = "Security Scanner"
+context = "html_title"
+example = "Greenbone Security Assistant"
+
+[[match]]
+name = "Jellyseerr"
+pattern = "^(?:Sign In - )?Jellyseerr$"
+vendor = "Jellyseerr"
+product = "Jellyseerr"
+context = "html_title"
+example = "Jellyseerr"
+
+[[match]]
+name = "Kodi Media Server"
+pattern = "^(?:Chorus 2 - )?Kodi(?: web interface)?$"
+vendor = "Kodi"
+product = "Media Server"
+context = "html_title"
+example = "Kodi"
+metadata = { "service.cpe23" = "cpe:/a:kodi:kodi:-" }
+
+[[match]]
+name = "Drupal CMS"
+pattern = "^(?:Drupal|TurnKey Drupal\\d+|Select an installation profile)$"
+vendor = "Drupal"
+product = "CMS"
+context = "html_title"
+example = "Drupal"
+metadata = { "service.cpe23" = "cpe:/a:drupal:drupal:-" }
+
+[[match]]
+name = "LibreNMS"
+pattern = "^LibreNMS$"
+vendor = "LibreNMS"
+product = "LibreNMS"
+context = "html_title"
+example = "LibreNMS"
+metadata = { "service.cpe23" = "cpe:/a:librenms:librenms:-" }
+
+[[match]]
+name = "HDHomeRun"
+pattern = "^HDHomeRun Main Menu$"
+context = "html_title"
+example = "HDHomeRun Main Menu"
+metadata = { "os.vendor" = "SiliconDust", "os.family" = "Linux", "os.product" = "Linux", "hw.vendor" = "SiliconDust", "hw.device" = "Media Server", "hw.product" = "HDHomeRun" }
+
+[[match]]
+name = "Kubernetes Dashboard"
+pattern = "^Kubernetes Dashboard$"
+vendor = "Kubernetes"
+product = "Dashboard"
+context = "html_title"
+example = "Kubernetes Dashboard"
+
+[[match]]
+name = "Bose SoundTouch"
+pattern = "^SoundTouch Access Point Setup$"
+context = "html_title"
+example = "SoundTouch Access Point Setup"
+metadata = { "hw.device" = "Network Audio", "hw.vendor" = "Bose", "hw.family" = "SoundTouch", "os.device" = "Network Audio", "os.vendor" = "Bose", "os.product" = "SoundTouch" }
+
+[[match]]
+name = "Dell iDRAC Websocket Endpoint"
+pattern = "^(?:embedded )?WS server test page$"
+context = "html_title"
+example = "WS server test page"
+metadata = { "hw.device" = "Lights Out Management", "hw.vendor" = "Dell", "hw.product" = "iDRAC", "hw.certainty" = "0.75", "os.vendor" = "Dell", "os.product" = "iDRAC Linux", "os.certainty" = "0.75" }
+
+[[match]]
+name = "Pulse Secure VPN"
+pattern = "^Pulse Connect Secure - SSL"
+vendor = "Pulse Secure"
+product = "Pulse Connect Secure"
+context = "html_title"
+example = "Pulse Connect Secure - SSL"
+metadata = { "service.cpe23" = "cpe:/a:pulsesecure:pulse_connect_secure:-", "os.vendor" = "Pulse Secure", "os.family" = "SSL-VPN", "os.device" = "VPN", "os.product" = "Pulse Connect Secure" }
+
+[[match]]
+name = "Jellyfin media server"
+pattern = "^Jellyfin$"
+vendor = "Jellyfin"
+product = "Media Server"
+context = "html_title"
+example = "Jellyfin"
+
+[[match]]
+name = "Proxmox open-source virtualization platform"
+pattern = "^.{1,256} - Proxmox Virtual Environment$"
+vendor = "Proxmox"
+product = "Virtual Environment"
+context = "html_title"
+example = "hypervisor - Proxmox Virtual Environment"
+metadata = { "service.cpe23" = "cpe:/a:proxmox:virtual_environment:-", "os.vendor" = "Proxmox", "os.family" = "Linux", "os.product" = "Proxmox" }
+
+[[match]]
+name = "Sony Network Camera"
+pattern = "^Sony Network Camera$"
+context = "html_title"
+example = "Sony Network Camera"
+metadata = { "hw.vendor" = "Sony", "hw.device" = "IP Camera", "hw.product" = "Network Camera" }
+
+[[match]]
+name = "Lifesize TelePresence"
+pattern = "Lifesize&reg;$"
+context = "html_title"
+example = "Lifesize&reg;"
+metadata = { "hw.vendor" = "Lifesize", "hw.device" = "Video Conferencing", "hw.product" = "TelePresence", "os.vendor" = "Lifesize", "os.family" = "Linux", "os.product" = "TelePresence", "os.device" = "Video Conferencing" }
+
+[[match]]
+name = "ATT VPN Gateway"
+pattern = "^AT&amp;T VPN Gateway$"
+context = "html_title"
+example = "AT&amp;T VPN Gateway"
+metadata = { "hw.vendor" = "ATT", "hw.device" = "VPN", "hw.product" = "VPN Gateway" }
+
+[[match]]
+name = "ATT VPN Gateway w Hostname"
+pattern = "^AT&amp;T U\\d+: '([^']+)'$"
+context = "html_title"
+example = "AT&amp;T U115: 'Austin-Boston'"
+metadata = { "hw.vendor" = "ATT", "hw.device" = "VPN", "hw.product" = "VPN Gateway", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "Symantec PGP Key Management Server"
+pattern = "^(?:Symantec Encryption Verified Directory|Symantec Encryption Server.*)$"
+context = "html_title"
+example = "Symantec Encryption Verified Directory"
+metadata = { "hw.vendor" = "Symantec", "hw.device" = "Security Appliance", "hw.product" = "Key Management Server" }
+
+[[match]]
+name = "Riverbed Steelhead Appliance"
+pattern = "^Riverbed Technology, Inc\\.$"
+context = "html_title"
+example = "Riverbed Technology, Inc."
+metadata = { "hw.vendor" = "Riverbed", "hw.device" = "Security Appliance", "hw.product" = "Steelhead", "os.product" = "RiOS", "os.vendor" = "Riverbed", "os.cpe23" = "cpe:/o:riverbed:rios:-" }
+
+[[match]]
+name = "ClearPass Policy Manager Appliance"
+pattern = "^ClearPass - Aruba Networks$"
+vendor = "Aruba Networks"
+product = "ClearPass Policy Manager"
+context = "html_title"
+example = "ClearPass - Aruba Networks"
+metadata = { "hw.vendor" = "Aruba Networks", "hw.device" = "Network Appliance", "hw.product" = "ClearPass Policy Manager", "service.device" = "Network Appliance", "service.cpe23" = "cpe:/a:arubanetworks:clearpass_policy_manager:-" }
+
+[[match]]
+name = "MicroStrategy Collaboration Server"
+pattern = "^MSTR Collab Server$"
+vendor = "MicroStrategy"
+product = "Collaboration Server"
+context = "html_title"
+example = "MSTR Collab Server"
+metadata = { "service.certainty" = "0.5" }
+
+[[match]]
+name = "Openfire Admin Console"
+pattern = "^Openfire Admin Console$"
+vendor = "Ignite Realtime"
+product = "OpenFire"
+context = "html_title"
+example = "Openfire Admin Console"
+metadata = { "service.cpe23" = "cpe:/a:igniterealtime:openfire:-" }
+
+[[match]]
+name = "PBX in a Flash"
+pattern = "^:: PBX in a Flash"
+context = "html_title"
+example = ":: PBX in a Flash, Welcome!"
+metadata = { "hw.vendor" = "PIAF", "hw.device" = "SIP Gateway", "hw.product" = "PIAF Virtual Appliance" }
+
+[[match]]
+name = "Hak5 Cloud c2"
+pattern = "^Hak5 Cloud C"
+vendor = "Hak5"
+product = "Cloud C2"
+context = "html_title"
+example = "Hak5 Cloud C²"
+
+[[match]]
+name = "Metabase"
+pattern = "^Metabase$"
+vendor = "Metabase"
+product = "Metabase"
+context = "html_title"
+example = "Metabase"
+metadata = { "service.cpe23" = "cpe:/a:metabase:metabase:-" }
+
+[[match]]
+name = "Nextcloud"
+pattern = "Nextcloud"
+vendor = "Nextcloud"
+product = "Nextcloud Server"
+context = "html_title"
+example = "Nextcloud"
+metadata = { "service.cpe23" = "cpe:/a:nextcloud:nextcloud_server:-" }
+
+[[match]]
+name = "Observium"
+pattern = "^Observium"
+vendor = "Observium"
+product = "Observium"
+context = "html_title"
+example = "Observium :  - Test infra"
+metadata = { "service.cpe23" = "cpe:/a:observium:observium:-" }
+
+[[match]]
+name = "Webmin"
+pattern = "^Login to Webmin$"
+vendor = "Webmin"
+product = "Webmin"
+context = "html_title"
+example = "Login to Webmin"
+metadata = { "service.cpe23" = "cpe:/a:webmin:webmin:-" }
+
+[[match]]
+name = "Usermin"
+pattern = "^Login to Usermin$"
+vendor = "Webmin"
+product = "Usermin"
+context = "html_title"
+example = "Login to Usermin"
+metadata = { "service.cpe23" = "cpe:/a:webmin:usermin:-" }
+
+[[match]]
+name = "Moinmoin wiki"
+pattern = "^MoinMoinWiki"
+vendor = "MoinMoin"
+product = "MoinMoin"
+context = "html_title"
+example = "MoinMoinWiki - MoinMoin"
+metadata = { "service.cpe23" = "cpe:/a:moinmo:moinmoin:-" }
+
+[[match]]
+name = "BlackBox Management Console"
+pattern = "^(\\w+) - BlackBox Management Console$"
+context = "html_title"
+example = "ABC123 - BlackBox Management Console"
+metadata = { "hw.vendor" = "BlackBox", "hw.device" = "Device Server", "hw.product" = "BlackBox", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "Shelly Smart Bulb"
+pattern = "^Shelly Color Bulb$"
+context = "html_title"
+example = "Shelly Color Bulb"
+metadata = { "os.vendor" = "Cesanta", "os.product" = "Mongoose OS", "os.cpe23" = "cpe:/o:cesanta:mongoose_os:-", "hw.vendor" = "Shelly", "hw.device" = "Light Bulb", "hw.product" = "Color Bulb" }
+
+[[match]]
+name = "Shelly Plug/Dimmer/Switch Devices"
+pattern = "^Shelly (Plug|Dimmer(?: 2)?|Switch)$"
+context = "html_title"
+example = "Shelly Plug"
+metadata = { "os.vendor" = "Cesanta", "os.product" = "Mongoose OS", "os.cpe23" = "cpe:/o:cesanta:mongoose_os:-", "hw.vendor" = "Shelly", "hw.device" = "Device", "hw.product" = "{capture:1}" }
+
+[[match]]
+name = "Shelly Lighting Controller"
+pattern = "^Shelly[ ]?(RGBW2|1L)$"
+context = "html_title"
+example = "Shelly RGBW2"
+metadata = { "os.vendor" = "Cesanta", "os.product" = "Mongoose OS", "os.cpe23" = "cpe:/o:cesanta:mongoose_os:-", "hw.vendor" = "Shelly", "hw.device" = "Device", "hw.product" = "{capture:1}" }
+
+[[match]]
+name = "TinyGS LoRa Ground Station Software"
+pattern = "^TinyGS Configuration$"
+product = "TinyGS"
+context = "html_title"
+example = "TinyGS Configuration"
+
+[[match]]
+name = "WLED Controlled Device"
+pattern = "^WLED$"
+vendor = "Aircookie"
+product = "WLED"
+context = "html_title"
+example = "WLED"
+metadata = { "service.device" = "Device" }
+
+[[match]]
+name = "Freebox OS on Freebox Set-top Box Devices"
+pattern = "^Freebox OS"
+context = "html_title"
+example = "Freebox OS :: Identification"
+metadata = { "os.vendor" = "Freebox", "os.product" = "Freebox OS", "os.family" = "Linux", "hw.vendor" = "Freebox", "hw.device" = "Device" }
+
+[[match]]
+name = "HP RT3000 G2 UPS"
+pattern = "^HP UPS Network Module$"
+context = "html_title"
+example = "HP UPS Network Module"
+metadata = { "hw.vendor" = "HP", "hw.device" = "UPS" }
+
+[[match]]
+name = "Ubiquiti UniFi Network Application"
+pattern = "^UniFi Network$"
+vendor = "Ubiquiti"
+product = "UniFi"
+context = "html_title"
+example = "UniFi Network"
+metadata = { "service.device" = "Device", "service.cpe23" = "cpe:/a:ui:unifi:-" }
+
+[[match]]
+name = "AdminDroid Office 365 Reporter Application"
+pattern = "^Login to AdminDroid Office 365 Reporter$"
+vendor = "AdminDroid"
+product = "Office 365 Reporter"
+context = "html_title"
+example = "Login to AdminDroid Office 365 Reporter"
+
+[[match]]
+name = "Nanoleaf LED Lighting"
+pattern = "^Nanoleaf Firmware Upload$"
+context = "html_title"
+example = "Nanoleaf Firmware Upload"
+metadata = { "hw.vendor" = "Nanoleaf", "hw.device" = "Device" }
+
+[[match]]
+name = "GoGogate Garage Door Opener"
+pattern = "^GoGogate - LAN$"
+context = "html_title"
+example = "GoGogate - LAN"
+metadata = { "hw.vendor" = "GoGogate", "hw.device" = "Device" }
+
+[[match]]
+name = "ASUS Router/Network Device"
+pattern = "^ASUS Login$"
+context = "html_title"
+example = "ASUS Login"
+metadata = { "hw.vendor" = "Asus", "hw.device" = "Device" }
+
+[[match]]
+name = "GigaBlue Quad Plus Satellite TV Receiver"
+pattern = "^GigaBlue Quad Plus - OpenWebif$"
+context = "html_title"
+example = "GigaBlue Quad Plus - OpenWebif"
+metadata = { "hw.vendor" = "GigaBlue", "hw.device" = "Device", "hw.product" = "Quad Plus Receiver" }
+
+[[match]]
+name = "Barix Instreamer"
+pattern = "^Barix Instreamer Instreamer$"
+context = "html_title"
+example = "Barix Instreamer Instreamer"
+metadata = { "hw.vendor" = "Barix", "hw.device" = "Audio Encoder", "hw.product" = "Instreamer" }
+
+[[match]]
+name = "SpotterRF"
+pattern = "^Tracker Display$"
+context = "html_title"
+example = "Tracker Display"
+metadata = { "os.vendor" = "SpotterRF", "os.family" = "Linux", "os.certainty" = "0.90", "hw.vendor" = "SpotterRF", "hw.device" = "Sensor", "hw.product" = "Drone Detector" }
+
+[[match]]
+name = "Polycom DMA 7000"
+pattern = "^Polycom (DMA \\d+)$"
+context = "html_title"
+example = "Polycom DMA 7000"
+metadata = { "hw.vendor" = "Polycom", "hw.device" = "VoIP", "hw.product" = "{capture:1}" }
+
+[[match]]
+name = "Polycom VVX VoIP Phones"
+pattern = "^VVX(\\d{3})$"
+context = "html_title"
+example = "VVX250"
+metadata = { "hw.vendor" = "Polycom", "hw.device" = "VoIP", "hw.model" = "{capture:1}", "hw.product" = "VVX {hw.model}" }
+
+[[match]]
+name = "Poly OBI Analog Telephone Adapter"
+pattern = "^(OBi[23]\\d{2})"
+context = "html_title"
+example = "OBi200"
+metadata = { "hw.vendor" = "Poly", "hw.device" = "VoIP", "hw.product" = "{capture:1}" }
+
+[[match]]
+name = "Alpha Technologies Novus UPS"
+pattern = "^Alpha Technologies$"
+context = "html_title"
+example = "Alpha Technologies"
+metadata = { "hw.vendor" = "Alpha Technologies", "hw.device" = "Power Device", "hw.product" = "Novus UPS" }
+
+[[match]]
+name = "Eaton UPS Network Card"
+pattern = "^Network Management Card$"
+context = "html_title"
+example = "Network Management Card"
+metadata = { "hw.vendor" = "Eaton", "hw.device" = "Power Device", "hw.product" = "UPS", "hw.certainty" = "0.5" }
+
+[[match]]
+name = "APC UPS Network Card"
+pattern = "^UPS Properties$"
+context = "html_title"
+example = "UPS Properties"
+metadata = { "hw.vendor" = "APC", "hw.device" = "Power Device", "hw.product" = "UPS", "hw.certainty" = "0.5" }
+
+[[match]]
+name = "HP Printer"
+pattern = "^HP ([\\w ]+) PostScript"
+context = "html_title"
+example = "HP Designjet T1200 PostScript - Supplies"
+metadata = { "hw.vendor" = "HP", "hw.family" = "JetDirect", "hw.device" = "Printer", "hw.product" = "{capture:1}" }
+
+[[match]]
+name = "ProSoft RadioLinx"
+pattern = "^Radio Configuration/Diagnostic Utility$"
+context = "html_title"
+example = "Radio Configuration/Diagnostic Utility"
+metadata = { "hw.vendor" = "ProSoft Technology", "hw.device" = "WAP", "hw.product" = "RadioLinx", "hw.certainty" = "0.5" }
+
+[[match]]
+name = "ntopng Network Analysis Application"
+pattern = "^Welcome to ntopng$"
+vendor = "ntop"
+product = "ntopng"
+context = "html_title"
+example = "Welcome to ntopng"
+metadata = { "service.cpe23" = "cpe:/a:ntop:ntopng:-" }
+
+[[match]]
+name = "iXsystems FreeNAS"
+pattern = "^FreeNAS$"
+vendor = "iXsystems"
+product = "FreeNAS"
+context = "html_title"
+example = "FreeNAS"
+metadata = { "os.vendor" = "iXsystems", "os.family" = "FreeBSD", "os.product" = "FreeNAS Firmware", "os.cpe23" = "cpe:/o:ixsystems:freenas_firmware:-" }
+
+[[match]]
+name = "Xerox Color Printer"
+pattern = "^Xerox (.{1,1000}) - \\d+\\.\\d+\\.\\d+\\.\\d+$"
+context = "html_title"
+example = "Xerox Color 570 - 100.100.100.101"
+metadata = { "hw.vendor" = "Xerox", "hw.device" = "Printer", "hw.product" = "{capture:1}" }
+
+[[match]]
+name = "3Com Switch"
+pattern = "^Web Smart Switch$"
+context = "html_title"
+example = "Web Smart Switch"
+metadata = { "hw.vendor" = "3Com", "hw.device" = "Switch" }
+
+[[match]]
+name = "Quantum Scalar Tape Library"
+pattern = "^(Quantum) - (Scalar i\\d+) Login Screen$"
+context = "html_title"
+example = "Quantum - Scalar i80 Login Screen"
+metadata = { "hw.device" = "Tape Library", "hw.vendor" = "{capture:1}", "hw.product" = "{capture:2}" }
+
+[[match]]
+name = "Weidmüller Printer"
+pattern = "^Printer Administration$"
+context = "html_title"
+example = "Printer Administration"
+metadata = { "hw.vendor" = "Weidmüller", "hw.device" = "Printer" }
+
+[[match]]
+name = "Sharp MX Printer"
+pattern = "^Machine Identification - (MX-\\S+)$"
+context = "html_title"
+example = "Machine Identification - MX-3071"
+metadata = { "hw.vendor" = "Sharp", "hw.device" = "Printer", "hw.product" = "{capture:1}" }
+
+[[match]]
+name = "Canon MF Printer"
+pattern = "^Remote UI: Login: (MF\\S+):"
+context = "html_title"
+example = "Remote UI: Login: MF632C/634C: MF632C/634C"
+metadata = { "hw.vendor" = "Canon", "hw.device" = "Printer", "hw.product" = "{capture:1}", "hw.certainty" = "0.8" }
+
+[[match]]
+name = "Nuuo NVR"
+pattern = "^Network Video Recorder Login$"
+context = "html_title"
+example = "Network Video Recorder Login"
+metadata = { "hw.vendor" = "Nuuo", "hw.device" = "DVR" }
+
+[[match]]
+name = "Evolis Printer"
+pattern = "^Evolis Printer$"
+context = "html_title"
+example = "Evolis Printer"
+metadata = { "hw.vendor" = "Evolis", "hw.device" = "Printer" }
+
+[[match]]
+name = "Wyze Plug Outdoor"
+pattern = "^WyzeOutdoorPlug - "
+context = "html_title"
+example = "WyzeOutdoorPlug - Main Menu"
+metadata = { "hw.vendor" = "Wyze", "hw.device" = "Device", "hw.product" = "Plug Outdoor" }
+
+[[match]]
+name = "Aptinex Relay Controller"
+pattern = "^Aptinex IOT Relay Module - (\\d+ Channel) (Rev\\S+)?"
+context = "html_title"
+example = "Aptinex IOT Relay Module - 4 Channel Rev1.1"
+metadata = { "os.vendor" = "Aptinex", "hw.vendor" = "Aptinex", "hw.device" = "Relay Controller", "hw.product" = "{aptinex.model} Relay Controller", "aptinex.model" = "{capture:1}", "os.version" = "{capture:2}" }
+
+[[match]]
+name = "Bobcat Helium Miner"
+pattern = "^Diagnoser - Bobcatminer Diagnostic Dashboard$"
+context = "html_title"
+example = "Diagnoser - Bobcatminer Diagnostic Dashboard"
+metadata = { "hw.vendor" = "Bobcat", "hw.device" = "Device", "hw.product" = "Helium Miner" }
+
+[[match]]
+name = "Wifx LORIX One"
+pattern = "^LORIX Manager$"
+context = "html_title"
+example = "LORIX Manager"
+metadata = { "os.vendor" = "Wifx", "os.product" = "LORIX OS", "hw.vendor" = "Wifx", "hw.device" = "Device", "hw.product" = "LORIX ONE" }
+
+[[match]]
+name = "Fujitsu ETERNUS Storage Appliance"
+pattern = "^ETERNUS$"
+context = "html_title"
+example = "ETERNUS"
+metadata = { "hw.vendor" = "Fujitsu", "hw.device" = "Storage Appliance", "hw.product" = "Eternus" }
+
+[[match]]
+name = "Covenant .NET C2 framework"
+pattern = "^Covenant - Login$"
+product = "Covenant"
+context = "html_title"
+example = "Covenant - Login"
+
+[[match]]
+name = "MITRE CALDERA C2 framework"
+pattern = "^Login \\| CALDERA$"
+vendor = "MITRE"
+product = "CALDERA"
+context = "html_title"
+example = "Login | CALDERA"
+metadata = { "service.cpe23" = "cpe:/a:mitre:caldera:-" }
+
+[[match]]
+name = "phpMyAdmin web interface for MySQL and MariaDB"
+pattern = "(?:(\\S{1,512}):\\d{1,5} / \\S{1,512} \\| )?phpMyAdmin(?: ([\\d.]+(?:-[a-zA-Z0-9]+)?(?:\\+\\d{8}\\.[a-f0-9]{4,40})?))?"
+version_group = 2
+vendor = "phpMyAdmin"
+product = "phpMyAdmin"
+context = "html_title"
+example = "phpMyAdmin"
+metadata = { "host.name" = "{capture:1}", "service.cpe23" = "cpe:/a:phpmyadmin:phpmyadmin:{service.version}" }
+
+[[match]]
+name = "Adminer database management tool"
+pattern = "^Login - Adminer$"
+vendor = "Adminer"
+product = "Adminer"
+context = "html_title"
+example = "Login - Adminer"
+metadata = { "service.cpe23" = "cpe:/a:adminer:adminer:-" }
+
+[[match]]
+name = "mongo-express web-based MongoDB admin interface"
+pattern = "^Home - Mongo Express$"
+vendor = "mongo-express Project"
+product = "mongo-express"
+context = "html_title"
+example = "Home - Mongo Express"
+metadata = { "service.cpe23" = "cpe:/a:mongo-express_project:mongo-express:-" }
+
+[[match]]
+name = "Apache Solr"
+pattern = "^Solr Admin$"
+vendor = "Apache"
+product = "Solr"
+context = "html_title"
+example = "Solr Admin"
+metadata = { "service.cpe23" = "cpe:/a:apache:solr:-" }
+
+[[match]]
+name = "Apache Spark"
+pattern = "^Spark (?:Master|Worker) at (?:spark:\\/\\/)?(\\S{1,512}):\\d{1,5}$"
+vendor = "Apache"
+product = "Spark"
+context = "html_title"
+example = "Spark Master at spark://spark-master-0.foo.bar:7077"
+metadata = { "service.cpe23" = "cpe:/a:apache:spark:-", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "Apache Superset"
+pattern = "^Superset$"
+vendor = "Apache"
+product = "Superset"
+context = "html_title"
+example = "Superset"
+metadata = { "service.cpe23" = "cpe:/a:apache:superset:-" }
+
+[[match]]
+name = "pfSense Firewall"
+pattern = "^pfSense - Login$"
+vendor = "pfSense"
+product = "pfSense"
+context = "html_title"
+example = "pfSense - Login"
+metadata = { "service.device" = "Firewall", "service.cpe23" = "cpe:/a:pfsense:pfsense:-", "service.component.vendor" = "nginx", "service.component.product" = "nginx", "service.component.cpe23" = "cpe:/a:f5:nginx:-", "os.vendor" = "pfSense", "os.product" = "FreeBSD" }
+
+[[match]]
+name = "pfSense Plus Firewall"
+pattern = "^Netgate pfSense Plus - Login$"
+vendor = "Netgate"
+product = "pfSense"
+context = "html_title"
+example = "Netgate pfSense Plus - Login"
+metadata = { "service.device" = "Firewall", "service.cpe23" = "cpe:/a:netgate:pfsense:-", "service.component.vendor" = "nginx", "service.component.product" = "nginx", "service.component.cpe23" = "cpe:/a:f5:nginx:-", "os.vendor" = "pfSense", "os.product" = "FreeBSD" }
+
+[[match]]
+name = "OPNSense Firewall"
+pattern = "^Login \\| OPNsense$"
+vendor = "OPNSense"
+product = "OPNSense"
+context = "html_title"
+example = "Login | OPNsense"
+metadata = { "service.device" = "Firewall", "service.cpe23" = "cpe:/a:opnsense:opnsense:-", "service.component.vendor" = "lighttpd", "service.component.product" = "lighttpd", "service.component.cpe23" = "cpe:/a:lighttpd:lighttpd:-", "os.vendor" = "FreeBSD", "os.product" = "FreeBSD", "os.cpe23" = "cpe:/o:freebsd:freebsd:-" }
+
+[[match]]
+name = "DrayTek Vigor network equipment - without model or version"
+pattern = "^Vigor Login Page$"
+context = "html_title"
+example = "Vigor Login Page"
+metadata = { "os.vendor" = "DrayTek", "os.family" = "Vigor", "hw.vendor" = "DrayTek", "hw.family" = "Vigor" }
+
+[[match]]
+name = "WSO2 API Manager"
+pattern = "^(?:WSO2 API Manager|\\[Publisher Portal\\]WSO2 APIM)$"
+vendor = "WSO2"
+product = "API Manager"
+context = "html_title"
+example = "WSO2 API Manager"
+metadata = { "service.cpe23" = "cpe:/a:wso2:api_manager:-", "service.component.vendor" = "WSO2", "service.component.product" = "Carbon", "service.component.cpe23" = "cpe:/a:wso2:carbon:-" }
+
+[[match]]
+name = "WSO2 Identity Server"
+pattern = "^WSO2 Management Console$"
+vendor = "WSO2"
+product = "Identity Server"
+context = "html_title"
+example = "WSO2 Management Console"
+metadata = { "service.cpe23" = "cpe:/a:wso2:identity_server:-", "service.component.vendor" = "WSO2", "service.component.product" = "Carbon", "service.component.cpe23" = "cpe:/a:wso2:carbon:-" }
+
+[[match]]
+name = "WSO2 Enterprise Integrator"
+pattern = "^WSO2 Enterprise Integrator \\(WSO2 EI\\)$"
+vendor = "WSO2"
+product = "Enterprise Integrator"
+context = "html_title"
+example = "WSO2 Enterprise Integrator (WSO2 EI)"
+metadata = { "service.cpe23" = "cpe:/a:wso2:enterprise_integrator:-", "service.component.vendor" = "WSO2", "service.component.product" = "Carbon", "service.component.cpe23" = "cpe:/a:wso2:carbon:-" }
+
+[[match]]
+name = "dotCMS Content Management Platform"
+pattern = "^dotCMS Content Management Platform$"
+vendor = "dotCMS"
+product = "dotCMS"
+context = "html_title"
+example = "dotCMS Content Management Platform"
+metadata = { "service.cpe23" = "cpe:/a:dotcms:dotcms:-" }
+
+[[match]]
+name = "Zimbra Collaboration"
+pattern = "^Zimbra (?:Web Client Sign In|Administration)$"
+vendor = "Zimbra"
+product = "Collaboration"
+context = "html_title"
+example = "Zimbra Web Client Sign In"
+metadata = { "service.cpe23" = "cpe:/a:zimbra:collaboration:-" }
+
+[[match]]
+name = "OpenKM - Open Source Document Management System"
+pattern = "^OpenKM$"
+vendor = "OpenKM"
+product = "OpenKM"
+context = "html_title"
+example = "OpenKM"
+metadata = { "service.cpe23" = "cpe:/a:openkm:openkm:-" }
+
+[[match]]
+name = "Mayan EDMS - open-source document management system"
+pattern = "^\\s*(?:\\S)*\\s*::\\s*Mayan EDMS\\s*$"
+vendor = "Mayan-EDMS"
+product = "Mayan EDMS"
+context = "html_title"
+example = ":: Mayan EDMS"
+metadata = { "service.cpe23" = "cpe:/a:mayan-edms:mayan_edms:-" }
+
+[[match]]
+name = "Papermerge - open-source document management system"
+pattern = "^Papermerge \\| Log in$"
+vendor = "Papermerge"
+product = "Papermerge"
+context = "html_title"
+example = "Papermerge | Log in"
+metadata = { "service.cpe23" = "cpe:/a:papermerge:papermerge:-" }
+
+[[match]]
+name = "Paperless-ng - document management system"
+pattern = "^Paperless-ng sign in$"
+vendor = "Paperless-ng"
+product = "Paperless-ng"
+context = "html_title"
+example = "Paperless-ng sign in"
+
+[[match]]
+name = "Paperless-ngx - document management system"
+pattern = "^Paperless-ngx sign in$"
+vendor = "Paperless-ngx"
+product = "Paperless-ngx"
+context = "html_title"
+example = "Paperless-ngx sign in"
+
+[[match]]
+name = "FileRun - self-hosted Google Drive alternative"
+pattern = "^(?:FileRun :: (?:Login|Installation))|(?:(?:\\S)* :: Login \\(powered by FileRun\\))$"
+vendor = "FileRun"
+product = "FileRun"
+context = "html_title"
+example = "FileRun :: Login"
+metadata = { "service.cpe23" = "cpe:/a:filerun:filerun:-" }
+
+[[match]]
+name = "SuiteCRM"
+pattern = "^SuiteCRM$"
+vendor = "SalesAgility"
+product = "SuiteCRM"
+context = "html_title"
+example = "SuiteCRM"
+metadata = { "service.cpe23" = "cpe:/a:salesagility:suitecrm:-" }
+
+[[match]]
+name = "OpenSearch Dashboards"
+pattern = "^OpenSearch Dashboards$"
+vendor = "Amazon"
+product = "OpenSearch"
+context = "html_title"
+example = "OpenSearch Dashboards"
+metadata = { "service.cpe23" = "cpe:/a:amazon:opensearch:-" }
+
+[[match]]
+name = "Supervisor - web interface"
+pattern = "^Supervisor Status$"
+vendor = "Supervisord"
+product = "Supervisor"
+context = "html_title"
+example = "Supervisor Status"
+metadata = { "service.cpe23" = "cpe:/a:supervisord:supervisor:-" }
+
+[[match]]
+name = "qdPM - project management tool"
+pattern = "^qdPM (?:\\| Login|(\\d+(?:\\.\\d+)*)(?: BETA)? Installation)$"
+version_group = 1
+vendor = "qdPM"
+product = "qdPM"
+context = "html_title"
+example = "qdPM | Login"
+metadata = { "service.cpe23" = "cpe:/a:qdpm:qdpm:{service.version}" }
+
+[[match]]
+name = "OWASP Zed Attack Proxy (ZAP) - API Web UI"
+pattern = "^ZAP API UI$"
+vendor = "OWASP"
+product = "Zed Attack Proxy"
+context = "html_title"
+example = "ZAP API UI"
+metadata = { "service.cpe23" = "cpe:/a:owasp:zed_attack_proxy:-" }
+
+[[match]]
+name = "CloudPanel - server control panel"
+pattern = "^CloudPanel \\| Log In$"
+vendor = "MGT-COMMERCE GmbH"
+product = "CloudPanel"
+context = "html_title"
+example = "CloudPanel | Log In"
+
+[[match]]
+name = "Control Web Panel (CWP) (formerly CentOS Web Panel) - web hosting control panel"
+pattern = "^(?:Login \\| Control WebPanel|CWP \\| User)$"
+vendor = "Control Web Panel"
+product = "Control Web Panel"
+context = "html_title"
+example = "Login | Control WebPanel"
+metadata = { "service.cpe23" = "cpe:/a:control-webpanel:webpanel:-", "os.family" = "Linux", "os.product" = "Linux" }
+
+[[match]]
+name = "darkstat - network statistics gatherer"
+pattern = "^Graphs \\(darkstat [^)]+\\)$"
+vendor = "darkstat Project"
+product = "darkstat"
+context = "html_title"
+example = "Graphs (darkstat eth0)"
+
+[[match]]
+name = "Radarr"
+pattern = "^Login - Radarr$"
+vendor = "Radarr"
+product = "Radarr"
+context = "html_title"
+example = "Login - Radarr"
+
+[[match]]
+name = "Sonarr"
+pattern = "^Login - Sonarr$"
+vendor = "Sonarr"
+product = "Sonarr"
+context = "html_title"
+example = "Login - Sonarr"
+
+[[match]]
+name = "Cacti - network graphing solution"
+pattern = "^Login to Cacti$"
+vendor = "Cacti"
+product = "Cacti"
+context = "html_title"
+example = "Login to Cacti"
+metadata = { "service.cpe23" = "cpe:/a:cacti:cacti:-" }
+
+[[match]]
+name = "Bitwarden Server"
+pattern = "^Bitwarden Web Vault$"
+vendor = "Bitwarden"
+product = "Server"
+context = "html_title"
+example = "Bitwarden Web Vault"
+metadata = { "service.cpe23" = "cpe:/a:bitwarden:server:-" }
+
+[[match]]
+name = "Vaultwarden - unofficial Bitwarden compatible server"
+pattern = "^Vaultwarden Web Vault$"
+vendor = "Vaultwarden"
+product = "Vaultwarden"
+context = "html_title"
+example = "Vaultwarden Web Vault"
+
+[[match]]
+name = "Fortra GoAnywhere MFT - managed file transfer"
+pattern = "^(?:GoAnywhere (\\d+(?:\\.\\d+)*)(?: - \\S{1,512})?|GoAnywhere Web Client - Login)$"
+version_group = 1
+vendor = "Fortra"
+product = "GoAnywhere MFT"
+context = "html_title"
+example = "GoAnywhere 7.0.3"
+metadata = { "service.cpe23" = "cpe:/a:helpsystems:goanywhere_managed_file_transfer:{service.version}" }
+
+[[match]]
+name = "ConnectWise R1Soft Server Backup Manager (SBM)"
+pattern = "^Server Backup Manager SE\\s*(?:- .{1,512})?$"
+vendor = "ConnectWise"
+product = "R1Soft Server Backup Manager"
+context = "html_title"
+example = "Server Backup Manager SE"
+
+[[match]]
+name = "PaperCut MF and PaperCut NG - print management system"
+pattern = "^PaperCut Login for (?:.{1,512})$"
+vendor = "PaperCut"
+context = "html_title"
+example = "PaperCut Login for Foo Bar"
+
+[[match]]
+name = "Transmission"
+pattern = "^Transmission Web Interface$"
+vendor = "TransmissionBT"
+product = "Transmission"
+context = "html_title"
+example = "Transmission Web Interface"
+metadata = { "service.cpe23" = "cpe:/a:transmissionbt:transmission:-" }
+
+[[match]]
+name = "MeterSphere - Open-source Continuous Testing Platform"
+pattern = "^MeterSphere$"
+vendor = "MeterSphere"
+product = "MeterSphere"
+context = "html_title"
+example = "MeterSphere"
+metadata = { "service.cpe23" = "cpe:/a:metersphere:metersphere:-" }
+
+[[match]]
+name = "frp - fast reverse proxy"
+pattern = "^(?:frps dashboard|frp client admin UI)$"
+vendor = "frp"
+product = "frp"
+context = "html_title"
+example = "frps dashboard"
+
+[[match]]
+name = "Roundcube Webmail"
+pattern = "^Roundcube Webmail :: Welcome to Roundcube Webmail$"
+vendor = "Roundcube"
+product = "Webmail"
+context = "html_title"
+example = "Roundcube Webmail :: Welcome to Roundcube Webmail"
+metadata = { "service.cpe23" = "cpe:/a:roundcube:webmail:-" }
+
+[[match]]
+name = "Eltex - NTP-RG-1402G broadband router"
+pattern = "^Eltex - NTP-RG-1402G$"
+context = "html_title"
+example = "Eltex - NTP-RG-1402G"
+metadata = { "os.vendor" = "Eltex", "os.product" = "NTP-RG-1402G Firmware", "os.device" = "Broadband Router", "os.cpe23" = "cpe:/o:eltex-co:ntp-rg-1402g_firmware:-", "hw.vendor" = "Eltex", "hw.product" = "NTP-RG-1402G", "hw.device" = "Broadband Router", "hw.cpe23" = "cpe:/h:eltex-co:ntp-rg-1402g:-" }
+
+[[match]]
+name = "Eltex - NTP-2 broadband router"
+pattern = "^Eltex - NTP-2$"
+context = "html_title"
+example = "Eltex - NTP-2"
+metadata = { "os.vendor" = "Eltex", "os.product" = "NTP-2 Firmware", "os.device" = "Broadband Router", "os.cpe23" = "cpe:/o:eltex-co:ntp-2_firmware:-", "hw.vendor" = "Eltex", "hw.product" = "NTP-2", "hw.device" = "Broadband Router", "hw.cpe23" = "cpe:/h:eltex-co:ntp-2:-" }
+
+[[match]]
+name = "Eltex RG model ONT class broadband router"
+pattern = "^Eltex - (NT[PU]-RG-\\d[\\w-]+):?(:?rev\\.\\w\\w?)?$"
+context = "html_title"
+example = "Eltex - NTU-RG-1402G-W"
+metadata = { "os.vendor" = "Eltex", "os.device" = "Broadband Router", "hw.vendor" = "Eltex", "hw.product" = "{capture:1}", "hw.version" = "{capture:2}", "hw.device" = "Broadband Router" }
+
+[[match]]
+name = "Eltex - NTP / NTU model broadband router"
+pattern = "^Eltex - (NT[PU]-2\\w\\w?)$"
+context = "html_title"
+example = "Eltex - NTU-2V"
+metadata = { "os.vendor" = "Eltex", "os.device" = "Broadband Router", "hw.vendor" = "Eltex", "hw.product" = "{capture:1}", "hw.device" = "Broadband Router" }
+
+[[match]]
+name = "FatPipe Networks MPVPN"
+pattern = "^FatPipe MPVPN(?:.nbsp;\\| Log in| Remote Configuration)$"
+context = "html_title"
+example = "FatPipe MPVPN&nbsp;| Log in"
+metadata = { "os.vendor" = "FatPipe Networks", "os.product" = "MPVPN Firmware", "os.device" = "Multiplexer", "os.cpe23" = "cpe:/o:fatpipeinc:mpvpn_firmware:-", "hw.vendor" = "FatPipe Networks", "hw.product" = "MPVPN", "hw.device" = "Multiplexer", "hw.cpe23" = "cpe:/h:fatpipeinc:mpvpn:-" }
+
+[[match]]
+name = "FatPipe Networks IPVPN"
+pattern = "^FatPipe IPVPN(?:.nbsp;\\| Log in| Remote Configuration)$"
+context = "html_title"
+example = "FatPipe IPVPN&nbsp;| Log in"
+metadata = { "os.vendor" = "FatPipe Networks", "os.product" = "IPVPN Firmware", "os.device" = "Multiplexer", "os.cpe23" = "cpe:/o:fatpipeinc:ipvpn_firmware:-", "hw.vendor" = "FatPipe Networks", "hw.product" = "IPVPN", "hw.device" = "Multiplexer", "hw.cpe23" = "cpe:/h:fatpipeinc:ipvpn:-" }
+
+[[match]]
+name = "FatPipe Networks WARP"
+pattern = "^FatPipe WARP(?:.nbsp;\\| Log in| Remote Configuration)$"
+context = "html_title"
+example = "FatPipe WARP&nbsp;| Log in"
+metadata = { "os.vendor" = "FatPipe Networks", "os.product" = "WARP Firmware", "os.device" = "Multiplexer", "os.cpe23" = "cpe:/o:fatpipeinc:warp_firmware:-", "hw.vendor" = "FatPipe Networks", "hw.product" = "WARP", "hw.device" = "Multiplexer", "hw.cpe23" = "cpe:/h:fatpipeinc:warp:-" }
+
+[[match]]
+name = "FatPipe Networks SDWAN"
+pattern = "^FatPipe SDWAN.nbsp;\\| Log in$"
+context = "html_title"
+example = "FatPipe SDWAN&nbsp;| Log in"
+metadata = { "os.vendor" = "FatPipe Networks", "os.product" = "SDWAN Firmware", "os.device" = "SD-WAN Appliance", "hw.vendor" = "FatPipe Networks", "hw.product" = "SDWAN", "hw.device" = "SD-WAN Appliance" }
+
+[[match]]
+name = "Miniflux"
+pattern = "^Sign In - Miniflux$"
+vendor = "Miniflux"
+product = "Miniflux"
+context = "html_title"
+example = "Sign In - Miniflux"
+metadata = { "service.cpe23" = "cpe:/a:miniflux:miniflux:-" }
+
+[[match]]
+name = "N-able N-central"
+pattern = "^N-central Login Redirect$"
+vendor = "N-able"
+product = "N-central"
+context = "html_title"
+example = "N-central Login Redirect"
+metadata = { "service.cpe23" = "cpe:/a:n-able:n-central:-" }
+

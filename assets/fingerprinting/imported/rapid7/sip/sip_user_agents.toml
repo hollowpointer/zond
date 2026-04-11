@@ -1,0 +1,412 @@
+# This file contains fingerprints imported from Rapid7 Recog.
+# Source: https://github.com/rapid7/recog
+# License: BSD-2-Clause
+
+[service]
+attribution = "Rapid7 Recog"
+name = "sip"
+default_ports = []
+description = "Imported from Rapid7 sip_user_agents"
+
+[[match]]
+name = "Generic SIP/2.0 response -- assert nothing."
+pattern = "^SIP/2.0$"
+context = "sip_header.user_agent"
+example = "SIP/2.0"
+metadata = { "hw.certainty" = "0.0", "os.certainty" = "0.0", "service.certainty" = "0.0" }
+
+[[match]]
+name = "TP-Link SIP enabled device"
+pattern = "^TP-Link SIP Stack V1.0.0$"
+context = "sip_header.user_agent"
+example = "TP-Link SIP Stack V1.0.0"
+metadata = { "hw.vendor" = "TP-LINK" }
+
+[[match]]
+name = "DLink SIP enabled device"
+pattern = "^DLink VoIP Stack$"
+context = "sip_header.user_agent"
+example = "DLink VoIP Stack"
+metadata = { "hw.vendor" = "D-Link" }
+
+[[match]]
+name = "Zyxel home routers"
+pattern = "^Home&Life HUB/([\\d.]+)$"
+context = "sip_header.user_agent"
+example = "Home&Life HUB/1.1.26.00"
+metadata = { "os.vendor" = "Zyxel", "os.version" = "{capture:1}", "os.device" = "Router", "hw.vendor" = "Zyxel", "hw.device" = "Router" }
+
+[[match]]
+name = "Technicolor TG789vac Router"
+pattern = "^Technicolor / VANT-6 / AGTOT_([\\d.]+) / AGTOT_[\\d.]+$"
+context = "sip_header.user_agent"
+example = "Technicolor / VANT-6 / AGTOT_2.1.4 / AGTOT_2.1.4"
+metadata = { "os.vendor" = "Technicolor", "os.device" = "Router", "os.version" = "{capture:1}", "hw.vendor" = "Technicolor", "hw.product" = "TG789vac", "hw.device" = "Router", "hw.cpe23" = "cpe:/h:technicolor:tg789vac:-" }
+
+[[match]]
+name = "Technicolor TG789vac Router w/o version string"
+pattern = "^Technicolor / VANT-6$"
+context = "sip_header.user_agent"
+example = "Technicolor / VANT-6"
+metadata = { "os.vendor" = "Technicolor", "os.device" = "Router", "hw.vendor" = "Technicolor", "hw.product" = "TG789vac", "hw.device" = "Router", "hw.cpe23" = "cpe:/h:technicolor:tg789vac:-" }
+
+[[match]]
+name = "Technicolor TGxxx Router with build info"
+pattern = "^(?:Technicolor|MediaAccess) (TG[\\w]+) (?:v\\d )?Build (\\d+\\.[\\w.-]+)(?: CP\\w+)?$"
+context = "sip_header.user_agent"
+example = "Technicolor TG784n v3 Build 10.2.1.O"
+metadata = { "os.vendor" = "Technicolor", "os.device" = "Router", "os.version" = "{capture:2}", "hw.vendor" = "Technicolor", "hw.product" = "{capture:1}", "hw.device" = "Router" }
+
+[[match]]
+name = "Thomson TGxxx Router with build info"
+pattern = "^Thomson (TG[\\w]+) (?:v\\d )?Build (\\d+\\.[\\w.-]+)(?: CP\\w+)?$"
+context = "sip_header.user_agent"
+example = "Thomson TG784 Build 8.4.2.Q"
+metadata = { "os.vendor" = "Thomson", "os.device" = "Router", "os.version" = "{capture:2}", "hw.vendor" = "Thomson", "hw.product" = "{capture:1}", "hw.device" = "Router" }
+
+[[match]]
+name = "Axis Network Video Door stations, which have voice"
+pattern = "(?i)^AXIS (\\S+) Network Video Door Station$"
+context = "sip_header.user_agent"
+example = "AXIS A8105-E Network Video Door Station"
+metadata = { "hw.vendor" = "Axis", "hw.device" = "IP Camera", "hw.family" = "Network Video Door Station", "hw.product" = "{capture:1}", "os.vendor" = "AXIS", "os.family" = "Linux" }
+
+[[match]]
+name = "Axis Network audio devices"
+pattern = "(?i)^AXIS (\\S+) Network (?:Audio Bridge|(?:Cabinet|Horn) Speaker)$"
+context = "sip_header.user_agent"
+example = "AXIS C3003-E Network Horn Speaker"
+metadata = { "hw.vendor" = "Axis", "hw.family" = "Network Audio", "hw.product" = "{capture:1}", "os.vendor" = "AXIS", "os.family" = "Linux" }
+
+[[match]]
+name = "Cisco SIPGateway"
+pattern = "^Cisco-SIPGateway/IOS-([\\d\\.x]+)$"
+context = "sip_header.user_agent"
+example = "Cisco-SIPGateway/IOS-12.x"
+metadata = { "os.vendor" = "Cisco", "os.product" = "IOS", "os.version" = "{capture:1}", "os.cpe23" = "cpe:/o:cisco:ios:{os.version}" }
+
+[[match]]
+name = "Cisco Unified SIP Phone 3900 Series"
+pattern = "^Cisco-CP(39\\d{2})/([\\d.]+)$"
+context = "sip_header.user_agent"
+example = "Cisco-CP3905/9.4.1"
+metadata = { "cisco.model" = "{capture:1}", "hw.vendor" = "Cisco", "hw.device" = "VoIP", "hw.product" = "Unified SIP Phone {cisco.model}", "os.vendor" = "Cisco", "os.product" = "Unified SIP Phone 3900 Firmware", "os.version" = "{capture:2}", "hw.certainty" = "0.95", "os.certainty" = "0.95", "os.cpe23" = "cpe:/o:cisco:unified_sip_phone_3900_firmware:{os.version}" }
+
+[[match]]
+name = "Cisco Analog Telephone Adapters (ATA)"
+pattern = "^Cisco-ATA(\\d{3})/([\\d.]+)$"
+context = "sip_header.user_agent"
+example = "Cisco-ATA187/9.2.3"
+metadata = { "cisco.model" = "{capture:1}", "hw.vendor" = "Cisco", "hw.device" = "VoIP", "hw.product" = "ATA {cisco.model}", "os.vendor" = "Cisco", "os.product" = "ATA {cisco.model} Firmware", "os.version" = "{capture:2}", "hw.certainty" = "0.9", "os.certainty" = "0.9" }
+
+[[match]]
+name = "AVM Fritz!OS Device"
+pattern = "^FRITZ!OS$"
+context = "sip_header.user_agent"
+example = "FRITZ!OS"
+metadata = { "os.vendor" = "AVM", "os.product" = "FRITZ!OS", "os.cpe23" = "cpe:/o:avm:fritz%21os:-", "hw.vendor" = "AVM" }
+
+[[match]]
+name = "AVM FritzBox"
+pattern = "^(?:AVM )?(FRITZ!Box .*) +(\\d+\\.\\d+\\.\\d+)"
+context = "sip_header.user_agent"
+example = "AVM FRITZ!Box Fon 06.03.13"
+metadata = { "os.vendor" = "AVM", "os.family" = "FRITZ!Box", "os.product" = "{capture:1}", "os.version" = "{capture:2}", "hw.vendor" = "AVM", "hw.family" = "FRITZ!Box" }
+
+[[match]]
+name = "AVM FritzFon"
+pattern = "^(?:AVM )?(FRITZ!Fon .*) +(\\d+\\.\\d+\\.\\d+)"
+context = "sip_header.user_agent"
+example = "AVM FRITZ!Fon 7150 (fs) 38.04.56 (Mar 31 2008)"
+metadata = { "os.vendor" = "AVM", "os.family" = "FRITZ!Fon", "os.product" = "{capture:1}", "os.version" = "{capture:2}", "hw.vendor" = "AVM", "hw.family" = "FRITZ!Fon" }
+
+[[match]]
+name = "AVM Multibox - Generic"
+pattern = "^(?:AVM )?(Multibox .*) +(\\d+\\.\\d+\\.\\d+)"
+context = "sip_header.user_agent"
+example = "AVM Multibox 7390 NGN 84.05.09 (Jan 13 2012)"
+metadata = { "os.vendor" = "AVM", "os.family" = "Multibox", "os.product" = "{capture:1}", "os.version" = "{capture:2}", "hw.vendor" = "AVM", "hw.product" = "{capture:1}" }
+
+[[match]]
+name = "Huawei generic"
+pattern = "(?i)^Huawei$"
+context = "sip_header.user_agent"
+example = "Huawei"
+metadata = { "hw.vendor" = "Huawei" }
+
+[[match]]
+name = "Huawei Home Gateway"
+pattern = "(?i)^Huawei-HomeGateway/V(?:\\d.*)$"
+context = "sip_header.user_agent"
+example = "Huawei-HomeGateway/V100R001"
+metadata = { "hw.vendor" = "Huawei", "hw.device" = "Broadband Router", "hw.product" = "Home Gateway" }
+
+[[match]]
+name = "Huawei EchoLife Home Gateway"
+pattern = "(?i)^Huawei-EchoLife (HG.*)/V(?:\\d.*)$"
+context = "sip_header.user_agent"
+example = "HUAWEI-EchoLife HG8121H/V3R018C00S110"
+metadata = { "hw.vendor" = "Huawei", "hw.device" = "Broadband Router", "hw.product" = "EchoLife Home Gateway", "hw.model" = "{capture:1}" }
+
+[[match]]
+name = "Huawei Softswitch"
+pattern = "(?i)^Huawei (SoftX\\d+) (?:V\\d.*)$"
+context = "sip_header.user_agent"
+example = "Huawei SoftX3000 V300R010"
+metadata = { "hw.vendor" = "Huawei", "hw.device" = "Telecom", "hw.product" = "Softswitch", "hw.model" = "{capture:1}" }
+
+[[match]]
+name = "Mitel SIP Phones"
+pattern = "^Mitel-(\\S+)-SIP-Phone ([\\d\\.]+) (.{12})$"
+context = "sip_header.user_agent"
+example = "Mitel-5320-SIP-Phone 06.05.00.11 010203040506"
+metadata = { "hw.vendor" = "Mitel", "hw.device" = "VoIP", "hw.product" = "{capture:1}", "hw.version" = "{capture:2}", "host.mac" = "{capture:3}" }
+
+[[match]]
+name = "Mitel SIP Gateway"
+pattern = "^Mitel Border GW/(\\S+)$"
+context = "sip_header.user_agent"
+example = "Mitel Border GW/4.0.0.9"
+metadata = { "hw.vendor" = "Mitel", "hw.device" = "VoIP", "hw.product" = "Border GW", "hw.version" = "{capture:1}" }
+
+[[match]]
+name = "Polycom SoundPoint, SountdStation, VVX VoIP phones"
+pattern = "^(?:Polycom/[\\d\\.]+ )?Polycom(SoundPoint|VVX|SoundStation)\\S+_(\\d+)-UA/([\\d\\.]+)(?:_(.{12}))?$"
+context = "sip_header.user_agent"
+example = "PolycomVVX-VVX_350-UA/5.8.0.13337"
+metadata = { "hw.vendor" = "Polycom", "hw.device" = "VoIP", "hw.family" = "{capture:1}", "hw.product" = "{hw.family} {hw.model}", "hw.model" = "{capture:2}", "hw.version" = "{capture:3}", "host.mac" = "{capture:4}" }
+
+[[match]]
+name = "Polycom RealPresence Trio Phones"
+pattern = "^(?:Polycom/[\\d\\.]+ )?Polycom(?:RealPresenceTrio)-Trio_(\\S+)-UA/([\\d\\.]+)(?:_(.{12}))?$"
+context = "sip_header.user_agent"
+example = "PolycomRealPresenceTrio-Trio_8800-UA/5.4.0.12197"
+metadata = { "hw.vendor" = "Polycom", "hw.device" = "VoIP", "hw.family" = "RealPresence", "hw.product" = "RealPresence Trio {hw.model}", "hw.model" = "{capture:1}", "hw.version" = "{capture:2}", "host.mac" = "{capture:3}" }
+
+[[match]]
+name = "Polycom HDX Video Conferencing"
+pattern = "^Polycom ?HDX ?(\\d+)(?: ?HD)?(?:/| \\(Release - )([^\\)]+)\\)?"
+context = "sip_header.user_agent"
+example = "Polycom HDX 9006 (Release - 3.0.6-37004)"
+metadata = { "hw.vendor" = "Polycom", "hw.family" = "HDX", "hw.device" = "Video Conferencing", "hw.product" = "HDX {hw.model}", "hw.model" = "{capture:1}", "hw.version" = "{capture:2}" }
+
+[[match]]
+name = "Polycom RealPresence Group Video Conferencing"
+pattern = "^PolycomRealPresenceGroup(\\d+)/([\\d\\._]+)$"
+context = "sip_header.user_agent"
+example = "PolycomRealPresenceGroup700/6.2.0"
+metadata = { "hw.vendor" = "Polycom", "hw.family" = "RealPresence Group", "hw.device" = "Video Conferencing", "hw.product" = "RealPresence Group {hw.model}", "hw.model" = "{capture:1}", "hw.version" = "{capture:2}" }
+
+[[match]]
+name = "Nero SIPPS IP Phone"
+pattern = "^Nero SIPPS IP Phone Version ([\\d\\.]+)$"
+version_group = 1
+vendor = "Nero"
+product = "SIPPS IP Phone"
+context = "sip_header.user_agent"
+example = "Nero SIPPS IP Phone Version 2.0.51.16"
+metadata = { "service.family" = "SIPPS", "service.protocol" = "VoIP" }
+
+[[match]]
+name = "ShoreTel VoIP Switch"
+pattern = "^ShoreGear/([\\d\\.]+)\\s+\\(ShoreTel [\\d\\.]+\\)$"
+context = "sip_header.user_agent"
+example = "ShoreGear/21.90.4128.0 (ShoreTel 15)"
+metadata = { "hw.vendor" = "ShoreTel", "hw.device" = "VoIP Switch", "hw.version" = "{capture:1}" }
+
+[[match]]
+name = "Crestron Mercury"
+pattern = "^MERCURY-([a-fA-F0-9]{12})$"
+context = "sip_header.user_agent"
+example = "MERCURY-00107F1ABAA0"
+metadata = { "hw.vendor" = "Crestron", "hw.device" = "Video Conferencing", "hw.product" = "Mercury", "os.vendor" = "Crestron", "os.family" = "Linux", "os.device" = "Video Conferencing", "host.mac" = "{capture:1}" }
+
+[[match]]
+name = "Konftel IP Phone"
+pattern = "^IPDECT/([\\d\\.]+)\\s+\\(MAC=([a-fA-F0-9]{12}); SER="
+context = "sip_header.user_agent"
+example = "IPDECT/03.55.0013 (MAC=00087B0F1D30; SER= 00000; HW=1)"
+metadata = { "hw.vendor" = "Konftel", "hw.device" = "VoIP", "hw.version" = "{capture:1}", "host.mac" = "{capture:2}" }
+
+[[match]]
+name = "Sangoma IP Phone"
+pattern = "^Sangoma ([^\\s]+) V([a-zA-Z0-9\\.]+)=?"
+context = "sip_header.user_agent"
+example = "Sangoma S305 V3.0.4.72"
+metadata = { "hw.vendor" = "Sangoma", "hw.device" = "VoIP", "hw.version" = "{capture:2}", "hw.product" = "{capture:1}" }
+
+[[match]]
+name = "Grandstream Handy Tone HT818"
+pattern = "^Grandstream HT818 ([\\d.]+)$"
+context = "sip_header.user_agent"
+example = "Grandstream HT818 1.0.8.7"
+metadata = { "os.vendor" = "Grandstream", "os.product" = "HT818 Firmware", "os.version" = "{capture:1}", "os.device" = "SIP Gateway", "os.cpe23" = "cpe:/o:grandstream:ht818_firmware:{os.version}", "hw.vendor" = "Grandstream", "hw.product" = "HT818", "hw.device" = "SIP Gateway", "hw.cpe23" = "cpe:/h:grandstream:ht818:-" }
+
+[[match]]
+name = "Grandstream Handy Tone HT814"
+pattern = "^Grandstream HT814 ([\\d.]+)$"
+context = "sip_header.user_agent"
+example = "Grandstream HT814 1.0.9.3"
+metadata = { "os.vendor" = "Grandstream", "os.product" = "HT814 Firmware", "os.version" = "{capture:1}", "os.device" = "SIP Gateway", "os.cpe23" = "cpe:/o:grandstream:ht814_firmware:{os.version}", "hw.vendor" = "Grandstream", "hw.product" = "HT814", "hw.device" = "SIP Gateway", "hw.cpe23" = "cpe:/h:grandstream:ht814:-" }
+
+[[match]]
+name = "Grandstream Handy Tone HT813"
+pattern = "^Grandstream HT813 ([\\d.]+)$"
+context = "sip_header.user_agent"
+example = "Grandstream HT813 1.0.1.2"
+metadata = { "os.vendor" = "Grandstream", "os.product" = "HT813 Firmware", "os.version" = "{capture:1}", "os.device" = "SIP Gateway", "os.cpe23" = "cpe:/o:grandstream:ht813_firmware:{os.version}", "hw.vendor" = "Grandstream", "hw.product" = "HT813", "hw.device" = "SIP Gateway", "hw.cpe23" = "cpe:/h:grandstream:ht813:-" }
+
+[[match]]
+name = "Grandstream Handy Tone HT812"
+pattern = "^Grandstream HT812 ([\\d.]+)$"
+context = "sip_header.user_agent"
+example = "Grandstream HT812 1.0.3.5"
+metadata = { "os.vendor" = "Grandstream", "os.product" = "HT812 Firmware", "os.version" = "{capture:1}", "os.device" = "SIP Gateway", "os.cpe23" = "cpe:/o:grandstream:ht812_firmware:{os.version}", "hw.vendor" = "Grandstream", "hw.product" = "HT812", "hw.device" = "SIP Gateway", "hw.cpe23" = "cpe:/h:grandstream:ht812:-" }
+
+[[match]]
+name = "Grandstream Handy Tone HT802"
+pattern = "^Grandstream HT802 ([\\d.]+)$"
+context = "sip_header.user_agent"
+example = "Grandstream HT802 1.0.3.2"
+metadata = { "os.vendor" = "Grandstream", "os.product" = "HT802 Firmware", "os.version" = "{capture:1}", "os.device" = "SIP Gateway", "os.cpe23" = "cpe:/o:grandstream:ht802_firmware:{os.version}", "hw.vendor" = "Grandstream", "hw.product" = "HT802", "hw.device" = "SIP Gateway", "hw.cpe23" = "cpe:/h:grandstream:ht802:-" }
+
+[[match]]
+name = "Grandstream Handy Tone HT801"
+pattern = "^Grandstream HT801 ([\\d.]+)$"
+context = "sip_header.user_agent"
+example = "Grandstream HT801 1.0.3.2"
+metadata = { "os.vendor" = "Grandstream", "os.product" = "HT801 Firmware", "os.version" = "{capture:1}", "os.device" = "SIP Gateway", "os.cpe23" = "cpe:/o:grandstream:ht801_firmware:{os.version}", "hw.vendor" = "Grandstream", "hw.product" = "HT801", "hw.device" = "SIP Gateway", "hw.cpe23" = "cpe:/h:grandstream:ht801:-" }
+
+[[match]]
+name = "Grandstream Handy Tone HT7xx"
+pattern = "^Grandstream (HT7\\d\\d) ([\\d.]+)$"
+context = "sip_header.user_agent"
+example = "Grandstream HT701 1.0.8.2"
+metadata = { "os.vendor" = "Grandstream", "os.product" = "{hw.product} Firmware", "os.version" = "{capture:2}", "os.device" = "SIP Gateway", "hw.vendor" = "Grandstream", "hw.product" = "{capture:1}", "hw.device" = "SIP Gateway" }
+
+[[match]]
+name = "Grandstream GXP SIP Phone GXP2200"
+pattern = "^Grandstream GXP2200 ([\\d.]+)$"
+context = "sip_header.user_agent"
+example = "Grandstream GXP2200 1.0.3.27"
+metadata = { "os.vendor" = "Grandstream", "os.product" = "GXP2200 Firmware", "os.version" = "{capture:1}", "os.device" = "SIP Device", "os.cpe23" = "cpe:/o:grandstream:gxp2200_firmware:{os.version}", "hw.vendor" = "Grandstream", "hw.product" = "GXP2200", "hw.device" = "SIP Device", "hw.cpe23" = "cpe:/h:grandstream:gxp2200:-" }
+
+[[match]]
+name = "Grandstream GXP SIP Phone GXP1628"
+pattern = "^Grandstream GXP1628 ([\\d.]+)$"
+context = "sip_header.user_agent"
+example = "Grandstream GXP1628 1.0.7.6"
+metadata = { "os.vendor" = "Grandstream", "os.product" = "GXP1628 Firmware", "os.version" = "{capture:1}", "os.device" = "SIP Device", "os.cpe23" = "cpe:/o:grandstream:gxp1628_firmware:{os.version}", "hw.vendor" = "Grandstream", "hw.product" = "GXP1628", "hw.device" = "SIP Device", "hw.cpe23" = "cpe:/h:grandstream:gxp1628:-" }
+
+[[match]]
+name = "Grandstream GXP SIP Phone GXP1625"
+pattern = "^Grandstream GXP1625 ([\\d.]+)$"
+context = "sip_header.user_agent"
+example = "Grandstream GXP1625 1.0.4.128"
+metadata = { "os.vendor" = "Grandstream", "os.product" = "GXP1625 Firmware", "os.version" = "{capture:1}", "os.device" = "SIP Device", "os.cpe23" = "cpe:/o:grandstream:gxp1625_firmware:{os.version}", "hw.vendor" = "Grandstream", "hw.product" = "GXP1625", "hw.device" = "SIP Device", "hw.cpe23" = "cpe:/h:grandstream:gxp1625:-" }
+
+[[match]]
+name = "Grandstream GXP SIP Phone GXP1615"
+pattern = "^Grandstream GXP1615 ([\\d.]+)$"
+context = "sip_header.user_agent"
+example = "Grandstream GXP1615 1.0.4.128"
+metadata = { "os.vendor" = "Grandstream", "os.product" = "GXP1615 Firmware", "os.version" = "{capture:1}", "os.device" = "SIP Device", "os.cpe23" = "cpe:/o:grandstream:gxp1615_firmware:{os.version}", "hw.vendor" = "Grandstream", "hw.product" = "GXP1615", "hw.device" = "SIP Device", "hw.cpe23" = "cpe:/h:grandstream:gxp1615:-" }
+
+[[match]]
+name = "Grandstream GXP SIP Phone GXP1610"
+pattern = "^Grandstream GXP1610 ([\\d.]+)$"
+context = "sip_header.user_agent"
+example = "Grandstream GXP1610 1.0.4.138"
+metadata = { "os.vendor" = "Grandstream", "os.product" = "GXP1610 Firmware", "os.version" = "{capture:1}", "os.device" = "SIP Device", "os.cpe23" = "cpe:/o:grandstream:gxp1610_firmware:{os.version}", "hw.vendor" = "Grandstream", "hw.product" = "GXP1610", "hw.device" = "SIP Device", "hw.cpe23" = "cpe:/h:grandstream:gxp1610:-" }
+
+[[match]]
+name = "Grandstream GXP SIP Phone"
+pattern = "^Grandstream (GXP\\d\\d\\d\\d) ([\\d.]+)$"
+context = "sip_header.user_agent"
+example = "Grandstream GXP2135 1.0.9.108"
+metadata = { "os.vendor" = "Grandstream", "os.product" = "{hw.product} Firmware", "os.version" = "{capture:2}", "os.device" = "SIP Device", "hw.vendor" = "Grandstream", "hw.product" = "{capture:1}", "hw.device" = "SIP Device" }
+
+[[match]]
+name = "Fortinet FortiVoice"
+pattern = "^FortiVoice/([\\w.-]+)$"
+version_group = 1
+vendor = "Fortinet"
+product = "FortiVoice"
+context = "sip_header.user_agent"
+example = "FortiVoice/7.31b00"
+metadata = { "service.device" = "SIP Gateway", "service.cpe23" = "cpe:/a:fortinet:fortivoice:{service.version}", "hw.vendor" = "Fortinet", "hw.family" = "FortiVoice", "hw.device" = "SIP Gateway" }
+
+[[match]]
+name = "FreeSWITCH FreeSWITCH without version"
+pattern = "^FreeSWITCH$"
+vendor = "FreeSWITCH"
+product = "FreeSWITCH"
+context = "sip_header.user_agent"
+example = "FreeSWITCH"
+metadata = { "service.device" = "SIP Gateway", "service.cpe23" = "cpe:/a:freeswitch:freeswitch:-" }
+
+[[match]]
+name = "FreeSWITCH FreeSWITCH with version, mod_sofia"
+pattern = "^FreeSWITCH-mod_sofia/([\\d.]+)"
+version_group = 1
+vendor = "FreeSWITCH"
+product = "FreeSWITCH"
+context = "sip_header.user_agent"
+example = "FreeSWITCH-mod_sofia/1.10.4-release+git~20200805T110119Z~133fc2c870~64bit"
+metadata = { "service.device" = "SIP Gateway", "service.cpe23" = "cpe:/a:freeswitch:freeswitch:{service.version}" }
+
+[[match]]
+name = "Valcom SIP device with version"
+pattern = "^Valcom (VIP-\\w+) sw([\\d.]+)"
+context = "sip_header.user_agent"
+example = "Valcom VIP-204 sw1.50.28"
+metadata = { "os.vendor" = "Valcom", "os.product" = "{hw.product} Firmware", "os.version" = "{capture:2}", "os.device" = "SIP Device", "hw.vendor" = "Valcom", "hw.product" = "{capture:1}", "hw.device" = "SIP Device" }
+
+[[match]]
+name = "Gigaset SIP Phones"
+pattern = "^DX800A/([\\d.]+)$"
+context = "sip_header.user_agent"
+example = "DX800A/41.175.00.000.000"
+metadata = { "hw.vendor" = "Gigaset", "hw.device" = "VoIP", "hw.product" = "DX800A", "os.vendor" = "Gigaset", "os.product" = "{hw.product} Firmware", "os.version" = "{capture:1}" }
+
+[[match]]
+name = "Eltex TAU model VoIP gateway - with serial number"
+pattern = "^(TAU-\\d+[A-Z]*(?:\\.IP)?)/([\\d.]+) SN/(VI[0-9A-Z]+)$"
+context = "sip_header.user_agent"
+example = "TAU-8.IP/2.6.3 SN/VI12345678"
+metadata = { "os.vendor" = "Eltex", "os.product" = "{hw.product} Firmware", "os.version" = "{capture:2}", "os.device" = "VoIP Gateway", "hw.vendor" = "Eltex", "hw.product" = "{capture:1}", "hw.serial_number" = "{capture:3}", "hw.device" = "VoIP Gateway" }
+
+[[match]]
+name = "Eltex TAU model VoIP gateway - with serial number and sofia version"
+pattern = "^(TAU-\\d+[A-Z]*(?:\\.IP)?)/([\\d.]+) SN/(VI[0-9A-Z]+) (?:SHA/[0-9a-f]+ )?sofia-sip/([\\d.]+)$"
+vendor = "FreeSWITCH"
+product = "FreeSWITCH"
+context = "sip_header.user_agent"
+example = "TAU-8.IP/2.3.0 SN/VI12345678 sofia-sip/1.12.10"
+metadata = { "service.device" = "SIP Gateway", "service.cpe23" = "cpe:/a:freeswitch:freeswitch:-", "service.component.vendor" = "FreeSWITCH", "service.component.product" = "sofia-sip", "service.component.version" = "{capture:4}", "os.vendor" = "Eltex", "os.product" = "{hw.product} Firmware", "os.version" = "{capture:2}", "os.device" = "VoIP Gateway", "hw.vendor" = "Eltex", "hw.product" = "{capture:1}", "hw.serial_number" = "{capture:3}", "hw.device" = "VoIP Gateway" }
+
+[[match]]
+name = "Eltex TAU model VoIP gateway - build variant with sofia version"
+pattern = "^(TAU-\\d{1,2}) (?:build |v)([\\d.]+) (?:with )?sofia-sip/([\\d.]+)$"
+vendor = "FreeSWITCH"
+product = "FreeSWITCH"
+context = "sip_header.user_agent"
+example = "TAU-72 build 2.18.0.35 sofia-sip/1.12.10"
+metadata = { "service.device" = "SIP Gateway", "service.cpe23" = "cpe:/a:freeswitch:freeswitch:-", "service.component.vendor" = "FreeSWITCH", "service.component.product" = "sofia-sip", "service.component.version" = "{capture:3}", "os.vendor" = "Eltex", "os.product" = "{hw.product} Firmware", "os.version" = "{capture:2}", "os.device" = "VoIP Gateway", "hw.vendor" = "Eltex", "hw.product" = "{capture:1}", "hw.device" = "VoIP Gateway" }
+
+[[match]]
+name = "Eltex SMG model VoIP gateway - no model number"
+pattern = "^(?:Eltex )?(?:smg_pa_sip[ -]){1,2}([\\d.]+)$"
+context = "sip_header.user_agent"
+example = "Eltex smg_pa_sip smg_pa_sip-3.9.1.50"
+metadata = { "os.vendor" = "Eltex", "os.product" = "SMG Firmware", "os.version" = "{capture:1}", "os.device" = "VoIP Gateway", "hw.vendor" = "Eltex", "hw.device" = "VoIP Gateway" }
+
+[[match]]
+name = "Eltex - NTP / NTU model broadband router - with serial number and sofia version"
+pattern = "^(RG-\\d[\\w-]+)/([\\d.]+) SN/(VI\\w+) (?:SHA/[0-9a-f]+ )?sofia-sip/([\\d.]+)$"
+vendor = "FreeSWITCH"
+product = "FreeSWITCH"
+context = "sip_header.user_agent"
+example = "RG-5421G-Wac/2.4.2.87 SN/VI12E45678 sofia-sip/1.12.10"
+metadata = { "service.device" = "SIP Gateway", "service.cpe23" = "cpe:/a:freeswitch:freeswitch:-", "service.component.vendor" = "FreeSWITCH", "service.component.product" = "sofia-sip", "service.component.version" = "{capture:4}", "os.vendor" = "Eltex", "os.product" = "{hw.product} Firmware", "os.version" = "{capture:2}", "os.device" = "Broadband Router", "hw.vendor" = "Eltex", "hw.product" = "{capture:1}", "hw.serial_number" = "{capture:3}", "hw.device" = "Broadband Router" }
+

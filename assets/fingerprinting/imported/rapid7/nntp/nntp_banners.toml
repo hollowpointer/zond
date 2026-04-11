@@ -1,0 +1,74 @@
+# This file contains fingerprints imported from Rapid7 Recog.
+# Source: https://github.com/rapid7/recog
+# License: BSD-2-Clause
+
+[service]
+attribution = "Rapid7 Recog"
+name = "nntp"
+default_ports = []
+description = "Imported from Rapid7 nntp_banners"
+
+[[match]]
+name = "Youngzsoft CCProxy NNTP with no version"
+pattern = "CCProxy NNTP Service$"
+vendor = "Youngzsoft"
+product = "CCProxy"
+context = "nntp.banner"
+example = "CCProxy NNTP Service"
+metadata = { "service.family" = "CCProxy" }
+
+[[match]]
+name = "Lyris Listmanager"
+pattern = "^(\\S{1,512}) Lyris ListManager NNTP Service ready"
+vendor = "Lyris"
+product = "ListManager"
+context = "nntp.banner"
+example = "blah Lyris ListManager NNTP Service ready (posting ok)."
+metadata = { "service.family" = "ListManager", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "Microsoft IIS NNTP Server on Windows 2000"
+pattern = "^NNTP Service (?:.*) Version: (5.0.2195.[0-9]+)"
+version_group = 1
+vendor = "Microsoft"
+product = "IIS"
+context = "nntp.banner"
+example = "NNTP Service 5.00.0984 Version: 5.0.2195.7034 Posting Allowed"
+metadata = { "service.family" = "IIS", "service.cpe23" = "cpe:/a:microsoft:iis:{service.version}", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows 2000", "os.cpe23" = "cpe:/o:microsoft:windows_2000:-", "ms.nttp.version" = "{capture:1}" }
+
+[[match]]
+name = "Microsoft IIS NNTP Server on Windows Server 2003"
+pattern = "^NNTP Service (?:.*) Version: (6.0.3790.[0-9]+)"
+version_group = 1
+vendor = "Microsoft"
+product = "IIS"
+context = "nntp.banner"
+example = "NNTP Service 6.0.3790.3959 Version: 6.0.3790.3959 Posting Allowed"
+metadata = { "service.family" = "IIS", "service.cpe23" = "cpe:/a:microsoft:iis:{service.version}", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows Server 2003", "os.cpe23" = "cpe:/o:microsoft:windows_server_2003:-", "ms.nttp.version" = "{capture:1}" }
+
+[[match]]
+name = "Older Microsoft IIS NNTP Servers"
+pattern = "^NNTP Service Microsoft. Internet Services (?:.*) Version: (?:[^ ]+)"
+vendor = "Microsoft"
+product = "Exchange Server"
+context = "nntp.banner"
+example = "NNTP Service Microsoft. Internet Services 5.00 Version: 5.0.2068.0 Posting Allowed"
+metadata = { "service.family" = "Exchange Server", "service.cpe23" = "cpe:/a:microsoft:exchange_server:-", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows", "os.cpe23" = "cpe:/o:microsoft:windows:-" }
+
+[[match]]
+name = "Kerio Connect NNTP"
+pattern = "^Kerio (?:Connect|MailServer)\\s+(\\d\\.[\\d.]+)\\s+(?:(?:patch|RC) (\\d)\\s+)?NNTP server ready$"
+version_group = 1
+vendor = "Kerio"
+product = "NNTP"
+context = "nntp.banner"
+example = "Kerio Connect 9.2.3 NNTP server ready"
+metadata = { "service.family" = "Connect", "service.version.version" = "{capture:2}" }
+
+[[match]]
+name = "Non-specific NNTP -- assert nothing"
+pattern = "^NNTP server ready(?: \\(no posting\\))?$"
+context = "nntp.banner"
+example = "NNTP server ready (no posting)"
+metadata = { "hw.certainty" = "0.0", "os.certainty" = "0.0", "service.certainty" = "0.0" }
+

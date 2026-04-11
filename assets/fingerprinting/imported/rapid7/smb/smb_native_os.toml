@@ -1,0 +1,588 @@
+# This file contains fingerprints imported from Rapid7 Recog.
+# Source: https://github.com/rapid7/recog
+# License: BSD-2-Clause
+
+[service]
+attribution = "Rapid7 Recog"
+name = "smb"
+default_ports = []
+description = "Imported from Rapid7 smb_native_os"
+
+[[match]]
+name = "Windows NT"
+pattern = "^(Windows NT \\d\\.\\d+)$"
+context = "smb.native_os"
+example = "Windows NT 4.0"
+metadata = { "os.certainty" = "1.0", "os.vendor" = "Microsoft", "os.product" = "{capture:1}" }
+
+[[match]]
+name = "Windows 95/98/ME"
+pattern = "^(Windows (?:95|98|ME))$"
+context = "smb.native_os"
+example = "Windows 95"
+metadata = { "os.certainty" = "1.0", "os.vendor" = "Microsoft", "os.product" = "{capture:1}" }
+
+[[match]]
+name = "Windows 2000"
+pattern = "^Windows 5\\.0$"
+context = "smb.native_os"
+example = "Windows 5.0"
+metadata = { "os.certainty" = "1.0", "os.vendor" = "Microsoft", "os.product" = "Windows 2000", "os.cpe23" = "cpe:/o:microsoft:windows_2000:-" }
+
+[[match]]
+name = "Windows XP"
+pattern = "^Windows 5\\.1$"
+context = "smb.native_os"
+example = "Windows 5.1"
+metadata = { "os.certainty" = "1.0", "os.vendor" = "Microsoft", "os.product" = "Windows XP", "os.cpe23" = "cpe:/o:microsoft:windows_xp:-" }
+
+[[match]]
+name = "Spoofed value often used by Samba -- assert nothing."
+pattern = "^Windows 6.1$"
+context = "smb.native_os"
+example = "Windows 6.1"
+metadata = { "hw.certainty" = "0.0", "os.certainty" = "0.0", "service.certainty" = "0.0" }
+
+[[match]]
+name = "Windows XP with Service Pack"
+pattern = "^Windows XP (\\d+) (Service Pack \\d+)$"
+context = "smb.native_os"
+example = "Windows XP 2600 Service Pack 1"
+metadata = { "os.certainty" = "1.0", "os.vendor" = "Microsoft", "os.product" = "Windows XP", "os.build" = "{capture:1}", "os.version" = "{capture:2}", "os.cpe23" = "cpe:/o:microsoft:windows_xp:{os.version}" }
+
+[[match]]
+name = "Windows XP with build number"
+pattern = "^Windows XP (\\d+)$"
+context = "smb.native_os"
+example = "Windows XP 2600"
+metadata = { "os.certainty" = "1.0", "os.vendor" = "Microsoft", "os.product" = "Windows XP", "os.build" = "{capture:1}", "os.cpe23" = "cpe:/o:microsoft:windows_xp:-" }
+
+[[match]]
+name = "Windows XP without a version"
+pattern = "^Windows XP (Home|Professional)(?: Edition)?$"
+context = "smb.native_os"
+example = "Windows XP Home Edition"
+metadata = { "os.certainty" = "1.0", "os.vendor" = "Microsoft", "os.product" = "Windows XP", "os.edition" = "{capture:1}", "os.cpe23" = "cpe:/o:microsoft:windows_xp:-" }
+
+[[match]]
+name = "Windows Server 2003 Beta"
+pattern = "^Windows \\.NET"
+context = "smb.native_os"
+metadata = { "os.certainty" = "1.0", "os.vendor" = "Microsoft", "os.product" = "Windows Server 2003", "os.version" = "Beta", "os.cpe23" = "cpe:/o:microsoft:windows_server_2003:Beta" }
+
+[[match]]
+name = "Windows Server 2003 R2"
+pattern = "^Windows Server 2003 R2 (\\d+)$"
+context = "smb.native_os"
+metadata = { "os.certainty" = "1.0", "os.vendor" = "Microsoft", "os.product" = "Windows Server 2003 R2", "os.build" = "{capture:1}", "os.cpe23" = "cpe:/o:microsoft:windows_server_2003:-" }
+
+[[match]]
+name = "Windows Server 2003 R2 (SP)"
+pattern = "^Windows Server 2003 R2 (\\d+) (Service Pack \\d+)(?:, v\\.\\d+)?$"
+context = "smb.native_os"
+example = "Windows Server 2003 R2 3790 Service Pack 2"
+metadata = { "os.certainty" = "1.0", "os.vendor" = "Microsoft", "os.product" = "Windows Server 2003 R2", "os.build" = "{capture:1}", "os.version" = "{capture:2}", "os.cpe23" = "cpe:/o:microsoft:windows_server_2003:{os.version}" }
+
+[[match]]
+name = "Windows Server 2003 with a build"
+pattern = "^Windows Server 2003 (\\d+)$"
+context = "smb.native_os"
+example = "Windows Server 2003 3790"
+metadata = { "os.certainty" = "1.0", "os.vendor" = "Microsoft", "os.product" = "Windows Server 2003", "os.build" = "{capture:1}", "os.cpe23" = "cpe:/o:microsoft:windows_server_2003:-" }
+
+[[match]]
+name = "Windows Server 2003 without a build"
+pattern = "^Windows Server 2003$"
+context = "smb.native_os"
+example = "Windows Server 2003"
+metadata = { "os.certainty" = "1.0", "os.vendor" = "Microsoft", "os.product" = "Windows Server 2003", "os.cpe23" = "cpe:/o:microsoft:windows_server_2003:-" }
+
+[[match]]
+name = "Windows Server 2003 (SP)"
+pattern = "^Windows Server 2003 (\\d+) (Service Pack \\d+)(?:, v\\.\\d+)?$"
+context = "smb.native_os"
+example = "Windows Server 2003 3790 Service Pack 1, v.3309"
+metadata = { "os.certainty" = "1.0", "os.vendor" = "Microsoft", "os.product" = "Windows Server 2003", "os.build" = "{capture:1}", "os.version" = "{capture:2}", "os.cpe23" = "cpe:/o:microsoft:windows_server_2003:{os.version}" }
+
+[[match]]
+name = "Windows Server 2008 without a build"
+pattern = "^Windows Server 2008$"
+context = "smb.native_os"
+example = "Windows Server 2008"
+metadata = { "os.certainty" = "1.0", "os.vendor" = "Microsoft", "os.product" = "Windows Server 2008", "os.cpe23" = "cpe:/o:microsoft:windows_server_2008:-" }
+
+[[match]]
+name = "Windows Server 2008"
+pattern = "^Windows Server \\(R\\) 2008 (\\w+|\\w+ \\w+|\\w+ \\w+ \\w+)(?: (?:with|without) Hyper-V|) (\\d+) (Service Pack \\d+)(?:, v\\.\\d+)?$"
+context = "smb.native_os"
+example = "Windows Server (R) 2008 Enterprise without Hyper-V 6001 Service Pack 1"
+metadata = { "os.certainty" = "1.0", "os.vendor" = "Microsoft", "os.product" = "Windows Server 2008", "os.edition" = "{capture:1}", "os.build" = "{capture:2}", "os.version" = "{capture:3}", "os.cpe23" = "cpe:/o:microsoft:windows_server_2008:{os.version}" }
+
+[[match]]
+name = "Windows Web Server 2008 (SP)"
+pattern = "^Windows \\(R\\) Web Server 2008 (\\d+) (Service Pack \\d+)$"
+context = "smb.native_os"
+example = "Windows (R) Web Server 2008 6002 Service Pack 2"
+metadata = { "os.certainty" = "1.0", "os.vendor" = "Microsoft", "os.product" = "Windows Server 2008", "os.edition" = "Web", "os.build" = "{capture:1}", "os.version" = "{capture:2}", "os.cpe23" = "cpe:/o:microsoft:windows_server_2008:{os.version}" }
+
+[[match]]
+name = "Windows Web Server 2008"
+pattern = "^Windows \\(R\\) Web Server 2008 (\\d+)$"
+context = "smb.native_os"
+example = "Windows (R) Web Server 2008 6002"
+metadata = { "os.certainty" = "1.0", "os.vendor" = "Microsoft", "os.product" = "Windows Server 2008", "os.edition" = "Web", "os.build" = "{capture:1}", "os.cpe23" = "cpe:/o:microsoft:windows_server_2008:-" }
+
+[[match]]
+name = "Windows Server 2008 Storage (SP)"
+pattern = "^Windows \\(R\\) Storage Server 2008 (?:\\w+|\\w+ \\w+|\\w+ \\w+ \\w+) (\\d+) (Service Pack \\d+)$"
+context = "smb.native_os"
+metadata = { "os.certainty" = "1.0", "os.vendor" = "Microsoft", "os.product" = "Windows Server 2008", "os.edition" = "Storage", "os.build" = "{capture:1}", "os.version" = "{capture:2}", "os.cpe23" = "cpe:/o:microsoft:windows_server_2008:{os.version}" }
+
+[[match]]
+name = "Windows Server 2008 Storage"
+pattern = "^Windows \\(R\\) Storage Server 2008 (?:\\w+|\\w+ \\w+|\\w+ \\w+ \\w+) (\\d+)$"
+context = "smb.native_os"
+metadata = { "os.certainty" = "1.0", "os.vendor" = "Microsoft", "os.product" = "Windows Server 2008", "os.edition" = "Storage", "os.build" = "{capture:1}", "os.cpe23" = "cpe:/o:microsoft:windows_server_2008:-" }
+
+[[match]]
+name = "Windows Server 2008 HPC"
+pattern = "^Windows Server 2008 HPC Edition (\\d+) (Service Pack \\d+)$"
+context = "smb.native_os"
+example = "Windows Server 2008 HPC Edition 7601 Service Pack 1"
+metadata = { "os.certainty" = "1.0", "os.vendor" = "Microsoft", "os.product" = "Windows Server 2008", "os.edition" = "HPC", "os.build" = "{capture:1}", "os.version" = "{capture:2}", "os.cpe23" = "cpe:/o:microsoft:windows_server_2008:{os.version}" }
+
+[[match]]
+name = "Windows Web Server 2008 HPC"
+pattern = "^Windows Server 2008 HPC Edition (\\d+)$"
+context = "smb.native_os"
+example = "Windows Server 2008 HPC Edition 7600"
+metadata = { "os.certainty" = "1.0", "os.vendor" = "Microsoft", "os.product" = "Windows Server 2008", "os.edition" = "HPC", "os.build" = "{capture:1}", "os.cpe23" = "cpe:/o:microsoft:windows_server_2008:-" }
+
+[[match]]
+name = "Windows Server 2008 R2"
+pattern = "^Windows Server 2008 R2 (\\w+|\\w+ \\w+|\\w+ \\w+ \\w+) (\\d+) (Service Pack \\d+)(?:, v\\.\\d+)?$"
+context = "smb.native_os"
+example = "Windows Server 2008 R2 Enterprise 7601 Service Pack 1"
+metadata = { "os.certainty" = "1.0", "os.vendor" = "Microsoft", "os.product" = "Windows Server 2008 R2", "os.edition" = "{capture:1}", "os.build" = "{capture:2}", "os.version" = "{capture:3}", "os.cpe23" = "cpe:/o:microsoft:windows_server_2008:{os.version}" }
+
+[[match]]
+name = "Windows Server 2008 R2 without Service Pack"
+pattern = "^Windows Server 2008 R2 (\\w+|\\w+ \\w+|\\w+ \\w+ \\w+) (\\d+)$"
+context = "smb.native_os"
+example = "Windows Server 2008 R2 Enterprise 7600"
+metadata = { "os.certainty" = "1.0", "os.vendor" = "Microsoft", "os.product" = "Windows Server 2008 R2", "os.edition" = "{capture:1}", "os.build" = "{capture:2}", "os.cpe23" = "cpe:/o:microsoft:windows_server_2008:-" }
+
+[[match]]
+name = "Windows Server 2008 R2 Web"
+pattern = "^Windows Web Server 2008 R2 (\\d+) (Service Pack \\d+)$"
+context = "smb.native_os"
+example = "Windows Web Server 2008 R2 7601 Service Pack 1"
+metadata = { "os.certainty" = "1.0", "os.vendor" = "Microsoft", "os.product" = "Windows Server 2008 R2", "os.edition" = "Web", "os.build" = "{capture:1}", "os.version" = "{capture:2}", "os.cpe23" = "cpe:/o:microsoft:windows_server_2008:{os.version}" }
+
+[[match]]
+name = "Windows Web Server 2008 R2 Web"
+pattern = "^Windows Web Server 2008 R2 (\\d+)$"
+context = "smb.native_os"
+example = "Windows Web Server 2008 R2 7600"
+metadata = { "os.certainty" = "1.0", "os.vendor" = "Microsoft", "os.product" = "Windows Server 2008 R2", "os.edition" = "Web", "os.build" = "{capture:1}", "os.cpe23" = "cpe:/o:microsoft:windows_server_2008:-" }
+
+[[match]]
+name = "Windows Server 2008 Storage R2 (SP)"
+pattern = "^Windows Storage Server 2008 R2 (?:\\w+|\\w+ \\w+|\\w+ \\w+ \\w+) (\\d+) (Service Pack \\d+)$"
+context = "smb.native_os"
+example = "Windows Storage Server 2008 R2 Essentials 7601 Service Pack 1"
+metadata = { "os.certainty" = "1.0", "os.vendor" = "Microsoft", "os.product" = "Windows Server 2008 R2", "os.edition" = "Storage", "os.build" = "{capture:1}", "os.version" = "{capture:2}", "os.cpe23" = "cpe:/o:microsoft:windows_server_2008:{os.version}" }
+
+[[match]]
+name = "Windows Server 2008 R2 Hyper-V"
+pattern = "^Hyper-V Server 7601 Service Pack 1$"
+context = "smb.native_os"
+example = "Hyper-V Server 7601 Service Pack 1"
+metadata = { "os.certainty" = "1.0", "os.vendor" = "Microsoft", "os.product" = "Windows Server 2008 R2", "os.edition" = "Hyper-V", "os.build" = "7601", "os.cpe23" = "cpe:/o:microsoft:windows_server_2008:-" }
+
+[[match]]
+name = "Windows Server 2019 with a build, without service pack"
+pattern = "^Windows Server 2019 (\\w+|\\w+ \\w+|\\w+ \\w+ \\w+)(?: Evaluation)? (\\d+)$"
+context = "smb.native_os"
+example = "Windows Server 2019 Standard 17763"
+metadata = { "os.certainty" = "1.0", "os.vendor" = "Microsoft", "os.product" = "Windows Server 2019", "os.edition" = "{capture:1}", "os.build" = "{capture:2}", "os.cpe23" = "cpe:/o:microsoft:windows_server_2019:-" }
+
+[[match]]
+name = "Windows Server 2019 Hyper-V"
+pattern = "^Hyper-V Server 2019  (\\d+)$"
+context = "smb.native_os"
+example = "Hyper-V Server 2019  17763"
+metadata = { "os.certainty" = "1.0", "os.vendor" = "Microsoft", "os.product" = "Windows Server 2019", "os.edition" = "Hyper-V", "os.build" = "{capture:1}", "os.cpe23" = "cpe:/o:microsoft:windows_server_2019:-" }
+
+[[match]]
+name = "Windows Server 2016 with a build, without service pack"
+pattern = "^Windows Server 2016(?: Technical Preview \\d+)? (\\w+|\\w+ \\w+|\\w+ \\w+ \\w+)(?: Evaluation)? (\\d+)$"
+context = "smb.native_os"
+example = "Windows Server 2016 Datacenter 14393"
+metadata = { "os.certainty" = "1.0", "os.vendor" = "Microsoft", "os.product" = "Windows Server 2016", "os.edition" = "{capture:1}", "os.build" = "{capture:2}", "os.cpe23" = "cpe:/o:microsoft:windows_server_2016:-" }
+
+[[match]]
+name = "Windows Server 2016 Storage"
+pattern = "^Windows Storage Server 2016 (?:\\w+|\\w+ \\w+|\\w+ \\w+ \\w+) (\\d+)$"
+context = "smb.native_os"
+example = "Windows Storage Server 2016 Standard 14393"
+metadata = { "os.certainty" = "1.0", "os.vendor" = "Microsoft", "os.product" = "Windows Server 2016", "os.edition" = "Storage", "os.build" = "{capture:1}", "os.cpe23" = "cpe:/o:microsoft:windows_server_2016:-" }
+
+[[match]]
+name = "Windows Server 2016 Hyper-V"
+pattern = "^Hyper-V Server 2016 (\\d+)$"
+context = "smb.native_os"
+example = "Hyper-V Server 2016 14393"
+metadata = { "os.certainty" = "1.0", "os.vendor" = "Microsoft", "os.product" = "Windows Server 2016", "os.edition" = "Hyper-V", "os.build" = "{capture:1}", "os.cpe23" = "cpe:/o:microsoft:windows_server_2016:-" }
+
+[[match]]
+name = "Windows Vista (SP)"
+pattern = "^Windows Vista \\(TM\\) (\\w+|\\w+ \\w+|\\w+ \\w+ \\w+) (\\d+) (Service Pack \\d+)$"
+context = "smb.native_os"
+example = "Windows Vista (TM) Home Premium 6002 Service Pack 2"
+metadata = { "os.certainty" = "1.0", "os.vendor" = "Microsoft", "os.product" = "Windows Vista", "os.edition" = "{capture:1}", "os.build" = "{capture:2}", "os.version" = "{capture:3}", "os.cpe23" = "cpe:/o:microsoft:windows_vista:{os.version}" }
+
+[[match]]
+name = "Windows Vista"
+pattern = "^Windows Vista \\(TM\\) (\\w+|\\w+ \\w+|\\w+ \\w+ \\w+) (\\d+)$"
+context = "smb.native_os"
+example = "Windows Vista (TM) Home Premium 6000"
+metadata = { "os.certainty" = "1.0", "os.vendor" = "Microsoft", "os.product" = "Windows Vista", "os.edition" = "{capture:1}", "os.build" = "{capture:2}", "os.cpe23" = "cpe:/o:microsoft:windows_vista:-" }
+
+[[match]]
+name = "Windows 7/8 (SP + Edition)"
+pattern = "^(Windows (?:7|8|8\\.1)(?:| RT)) (\\w+|\\w+ \\w+|\\w+ \\w+ \\w+) (\\d+) (Service Pack \\d+)(?:, v\\.\\d+)?$"
+context = "smb.native_os"
+example = "Windows 7 Enterprise 7601 Service Pack 1"
+metadata = { "os.certainty" = "1.0", "os.vendor" = "Microsoft", "os.product" = "{capture:1}", "os.edition" = "{capture:2}", "os.build" = "{capture:3}", "os.version" = "{capture:4}" }
+
+[[match]]
+name = "Windows 7/8 (SP)"
+pattern = "^(Windows (?:7|8|8\\.1)(?:| RT)) (\\d+) (Service Pack \\d+)$"
+context = "smb.native_os"
+example = "Windows 7 7601 Service Pack 1"
+metadata = { "os.certainty" = "1.0", "os.vendor" = "Microsoft", "os.product" = "{capture:1}", "os.build" = "{capture:2}", "os.version" = "{capture:3}" }
+
+[[match]]
+name = "Windows 7/8 (Edition)"
+pattern = "^(Windows (?:7|8|8\\.1)(?:| RT)) (\\w+|\\w+ \\w+|\\w+ \\w+ \\w+) (\\d+)$"
+context = "smb.native_os"
+example = "Windows 7 Enterprise 7600"
+metadata = { "os.certainty" = "1.0", "os.vendor" = "Microsoft", "os.product" = "{capture:1}", "os.edition" = "{capture:2}", "os.build" = "{capture:3}" }
+
+[[match]]
+name = "Windows 7/8"
+pattern = "^(Windows (?:7|8|8\\.1)(?:| RT)) (\\d+)$"
+context = "smb.native_os"
+example = "Windows 8 9200"
+metadata = { "os.certainty" = "1.0", "os.vendor" = "Microsoft", "os.product" = "{capture:1}", "os.build" = "{capture:2}" }
+
+[[match]]
+name = "Windows Server 2012 R2 (SP)"
+pattern = "^Windows Server 2012 R2 (\\w+|\\w+ \\w+|\\w+ \\w+ \\w+) (\\d+) (Service Pack \\d+)$"
+context = "smb.native_os"
+example = "Windows Server 2012 R2 Standard 9600 Service Pack 1"
+metadata = { "os.certainty" = "1.0", "os.vendor" = "Microsoft", "os.product" = "Windows Server 2012 R2", "os.edition" = "{capture:1}", "os.build" = "{capture:2}", "os.version" = "{capture:3}", "os.cpe23" = "cpe:/o:microsoft:windows_server_2012:{os.version}" }
+
+[[match]]
+name = "Windows Server 2012 R2"
+pattern = "^Windows Server 2012 R2 (\\w+|\\w+ \\w+|\\w+ \\w+ \\w+) (\\d+)$"
+context = "smb.native_os"
+example = "Windows Server 2012 R2 Standard 9600"
+metadata = { "os.certainty" = "1.0", "os.vendor" = "Microsoft", "os.product" = "Windows Server 2012 R2", "os.edition" = "{capture:1}", "os.build" = "{capture:2}", "os.cpe23" = "cpe:/o:microsoft:windows_server_2012:-" }
+
+[[match]]
+name = "Windows Server 2012 R2 Storage"
+pattern = "^Windows Storage Server 2012 R2 (\\w+|\\w+ \\w+|\\w+ \\w+ \\w+) (\\d+)$"
+context = "smb.native_os"
+example = "Windows Storage Server 2012 R2 Standard 9600"
+metadata = { "os.certainty" = "1.0", "os.vendor" = "Microsoft", "os.product" = "Windows Server 2012 R2", "os.edition" = "{capture:1}", "os.build" = "{capture:2}", "os.cpe23" = "cpe:/o:microsoft:windows_server_2012:-" }
+
+[[match]]
+name = "Windows Server 2012 R2 Hyper-V"
+pattern = "^Hyper-V Server 2012 R2 (\\d+)$"
+context = "smb.native_os"
+example = "Hyper-V Server 2012 R2 9600"
+metadata = { "os.certainty" = "1.0", "os.vendor" = "Microsoft", "os.product" = "Windows Server 2012 R2", "os.edition" = "Hyper-V", "os.build" = "{capture:1}", "os.cpe23" = "cpe:/o:microsoft:windows_server_2012:-" }
+
+[[match]]
+name = "Windows Server 2012 (SP)"
+pattern = "^Windows Server 2012 (\\w+|\\w+ \\w+|\\w+ \\w+ \\w+) (\\d+) (Service Pack \\d+)$"
+context = "smb.native_os"
+example = "Windows Server 2012 Standard 9200 Service Pack 1"
+metadata = { "os.certainty" = "1.0", "os.vendor" = "Microsoft", "os.product" = "Windows Server 2012", "os.edition" = "{capture:1}", "os.build" = "{capture:2}", "os.version" = "{capture:3}", "os.cpe23" = "cpe:/o:microsoft:windows_server_2012:{os.version}" }
+
+[[match]]
+name = "Windows Server 2012"
+pattern = "^Windows Server 2012 (\\w+|\\w+ \\w+|\\w+ \\w+ \\w+) (\\d+)$"
+context = "smb.native_os"
+example = "Windows Server 2012 Standard 9200"
+metadata = { "os.certainty" = "1.0", "os.vendor" = "Microsoft", "os.product" = "Windows Server 2012", "os.edition" = "{capture:1}", "os.build" = "{capture:2}", "os.cpe23" = "cpe:/o:microsoft:windows_server_2012:-" }
+
+[[match]]
+name = "Windows Server 2012 Storage"
+pattern = "^Windows Storage Server 2012 (\\w+|\\w+ \\w+|\\w+ \\w+ \\w+) (\\d+)$"
+context = "smb.native_os"
+example = "Windows Storage Server 2012 Standard 9200"
+metadata = { "os.certainty" = "1.0", "os.vendor" = "Microsoft", "os.product" = "Windows Server 2012", "os.edition" = "{capture:1}", "os.build" = "{capture:2}", "os.cpe23" = "cpe:/o:microsoft:windows_server_2012:-" }
+
+[[match]]
+name = "Windows Server 2012 Hyper-V"
+pattern = "^Hyper-V Server 2012 (\\d+)$"
+context = "smb.native_os"
+example = "Hyper-V Server 2012 9200"
+metadata = { "os.certainty" = "1.0", "os.vendor" = "Microsoft", "os.product" = "Windows Server 2012", "os.edition" = "Hyper-V", "os.build" = "{capture:1}", "os.cpe23" = "cpe:/o:microsoft:windows_server_2012:-" }
+
+[[match]]
+name = "Windows MultiPoint Server 2012 (SP)"
+pattern = "^Windows MultiPoint Server 2012 (?:\\w+|\\w+ \\w+|\\w+ \\w+ \\w+) (\\d+) (Service Pack \\d+)$"
+context = "smb.native_os"
+example = "Windows MultiPoint Server 2012 Premium 9201 Service Pack 1"
+metadata = { "os.certainty" = "1.0", "os.vendor" = "Microsoft", "os.product" = "Windows Server 2012", "os.edition" = "MultiPoint", "os.build" = "{capture:1}", "os.version" = "{capture:2}", "os.cpe23" = "cpe:/o:microsoft:windows_server_2012:{os.version}" }
+
+[[match]]
+name = "Windows MultiPoint Server 2012"
+pattern = "^Windows MultiPoint Server 2012 (?:\\w+|\\w+ \\w+|\\w+ \\w+ \\w+) (\\d+)$"
+context = "smb.native_os"
+example = "Windows MultiPoint Server 2012 Premium 9200"
+metadata = { "os.certainty" = "1.0", "os.vendor" = "Microsoft", "os.product" = "Windows Server 2012", "os.edition" = "MultiPoint", "os.build" = "{capture:1}", "os.cpe23" = "cpe:/o:microsoft:windows_server_2012:-" }
+
+[[match]]
+name = "Windows 10 Enterprise Insider Preview"
+pattern = "^Windows 10 (\\w+|\\w+ \\w+|\\w+ \\w+ \\w+) Insider Preview (\\d+)$"
+context = "smb.native_os"
+example = "Windows 10 Enterprise Insider Preview 10130"
+metadata = { "os.certainty" = "1.0", "os.vendor" = "Microsoft", "os.product" = "Windows 10", "os.edition" = "{capture:1}", "os.build" = "{capture:2}", "os.cpe23" = "cpe:/o:microsoft:windows_10:-" }
+
+[[match]]
+name = "Windows 10"
+pattern = "^Windows 10 ((?:\\w+|\\w+ \\w+|\\w+ \\w+ \\w+)(?: LTSB(?: Evaluation)?)?) (\\d+)$"
+context = "smb.native_os"
+example = "Windows 10 Enterprise 10130"
+metadata = { "os.certainty" = "1.0", "os.vendor" = "Microsoft", "os.product" = "Windows 10", "os.edition" = "{capture:1}", "os.build" = "{capture:2}", "os.cpe23" = "cpe:/o:microsoft:windows_10:-" }
+
+[[match]]
+name = "VxWorks"
+pattern = "^VxWorks$"
+vendor = "Wind River"
+product = "VxWorks CIFS"
+context = "smb.native_os"
+example = "VxWorks"
+metadata = { "os.certainty" = "0.5", "os.vendor" = "Wind River", "os.product" = "VxWorks", "os.cpe23" = "cpe:/o:windriver:vxworks:-" }
+
+[[match]]
+name = "OS/400"
+pattern = "^OS/?400 \\D(\\d+)\\D(\\d+)\\D(\\d+)$"
+context = "smb.native_os"
+example = "OS/400 V4R5M0"
+metadata = { "os.vendor" = "IBM", "os.product" = "OS/400", "os.version" = "{capture:1}", "os.version.version" = "{capture:2}", "os.version.version.version" = "{capture:3}", "os.cpe23" = "cpe:/o:ibm:os_400:{os.version}" }
+
+[[match]]
+name = "IBM i5/OS"
+pattern = "^I5OS \\D(\\d+)\\D(\\d+)\\D(\\d+)$"
+context = "smb.native_os"
+example = "I5OS V6R1M1"
+metadata = { "os.vendor" = "IBM", "os.product" = "i5/OS", "os.version" = "{capture:1}", "os.version.version" = "{capture:2}", "os.version.version.version" = "{capture:3}", "os.cpe23" = "cpe:/o:ibm:i5os:{os.version}" }
+
+[[match]]
+name = "SMB exposed via SMB shared USB disks on Apple devices"
+pattern = "^Apple Base Station$"
+context = "smb.native_os"
+example = "Apple Base Station"
+metadata = { "os.vendor" = "Apple", "hw.vendor" = "Apple" }
+
+[[match]]
+name = "EMC Celerra"
+pattern = "^EMC-SNAS:T([\\d\\.]+)?$"
+version_group = 1
+vendor = "EMC"
+product = "Celerra"
+context = "smb.native_os"
+example = "EMC-SNAS:T7.1.80.7"
+metadata = { "os.vendor" = "EMC", "os.device" = "Storage", "os.product" = "Celerra", "os.version" = "{capture:1}", "hw.vendor" = "EMC", "hw.device" = "Storage", "hw.product" = "Celerra", "hw.cpe23" = "cpe:/h:emc:celerra_network_attached_storage:-" }
+
+[[match]]
+name = "Netreon SAN software"
+pattern = "^Netreon OS 1.0$"
+vendor = "Netreon"
+context = "smb.native_os"
+example = "Netreon OS 1.0"
+
+[[match]]
+name = "QNAP QTS"
+pattern = "^QTS$"
+context = "smb.native_os"
+example = "QTS"
+metadata = { "os.vendor" = "QNAP", "os.product" = "QTS", "os.cpe23" = "cpe:/o:qnap:qts:-" }
+
+[[match]]
+name = "AIX"
+pattern = "^(?:ax|i3|m8|mp|pa|pp|rs|sp)ai(\\d{4})"
+version_group = 1
+product = "VisionFS"
+context = "smb.native_os"
+example = "axai9876"
+metadata = { "os.vendor" = "IBM", "os.family" = "AIX", "os.product" = "AIX", "os.cpe23" = "cpe:/o:ibm:aix:-" }
+
+[[match]]
+name = "DG/UX"
+pattern = "^(?:ax|i3|m8|mp|pa|pp|rs|sp)dg(\\d{4})"
+version_group = 1
+product = "VisionFS"
+context = "smb.native_os"
+example = "i3dg9876"
+metadata = { "os.vendor" = "Data General", "os.family" = "DG/UX", "os.product" = "DG/UX" }
+
+[[match]]
+name = "Darwin"
+pattern = "^(?:ax|i3|m8|mp|pa|pp|rs|sp)dw(\\d{4})"
+version_group = 1
+product = "VisionFS"
+context = "smb.native_os"
+example = "m8dw9876"
+metadata = { "os.vendor" = "Apple", "os.family" = "Mac OS X", "os.product" = "Mac OS X", "os.cpe23" = "cpe:/o:apple:mac_os_x:-" }
+
+[[match]]
+name = "DYNIX"
+pattern = "^(?:ax|i3|m8|mp|pa|pp|rs|sp)dy(\\d{4})"
+version_group = 1
+product = "VisionFS"
+context = "smb.native_os"
+example = "m8dy9876"
+metadata = { "os.vendor" = "Sequent", "os.family" = "Dynix", "os.product" = "Dynix" }
+
+[[match]]
+name = "FreeBSD"
+pattern = "^(?:ax|i3|m8|mp|pa|pp|rs|sp)fb(\\d{4})"
+version_group = 1
+product = "VisionFS"
+context = "smb.native_os"
+example = "m8fb9876"
+metadata = { "os.vendor" = "FreeBSD", "os.family" = "FreeBSD", "os.product" = "FreeBSD", "os.cpe23" = "cpe:/o:freebsd:freebsd:-" }
+
+[[match]]
+name = "HP-UX"
+pattern = "^(?:ax|i3|m8|mp|pa|pp|rs|sp)hp(\\d{4})"
+version_group = 1
+product = "VisionFS"
+context = "smb.native_os"
+example = "m8hp9876"
+metadata = { "os.vendor" = "HP", "os.family" = "HP-UX", "os.product" = "HP-UX", "os.cpe23" = "cpe:/o:hp:hp-ux:-" }
+
+[[match]]
+name = "IRIX"
+pattern = "^(?:ax|i3|m8|mp|pa|pp|rs|sp)ir(\\d{4})"
+version_group = 1
+product = "VisionFS"
+context = "smb.native_os"
+example = "m8ir9876"
+metadata = { "os.vendor" = "SGI", "os.family" = "Irix", "os.product" = "Irix", "os.cpe23" = "cpe:/o:sgi:irix:-" }
+
+[[match]]
+name = "Linux"
+pattern = "^(?:ax|i3|m8|mp|pa|pp|rs|sp)li(\\d{4})"
+version_group = 1
+product = "VisionFS"
+context = "smb.native_os"
+example = "m8li9876"
+metadata = { "os.vendor" = "Linux", "os.family" = "Linux", "os.product" = "Linux", "os.cpe23" = "cpe:/o:linux:linux_kernel:-" }
+
+[[match]]
+name = "SVR"
+pattern = "^(?:ax|i3|m8|mp|pa|pp|rs|sp)mo(\\d{4})"
+version_group = 1
+product = "VisionFS"
+context = "smb.native_os"
+example = "m8mo9876"
+metadata = { "os.vendor" = "Motorola", "os.family" = "SVR4", "os.product" = "SVR" }
+
+[[match]]
+name = "OSF/1"
+pattern = "^(?:ax|i3|m8|mp|pa|pp|rs|sp)o1(\\d{4})"
+version_group = 1
+product = "VisionFS"
+context = "smb.native_os"
+example = "m8o19876"
+metadata = { "os.vendor" = "DEC", "os.family" = "Digital UNIX", "os.product" = "OSF/1" }
+
+[[match]]
+name = "RISC OS"
+pattern = "^(?:ax|i3|m8|mp|pa|pp|rs|sp)ro(\\d{4})"
+version_group = 1
+product = "VisionFS"
+context = "smb.native_os"
+example = "m8ro9876"
+metadata = { "os.family" = "RISC OS", "os.product" = "RISC OS" }
+
+[[match]]
+name = "OpenServer"
+pattern = "^(?:ax|i3|m8|mp|pa|pp|rs|sp)sc(\\d{4})"
+version_group = 1
+product = "VisionFS"
+context = "smb.native_os"
+example = "m8sc9876"
+metadata = { "os.vendor" = "SCO", "os.family" = "OpenServer", "os.product" = "OpenServer" }
+
+[[match]]
+name = "SunOS"
+pattern = "^(?:ax|i3|m8|mp|pa|pp|rs|sp)so(\\d{4})"
+version_group = 1
+product = "VisionFS"
+context = "smb.native_os"
+example = "m8so9876"
+metadata = { "os.vendor" = "Sun", "os.family" = "SunOS", "os.product" = "SunOS", "os.cpe23" = "cpe:/o:sun:sunos:-" }
+
+[[match]]
+name = "Solaris"
+pattern = "^(?:ax|i3|m8|mp|pa|pp|rs|sp)su(\\d{4})"
+version_group = 1
+product = "VisionFS"
+context = "smb.native_os"
+example = "m8su9876"
+metadata = { "os.vendor" = "Sun", "os.family" = "Solaris", "os.product" = "Solaris", "os.cpe23" = "cpe:/o:sun:solaris:-" }
+
+[[match]]
+name = "SINIX"
+pattern = "^(?:ax|i3|m8|mp|pa|pp|rs|sp)sx(\\d{4})"
+version_group = 1
+product = "VisionFS"
+context = "smb.native_os"
+example = "m8sx9876"
+metadata = { "os.vendor" = "Siemens", "os.family" = "SINIX", "os.product" = "SINIX" }
+
+[[match]]
+name = "Ultrix/1"
+pattern = "^(?:ax|i3|m8|mp|pa|pp|rs|sp)ul(\\d{4})"
+version_group = 1
+product = "VisionFS"
+context = "smb.native_os"
+example = "m8ul9876"
+metadata = { "os.vendor" = "DEC", "os.family" = "Ultrix", "os.product" = "Ultrix" }
+
+[[match]]
+name = "UnixWare"
+pattern = "^(?:ax|i3|m8|mp|pa|pp|rs|sp)un(\\d{4})"
+version_group = 1
+product = "VisionFS"
+context = "smb.native_os"
+example = "m8un9876"
+metadata = { "os.vendor" = "SCO", "os.family" = "UnixWare", "os.product" = "UnixWare" }
+
+[[match]]
+name = "Windows"
+pattern = "^(?:ax|i3|m8|mp|pa|pp|rs|sp)wi(\\d{4})"
+version_group = 1
+product = "VisionFS"
+context = "smb.native_os"
+example = "m8wi9876"
+metadata = { "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows", "os.cpe23" = "cpe:/o:microsoft:windows:-" }
+
+[[match]]
+name = "Generally some Samba variant, which reports Unix"
+pattern = "(?i)^unix$"
+vendor = "Samba"
+product = "Samba"
+context = "smb.native_os"
+example = "Unix"
+metadata = { "os.family" = "Unix", "os.certainty" = "0.75", "service.cpe23" = "cpe:/a:samba:samba:-" }
+

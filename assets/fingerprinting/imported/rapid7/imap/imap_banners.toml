@@ -1,0 +1,181 @@
+# This file contains fingerprints imported from Rapid7 Recog.
+# Source: https://github.com/rapid7/recog
+# License: BSD-2-Clause
+
+[service]
+attribution = "Rapid7 Recog"
+name = "imap"
+default_ports = []
+description = "Imported from Rapid7 imap_banners"
+
+[[match]]
+name = "Microsoft Exchange Server 5.5"
+pattern = "^Microsoft Exchange IMAP4rev1 server version (5\\.5\\.\\d{4}\\.\\d+) \\((.*)\\) ready$"
+version_group = 1
+vendor = "Microsoft"
+product = "Exchange Server 5.5"
+context = "imap4.banner"
+example = "Microsoft Exchange IMAP4rev1 server version 5.5.2448.8 (foo.bar) ready"
+metadata = { "service.family" = "Exchange Server", "service.cpe23" = "cpe:/a:microsoft:exchange_server:{service.version}", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows", "os.cpe23" = "cpe:/o:microsoft:windows:-", "host.name" = "{capture:2}" }
+
+[[match]]
+name = "Microsoft Exchange Server 2000"
+pattern = "^Microsoft Exchange 2000 IMAP4rev1 server version (6\\.0\\.\\d{4}\\.\\d+) \\((.*)\\) ready\\.$"
+version_group = 1
+vendor = "Microsoft"
+product = "Exchange 2000 Server"
+context = "imap4.banner"
+example = "Microsoft Exchange 2000 IMAP4rev1 server version 6.0.6249.0 (foo.bar) ready."
+metadata = { "service.family" = "Exchange Server", "service.cpe23" = "cpe:/a:microsoft:exchange_server:{service.version}", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows", "os.cpe23" = "cpe:/o:microsoft:windows:-", "host.name" = "{capture:2}" }
+
+[[match]]
+name = "Microsoft Exchange Server 2003"
+pattern = "^Microsoft Exchange Server 2003 IMAP4rev1 server version (6\\.5\\.\\d{4}\\.\\d+) \\((.*)\\) ready\\.$"
+version_group = 1
+vendor = "Microsoft"
+product = "Exchange 2003 Server"
+context = "imap4.banner"
+example = "Microsoft Exchange Server 2003 IMAP4rev1 server version 6.5.7638.1 (foo.bar) ready."
+metadata = { "service.family" = "Exchange Server", "service.cpe23" = "cpe:/a:microsoft:exchange_server:{service.version}", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows", "os.cpe23" = "cpe:/o:microsoft:windows:-", "host.name" = "{capture:2}" }
+
+[[match]]
+name = "Microsoft Exchange Server 2003, German"
+pattern = "^Der Microsoft Exchange Server 2003 IMAP4rev1-Server, Version (6\\.5\\.\\d{4}\\.\\d+) \\((.*)\\),"
+version_group = 1
+vendor = "Microsoft"
+product = "Exchange 2003 Server"
+context = "imap4.banner"
+example = "Der Microsoft Exchange Server 2003 IMAP4rev1-Server, Version 6.5.7638.1 (foo.bar), steht zur Verfgung."
+metadata = { "service.family" = "Exchange Server", "service.cpe23" = "cpe:/a:microsoft:exchange_server:{service.version}", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows", "os.cpe23" = "cpe:/o:microsoft:windows:-", "host.name" = "{capture:2}" }
+
+[[match]]
+name = "Microsoft Exchange Server 2007"
+pattern = "^Microsoft Exchange Server 2007 IMAP4 service ready$"
+vendor = "Microsoft"
+product = "Exchange 2007 Server"
+context = "imap4.banner"
+example = "Microsoft Exchange Server 2007 IMAP4 service ready"
+metadata = { "service.family" = "Exchange Server", "service.cpe23" = "cpe:/a:microsoft:exchange_server:-", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows", "os.cpe23" = "cpe:/o:microsoft:windows:-" }
+
+[[match]]
+name = "Microsoft Exchange Server"
+pattern = "^The Microsoft Exchange IMAP4 service is ready\\.?$"
+vendor = "Microsoft"
+product = "Exchange Server"
+context = "imap4.banner"
+example = "The Microsoft Exchange IMAP4 service is ready."
+metadata = { "service.family" = "Exchange Server", "service.cpe23" = "cpe:/a:microsoft:exchange_server:-", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows", "os.cpe23" = "cpe:/o:microsoft:windows:-" }
+
+[[match]]
+name = "IBM Lotus Notes/Domino"
+pattern = "^Domino IMAP4 Server Release (\\d+\\.\\d+.*) ready (.+)$"
+version_group = 1
+vendor = "IBM"
+product = "Lotus Domino"
+context = "imap4.banner"
+example = "Domino IMAP4 Server Release 9.0.1FP9 ready Thu, 4 Apr 2019 20:19:31 +0200"
+metadata = { "service.family" = "Lotus Domino", "service.cpe23" = "cpe:/a:ibm:lotus_domino:{service.version}", "host.time" = "{capture:2}" }
+
+[[match]]
+name = "IBM Lotus Notes/Domino - variant 2"
+pattern = "^Domino IMAP4 Server V\\.?(\\d+\\.\\d+.*) ready (.+)$"
+version_group = 1
+vendor = "IBM"
+product = "Lotus Domino"
+context = "imap4.banner"
+metadata = { "service.family" = "Lotus Domino", "service.cpe23" = "cpe:/a:ibm:lotus_domino:{service.version}", "host.time" = "{capture:2}" }
+
+[[match]]
+name = "Dovecot Secure IMAP Server"
+pattern = "^(?:\\[CAPABILITY [^\\]]{1,645}\\] )?[dD]ovecot (?:DA )?ready\\.$"
+vendor = "Dovecot"
+product = "Dovecot"
+context = "imap4.banner"
+example = "Dovecot ready."
+metadata = { "service.family" = "Dovecot", "service.cpe23" = "cpe:/a:dovecot:dovecot:-" }
+
+[[match]]
+name = "Dovecot Secure IMAP Server - Ubuntu variant"
+pattern = "^(?:\\[CAPABILITY [^\\]]{1,645}\\] )?Dovecot \\(Ubuntu\\) ready\\.$"
+vendor = "Dovecot"
+product = "Dovecot"
+context = "imap4.banner"
+example = "Dovecot (Ubuntu) ready."
+metadata = { "service.family" = "Dovecot", "service.cpe23" = "cpe:/a:dovecot:dovecot:-", "os.vendor" = "Ubuntu", "os.family" = "Linux", "os.product" = "Linux", "os.cpe23" = "cpe:/o:canonical:ubuntu_linux:-" }
+
+[[match]]
+name = "Dovecot Secure IMAP Server - Debian variant"
+pattern = "^(?:\\[CAPABILITY [^\\]]{1,645}\\] )?Dovecot \\(Debian\\) ready\\.$"
+vendor = "Dovecot"
+product = "Dovecot"
+context = "imap4.banner"
+example = "Dovecot (Debian) ready."
+metadata = { "service.family" = "Dovecot", "service.cpe23" = "cpe:/a:dovecot:dovecot:-", "os.vendor" = "Debian", "os.family" = "Linux", "os.product" = "Linux", "os.cpe23" = "cpe:/o:debian:debian_linux:-" }
+
+[[match]]
+name = "Dovecot Secure IMAP Server - Raspbian variant"
+pattern = "^(?:\\[CAPABILITY [^\\]]{1,645}\\] )?Dovecot \\(Raspbian\\) ready\\.$"
+vendor = "Dovecot"
+product = "Dovecot"
+context = "imap4.banner"
+example = "Dovecot (Raspbian) ready."
+metadata = { "service.family" = "Dovecot", "service.cpe23" = "cpe:/a:dovecot:dovecot:-", "os.vendor" = "Raspbian", "os.family" = "Linux", "os.product" = "Linux", "hw.product" = "Raspberry Pi" }
+
+[[match]]
+name = "Courier MTA IMAP"
+pattern = "^(?:\\[CAPABILITY [^\\]]{1,645}\\] )?Courier-IMAP ready. Copyright \\d+-\\d+"
+vendor = "Double Precision"
+product = "Courier IMAP"
+context = "imap4.banner"
+example = "Courier-IMAP ready. Copyright 1998-2002 Double Precision, Inc. See COPYING for distribution information."
+metadata = { "service.family" = "Courier MTA" }
+
+[[match]]
+name = "Nortel CallPilot"
+pattern = "^(\\S{1,512}) CallPilot IMAP4rev1 v(\\S+) server ready\\.?$"
+version_group = 2
+vendor = "Nortel"
+product = "CallPilot"
+context = "imap4.banner"
+example = "nottest.localdomain CallPilot IMAP4rev1 v42.02.05.22 server ready."
+metadata = { "service.cpe23" = "cpe:/a:nortel:callpilot:{service.version}", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "Zimbra Collaboration IMAP"
+pattern = "^(\\S{1,512}) Zimbra IMAP4rev1 server ready\\.?$"
+vendor = "Zimbra"
+product = "Collaboration"
+context = "imap4.banner"
+example = "foo.bar Zimbra IMAP4rev1 server ready"
+metadata = { "service.cpe23" = "cpe:/a:zimbra:collaboration:-", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "Zimbra Collaboration IMAP with service version"
+pattern = "^(\\S{1,512}) Zimbra (\\S+) IMAP4rev1 server ready\\.?$"
+version_group = 2
+vendor = "Zimbra"
+product = "Collaboration"
+context = "imap4.banner"
+example = "foo.bar Zimbra 7.0.0_GA_3079 IMAP4rev1 server ready"
+metadata = { "service.cpe23" = "cpe:/a:zimbra:collaboration:{service.version}", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "CMU Cyrus IMAP on Mac OS X"
+pattern = "^(?:\\[CAPABILITY [^\\]]{1,645}\\] )?(\\S{1,512}) Cyrus IMAP4 v(\\d+\\.\\d+.*)-OS X(?: Server)? ([\\d\\.]+).* server ready$"
+version_group = 2
+vendor = "Carnegie Mellon University"
+product = "Cyrus IMAP"
+context = "imap4.banner"
+example = "example.com Cyrus IMAP4 v2.2.12-OS X 10.4.0 server ready"
+metadata = { "service.family" = "Cyrus MTA", "service.cpe23" = "cpe:/a:cmu:cyrus_imap_server:{service.version}", "os.vendor" = "Apple", "os.family" = "Mac OS X", "os.product" = "Mac OS X", "os.version" = "{capture:3}", "os.cpe23" = "cpe:/o:apple:mac_os_x:{os.version}", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "CMU Cyrus IMAP"
+pattern = "^(?:\\[CAPABILITY [^\\]]{1,645}\\] )?(\\S{1,512}) Cyrus IMAP4? (?:\\S+ )?v?(\\d+\\.\\d+.*) server ready$"
+version_group = 2
+vendor = "Carnegie Mellon University"
+product = "Cyrus IMAP"
+context = "imap4.banner"
+example = "example.com Cyrus IMAP4 v2.3.7 server ready"
+metadata = { "service.family" = "Cyrus MTA", "service.cpe23" = "cpe:/a:cmu:cyrus_imap_server:{service.version}", "host.name" = "{capture:1}" }
+

@@ -1,0 +1,36 @@
+# This file contains fingerprints imported from Rapid7 Recog.
+# Source: https://github.com/rapid7/recog
+# License: BSD-2-Clause
+
+[service]
+attribution = "Rapid7 Recog"
+name = "smtp"
+default_ports = []
+description = "Imported from Rapid7 smtp_noop"
+
+[[match]]
+name = "CheckPoint FireWall-1 returns code 220 for NOOP command (instead of 250)"
+pattern = "^220 OK"
+vendor = "Check Point"
+product = "Firewall-1"
+context = "unknown"
+metadata = { "service.family" = "Check Point", "service.cpe23" = "cpe:/a:checkpoint:firewall-1:-" }
+
+[[match]]
+name = "Eudora IMS - noop variant"
+pattern = "^250[ -]2.0.0 doing nothing$"
+vendor = "Eudora"
+product = "Internet Mail Server"
+context = "unknown"
+example = "250 2.0.0 doing nothing"
+metadata = { "service.family" = "Internet Mail Server", "os.vendor" = "Apple", "os.family" = "Mac OS", "os.product" = "Mac OS", "os.cpe23" = "cpe:/o:apple:macos:-" }
+
+[[match]]
+name = "Alt-N MDaemon - noop variant"
+pattern = "^250[ -]Why is there an NOOP instruction\\?$"
+vendor = "Alt-N"
+product = "MDaemon"
+context = "unknown"
+example = "250 Why is there an NOOP instruction?"
+metadata = { "service.family" = "MDaemon", "service.cpe23" = "cpe:/a:altn:mdaemon:-", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows", "os.arch" = "x86", "os.cpe23" = "cpe:/o:microsoft:windows:-" }
+

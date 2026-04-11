@@ -1,0 +1,955 @@
+# This file contains fingerprints imported from Rapid7 Recog.
+# Source: https://github.com/rapid7/recog
+# License: BSD-2-Clause
+
+[service]
+attribution = "Rapid7 Recog"
+name = "mysql"
+default_ports = []
+description = "Imported from Rapid7 mysql_error"
+
+[[match]]
+name = "Oracle MySQL error ER_HOST_NOT_PRIVILEGED (cze)"
+pattern = "^Stroj '[^']+' nemá povoleno se k tomuto MySQL serveru připojit$"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Stroj '10.10.10.10' nemá povoleno se k tomuto MySQL serveru připojit"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_HOST_NOT_PRIVILEGED (dan)"
+pattern = "^Værten '[^']+' kan ikke tilkoble denne MySQL-server$"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Værten '10.10.10.10' kan ikke tilkoble denne MySQL-server"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_HOST_NOT_PRIVILEGED (nla)"
+pattern = "^Het is host '[^']+' is niet toegestaan verbinding te maken met deze MySQL server$"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Het is host '10.10.10.10' is niet toegestaan verbinding te maken met deze MySQL server"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_HOST_NOT_PRIVILEGED (eng)"
+pattern = "^^(?:#HY000)?Host '[^']+' is not allowed to connect to this MySQL server$$"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Host '10.10.10.10' is not allowed to connect to this MySQL server"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_HOST_NOT_PRIVILEGED (est)"
+pattern = "^Masinal '[^']+' puudub ligipääs sellele MySQL serverile$"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Masinal '10.10.10.10' puudub ligipääs sellele MySQL serverile"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_HOST_NOT_PRIVILEGED (fre)"
+pattern = "^Le hôte '[^']+' n'est pas authorisé à se connecter à ce serveur MySQL$"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Le hôte '10.10.10.10' n'est pas authorisé à se connecter à ce serveur MySQL"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_HOST_NOT_PRIVILEGED (ger)"
+pattern = "^Host '[^']+' hat keine Berechtigung, sich mit diesem MySQL-Server zu verbinden$"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Host '10.10.10.10' hat keine Berechtigung, sich mit diesem MySQL-Server zu verbinden"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_HOST_NOT_PRIVILEGED (greek)"
+pattern = "^Ο υπολογιστής '[^']+' δεν έχει δικαίωμα σύνδεσης με τον MySQL server$"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Ο υπολογιστής '10.10.10.10' δεν έχει δικαίωμα σύνδεσης με τον MySQL server"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_HOST_NOT_PRIVILEGED (hun)"
+pattern = "^A '[^']+' host szamara nem engedelyezett a kapcsolodas ehhez a MySQL szerverhez$"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "A '10.10.10.10' host szamara nem engedelyezett a kapcsolodas ehhez a MySQL szerverhez"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_HOST_NOT_PRIVILEGED (ita)"
+pattern = "^Al sistema '[^']+' non e` consentita la connessione a questo server MySQL$"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Al sistema '10.10.10.10' non e` consentita la connessione a questo server MySQL"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_HOST_NOT_PRIVILEGED (jpn)"
+pattern = "^ホスト '[^']+' からのこの MySQL server への接続は許可されていません。$"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "ホスト '10.10.10.10' からのこの MySQL server への接続は許可されていません。"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_HOST_NOT_PRIVILEGED (kor)"
+pattern = "^'[^']+' 호스트는 이 MySQL서버에 접속할 허가를 받지 못했습니다.$"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "'10.10.10.10' 호스트는 이 MySQL서버에 접속할 허가를 받지 못했습니다."
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_HOST_NOT_PRIVILEGED (por)"
+pattern = "^'Host' '[^']+' não tem permissão para se conectar com este servidor MySQL$"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "'Host' '10.10.10.10' não tem permissão para se conectar com este servidor MySQL"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_HOST_NOT_PRIVILEGED (rum)"
+pattern = "^Host-ul '[^']+' nu este permis a se conecta la aceste server MySQL$"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Host-ul '10.10.10.10' nu este permis a se conecta la aceste server MySQL"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_HOST_NOT_PRIVILEGED (rus)"
+pattern = "^Хосту '[^']+' не разрешается подключаться к этому серверу MySQL$"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Хосту '10.10.10.10' не разрешается подключаться к этому серверу MySQL"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_HOST_NOT_PRIVILEGED (serbian)"
+pattern = "^Host-u '[^']+' nije dozvoljeno da se konektuje na ovaj MySQL server$"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Host-u '10.10.10.10' nije dozvoljeno da se konektuje na ovaj MySQL server"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_HOST_NOT_PRIVILEGED (spa)"
+pattern = "^Servidor '[^']+' no está permitido para conectar con este servidor MySQL$"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Servidor '10.10.10.10' no está permitido para conectar con este servidor MySQL"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_HOST_NOT_PRIVILEGED (swe)"
+pattern = "^Denna dator, '[^']+', har inte privileger att använda denna MySQL server$"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Denna dator, '10.10.10.10', har inte privileger att använda denna MySQL server"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_HOST_NOT_PRIVILEGED (ukr)"
+pattern = "^Хосту '[^']+' не доволено зв'язуватись з цим сервером MySQL$"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Хосту '10.10.10.10' не доволено зв'язуватись з цим сервером MySQL"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_HOST_IS_BLOCKED (cze)"
+pattern = "Stroj '[^']+' je zablokován kvůli mnoha chybám při připojování. Odblokujete použitím 'mysqladmin flush-hosts'"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Stroj '10.10.10.10' je zablokován kvůli mnoha chybám při připojování. Odblokujete použitím 'mysqladmin flush-hosts'"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_HOST_IS_BLOCKED (dan)"
+pattern = "Værten '[^']+' er blokeret på grund af mange fejlforespørgsler. Lås op med 'mysqladmin flush-hosts'"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Værten '10.10.10.10' er blokeret på grund af mange fejlforespørgsler. Lås op med 'mysqladmin flush-hosts'"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_HOST_IS_BLOCKED (nla)"
+pattern = "Host '[^']+' is geblokkeeerd vanwege te veel verbindings fouten. Deblokkeer met 'mysqladmin flush-hosts'"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Host '10.10.10.10' is geblokkeeerd vanwege te veel verbindings fouten. Deblokkeer met 'mysqladmin flush-hosts'"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_HOST_IS_BLOCKED (eng)"
+pattern = "Host '[^']+' is blocked because of many connection errors; unblock with 'mysqladmin flush-hosts'"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Host '10.10.10.10' is blocked because of many connection errors; unblock with 'mysqladmin flush-hosts'"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_HOST_IS_BLOCKED (est)"
+pattern = "Masin '[^']+' on blokeeritud hulgaliste ühendusvigade tõttu. Blokeeringu saab tühistada 'mysqladmin flush-hosts' käsuga"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Masin '10.10.10.10' on blokeeritud hulgaliste ühendusvigade tõttu. Blokeeringu saab tühistada 'mysqladmin flush-hosts' käsuga"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_HOST_IS_BLOCKED (fre)"
+pattern = "L'hôte '[^']+' est bloqué à cause d'un trop grand nombre d'erreur de connexion. Débloquer le par 'mysqladmin flush-hosts'"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "L'hôte '10.10.10.10' est bloqué à cause d'un trop grand nombre d'erreur de connexion. Débloquer le par 'mysqladmin flush-hosts'"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_HOST_IS_BLOCKED (ger)"
+pattern = "Host '[^']+' blockiert wegen zu vieler Verbindungsfehler. Aufheben der Blockierung mit 'mysqladmin flush-hosts'"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Host '10.10.10.10' blockiert wegen zu vieler Verbindungsfehler. Aufheben der Blockierung mit 'mysqladmin flush-hosts'"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_HOST_IS_BLOCKED (greek)"
+pattern = "Ο υπολογιστής '[^']+' έχει αποκλεισθεί λόγω πολλαπλών λαθών σύνδεσης. Προσπαθήστε να διορώσετε με 'mysqladmin flush-hosts'"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Ο υπολογιστής '10.10.10.10' έχει αποκλεισθεί λόγω πολλαπλών λαθών σύνδεσης. Προσπαθήστε να διορώσετε με 'mysqladmin flush-hosts'"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_HOST_IS_BLOCKED (hun)"
+pattern = "A '[^']+' host blokkolodott, tul sok kapcsolodasi hiba miatt. Hasznalja a 'mysqladmin flush-hosts' parancsot"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "A '10.10.10.10' host blokkolodott, tul sok kapcsolodasi hiba miatt. Hasznalja a 'mysqladmin flush-hosts' parancsot"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_HOST_IS_BLOCKED (ita)"
+pattern = "Sistema '[^']+' bloccato a causa di troppi errori di connessione. Per sbloccarlo: 'mysqladmin flush-hosts'"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Sistema '10.10.10.10' bloccato a causa di troppi errori di connessione. Per sbloccarlo: 'mysqladmin flush-hosts'"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_HOST_IS_BLOCKED (jpn)"
+pattern = "接続エラーが多いため、ホスト '[^']+' は拒否されました。'mysqladmin flush-hosts' で解除できます。"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "接続エラーが多いため、ホスト '10.10.10.10' は拒否されました。'mysqladmin flush-hosts' で解除できます。"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_HOST_IS_BLOCKED (kor)"
+pattern = "너무 많은 연결오류로 인하여 호스트 '[^']+'는 블락되었습니다. 'mysqladmin flush-hosts'를 이용하여 블락을 해제하세요"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "너무 많은 연결오류로 인하여 호스트 '10.10.10.10'는 블락되었습니다. 'mysqladmin flush-hosts'를 이용하여 블락을 해제하세요"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_HOST_IS_BLOCKED (por)"
+pattern = "'Host' '[^']+' está bloqueado devido a muitos erros de conexão. Desbloqueie com 'mysqladmin flush-hosts'"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "'Host' '10.10.10.10' está bloqueado devido a muitos erros de conexão. Desbloqueie com 'mysqladmin flush-hosts'"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_HOST_IS_BLOCKED (rum)"
+pattern = "Host-ul '[^']+' e blocat din cauza multelor erori de conectie. Poti deploca folosind 'mysqladmin flush-hosts'"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Host-ul '10.10.10.10' e blocat din cauza multelor erori de conectie. Poti deploca folosind 'mysqladmin flush-hosts'"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_HOST_IS_BLOCKED (rus)"
+pattern = "Хост '[^']+' заблокирован из-за слишком большого количества ошибок соединения. Разблокировать его можно с помощью 'mysqladmin flush-hosts'"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Хост '10.10.10.10' заблокирован из-за слишком большого количества ошибок соединения. Разблокировать его можно с помощью 'mysqladmin flush-hosts'"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_HOST_IS_BLOCKED (serbian)"
+pattern = "Host '[^']+' je blokiran zbog previše grešaka u konekciji.  Možete ga odblokirati pomoću komande 'mysqladmin flush-hosts'"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Host '10.10.10.10' je blokiran zbog previše grešaka u konekciji.  Možete ga odblokirati pomoću komande 'mysqladmin flush-hosts'"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_HOST_IS_BLOCKED (spa)"
+pattern = "Servidor '[^']+' está bloqueado por muchos errores de conexión.  Desbloquear con 'mysqladmin flush-hosts'"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Servidor '10.10.10.10' está bloqueado por muchos errores de conexión.  Desbloquear con 'mysqladmin flush-hosts'"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_HOST_IS_BLOCKED (swe)"
+pattern = "Denna dator, '[^']+', är blockerad pga många felaktig paket. Gör 'mysqladmin flush-hosts' för att ta bort alla blockeringarna"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Denna dator, '10.10.10.10', är blockerad pga många felaktig paket. Gör 'mysqladmin flush-hosts' för att ta bort alla blockeringarna"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_HOST_IS_BLOCKED (ukr)"
+pattern = "Хост '[^']+' заблоковано з причини великої кількості помилок з'єднання. Для розблокування використовуйте 'mysqladmin flush-hosts'"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Хост '10.10.10.10' заблоковано з причини великої кількості помилок з'єднання. Для розблокування використовуйте 'mysqladmin flush-hosts'"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_CANT_CREATE_THREAD (cze)"
+pattern = "Nemohu vytvořit nový thread \\(errno -?\\d+\\). Pokud je ještě nějaká volná paměť, podívejte se do manuálu na část o chybách specifických pro jednotlivé operační systémy"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Nemohu vytvořit nový thread (errno 4). Pokud je ještě nějaká volná paměť, podívejte se do manuálu na část o chybách specifických pro jednotlivé operační systémy"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_CANT_CREATE_THREAD (dan)"
+pattern = "Kan ikke danne en ny tråd \\(fejl nr. -?\\d+\\). Hvis computeren ikke er løbet tør for hukommelse, kan du se i brugervejledningen for en mulig operativ-system - afhængig fejl"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Kan ikke danne en ny tråd (fejl nr. 4). Hvis computeren ikke er løbet tør for hukommelse, kan du se i brugervejledningen for en mulig operativ-system - afhængig fejl"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_CANT_CREATE_THREAD (nla)"
+pattern = "Kan geen nieuwe thread aanmaken \\(Errcode: -?\\d+\\). Indien er geen tekort aan geheugen is kunt u de handleiding consulteren over een mogelijke OS afhankelijke fout"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Kan geen nieuwe thread aanmaken (Errcode: 4). Indien er geen tekort aan geheugen is kunt u de handleiding consulteren over een mogelijke OS afhankelijke fout"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_CANT_CREATE_THREAD (eng, pol, nor, norwegian-ny)"
+pattern = "Can't create a new thread \\(errno -?\\d+\\); if you are not out of available memory, you can consult the manual for a possible OS-dependent bug"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Can't create a new thread (errno 4); if you are not out of available memory, you can consult the manual for a possible OS-dependent bug"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_CANT_CREATE_THREAD (est)"
+pattern = "Ei suuda luua uut lõime \\(veakood -?\\d+\\). Kui mälu ei ole otsas, on tõenäoliselt tegemist operatsioonisüsteemispetsiifilise veaga"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Ei suuda luua uut lõime (veakood 4). Kui mälu ei ole otsas, on tõenäoliselt tegemist operatsioonisüsteemispetsiifilise veaga"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_CANT_CREATE_THREAD (fre)"
+pattern = "Impossible de créer une nouvelle tâche \\(errno -?\\d+\\). S'il reste de la mémoire libre, consultez le manual pour trouver un éventuel bug dépendant de l'OS"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Impossible de créer une nouvelle tâche (errno 4). S'il reste de la mémoire libre, consultez le manual pour trouver un éventuel bug dépendant de l'OS"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_CANT_CREATE_THREAD (ger)"
+pattern = "Kann keinen neuen Thread erzeugen \\(Fehler: -?\\d+\\). Sollte noch Speicher verfügbar sein, bitte im Handbuch wegen möglicher Fehler im Betriebssystem nachschlagen"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Kann keinen neuen Thread erzeugen (Fehler: 4). Sollte noch Speicher verfügbar sein, bitte im Handbuch wegen möglicher Fehler im Betriebssystem nachschlagen"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_CANT_CREATE_THREAD (hun)"
+pattern = "Uj thread letrehozasa nem lehetseges \\(Hibakod: -?\\d+\\). Amenyiben van meg szabad memoria, olvassa el a kezikonyv operacios rendszerfuggo hibalehetosegekrol szolo reszet"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Uj thread letrehozasa nem lehetseges (Hibakod: 4). Amenyiben van meg szabad memoria, olvassa el a kezikonyv operacios rendszerfuggo hibalehetosegekrol szolo reszet"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_CANT_CREATE_THREAD (ita)"
+pattern = "Impossibile creare un nuovo thread \\(errno -?\\d+\\). Se non ci sono problemi di memoria disponibile puoi consultare il manuale per controllare possibili problemi dipendenti dal SO"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Impossibile creare un nuovo thread (errno 4). Se non ci sono problemi di memoria disponibile puoi consultare il manuale per controllare possibili problemi dipendenti dal SO"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_CANT_CREATE_THREAD (jpn)"
+pattern = "新規にスレッドを作成できません。\\(エラー番号 -?\\d+\\) もしも使用可能メモリーの不足でなければ、OS依存のバグである可能性があります。"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "新規にスレッドを作成できません。(エラー番号 4) もしも使用可能メモリーの不足でなければ、OS依存のバグである可能性があります。"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_CANT_CREATE_THREAD (kor)"
+pattern = "새로운 쓰레드를 만들 수 없습니다.\\(에러번호 -?\\d+\\). 만약 여유메모리가 있다면 OS-dependent버그 의 메뉴얼 부분을 찾아보시오."
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "새로운 쓰레드를 만들 수 없습니다.(에러번호 4). 만약 여유메모리가 있다면 OS-dependent버그 의 메뉴얼 부분을 찾아보시오."
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_CANT_CREATE_THREAD (por)"
+pattern = "Não pode criar uma nova 'thread' \\(erro no. -?\\d+\\). Se você não estiver sem memória disponível, você pode consultar o manual sobre um possível 'bug' dependente do sistema operacional"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Não pode criar uma nova 'thread' (erro no. 4). Se você não estiver sem memória disponível, você pode consultar o manual sobre um possível 'bug' dependente do sistema operacional"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_CANT_CREATE_THREAD (rum)"
+pattern = "Nu pot crea un thread nou \\(Eroare -?\\d+\\). Daca mai aveti memorie disponibila in sistem, puteti consulta manualul - ar putea exista un potential bug in legatura cu sistemul de operare"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Nu pot crea un thread nou (Eroare 4). Daca mai aveti memorie disponibila in sistem, puteti consulta manualul - ar putea exista un potential bug in legatura cu sistemul de operare"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_CANT_CREATE_THREAD (rus)"
+pattern = "Невозможно создать новый поток \\(ошибка -?\\d+\\). Если это не ситуация, связанная с нехваткой памяти, то вам следует изучить документацию на предмет описания возможной ошибки работы в конкретной ОС"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Невозможно создать новый поток (ошибка 4). Если это не ситуация, связанная с нехваткой памяти, то вам следует изучить документацию на предмет описания возможной ошибки работы в конкретной ОС"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_CANT_CREATE_THREAD (serbian)"
+pattern = "Ne mogu da kreiram novi thread \\(errno -?\\d+\\). Ako imate još slobodne memorije, trebali biste da pogledate u priručniku da li je ovo specifična greška vašeg operativnog sistema"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Ne mogu da kreiram novi thread (errno 4). Ako imate još slobodne memorije, trebali biste da pogledate u priručniku da li je ovo specifična greška vašeg operativnog sistema"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_CANT_CREATE_THREAD (spa)"
+pattern = "No puedo crear un nuevo thread \\(errno -?\\d+\\). Si tu está con falta de memoria disponible, tu puedes consultar el Manual para posibles problemas con SO"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "No puedo crear un nuevo thread (errno 4). Si tu está con falta de memoria disponible, tu puedes consultar el Manual para posibles problemas con SO"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_CANT_CREATE_THREAD (swe)"
+pattern = "Kan inte skapa en ny tråd \\(errno -?\\d+\\)"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Kan inte skapa en ny tråd (errno 4)"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_CANT_CREATE_THREAD (ukr)"
+pattern = "Не можу створити нову гілку \\(помилка -?\\d+\\). Якщо ви не використали усю пам'ять, то прочитайте документацію до вашої ОС - можливо це помилка ОС"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Не можу створити нову гілку (помилка 4). Якщо ви не використали усю пам'ять, то прочитайте документацію до вашої ОС - можливо це помилка ОС"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_CON_COUNT_ERROR (cze)"
+pattern = "Příliš mnoho spojení"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Příliš mnoho spojení"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_CON_COUNT_ERROR (dan)"
+pattern = "For mange forbindelser \\(connections\\)"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "For mange forbindelser (connections)"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_CON_COUNT_ERROR (nla)"
+pattern = "Te veel verbindingen"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Te veel verbindingen"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_CON_COUNT_ERROR (eng)"
+pattern = "Too many connections"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Too many connections"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_CON_COUNT_ERROR (est)"
+pattern = "Liiga palju samaaegseid ühendusi"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Liiga palju samaaegseid ühendusi"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_CON_COUNT_ERROR (fre)"
+pattern = "Trop de connexions"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Trop de connexions"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_CON_COUNT_ERROR (ger)"
+pattern = "Zu viele Verbindungen"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Zu viele Verbindungen"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_CON_COUNT_ERROR (greek)"
+pattern = "Υπάρχουν πολλές συνδέσεις..."
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Υπάρχουν πολλές συνδέσεις..."
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_CON_COUNT_ERROR (hun)"
+pattern = "Tul sok kapcsolat"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Tul sok kapcsolat"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_CON_COUNT_ERROR (ita)"
+pattern = "Troppe connessioni"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Troppe connessioni"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_CON_COUNT_ERROR (jpn)"
+pattern = "接続が多すぎます。"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "接続が多すぎます。"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_CON_COUNT_ERROR (kor)"
+pattern = "너무 많은 연결... max_connection을 증가 시키시오..."
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "너무 많은 연결... max_connection을 증가 시키시오..."
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_CON_COUNT_ERROR (nor)"
+pattern = "For mange tilkoblinger \\(connections\\)"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "For mange tilkoblinger (connections)"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_CON_COUNT_ERROR (norwegian-ny)"
+pattern = "For mange tilkoplingar \\(connections\\)"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "For mange tilkoplingar (connections)"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_CON_COUNT_ERROR (pol)"
+pattern = "Zbyt wiele poł\\?czeń"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Zbyt wiele poł?czeń"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_CON_COUNT_ERROR (por)"
+pattern = "Excesso de conexões"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Excesso de conexões"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_CON_COUNT_ERROR (rum)"
+pattern = "Prea multe conectiuni"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Prea multe conectiuni"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_CON_COUNT_ERROR (rus)"
+pattern = "Слишком много соединений"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Слишком много соединений"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_CON_COUNT_ERROR (serbian)"
+pattern = "Previše konekcija"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Previše konekcija"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_CON_COUNT_ERROR (slo)"
+pattern = "Príliš mnoho spojení"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Príliš mnoho spojení"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_CON_COUNT_ERROR (spa)"
+pattern = "Demasiadas conexiones"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Demasiadas conexiones"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_CON_COUNT_ERROR (swe)"
+pattern = "För många anslutningar"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "För många anslutningar"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_CON_COUNT_ERROR (ukr)"
+pattern = "Забагато з'єднань"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Забагато з'єднань"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_BAD_HOST_ERROR (cze)"
+pattern = "Nemohu zjistit jméno stroje pro Vaši adresu"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Nemohu zjistit jméno stroje pro Vaši adresu"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_BAD_HOST_ERROR (dan)"
+pattern = "Kan ikke få værtsnavn for din adresse"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Kan ikke få værtsnavn for din adresse"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_BAD_HOST_ERROR (nla)"
+pattern = "Kan de hostname niet krijgen van uw adres"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Kan de hostname niet krijgen van uw adres"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_BAD_HOST_ERROR (eng)"
+pattern = "Can't get hostname for your address"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Can't get hostname for your address"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_BAD_HOST_ERROR (est)"
+pattern = "Ei suuda lahendada IP aadressi masina nimeks"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Ei suuda lahendada IP aadressi masina nimeks"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_BAD_HOST_ERROR (fre)"
+pattern = "Ne peut obtenir de hostname pour votre adresse"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Ne peut obtenir de hostname pour votre adresse"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_BAD_HOST_ERROR (ger)"
+pattern = "Kann Hostnamen für diese Adresse nicht erhalten"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Kann Hostnamen für diese Adresse nicht erhalten"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_BAD_HOST_ERROR (greek)"
+pattern = "Δεν έγινε γνωστό το hostname για την address σας"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Δεν έγινε γνωστό το hostname για την address σας"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_BAD_HOST_ERROR (hun)"
+pattern = "A gepnev nem allapithato meg a cimbol"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "A gepnev nem allapithato meg a cimbol"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_BAD_HOST_ERROR (ita)"
+pattern = "Impossibile risalire al nome dell'host dall'indirizzo \\(risoluzione inversa\\)"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Impossibile risalire al nome dell'host dall'indirizzo (risoluzione inversa)"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_BAD_HOST_ERROR (jpn)"
+pattern = "IPアドレスからホスト名を解決できません。"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "IPアドレスからホスト名を解決できません。"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_BAD_HOST_ERROR (kor)"
+pattern = "당신의 컴퓨터의 호스트이름을 얻을 수 없읍니다."
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "당신의 컴퓨터의 호스트이름을 얻을 수 없읍니다."
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_BAD_HOST_ERROR (nor)"
+pattern = "Kan ikke få tak i vertsnavn for din adresse"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Kan ikke få tak i vertsnavn for din adresse"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_BAD_HOST_ERROR (norwegian-ny)"
+pattern = "Kan ikkje få tak i vertsnavn for di adresse"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Kan ikkje få tak i vertsnavn for di adresse"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_BAD_HOST_ERROR (pol)"
+pattern = "Nie można otrzymać nazwy hosta dla twojego adresu"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Nie można otrzymać nazwy hosta dla twojego adresu"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_BAD_HOST_ERROR (por)"
+pattern = "Não pode obter nome do 'host' para seu endereço"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Não pode obter nome do 'host' para seu endereço"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_BAD_HOST_ERROR (rum)"
+pattern = "Nu pot sa obtin hostname-ul adresei tale"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Nu pot sa obtin hostname-ul adresei tale"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_BAD_HOST_ERROR (rus)"
+pattern = "Невозможно получить имя хоста для вашего адреса"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Невозможно получить имя хоста для вашего адреса"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_BAD_HOST_ERROR (serbian)"
+pattern = "Ne mogu da dobijem ime host-a za vašu IP adresu"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Ne mogu da dobijem ime host-a za vašu IP adresu"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_BAD_HOST_ERROR (slo)"
+pattern = "Nemôžem zistiť meno hostiteľa pre vašu adresu"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Nemôžem zistiť meno hostiteľa pre vašu adresu"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_BAD_HOST_ERROR (spa)"
+pattern = "No puedo obtener el nombre de maquina de tu direccion"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "No puedo obtener el nombre de maquina de tu direccion"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_BAD_HOST_ERROR (swe)"
+pattern = "Kan inte hitta 'hostname' för din adress"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Kan inte hitta 'hostname' för din adress"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "Oracle MySQL error ER_BAD_HOST_ERROR (ukr)"
+pattern = "Не можу визначити ім'я хосту для вашої адреси"
+vendor = "Oracle"
+product = "MySQL"
+context = "mysql.error"
+example = "Не можу визначити ім'я хосту для вашої адреси"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:oracle:mysql:-" }
+
+[[match]]
+name = "MariaDB MariaDB - Error: Host not allowed to connect (English) "
+pattern = "^Host '[^']+' is not allowed to connect to this MariaDB server$"
+vendor = "MariaDB"
+product = "MariaDB"
+context = "mysql.error"
+example = "Host '10.10.10.10' is not allowed to connect to this MariaDB server"
+metadata = { "service.family" = "MySQL", "service.cpe23" = "cpe:/a:mariadb:mariadb:-" }
+
+[[match]]
+name = "Oracle MySQL Proxy - Error: Host not allowed to connect"
+pattern = "^#07000Proxy Warning - IP Forbidden$"
+vendor = "Oracle"
+product = "MySQL Proxy"
+context = "mysql.error"
+example = "#07000Proxy Warning - IP Forbidden"
+metadata = { "service.family" = "MySQL" }
+
+[[match]]
+name = "Oracle MySQL Proxy - Error: Backends down"
+pattern = "^\\(proxy\\) all backends are down$"
+vendor = "Oracle"
+product = "MySQL Proxy"
+context = "mysql.error"
+example = "(proxy) all backends are down"
+metadata = { "service.family" = "MySQL" }
+

@@ -1,0 +1,4095 @@
+# This file contains fingerprints imported from Rapid7 Recog.
+# Source: https://github.com/rapid7/recog
+# License: BSD-2-Clause
+
+[service]
+attribution = "Rapid7 Recog"
+name = "http"
+default_ports = []
+description = "Imported from Rapid7 http_servers"
+
+[[match]]
+name = "Transmission"
+pattern = "^Transmission$"
+vendor = "TransmissionBT"
+product = "Transmission"
+context = "http_header.server"
+example = "Transmission"
+metadata = { "service.cpe23" = "cpe:/a:transmissionbt:transmission:-" }
+
+[[match]]
+name = "Mastodon"
+pattern = "^Mastodon$"
+product = "Mastodon"
+context = "http_header.server"
+example = "Mastodon"
+
+[[match]]
+name = "Logitech Media server"
+pattern = "^Logitech Media Server \\(([0-9.]+) - [0-9]+\\)$"
+version_group = 1
+vendor = "Logitech"
+product = "Squeezebox"
+context = "http_header.server"
+example = "Logitech Media Server (7.9.3 - 1586752599)"
+
+[[match]]
+name = "Perl web server"
+pattern = "^libwww-perl-daemon/([.0-9]+)$"
+version_group = 1
+vendor = "Perl"
+product = "perl"
+context = "http_header.server"
+example = "libwww-perl-daemon/1.36"
+metadata = { "service.cpe23" = "cpe:/a:perl:perl:{service.version}" }
+
+[[match]]
+name = "BASHttpd"
+pattern = "^BASHttpd/([\\d.]+)"
+version_group = 1
+vendor = "Avleen Vig"
+product = "bashttpd"
+context = "http_header.server"
+example = "BASHttpd/4.3.24-release"
+
+[[match]]
+name = "Monit"
+pattern = "^monit ([\\d.]+)$"
+version_group = 1
+vendor = "Tildeslash"
+product = "Monit"
+context = "http_header.server"
+example = "monit 5.6"
+metadata = { "service.cpe23" = "cpe:/a:tildeslash:monit:{service.version}" }
+
+[[match]]
+name = "Envoy Proxy Envoy"
+pattern = "^envoy$"
+vendor = "Envoy Proxy"
+product = "Envoy"
+context = "http_header.server"
+example = "envoy"
+metadata = { "service.cpe23" = "cpe:/a:envoyproxy:envoy:-" }
+
+[[match]]
+name = "Istio custom Envoy Proxy"
+pattern = "^istio-envoy$"
+vendor = "Istio"
+product = "Envoy"
+context = "http_header.server"
+example = "istio-envoy"
+
+[[match]]
+name = "Etherpad"
+pattern = "^Etherpad"
+vendor = "etherpad"
+product = "etherpad"
+context = "http_header.server"
+example = "Etherpad 44370f1 (http://etherpad.org)"
+metadata = { "service.cpe23" = "cpe:/a:etherpad:etherpad:-" }
+
+[[match]]
+name = "JFrog’s Artifactory repository management"
+pattern = "^Artifactory/([\\d.]+)$"
+version_group = 1
+vendor = "JFrog"
+product = "Artifactory"
+context = "http_header.server"
+example = "Artifactory/4.16.0"
+metadata = { "service.cpe23" = "cpe:/a:jfrog:artifactory:{service.version}" }
+
+[[match]]
+name = "Cowboy HTTP server"
+pattern = "^Cowboy$"
+vendor = "ninenines"
+product = "Cowboy"
+context = "http_header.server"
+example = "Cowboy"
+
+[[match]]
+name = "Apple AirTunes/AirPlay, more generally RTSP used by a variety of wireless a/v products"
+pattern = "(?i)^AirTunes/([\\d\\.]+)$"
+version_group = 1
+vendor = "Apple"
+product = "AirTunes"
+context = "http_header.server"
+example = "AirTunes/220.68"
+metadata = { "hw.device" = "Media Server" }
+
+[[match]]
+name = "cPanel Service Daemon"
+pattern = "(?i)^cpsrvd(?:/([\\d\\.]+))?$"
+version_group = 1
+vendor = "cPanel"
+product = "cPanel Service Daemon"
+context = "http_header.server"
+example = "cpsrvd/11.44.3.0"
+metadata = { "service.cpe23" = "cpe:/a:cpanel:cpanel:{service.version}" }
+
+[[match]]
+name = "Plesk Control Panel Server"
+pattern = "^sw-cp-server$"
+vendor = "Parallels"
+product = "Plesk"
+context = "http_header.server"
+example = "sw-cp-server"
+metadata = { "service.cpe23" = "cpe:/a:parallels:parallels_plesk_panel:-" }
+
+[[match]]
+name = "Control Web Panel (CWP) (formerly CentOS Web Panel) - web hosting control panel web server"
+pattern = "(?i)^cwpsrv$"
+vendor = "Control Web Panel"
+product = "Control Web Panel"
+context = "http_header.server"
+example = "cwpsrv"
+metadata = { "service.cpe23" = "cpe:/a:control-webpanel:webpanel:-", "os.family" = "Linux", "os.product" = "Linux" }
+
+[[match]]
+name = "Red Hat Stronghold Enterprise Apache"
+pattern = "^Stronghold/(\\d\\.\\d) Apache/([012][\\d.]*)\\s*(.*)$"
+version_group = 2
+vendor = "Apache"
+product = "HTTPD"
+context = "http_header.server"
+example = "Stronghold/3.0 Apache/1.3.19 RedHat/3014c"
+metadata = { "service.family" = "Apache", "service.cpe23" = "cpe:/a:apache:http_server:{service.version}", "service.component.vendor" = "Red Hat", "service.component.product" = "Stronghold", "service.component.family" = "Stronghold", "service.component.version" = "{capture:1}", "service.component.cpe23" = "cpe:/a:redhat:stronghold:{service.component.version}", "apache.info" = "{capture:3}", "os.vendor" = "Red Hat", "os.product" = "Linux", "os.family" = "Linux", "os.cpe23" = "cpe:/o:redhat:linux:-" }
+
+[[match]]
+name = "Apache returning only its major version number"
+pattern = "(?i)^Apache/\\d$"
+vendor = "Apache"
+product = "HTTPD"
+context = "http_header.server"
+example = "Apache/1"
+metadata = { "service.family" = "Apache", "service.cpe23" = "cpe:/a:apache:http_server:-" }
+
+[[match]]
+name = "Apache returning just version number"
+pattern = "^Apache ([\\d.]+)$"
+version_group = 1
+vendor = "Apache"
+product = "HTTPD"
+context = "http_header.server"
+example = "Apache 1.3.29"
+metadata = { "service.family" = "Apache", "service.cpe23" = "cpe:/a:apache:http_server:{service.version}" }
+
+[[match]]
+name = "Apache returning no version information"
+pattern = "(?i)^Apache$"
+vendor = "Apache"
+product = "HTTPD"
+context = "http_header.server"
+example = "Apache"
+metadata = { "service.family" = "Apache", "service.cpe23" = "cpe:/a:apache:http_server:-" }
+
+[[match]]
+name = "Apache"
+pattern = "(?i)^Apache(?:-AdvancedExtranetServer)?(?:/([012][\\d.]*)\\s*(.*))?$"
+version_group = 1
+vendor = "Apache"
+product = "HTTPD"
+context = "http_header.server"
+example = "Apache-AdvancedExtranetServer/2.0.44 (Mandrake Linux/11mdk) mod_perl/1.99_08 Perl/v5.8.0 mod_ssl/2.0.44 OpenSSL/0.9.7a PHP/4.3.1 mod_jk2/2.0.0"
+metadata = { "service.family" = "Apache", "service.cpe23" = "cpe:/a:apache:http_server:{service.version}", "apache.info" = "{capture:2}" }
+
+[[match]]
+name = "Apache CouchDB"
+pattern = "(?i)^CouchDB/([\\.\\d]+)"
+version_group = 1
+vendor = "Apache"
+product = "CouchDB"
+context = "http_header.server"
+example = "CouchDB/2.1.1 (Erlang OTP/20)"
+metadata = { "service.cpe23" = "cpe:/a:apache:couchdb:{service.version}" }
+
+[[match]]
+name = "Array Networks device"
+pattern = "^support@arraynetworks.net$"
+vendor = "Array Networks"
+context = "http_header.server"
+example = "support@arraynetworks.net"
+
+[[match]]
+name = "Check Point Firewall NG"
+pattern = "^Check Point SVN foundation$"
+vendor = "Check Point"
+product = "Firewall-1"
+context = "http_header.server"
+example = "Check Point SVN foundation"
+metadata = { "service.family" = "Firewall-1", "service.cpe23" = "cpe:/a:checkpoint:firewall-1:-", "os.vendor" = "Check Point", "os.device" = "Firewall", "os.family" = "Firewall-1", "os.product" = "GAiA OS", "os.cpe23" = "cpe:/o:checkpoint:gaia_os:-", "hw.vendor" = "Check Point", "hw.device" = "Firewall", "hw.family" = "Firewall-1", "hw.product" = "Firewall-1" }
+
+[[match]]
+name = "Check Point Firewall NG - short version"
+pattern = "^CPWS$"
+vendor = "Check Point"
+product = "Firewall-1"
+context = "http_header.server"
+example = "CPWS"
+metadata = { "service.family" = "Firewall-1", "service.cpe23" = "cpe:/a:checkpoint:firewall-1:-", "os.vendor" = "Check Point", "os.device" = "Firewall", "os.family" = "Firewall-1", "os.product" = "GAiA OS", "os.cpe23" = "cpe:/o:checkpoint:gaia_os:-", "hw.vendor" = "Check Point", "hw.device" = "Firewall", "hw.family" = "Firewall-1", "hw.product" = "Firewall-1" }
+
+[[match]]
+name = "Microsoft IIS 1.0 - 4.0 runs on Windows NT 4.0"
+pattern = "^Microsoft-IIS/([1234]\\.0)$"
+version_group = 1
+vendor = "Microsoft"
+product = "IIS"
+context = "http_header.server"
+example = "Microsoft-IIS/4.0"
+metadata = { "service.family" = "IIS", "service.cpe23" = "cpe:/a:microsoft:iis:{service.version}", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows NT", "os.version" = "4.0", "os.cpe23" = "cpe:/o:microsoft:windows_nt:4.0" }
+
+[[match]]
+name = "Microsoft IIS 5.0 runs on Windows 2000"
+pattern = "^Microsoft-IIS/5.0$"
+vendor = "Microsoft"
+product = "IIS"
+context = "http_header.server"
+example = "Microsoft-IIS/5.0"
+metadata = { "service.family" = "IIS", "service.version" = "5.0", "service.cpe23" = "cpe:/a:microsoft:iis:5.0", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows 2000", "os.cpe23" = "cpe:/o:microsoft:windows_2000:-" }
+
+[[match]]
+name = "Microsoft IIS 5.1 runs on Windows XP"
+pattern = "^Microsoft-IIS/5.1$"
+vendor = "Microsoft"
+product = "IIS"
+context = "http_header.server"
+example = "Microsoft-IIS/5.1"
+metadata = { "service.family" = "IIS", "service.version" = "5.1", "service.cpe23" = "cpe:/a:microsoft:iis:5.1", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows XP", "os.cpe23" = "cpe:/o:microsoft:windows_xp:-" }
+
+[[match]]
+name = "Microsoft IIS 6.0 runs on Windows Server 2003 (and Windows XP x64)"
+pattern = "^Microsoft-IIS/6.0$"
+vendor = "Microsoft"
+product = "IIS"
+context = "http_header.server"
+example = "Microsoft-IIS/6.0"
+metadata = { "service.family" = "IIS", "service.version" = "6.0", "service.cpe23" = "cpe:/a:microsoft:iis:6.0", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows Server 2003", "os.cpe23" = "cpe:/o:microsoft:windows_server_2003:-" }
+
+[[match]]
+name = "Microsoft IIS 7.0 runs on Windows Server 2008 (and Windows Vista)"
+pattern = "^Microsoft-IIS/7.0$"
+vendor = "Microsoft"
+product = "IIS"
+context = "http_header.server"
+example = "Microsoft-IIS/7.0"
+metadata = { "service.family" = "IIS", "service.version" = "7.0", "service.cpe23" = "cpe:/a:microsoft:iis:7.0", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows Server 2008", "os.cpe23" = "cpe:/o:microsoft:windows_server_2008:-" }
+
+[[match]]
+name = "Microsoft IIS 7.5 runs on Windows Server 2008 R2 (and Windows 7)"
+pattern = "^Microsoft-IIS/7.5$"
+vendor = "Microsoft"
+product = "IIS"
+context = "http_header.server"
+example = "Microsoft-IIS/7.5"
+metadata = { "service.family" = "IIS", "service.version" = "7.5", "service.cpe23" = "cpe:/a:microsoft:iis:7.5", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows Server 2008 R2", "os.cpe23" = "cpe:/o:microsoft:windows_server_2008:-" }
+
+[[match]]
+name = "Microsoft IIS 8.0 runs on Windows Server 2012 (and Windows 8)"
+pattern = "^Microsoft-IIS/8.0$"
+vendor = "Microsoft"
+product = "IIS"
+context = "http_header.server"
+example = "Microsoft-IIS/8.0"
+metadata = { "service.family" = "IIS", "service.version" = "8.0", "service.cpe23" = "cpe:/a:microsoft:iis:8.0", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows Server 2012", "os.cpe23" = "cpe:/o:microsoft:windows_server_2012:-" }
+
+[[match]]
+name = "Microsoft IIS 8.5 runs on Windows Server 2012 R2 (and Windows 8.1)"
+pattern = "^Microsoft-IIS/8.5$"
+vendor = "Microsoft"
+product = "IIS"
+context = "http_header.server"
+example = "Microsoft-IIS/8.5"
+metadata = { "service.family" = "IIS", "service.version" = "8.5", "service.cpe23" = "cpe:/a:microsoft:iis:8.5", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows Server 2012 R2", "os.cpe23" = "cpe:/o:microsoft:windows_server_2012:-" }
+
+[[match]]
+name = "Microsoft IIS 10.0 runs on Windows Server 2016 and 2019"
+pattern = "^Microsoft-IIS/10.0$"
+vendor = "Microsoft"
+product = "IIS"
+context = "http_header.server"
+example = "Microsoft-IIS/10.0"
+metadata = { "service.family" = "IIS", "service.version" = "10.0", "service.cpe23" = "cpe:/a:microsoft:iis:10.0", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.certainty" = "0.5" }
+
+[[match]]
+name = "Microsoft IIS new, unknown Windows version"
+pattern = "^Microsoft-IIS/([\\d\\.]+)$"
+version_group = 1
+vendor = "Microsoft"
+product = "IIS"
+context = "http_header.server"
+example = "Microsoft-IIS/9.0"
+metadata = { "service.family" = "IIS", "service.cpe23" = "cpe:/a:microsoft:iis:{service.version}" }
+
+[[match]]
+name = "Microsoft IIS, no version information"
+pattern = "^Microsoft-IIS$"
+vendor = "Microsoft"
+product = "IIS"
+context = "http_header.server"
+example = "Microsoft-IIS"
+metadata = { "service.family" = "IIS", "service.cpe23" = "cpe:/a:microsoft:iis:-", "os.vendor" = "Microsoft", "os.family" = "Windows" }
+
+[[match]]
+name = "Microsoft .NET Remoting and Common Language Runtime (CLR)"
+pattern = "^MS .NET Remoting, MS .NET CLR (\\d+\\.\\d+\\.\\d+\\.\\d+)$"
+vendor = "Microsoft"
+product = ".NET Remoting"
+context = "http_header.server"
+example = "MS .NET Remoting, MS .NET CLR 2.0.50727.42"
+metadata = { "service.family" = ".NET", "service.component.vendor" = "Microsoft", "service.component.product" = ".NET CLR", "service.component.family" = ".NET", "service.component.version" = "{capture:1}", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows", "os.cpe23" = "cpe:/o:microsoft:windows:-" }
+
+[[match]]
+name = "Windows CE embedded devices, including HP iPAQ, Palm Treo, Motorola phones, and many more"
+pattern = "^Microsoft-WinCE/(\\d\\.\\d+)$"
+version_group = 1
+vendor = "Microsoft"
+product = "Windows CE Web Server"
+context = "http_header.server"
+example = "Microsoft-WinCE/4.10"
+metadata = { "service.family" = "Windows CE Web Server", "os.certainty" = "0.9", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows CE", "os.version" = "{capture:1}", "os.cpe23" = "cpe:/o:microsoft:windows_ce:{os.version}" }
+
+[[match]]
+name = "Microsoft Personal Web Server runs on Windows 9x, ME, etc."
+pattern = "^Microsoft-PWS/(\\d\\.\\d+)$"
+version_group = 1
+vendor = "Microsoft"
+product = "PWS"
+context = "http_header.server"
+example = "Microsoft-PWS/4.0"
+metadata = { "service.family" = "PWS", "service.cpe23" = "cpe:/a:microsoft:personal_web_server:{service.version}", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows", "os.cpe23" = "cpe:/o:microsoft:windows:-" }
+
+[[match]]
+name = "Microsoft Personal Web Server for Windows 95"
+pattern = "^Microsoft-PWS-95/(\\d\\.\\d+)$"
+version_group = 1
+vendor = "Microsoft"
+product = "PWS"
+context = "http_header.server"
+example = "Microsoft-PWS-95/4.0"
+metadata = { "service.family" = "PWS", "service.cpe23" = "cpe:/a:microsoft:personal_web_server:{service.version}", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows 95", "os.cpe23" = "cpe:/o:microsoft:windows_95:-" }
+
+[[match]]
+name = "Firefly Media Server"
+pattern = "(?i)^mt-daapd(?:/(.+))?$"
+version_group = 1
+vendor = "Firefly"
+product = "Media Server"
+context = "http_header.server"
+example = "mt-daapd/0.2.4.1"
+
+[[match]]
+name = "HTTP connector for Apache Tomcat to run as a standalone HTTP server - Coyote variant"
+pattern = "^Apache[ -]Coyote/(\\d\\.\\d)$"
+vendor = "Apache"
+product = "Tomcat"
+context = "http_header.server"
+example = "Apache-Coyote/1.1"
+metadata = { "service.family" = "Tomcat", "service.cpe23" = "cpe:/a:apache:tomcat:-", "service.component.vendor" = "Apache", "service.component.product" = "Coyote", "service.component.family" = "Coyote", "service.component.version" = "{capture:1}" }
+
+[[match]]
+name = "HTTP connector for Apache Tomcat with no version"
+pattern = "^Apache Tomcat$"
+vendor = "Apache"
+product = "Tomcat"
+context = "http_header.server"
+example = "Apache Tomcat"
+metadata = { "service.family" = "Tomcat", "service.cpe23" = "cpe:/a:apache:tomcat:-" }
+
+[[match]]
+name = "JBoss with embedded Tomcat"
+pattern = "^Servlet [\\d\\.]+; JBoss-(\\S+) \\(build: .*\\)/Tomcat-(\\S+)$"
+version_group = 1
+vendor = "Red Hat"
+product = "JBoss EAP"
+context = "http_header.server"
+example = "Servlet 2.4; JBoss-4.0.4.GA (build: CVSTag=JBoss_4_0_4_GA date=200605151000)/Tomcat-5.5"
+metadata = { "service.cpe23" = "cpe:/a:redhat:jboss_enterprise_application_platform:{service.version}", "service.component.vendor" = "Apache", "service.component.product" = "Tomcat", "service.component.family" = "Tomcat", "service.component.version" = "{capture:2}", "service.component.cpe23" = "cpe:/a:apache:tomcat:{service.component.version}" }
+
+[[match]]
+name = "JBoss with embedded Tomcat - Tomcat build variant"
+pattern = "^Servlet [\\d\\.]+; Tomcat-(\\S+)/JBoss-(\\S+) \\(build: .*\\)$"
+version_group = 2
+vendor = "Red Hat"
+product = "JBoss EAP"
+context = "http_header.server"
+example = "Servlet 2.4; Tomcat-5.0.28/JBoss-4.0.1sp1 (build: CVSTag=JBoss_4_0_1_SP1 date=200502160314)"
+metadata = { "service.cpe23" = "cpe:/a:redhat:jboss_enterprise_application_platform:{service.version}", "service.component.vendor" = "Apache", "service.component.product" = "Tomcat", "service.component.family" = "Tomcat", "service.component.version" = "{capture:1}", "service.component.cpe23" = "cpe:/a:apache:tomcat:{service.component.version}" }
+
+[[match]]
+name = "JBoss with JBossweb"
+pattern = "^Servlet [\\d\\.]+; JBoss-([\\S]+)(?: \\(build.*)?/JBossWeb-(\\S+)$"
+version_group = 1
+vendor = "Red Hat"
+product = "JBoss EAP"
+context = "http_header.server"
+example = "Servlet 2.4; JBoss-4.2.3.GA (build: SVNTag=JBoss_4_2_3_GA date=200807181439)/JBossWeb-2.0"
+metadata = { "service.cpe23" = "cpe:/a:redhat:jboss_enterprise_application_platform:{service.version}", "service.component.vendor" = "Red Hat", "service.component.product" = "JBossWeb", "service.component.version" = "{capture:2}", "service.component.cpe23" = "cpe:/a:redhat:jbossweb:{service.component.version}" }
+
+[[match]]
+name = "JBoss AS"
+pattern = "^Servlet\\/[\\d\\.]+; JBossAS-(.*)$"
+version_group = 1
+vendor = "Red Hat"
+product = "JBoss AS"
+context = "http_header.server"
+example = "Servlet/3.0; JBossAS-6"
+metadata = { "service.cpe23" = "cpe:/a:redhat:jboss_wildfly_application_server:{service.version}" }
+
+[[match]]
+name = "JBoss EAP"
+pattern = "^JBoss-EAP\\/(\\d+)$"
+version_group = 1
+vendor = "Red Hat"
+product = "JBoss EAP"
+context = "http_header.server"
+example = "JBoss-EAP/7"
+metadata = { "service.family" = "JBoss", "service.cpe23" = "cpe:/a:redhat:jboss_enterprise_application_platform:{service.version}" }
+
+[[match]]
+name = "HTTP connector for Apache Tomcat to run as a standalone HTTP server - Apache variant"
+pattern = "^Apache Tomcat/(\\d\\.[\\d.]+)(?:-LE-jdk14)? \\(HTTP/1.1 Connector\\)$"
+version_group = 1
+vendor = "Apache"
+product = "Tomcat"
+context = "http_header.server"
+example = "Apache Tomcat/4.0.6 (HTTP/1.1 Connector)"
+metadata = { "service.family" = "Tomcat", "service.cpe23" = "cpe:/a:apache:tomcat:{service.version}", "service.component.vendor" = "Apache", "service.component.family" = "Apache Tomcat HTTP Connector", "service.component.product" = "Apache Tomcat HTTP Connector" }
+
+[[match]]
+name = "HTTP connector for Apache Tomcat to run as a standalone HTTP server"
+pattern = "^Tomcat Web Server/(\\d\\.[\\dA-Z.]+)(?: Final)?(?:\\s\\(([^\\)]+)\\))?$"
+version_group = 1
+vendor = "Apache"
+product = "Tomcat"
+context = "http_header.server"
+example = "Tomcat Web Server/3.2.2 (JSP 1.1; Servlet 2.2; Java 1.3.1; Windows 2000 5.0 x86; java.vendor=Sun Microsystems Inc.)"
+metadata = { "service.family" = "Tomcat", "service.cpe23" = "cpe:/a:apache:tomcat:{service.version}", "tomcat.info" = "{capture:2}" }
+
+[[match]]
+name = "Apache Tomcat with version information"
+pattern = "^(?:Apache )?Tomcat/([\\d.]+)$"
+version_group = 1
+vendor = "Apache"
+product = "Tomcat"
+context = "http_header.server"
+example = "Tomcat/2.1"
+metadata = { "service.family" = "Tomcat", "service.cpe23" = "cpe:/a:apache:tomcat:{service.version}" }
+
+[[match]]
+name = "Merit LILIN PDR M800"
+pattern = "^PDR-M800/1.0$"
+context = "http_header.server"
+example = "PDR-M800/1.0"
+metadata = { "hw.vendor" = "Merit LILIN", "hw.product" = "PDR M800", "hw.device" = "DVR" }
+
+[[match]]
+name = "PHP"
+pattern = "^PHP/(\\S+)$"
+context = "http_header.server"
+example = "PHP/4.4.2-1build1"
+metadata = { "service.component.product" = "PHP", "service.component.version" = "{capture:1}" }
+
+[[match]]
+name = "PHP with ZendServer"
+pattern = "^PHP/(\\S+)\\s+ZendServer/\\S+$"
+context = "http_header.server"
+example = "PHP/5.3.14 ZendServer/5.0"
+metadata = { "service.component.product" = "PHP", "service.component.version" = "{capture:1}" }
+
+[[match]]
+name = "Oracle Application Server Containers for J2EE 10g"
+pattern = "^Oracle Application Server Containers for J2EE 10g \\(([\\d.]+)\\)$"
+version_group = 1
+vendor = "Oracle"
+product = "Oracle Application Server Containers"
+context = "http_header.server"
+example = "Oracle Application Server Containers for J2EE 10g (9.0.4.0.0)"
+metadata = { "service.family" = "Oracle" }
+
+[[match]]
+name = "Oracle Application Server Containers for J2EE"
+pattern = "^Oracle Containers for J2EE$"
+vendor = "Oracle"
+product = "Oracle Application Server Containers"
+context = "http_header.server"
+example = "Oracle Containers for J2EE"
+metadata = { "service.family" = "Oracle" }
+
+[[match]]
+name = "Oracle Application Server 10g with Apache info (powered by Apache)"
+pattern = "^Oracle Application Server/10g \\(([\\d.]+)\\) Apache/([12][\\d.]+)\\s*(.*)$"
+version_group = 2
+vendor = "Apache"
+product = "HTTPD"
+context = "http_header.server"
+example = "Oracle Application Server/10g (10.1.2) Apache/1.3.34 (Unix) mod_perl/1.29 mod_jk/1.2.14 OracleAS-Web-Cache-10g/10.1.2.0.2 (N;ecid=119642322340,0)"
+metadata = { "service.family" = "Apache", "service.cpe23" = "cpe:/a:apache:http_server:{service.version}", "apache.info" = "{capture:3}", "apache.variant" = "Oracle", "apache.variant.version" = "{capture:1}" }
+
+[[match]]
+name = "Oracle Application Server"
+pattern = "^Oracle-Application-Server-\\d+[cgi](?:(?:[ /]([\\d.]+))?\\s*((?:Oracle-HTTP-Server|Oracle-Web-Cache-|OracleAS-Web-Cache-)?.{0,512})?(?:\\s*\\([TF]?[HSUGMN]?(?:;max-age=\\d+(?:\\+\\d+)?)?(?:;age=\\d+)?;ecid=[^)]+\\))?)?$"
+version_group = 1
+vendor = "Oracle"
+product = "Application Server"
+context = "http_header.server"
+example = "Oracle-Application-Server-10g"
+metadata = { "apache.variant" = "Oracle", "service.cpe23" = "cpe:/a:oracle:application_server:{service.version}", "apache.info" = "{capture:2}" }
+
+[[match]]
+name = "Oracle 9i Application Server"
+pattern = "^Oracle9iAS/([\\d.]+) Oracle HTTP Server\\s*(.*)$"
+vendor = "Apache"
+product = "HTTPD"
+context = "http_header.server"
+example = "Oracle9iAS/9.0.2.3.0 Oracle HTTP Server Oracle9iAS-Web-Cache/9.0.2.3.0 (N)"
+metadata = { "service.family" = "Apache", "service.cpe23" = "cpe:/a:apache:http_server:-", "apache.info" = "{capture:2}", "apache.variant" = "Oracle", "apache.variant.version" = "{capture:1}" }
+
+[[match]]
+name = "Oracle HTTP Server (powered by Apache) - version string variant"
+pattern = "^Oracle HTTP Server Powered by Apache/([12][\\d.]*)\\s*(.*)$"
+version_group = 1
+vendor = "Apache"
+product = "HTTPD"
+context = "http_header.server"
+example = "Oracle HTTP Server Powered by Apache/1.3.12 (Unix) ApacheJServ/1.1 mod_ssl/2.6.4 OpenSSL/0.9.5a"
+metadata = { "service.family" = "Apache", "service.cpe23" = "cpe:/a:apache:http_server:{service.version}", "apache.info" = "{capture:2}", "apache.variant" = "Oracle" }
+
+[[match]]
+name = "Oracle HTTP Server (powered by Apache)"
+pattern = "^Oracle HTTP Server Powered by Apache$"
+vendor = "Apache"
+product = "HTTPD"
+context = "http_header.server"
+example = "Oracle HTTP Server Powered by Apache"
+metadata = { "service.family" = "Apache", "service.cpe23" = "cpe:/a:apache:http_server:-", "apache.variant" = "Oracle" }
+
+[[match]]
+name = "Oracle HTTP Server"
+pattern = "^Oracle-HTTP-Server(?:(?:-(?:\\d{2}[cg]\\/?)?([\\d.]+)?(?:\\/[\\d.]+)?)?(?:.{0,512}\\([TF]?[HSUGMN]?(?:;max-age=\\d+(?:\\+\\d+)?)?(?:;age=\\d+)?;ecid=[^)]+\\))?)?$"
+version_group = 1
+vendor = "Oracle"
+product = "HTTP Server"
+context = "http_header.server"
+example = "Oracle-HTTP-Server"
+metadata = { "service.cpe23" = "cpe:/a:oracle:http_server:{service.version}" }
+
+[[match]]
+name = "Oracle Web Cache"
+pattern = "^Oracle-Web-Cache-11g/([\\d.]+)(?:\\s*\\([TF]?[HSUGMN]?(?:;max-age=\\d+(?:\\+\\d+)?)?(?:;age=\\d+)?;ecid=[^)]+\\))?$"
+version_group = 1
+vendor = "Oracle"
+product = "Web Cache"
+context = "http_header.server"
+example = "Oracle-Web-Cache-11g/11.1.1.6.0"
+metadata = { "service.cpe23" = "cpe:/a:oracle:web_cache:{service.version}" }
+
+[[match]]
+name = "Oracle Application Server Web Cache"
+pattern = "^OracleAS-Web-Cache-10g/([\\d.]+)"
+version_group = 1
+vendor = "Oracle"
+product = "Application Server Web Cache"
+context = "http_header.server"
+example = "OracleAS-Web-Cache-10g/10.1.2.3.0"
+metadata = { "service.cpe23" = "cpe:/a:oracle:application_server_web_cache:{service.version}" }
+
+[[match]]
+name = "Oracle iPlanet Web Server (formerly known as Sun Java System Web Server, Sun ONE Web Server)"
+pattern = "^Oracle-iPlanet-Web-Server/([\\d.]+)$"
+version_group = 1
+vendor = "Oracle"
+product = "iPlanet Web Server"
+context = "http_header.server"
+example = "Oracle-iPlanet-Web-Server/7.0"
+metadata = { "service.cpe23" = "cpe:/a:oracle:iplanet_web_server:{service.version}" }
+
+[[match]]
+name = "Oracle(R) Integrated Lights Out Manager Web Server"
+pattern = "^Oracle-ILOM-Web-Server/([\\d.]+)$"
+version_group = 1
+vendor = "Oracle"
+product = "ILOM"
+context = "http_header.server"
+example = "Oracle-ILOM-Web-Server/1.0"
+metadata = { "os.vendor" = "Oracle", "os.family" = "ILOM", "os.product" = "ILOM", "os.device" = "Lights Out Management", "os.cpe23" = "cpe:/o:oracle:integrated_lights_out_manager_firmware:-", "hw.vendor" = "Oracle", "hw.family" = "ILOM", "hw.product" = "ILOM", "hw.device" = "Lights Out Management" }
+
+[[match]]
+name = "Apache running on HP-UX"
+pattern = "^HP Apache-based Web Server/([012][\\d.]*)\\s*\\(Unix\\)\\s*(.*)$"
+version_group = 1
+vendor = "Apache"
+product = "HTTPD"
+context = "http_header.server"
+example = "HP Apache-based Web Server/1.3.26 (Unix) mod_ssl/2.8.9 OpenSSL/0.9.6c"
+metadata = { "service.family" = "Apache", "service.cpe23" = "cpe:/a:apache:http_server:{service.version}", "apache.info" = "{capture:2}", "apache.variant" = "HP-UX", "os.vendor" = "HP", "os.family" = "HP-UX", "os.product" = "HP-UX", "os.cpe23" = "cpe:/o:hp:hp-ux:-" }
+
+[[match]]
+name = "HP/Compaq HTTP Server"
+pattern = "^CompaqHTTPServer/([0-9.]*)(?: HP System Management Homepage(?:/.*)?)?$"
+version_group = 1
+vendor = "HP"
+product = "HTTP"
+context = "http_header.server"
+example = "CompaqHTTPServer/9.9 HP System Management Homepage/2.1.5.146"
+metadata = { "service.family" = "Compaq HTTP Server" }
+
+[[match]]
+name = "HP System Management Homepage (SMH)"
+pattern = "^HPSMH$"
+vendor = "HP"
+product = "SMH"
+context = "http_header.server"
+example = "HPSMH"
+metadata = { "service.family" = "SMH" }
+
+[[match]]
+name = "HTTP Server present on seemingly only HP ProCurve network devices"
+pattern = "(?i)^eHTTP[/ ]v?(\\d+\\.\\d+)"
+version_group = 1
+vendor = "HP"
+product = "HTTP"
+context = "http_header.server"
+example = "EHTTP/1.1"
+metadata = { "service.family" = "ProCurve", "os.vendor" = "HP", "os.family" = "ProCurve", "os.certainty" = "0.75" }
+
+[[match]]
+name = "HP Openview Coda (Communications Daemon)"
+pattern = "^(?:BBC \\d+\\.\\d+\\.\\d+\\.?\\d*; )?(?:com.hp.openview.)?[c|C]oda (\\d+\\.\\d+\\.\\d+\\.?\\d*)$"
+vendor = "HP"
+product = "OpenView"
+context = "http_header.server"
+example = "com.hp.openview.Coda 0.0.1"
+metadata = { "service.family" = "OpenView", "service.cpe23" = "cpe:/a:hp:openview:-", "service.component.vendor" = "HP", "service.component.family" = "OpenView", "service.component.product" = "CODA", "service.component.version" = "{capture:1}" }
+
+[[match]]
+name = "OpenView Reverse Channel Proxy (RCP)"
+pattern = "^BBC \\d+\\.\\d+\\.\\d+\\.?\\d*; ovbbcrcp (\\d+\\.\\d+\\.\\d+\\.?\\d*)$"
+vendor = "HP"
+product = "OpenView"
+context = "http_header.server"
+example = "BBC 11.00.044; ovbbcrcp 11.00.044"
+metadata = { "service.family" = "OpenView", "service.cpe23" = "cpe:/a:hp:openview:-", "service.component.vendor" = "HP", "service.component.family" = "OpenView", "service.component.product" = "Reverse Channel Proxy", "service.component.version" = "{capture:1}" }
+
+[[match]]
+name = "HP Openview LLBServer (Local Location Broker)"
+pattern = "^(?:BBC \\d+\\.\\d+\\.\\d+\\.?\\d*; )?com.hp.openview.bbc.LLBServer (\\d+\\.\\d+\\.\\d+\\.?\\d*)$"
+vendor = "HP"
+product = "OpenView"
+context = "http_header.server"
+example = "com.hp.openview.bbc.LLBServer 2.6.8.1"
+metadata = { "service.family" = "OpenView", "service.cpe23" = "cpe:/a:hp:openview:-", "service.component.vendor" = "HP", "service.component.family" = "OpenView", "service.component.product" = "LLBServer", "service.component.version" = "{capture:1}" }
+
+[[match]]
+name = "OpenView Communication Broker (ovbbccb)"
+pattern = "^BBC \\d+\\.\\d+\\.\\d+; ovbbccb (\\d+\\.\\d+\\.\\d+)$"
+vendor = "HP"
+product = "OpenView"
+context = "http_header.server"
+example = "BBC 06.00.083; ovbbccb 06.00.083"
+metadata = { "service.family" = "OpenView", "service.cpe23" = "cpe:/a:hp:openview:-", "service.component.vendor" = "HP", "service.component.family" = "OpenView", "service.component.product" = "Communication Broker", "service.component.version" = "{capture:1}" }
+
+[[match]]
+name = "OpenView Communication Broker (ovbbccb) with no version"
+pattern = "^BBC \\d+\\.\\d+\\.\\d+; ovbbccb unknown version$"
+vendor = "HP"
+product = "OpenView"
+context = "http_header.server"
+example = "BBC 11.13.007; ovbbccb unknown version"
+metadata = { "service.family" = "OpenView", "service.cpe23" = "cpe:/a:hp:openview:-", "service.component.vendor" = "HP", "service.component.family" = "OpenView", "service.component.product" = "Communication Broker" }
+
+[[match]]
+name = "HTTP Server that appears unique to Management Console on HP TippingPoint IPS Devices"
+pattern = "^UOS$"
+vendor = "HP"
+product = "HTTP"
+context = "http_header.server"
+example = "UOS"
+metadata = { "service.family" = "TippingPoint", "os.vendor" = "HP", "os.family" = "TippingPoint", "os.device" = "IPS", "hw.vendor" = "HP", "hw.family" = "TippingPoint", "hw.device" = "IPS" }
+
+[[match]]
+name = "Xiongmai Tech uc-httpd"
+pattern = "^uc-httpd[ \\/]([\\d.]+)$"
+version_group = 1
+vendor = "Xiongmai Technology"
+product = "uc-httpd"
+context = "http_header.server"
+example = "uc-httpd 1.0.0"
+metadata = { "service.cpe23" = "cpe:/a:xiongmaitech:uc-httpd:{service.version}" }
+
+[[match]]
+name = "ACME micro_httpd"
+pattern = "^micro_httpd$"
+vendor = "ACME"
+product = "micro_httpd"
+context = "http_header.server"
+example = "micro_httpd"
+metadata = { "service.cpe23" = "cpe:/a:acme:micro_httpd:-" }
+
+[[match]]
+name = "ACME mini_httpd"
+pattern = "^mini_httpd$"
+vendor = "ACME"
+product = "mini_httpd"
+context = "http_header.server"
+example = "mini_httpd"
+metadata = { "service.cpe23" = "cpe:/a:acme:mini_httpd:-" }
+
+[[match]]
+name = "LiteSpeed"
+pattern = "^LiteSpeed\\/?([\\d.]+)?(?: \\S+)?"
+version_group = 1
+vendor = "LiteSpeed Technologies"
+product = "LiteSpeed Web Server"
+context = "http_header.server"
+example = "LiteSpeed"
+metadata = { "service.cpe23" = "cpe:/a:litespeedtech:litespeed_web_server:{service.version}" }
+
+[[match]]
+name = "Idea Web Server"
+pattern = "^IdeaWebServer\\/v?([\\d.]+)$"
+version_group = 1
+vendor = "home.pl"
+product = "Idea Web Server"
+context = "http_header.server"
+example = "IdeaWebServer/0.83.74"
+
+[[match]]
+name = "OpenResty OpenResty"
+pattern = "^openresty\\/?([\\d.]+)?$"
+version_group = 1
+vendor = "OpenResty"
+product = "OpenResty"
+context = "http_header.server"
+example = "openresty"
+metadata = { "service.cpe23" = "cpe:/a:openresty:openresty:{service.version}" }
+
+[[match]]
+name = "Gunicorn with version"
+pattern = "^gunicorn\\/(\\d+(?:\\.\\d+)*)$"
+version_group = 1
+vendor = "Gunicorn"
+product = "Gunicorn"
+context = "http_header.server"
+example = "gunicorn/19.7.1"
+metadata = { "service.cpe23" = "cpe:/a:gunicorn:gunicorn:{service.version}" }
+
+[[match]]
+name = "Gunicorn with no version"
+pattern = "^gunicorn$"
+vendor = "Gunicorn"
+product = "Gunicorn"
+context = "http_header.server"
+example = "gunicorn"
+metadata = { "service.cpe23" = "cpe:/a:gunicorn:gunicorn:-" }
+
+[[match]]
+name = "Serv-U HTTP interface"
+pattern = "^Serv-U\\/([\\d.]+)$"
+version_group = 1
+vendor = "SolarWinds"
+product = "Serv-U FTP Server"
+context = "http_header.server"
+example = "Serv-U/15.1.6.31"
+metadata = { "service.family" = "Serv-U", "service.cpe23" = "cpe:/a:solarwinds:serv-u_ftp_server:{service.version}" }
+
+[[match]]
+name = "Wing FTP HTTP interface - with version"
+pattern = "^Wing FTP Server/([\\d.]+)\\([^)]*\\)$"
+version_group = 1
+vendor = "WFTPServer"
+product = "Wing FTP Server"
+context = "http_header.server"
+example = "Wing FTP Server/3.6.0(customer name here)"
+metadata = { "service.family" = "Wing FTP", "service.cpe23" = "cpe:/a:wftpserver:wing_ftp_server:{service.version}" }
+
+[[match]]
+name = "Wing FTP HTTP interface - no version"
+pattern = "^Wing FTP Server\\([^)]*\\)$"
+vendor = "WFTPServer"
+product = "Wing FTP Server"
+context = "http_header.server"
+example = "Wing FTP Server(customer name here)"
+metadata = { "service.family" = "Wing FTP", "service.cpe23" = "cpe:/a:wftpserver:wing_ftp_server:-" }
+
+[[match]]
+name = "Sonos Bridge/ZoneBridge"
+pattern = "(?i)^Linux UPnP/1.0 Sonos/([\\d\\.\\-a-z]+) \\((BR\\d+)\\)$"
+context = "http_header.server"
+example = "Linux UPnP/1.0 Sonos/47.2-59120 (BR100)"
+metadata = { "hw.vendor" = "Sonos", "hw.product" = "Bridge", "hw.device" = "Network Audio", "hw.version" = "{capture:1}", "hw.model" = "{capture:2}", "os.product" = "Linux" }
+
+[[match]]
+name = "Sonos Subwoofer Speaker"
+pattern = "(?i)^Linux UPnP/1.0 Sonos/([\\d\\.\\-a-z]+) \\(ANVIL\\)$"
+context = "http_header.server"
+example = "Linux UPnP/1.0 Sonos/31.3-22220 (ANVIL)"
+metadata = { "hw.vendor" = "Sonos", "hw.product" = "Sub", "hw.device" = "Network Audio", "hw.version" = "{capture:1}", "os.product" = "Linux" }
+
+[[match]]
+name = "Sonos PLAY/ZonePlayer wireless speaker"
+pattern = "(?i)^Linux UPnP/1.0 Sonos/([\\d\\.\\-a-z]+) \\(ZP(S?\\d+)\\)$"
+context = "http_header.server"
+example = "Linux UPnP/1.0 Sonos/39.2-47040c (ZPS1)"
+metadata = { "hw.vendor" = "Sonos", "hw.product" = "PLAY", "hw.device" = "Network Audio", "hw.version" = "{capture:1}", "hw.model" = "{capture:2}", "os.product" = "Linux" }
+
+[[match]]
+name = "Sonos Wireless Dock"
+pattern = "(?i)^Linux UPnP/1.0 Sonos/([\\d\\.\\-a-z]+) \\(WD(\\d+)\\)$"
+context = "http_header.server"
+example = "Linux UPnP/1.0 Sonos/36.4-41270 (WD100)"
+metadata = { "hw.vendor" = "Sonos", "hw.product" = "Wireless Dock", "hw.device" = "Network Audio", "hw.version" = "{capture:1}", "hw.model" = "{capture:2}", "os.product" = "Linux" }
+
+[[match]]
+name = "Varnish Cache"
+pattern = "^Varnish(?:[- ]Cache)?$"
+vendor = "Varnish Cache Project"
+product = "Varnish Cache"
+context = "http_header.server"
+example = "Varnish"
+metadata = { "service.family" = "Varnish", "service.cpe23" = "cpe:/a:varnish_cache_project:varnish_cache:-" }
+
+[[match]]
+name = "Tengine"
+pattern = "^Tengine\\/?([\\d.]+)?$"
+version_group = 1
+vendor = "Taobao"
+product = "Tengine"
+context = "http_header.server"
+example = "Tengine"
+metadata = { "service.family" = "Tengine" }
+
+[[match]]
+name = "MikroTik RouterOS - Proxy service"
+pattern = "^Mikrotik HttpProxy$"
+vendor = "MikroTik"
+product = "HttpProxy"
+context = "http_header.server"
+example = "Mikrotik HttpProxy"
+metadata = { "os.vendor" = "MikroTik", "os.device" = "Router", "os.product" = "RouterOS", "os.cpe23" = "cpe:/o:mikrotik:routeros:-", "hw.vendor" = "MikroTik", "hw.device" = "Router" }
+
+[[match]]
+name = "RealMedia Helix Server - Windows"
+pattern = "^Helix Server Version ([0-9.]*) \\(win32\\) \\(RealServer compatible\\)$"
+version_group = 1
+vendor = "RealMedia"
+product = "HTTP"
+context = "http_header.server"
+example = "Helix Server Version 9.0.4.960 (win32) (RealServer compatible)"
+metadata = { "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows", "os.cpe23" = "cpe:/o:microsoft:windows:-", "service.family" = "Helix Server" }
+
+[[match]]
+name = "RealMedia Helix Server - Linux"
+pattern = "^Helix Server Version ([0-9.]*) \\(linux-\\S+\\) \\(RealServer compatible\\)$"
+version_group = 1
+vendor = "RealMedia"
+product = "HTTP"
+context = "http_header.server"
+example = "Helix Server Version 9.0.4.960 (linux-2.2-libc6-i586-server) (RealServer compatible)"
+metadata = { "os.family" = "Linux", "os.product" = "Linux", "service.family" = "Helix Server" }
+
+[[match]]
+name = "Shenzhen ReeCam cameras"
+pattern = "^ReeCam IP Camera$"
+context = "http_header.server"
+example = "ReeCam IP Camera"
+metadata = { "hw.vendor" = "Shenzhen Reecam Tech. Ltd.", "hw.product" = "ReeCam", "hw.device" = "IP Camera" }
+
+[[match]]
+name = "Netwave cameras"
+pattern = "^Netwave IP Camera$"
+context = "http_header.server"
+example = "Netwave IP Camera"
+metadata = { "hw.vendor" = "Netwave", "hw.device" = "IP Camera" }
+
+[[match]]
+name = "Windows Media Services (older versions)"
+pattern = "^Cougar/([0-9.]*)$"
+version_group = 1
+vendor = "Microsoft"
+product = "HTTP"
+context = "http_header.server"
+example = "Cougar/9.01.01.3841"
+metadata = { "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows", "os.cpe23" = "cpe:/o:microsoft:windows:-", "service.family" = "Windows Media Services" }
+
+[[match]]
+name = "Windows Media Services (newer versions)"
+pattern = "^WMServer/([0-9.]*)$"
+version_group = 1
+vendor = "Microsoft"
+product = "HTTP"
+context = "http_header.server"
+example = "WMServer/9.1.1.3841"
+metadata = { "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows", "os.cpe23" = "cpe:/o:microsoft:windows:-", "service.family" = "Windows Media Services" }
+
+[[match]]
+name = "Generic Microsoft HTTP service"
+pattern = "^Microsoft-HTTPAPI/(?:[0-9\\.]*)$"
+context = "http_header.server"
+example = "Microsoft-HTTPAPI/2.0"
+metadata = { "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows", "os.cpe23" = "cpe:/o:microsoft:windows:-" }
+
+[[match]]
+name = "Generic IP Cameras"
+pattern = "(?i)^(?:(?:Cube|(?:Mini )?Dome|Day/Night|PAN/?Tilt|POE|IR|HD|H.264|Surveillance|With|Wired|Wireless(?: N)?|Network|Internet|(?:IP(?:[\\s_-])?)?Cameras?[\\s_]*\\d*) ?){1,5}?(?: Login)?$"
+context = "http_header.server"
+example = "camera"
+metadata = { "hw.device" = "IP Camera" }
+
+[[match]]
+name = "Something written in ASP.NET"
+pattern = "^ASP.NET$"
+context = "http_header.server"
+example = "ASP.NET"
+metadata = { "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows", "os.certainty" = "0.6", "os.cpe23" = "cpe:/o:microsoft:windows:-" }
+
+[[match]]
+name = "Xitami web server"
+pattern = "^[Xx]itami$"
+vendor = "Xitami"
+product = "HTTP"
+context = "http_header.server"
+example = "Xitami"
+metadata = { "service.family" = "Webserver" }
+
+[[match]]
+name = "Bosch VCS VIDOS-NVR network video recorder"
+pattern = "^VCS-VIDOS-NVR$"
+context = "http_header.server"
+example = "VCS-VIDOS-NVR"
+metadata = { "os.vendor" = "Bosch", "os.device" = "DVR", "os.product" = "VIDOS-NVR", "hw.vendor" = "Bosch", "hw.device" = "DVR" }
+
+[[match]]
+name = "FUHO Surveillance/DVR"
+pattern = "^FUHO-DVR$"
+context = "http_header.server"
+example = "FUHO-DVR"
+metadata = { "hw.vendor" = "FUHO", "hw.device" = "DVR" }
+
+[[match]]
+name = "HeiTel Digital Video Recorder"
+pattern = "^HeiTel GmbH Web Server \\[\\S+\\]$"
+context = "http_header.server"
+example = "HeiTel GmbH Web Server [V1.15/V1.14/V1.3]"
+metadata = { "os.vendor" = "HeiTel", "os.device" = "DVR", "hw.vendor" = "HeiTel", "hw.device" = "DVR" }
+
+[[match]]
+name = "mini_httpd"
+pattern = "^MiniServ/([0-9.]*)$"
+version_group = 1
+product = "HTTP"
+context = "http_header.server"
+example = "MiniServ/0.01"
+metadata = { "service.family" = "WebServer" }
+
+[[match]]
+name = "IBM HTTP server running on AS/400"
+pattern = "^IBM HTTP Server/(V\\d+R\\d+M\\d+)$"
+vendor = "IBM"
+product = "HTTP Server"
+context = "http_header.server"
+example = "IBM HTTP Server/V5R3M0"
+metadata = { "service.family" = "HTTP Server", "service.cpe23" = "cpe:/a:ibm:http_server:-", "os.certainty" = "0.9", "os.vendor" = "IBM", "os.family" = "OS/400", "os.product" = "OS/400", "os.version" = "{capture:1}", "os.cpe23" = "cpe:/o:ibm:os_400:{os.version}" }
+
+[[match]]
+name = "IBM HTTP Server"
+pattern = "^(?:IBM_HTTP_Server|IBM_HTTP_SERVER)/([\\w.-]+)\\s+Apache/([12][\\d.]+)\\s*(.*)$"
+version_group = 2
+vendor = "Apache"
+product = "HTTPD"
+context = "http_header.server"
+example = "IBM_HTTP_SERVER/1.3.19.2  Apache/1.3.20 (Win32)"
+metadata = { "service.family" = "Apache", "service.cpe23" = "cpe:/a:apache:http_server:{service.version}", "apache.info" = "{capture:3}", "apache.variant" = "IBM", "apache.variant.version" = "{capture:1}" }
+
+[[match]]
+name = "IBM HTTP Server with hardly useful version info"
+pattern = "(?i)^(?:IBM_HTTP_SERVER|IBM-HTTP-SERVER)/(\\S+)(?: \\(\\S+\\))?$"
+vendor = "Apache"
+product = "HTTPD"
+context = "http_header.server"
+example = "IBM-HTTP-Server/1.0"
+metadata = { "service.family" = "Apache", "service.cpe23" = "cpe:/a:apache:http_server:-", "apache.variant" = "IBM", "apache.variant.version" = "{capture:1}" }
+
+[[match]]
+name = "IBM HTTP Server with no version info"
+pattern = "(?i)^(?:IBM_HTTP_SERVER|IBM-HTTP-SERVER)$"
+vendor = "Apache"
+product = "HTTPD"
+context = "http_header.server"
+example = "IBM_HTTP_SERVER"
+metadata = { "service.family" = "Apache", "service.cpe23" = "cpe:/a:apache:http_server:-", "apache.variant" = "IBM" }
+
+[[match]]
+name = "Sun Java System Application Server (formerly iPlanet Application Server, Sun ONE Application Server)"
+pattern = "^Sun[ -]Java[ -]System[ /]Application[ -]Server(?:\\s+(\\d\\.[\\d_]+))?$"
+version_group = 1
+vendor = "Sun"
+product = "Java System Application Server"
+context = "http_header.server"
+example = "Sun Java System Application Server 9.1_02"
+metadata = { "service.family" = "Java System Application Server", "service.cpe23" = "cpe:/a:sun:java_system_application_server:{service.version}" }
+
+[[match]]
+name = "Sun Java System Application Server Platform Edition(formerly iPlanet Application Server, Sun ONE Application Server)"
+pattern = "^Sun[ -]Java[ -]System[ /]Application[ -]Server Platform Edition (\\d\\.[\\d_]+)?$"
+version_group = 1
+vendor = "Sun"
+product = "Java System Application Server Platform Edition"
+context = "http_header.server"
+example = "Sun Java System Application Server Platform Edition 9.0"
+metadata = { "service.family" = "Java System Application Server" }
+
+[[match]]
+name = "Glassfish with version information"
+pattern = "^Sun GlassFish Enterprise Server v(\\S+)$"
+version_group = 1
+vendor = "Oracle"
+product = "GlassFish Server"
+context = "http_header.server"
+example = "Sun GlassFish Enterprise Server v2.1"
+metadata = { "service.cpe23" = "cpe:/a:oracle:glassfish_server:{service.version}" }
+
+[[match]]
+name = "Glassfish Open Source Edition with version information"
+pattern = "^GlassFish Server Open Source Edition\\s+(\\S+)$"
+version_group = 1
+vendor = "Oracle"
+product = "GlassFish Server"
+context = "http_header.server"
+example = "GlassFish Server Open Source Edition  4.1.2"
+metadata = { "service.cpe23" = "cpe:/a:oracle:glassfish_server:{service.version}" }
+
+[[match]]
+name = "Oracle GlassFish Server"
+pattern = "^Oracle GlassFish Server ([\\d.]+)$"
+version_group = 1
+vendor = "Oracle"
+product = "GlassFish Server"
+context = "http_header.server"
+example = "Oracle GlassFish Server 3.1.2.14"
+metadata = { "service.cpe23" = "cpe:/a:oracle:glassfish_server:{service.version}" }
+
+[[match]]
+name = "Glassfish without version information"
+pattern = "^GlassFish$"
+vendor = "Sun"
+product = "GlassFish Server"
+context = "http_header.server"
+example = "GlassFish"
+
+[[match]]
+name = "Netscape Enterprise Server (subsequently iPlanet Web Server, Sun ONE Web Server, presently Sun Java System Web Server)"
+pattern = "^Netscape-Enterprise/(\\d+\\.[\\w\\s.]+)$"
+version_group = 1
+vendor = "Sun"
+product = "Java System Web Server"
+context = "http_header.server"
+example = "Netscape-Enterprise/3.5.1"
+metadata = { "service.family" = "Java System Web Server", "service.cpe23" = "cpe:/a:sun:java_system_web_server:{service.version}" }
+
+[[match]]
+name = "Sun Java System Web Server (formerly Netscape Enterprise Server, iPlanet Web Server and Sun ONE Web Server)"
+pattern = "^(?:Sun-Java-System-Web-Server|Sun-ONE-Web-Server)/(?:\\d\\.[\\d_]+)$"
+vendor = "Sun"
+product = "Java System Web Server"
+context = "http_header.server"
+example = "Sun-Java-System-Web-Server/7.0"
+metadata = { "service.family" = "Java System Web Server", "service.cpe23" = "cpe:/a:sun:java_system_web_server:-" }
+
+[[match]]
+name = "iPlanet WebProxy Server (subsequently Sun ONE WebProxy Server, presently Sun Java System Web Proxy Server)"
+pattern = "^iPlanet-Web-Proxy-Server/(.*)$"
+version_group = 1
+vendor = "Sun"
+product = "Java System Web Proxy Server"
+context = "http_header.server"
+example = "iPlanet-Web-Proxy-Server/3.6"
+metadata = { "service.family" = "Java System Web Proxy Server", "service.cpe23" = "cpe:/a:sun:java_system_web_proxy_server:{service.version}" }
+
+[[match]]
+name = "Sun ONE WebProxy Server (formerly iPlanet WebProxy Server, presently Sun Java System Web Proxy Server)"
+pattern = "^Sun-ONE-Web-Proxy-Server/(.*)$"
+version_group = 1
+vendor = "Sun"
+product = "Java System Web Proxy Server"
+context = "http_header.server"
+example = "Sun-ONE-Web-Proxy-Server/3.6-SP4"
+metadata = { "service.family" = "Java System Web Proxy Server", "service.cpe23" = "cpe:/a:sun:java_system_web_proxy_server:{service.version}" }
+
+[[match]]
+name = "Sun Java System Web Proxy Server (formerly iPlanet WebProxy Server, Sun ONE WebProxy Server)"
+pattern = "^Sun-Java-System-Web-Proxy-Server/(\\d\\.[\\d.]+)$"
+version_group = 1
+vendor = "Sun"
+product = "Java System Web Proxy Server"
+context = "http_header.server"
+example = "Sun-Java-System-Web-Proxy-Server/4.0.2"
+metadata = { "service.family" = "Java System Web Proxy Server", "service.cpe23" = "cpe:/a:sun:java_system_web_proxy_server:{service.version}" }
+
+[[match]]
+name = "Sun Integrated Lights Out Manager (ILOM) usually bundled with Sun Fire servers"
+pattern = "^Sun-ILOM-Web-Server/(?:\\d\\.[\\d._]+)$"
+vendor = "Sun"
+product = "Integrated Lights Out Manager"
+context = "http_header.server"
+example = "Sun-ILOM-Web-Server/1.0"
+metadata = { "service.family" = "Integrated Lights Out Manager", "hw.vendor" = "Sun", "hw.family" = "Sun Fire" }
+
+[[match]]
+name = "HP Integrated Lights Out Manager (iLO).  Version in the Server header (found on in iLO4) is the firmware version and is not currently used."
+pattern = "^HP-iLO-Server/(?:[\\S]+)"
+vendor = "HP"
+product = "iLO"
+context = "http_header.server"
+example = "HP-iLO-Server/1.30"
+metadata = { "service.family" = "iLO", "hw.vendor" = "HP", "hw.device" = "Lights Out Management", "os.vendor" = "HP", "os.product" = "iLO", "os.family" = "iLO", "os.device" = "Lights Out Management", "os.cpe23" = "cpe:/o:hp:integrated_lights-out_firmware:-" }
+
+[[match]]
+name = "Mort Bay Jetty with info"
+pattern = "^Jetty\\/([1-6]\\.[\\w.]+)(?: \\(([^)]*))?"
+version_group = 1
+vendor = "Mort Bay"
+product = "Jetty"
+context = "http_header.server"
+example = "Jetty/4.0.1 (SunOS 5.8 sparc)"
+metadata = { "service.family" = "Jetty", "service.cpe23" = "cpe:/a:mortbay:jetty:{service.version}", "jetty.info" = "{capture:2}" }
+
+[[match]]
+name = "Mort Bay Jetty"
+pattern = "^Jetty\\(([1-6]\\S+)\\)$"
+version_group = 1
+vendor = "Mort Bay"
+product = "Jetty"
+context = "http_header.server"
+example = "Jetty(1.4.5)"
+metadata = { "service.family" = "Jetty", "service.cpe23" = "cpe:/a:mortbay:jetty:{service.version}" }
+
+[[match]]
+name = "Eclipse Jetty"
+pattern = "^Jetty\\((\\S+)\\)$"
+version_group = 1
+vendor = "Eclipse"
+product = "Jetty"
+context = "http_header.server"
+example = "Jetty(7.6.9.v20130131)"
+metadata = { "service.family" = "Jetty", "service.cpe23" = "cpe:/a:eclipse:jetty:{service.version}" }
+
+[[match]]
+name = "Squid Web Proxy with a version"
+pattern = "(?i)^squid/(\\d+\\.[\\w.\\-\\+]+)$"
+version_group = 1
+vendor = "Squid Cache"
+product = "Squid"
+context = "http_header.server"
+example = "Squid/2.3.STABLE1"
+metadata = { "service.family" = "Squid", "service.cpe23" = "cpe:/a:squid-cache:squid:{service.version}" }
+
+[[match]]
+name = "Squid Web Proxy without a version"
+pattern = "(?i)^squid$"
+vendor = "Squid Cache"
+product = "Squid"
+context = "http_header.server"
+example = "Squid"
+metadata = { "service.family" = "Squid", "service.cpe23" = "cpe:/a:squid-cache:squid:-" }
+
+[[match]]
+name = "ACME thttpd with SSL support"
+pattern = "^thttpd/(\\d\\.[\\w.]+)-MX\\s*"
+version_group = 1
+vendor = "ACME"
+product = "thttpd"
+context = "http_header.server"
+example = "thttpd/2.19-MX Jan 24 2006"
+metadata = { "service.family" = "thttpd", "service.cpe23" = "cpe:/a:acme:thttpd:{service.version}", "thttpd.mx-patch" = "enabled" }
+
+[[match]]
+name = "ACME thttpd"
+pattern = "^thttpd(?:/(\\d\\.[\\w.]+)\\s*.*)?$"
+version_group = 1
+vendor = "ACME"
+product = "thttpd"
+context = "http_header.server"
+example = "thttpd"
+metadata = { "service.family" = "thttpd", "service.cpe23" = "cpe:/a:acme:thttpd:{service.version}" }
+
+[[match]]
+name = "Lighttpd"
+pattern = "(?i)^lighttpd(?:/(\\d[\\d.]+))?"
+version_group = 1
+vendor = "lighttpd"
+product = "lighttpd"
+context = "http_header.server"
+example = "lighttpd"
+metadata = { "service.family" = "lighttpd", "service.cpe23" = "cpe:/a:lighttpd:lighttpd:{service.version}" }
+
+[[match]]
+name = "nginx without version info"
+pattern = "^nginx$"
+vendor = "nginx"
+product = "nginx"
+context = "http_header.server"
+example = "nginx"
+metadata = { "service.family" = "nginx", "service.cpe23" = "cpe:/a:f5:nginx:-" }
+
+[[match]]
+name = "nginx with version info and/or mods"
+pattern = "^nginx\\/?([\\d.]+)?"
+version_group = 1
+vendor = "nginx"
+product = "nginx"
+context = "http_header.server"
+example = "nginx/0.8.53 + Phusion Passenger 3.0.0 (mod_rails/mod_rack)"
+metadata = { "service.family" = "nginx", "service.cpe23" = "cpe:/a:f5:nginx:{service.version}" }
+
+[[match]]
+name = "TeamSpeak HTTP server"
+pattern = "^TeamSpeak Server ([\\d.]+)$"
+version_group = 1
+vendor = "TeamSpeak"
+product = "TeamSpeak"
+context = "http_header.server"
+example = "TeamSpeak Server 3.13.6"
+metadata = { "service.cpe23" = "cpe:/a:teamspeak:teamspeak:{service.version}" }
+
+[[match]]
+name = "WebSocket++ web server - https://github.com/zaphoyd/websocketpp"
+pattern = "^WebSocket\\+\\+/([\\d.-]+(?:-dev)?)$"
+version_group = 1
+vendor = "Zaphoyd Studios"
+product = "WebSocket++"
+context = "http_header.server"
+example = "WebSocket++/0.8.1"
+metadata = { "service.cpe23" = "cpe:/a:zaphoyd:websocketpp:{service.version}" }
+
+[[match]]
+name = "IBM Lotus Notes/Domino with no useful version info"
+pattern = "^Lotus(?:-Domino)?(?:/|/0|/Release)?$"
+vendor = "IBM"
+product = "Lotus Domino"
+context = "http_header.server"
+example = "Lotus"
+metadata = { "service.family" = "Lotus Domino", "service.cpe23" = "cpe:/a:ibm:lotus_domino:-" }
+
+[[match]]
+name = "IBM Lotus Notes/Domino with version info"
+pattern = "^Lotus(?:-Domino)?/(?:Release-?)?([4-7][\\d.]+)\\s*(?:.*)$"
+version_group = 1
+vendor = "IBM"
+product = "Lotus Domino"
+context = "http_header.server"
+example = "Lotus-Domino/5.0.8"
+metadata = { "service.family" = "Lotus Domino", "service.cpe23" = "cpe:/a:ibm:lotus_domino:{service.version}" }
+
+[[match]]
+name = "BEA WebLogic"
+pattern = "^WebLogic (?:WebLogic )?Server (\\d+\\.\\d+(?:\\s+SP\\d+)?)\\s+"
+version_group = 1
+vendor = "BEA"
+product = "WebLogic"
+context = "http_header.server"
+example = "WebLogic Server 8.1 SP3 Tue Jun 29 23:11:19 PDT 2004 404973"
+metadata = { "service.family" = "WebLogic", "service.cpe23" = "cpe:/a:bea:weblogic_server:{service.version}" }
+
+[[match]]
+name = "IBM WebSphere"
+pattern = "^WebSphere Application Server/(\\d+\\.\\d+)$"
+version_group = 1
+vendor = "IBM"
+product = "WebSphere"
+context = "http_header.server"
+example = "WebSphere Application Server/5.0"
+metadata = { "service.family" = "WebSphere", "service.cpe23" = "cpe:/a:ibm:websphere:{service.version}" }
+
+[[match]]
+name = "Caucho Resin"
+pattern = "^Resin/(\\S+)$"
+version_group = 1
+vendor = "Caucho"
+product = "Resin"
+context = "http_header.server"
+example = "Resin/2.1.13"
+metadata = { "service.family" = "Resin", "service.cpe23" = "cpe:/a:caucho:resin:{service.version}" }
+
+[[match]]
+name = "Ipswitch IMail Server"
+pattern = "^Ipswitch-IMail/(\\d\\.\\d+)$"
+version_group = 1
+vendor = "Ipswitch"
+product = "IMail Server"
+context = "http_header.server"
+example = "Ipswitch-IMail/5.08"
+metadata = { "service.family" = "IMail Server", "service.cpe23" = "cpe:/a:ipswitch:imail_server:{service.version}", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows", "os.cpe23" = "cpe:/o:microsoft:windows:-" }
+
+[[match]]
+name = "Aprelium Technologies Abyss Web Server X1 (free personal edition) on Windows"
+pattern = "^Abyss/(\\d\\.[\\d.]+)-X1-Win32 AbyssLib/(?:\\d\\.[\\d.]+)$"
+version_group = 1
+vendor = "Aprelium Technologies"
+product = "Abyss Web Server X1"
+context = "http_header.server"
+example = "Abyss/2.0.0.20-X1-Win32 AbyssLib/2.0.0.20"
+metadata = { "service.family" = "Abyss Web Server", "service.cpe23" = "cpe:/a:aprelium:abyss_web_server_x1:{service.version}", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows", "os.cpe23" = "cpe:/o:microsoft:windows:-" }
+
+[[match]]
+name = "Aprelium Technologies Abyss Web Server X1 (free personal edition) on Linux"
+pattern = "^Abyss/(\\d\\.[\\d.]+)-X1-Linux AbyssLib/(?:\\d\\.[\\d.]+)$"
+version_group = 1
+vendor = "Aprelium Technologies"
+product = "Abyss Web Server X1"
+context = "http_header.server"
+example = "Abyss/2.14-X1-Linux AbyssLib/2.14"
+metadata = { "service.family" = "Abyss Web Server", "service.cpe23" = "cpe:/a:aprelium:abyss_web_server_x1:{service.version}", "os.family" = "Linux", "os.product" = "Linux" }
+
+[[match]]
+name = "Aprelium Technologies Abyss Web Server X1 (free personal edition) on macOS"
+pattern = "^Abyss/(\\d\\.[\\d.]+)-X1-[mM]acOS (?:X )?AbyssLib/(?:\\d\\.[\\d.]+)$"
+version_group = 1
+vendor = "Aprelium Technologies"
+product = "Abyss Web Server X1"
+context = "http_header.server"
+example = "Abyss/2.12.1-X1-MacOS X AbyssLib/2.12"
+metadata = { "service.family" = "Abyss Web Server", "service.cpe23" = "cpe:/a:aprelium:abyss_web_server_x1:{service.version}", "os.vendor" = "Apple", "os.family" = "Mac OS X", "os.product" = "Mac OS X", "os.cpe23" = "cpe:/o:apple:mac_os_x:-" }
+
+[[match]]
+name = "Aprelium Technologies Abyss Web Server X2 (licensed professional edition) on Windows"
+pattern = "^Abyss/(\\d\\.[\\d.]+)-X2-Win32 AbyssLib/(?:\\d\\.[\\d.]+)$"
+version_group = 1
+vendor = "Aprelium Technologies"
+product = "Abyss Web Server X2"
+context = "http_header.server"
+example = "Abyss/2.14.2-X2-Win32 AbyssLib/2.14"
+metadata = { "service.family" = "Abyss Web Server", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows", "os.cpe23" = "cpe:/o:microsoft:windows:-" }
+
+[[match]]
+name = "Aprelium Technologies Abyss Web Server X2 (licensed professional edition) on Linux"
+pattern = "^Abyss/(\\d\\.[\\d.]+)-X2-Linux AbyssLib/(?:\\d\\.[\\d.]+)$"
+version_group = 1
+vendor = "Aprelium Technologies"
+product = "Abyss Web Server X2"
+context = "http_header.server"
+example = "Abyss/2.14.2-X2-Linux AbyssLib/2.14"
+metadata = { "service.family" = "Abyss Web Server", "os.family" = "Linux", "os.product" = "Linux" }
+
+[[match]]
+name = "Aprelium Technologies Abyss Web Server X2 (licensed professional edition) on macOS"
+pattern = "^Abyss/(\\d\\.[\\d.]+)-X2-macOS AbyssLib/(?:\\d\\.[\\d.]+)$"
+version_group = 1
+vendor = "Aprelium Technologies"
+product = "Abyss Web Server X2"
+context = "http_header.server"
+example = "Abyss/2.14.2-X2-macOS AbyssLib/2.14"
+metadata = { "service.family" = "Abyss Web Server", "os.vendor" = "Apple", "os.family" = "Mac OS X", "os.product" = "Mac OS X", "os.cpe23" = "cpe:/o:apple:mac_os_x:-" }
+
+[[match]]
+name = "Microsoft Commerce Server"
+pattern = "^Microsoft (Commerce Server\\s*(?:2002|2007)?, (?:Enterprise|Standard|Evaluation|Developer) Edition)$"
+vendor = "Microsoft"
+context = "http_header.server"
+metadata = { "service.product" = "{capture:1}", "service.family" = "Commerce Server", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows", "os.cpe23" = "cpe:/o:microsoft:windows:-" }
+
+[[match]]
+name = "NetWare Enterprise Web Server (runs on NetWare 5.1)"
+pattern = "^NetWare-Enterprise-Web-Server/(\\d+\\.\\d+)$"
+version_group = 1
+vendor = "Novell"
+product = "NetWare Enterprise Web Server"
+context = "http_header.server"
+example = "NetWare-Enterprise-Web-Server/5.1"
+metadata = { "service.family" = "NetWare Enterprise Web Server", "service.cpe23" = "cpe:/a:novell:netware_enterprise_web_server:{service.version}", "os.certainty" = "0.9", "os.vendor" = "Novell", "os.family" = "NetWare", "os.product" = "NetWare", "os.version" = "{capture:1}", "os.cpe23" = "cpe:/o:novell:netware:{os.version}" }
+
+[[match]]
+name = "NetWare HTTP stack (runs on 6.0 and 6.5)"
+pattern = "^NetWare HTTP Stack$"
+vendor = "Novell"
+product = "NetWare HTTP Stack"
+context = "http_header.server"
+metadata = { "service.family" = "NetWare HTTP Stack", "os.vendor" = "Novell", "os.family" = "NetWare", "os.product" = "NetWare", "os.cpe23" = "cpe:/o:novell:netware:-" }
+
+[[match]]
+name = "NetWare HTTP Server (runs on NetWare 4.11)"
+pattern = "^Novell-HTTP-Server/3.1R1$"
+vendor = "Novell"
+product = "NetWare HTTP Server"
+context = "http_header.server"
+metadata = { "service.family" = "NetWare HTTP Server", "service.version" = "3.1R1", "os.certainty" = "0.9", "os.vendor" = "Novell", "os.family" = "NetWare", "os.product" = "NetWare", "os.version" = "4.11", "os.cpe23" = "cpe:/o:novell:netware:4.11" }
+
+[[match]]
+name = "NetWare HTTP Server (runs on NetWare 4.1)"
+pattern = "^Novell-HTTP-Server/2.51R1$"
+vendor = "Novell"
+product = "NetWare HTTP Server"
+context = "http_header.server"
+metadata = { "service.family" = "NetWare HTTP Server", "service.version" = "2.51R1", "os.certainty" = "0.9", "os.vendor" = "Novell", "os.family" = "NetWare", "os.product" = "NetWare", "os.version" = "4.1", "os.cpe23" = "cpe:/o:novell:netware:4.1" }
+
+[[match]]
+name = "Netscape FastTrack Server"
+pattern = "^Netscape-FastTrack/(\\d+\\.[\\w\\s.]+)$"
+version_group = 1
+vendor = "Netscape"
+product = "FastTrack Server"
+context = "http_header.server"
+metadata = { "service.family" = "FastTrack Server", "service.cpe23" = "cpe:/a:netscape:fasttrack_server:{service.version}" }
+
+[[match]]
+name = "Netscape Commerce Server"
+pattern = "^Netscape-Commerce/(\\d+\\.[\\w\\s.]+)$"
+version_group = 1
+vendor = "Netscape"
+product = "Commerce Server"
+context = "http_header.server"
+metadata = { "service.family" = "Commerce Server", "service.cpe23" = "cpe:/a:netscape:commerce_server:{service.version}" }
+
+[[match]]
+name = "SAP NetWeaver Application Server Java - short version"
+pattern = "^SAP J2EE Engine/(\\d+\\.\\d+)$"
+version_group = 1
+vendor = "SAP"
+product = "NetWeaver Application Server Java"
+context = "http_header.server"
+example = "SAP J2EE Engine/7.01"
+metadata = { "service.family" = "NetWeaver", "service.cpe23" = "cpe:/a:sap:netweaver_application_server_java:{service.version}", "service.component.vendor" = "SAP", "service.component.product" = "NetWeaver Application Server", "service.component.cpe23" = "cpe:/a:sap:netweaver_application_server:-" }
+
+[[match]]
+name = "SAP NetWeaver Application Server Java - without version"
+pattern = "^SAP J2EE Engine$"
+vendor = "SAP"
+product = "NetWeaver Application Server Java"
+context = "http_header.server"
+example = "SAP J2EE Engine"
+metadata = { "service.family" = "NetWeaver", "service.cpe23" = "cpe:/a:sap:netweaver_application_server_java:-", "service.component.vendor" = "SAP", "service.component.product" = "NetWeaver Application Server", "service.component.cpe23" = "cpe:/a:sap:netweaver_application_server:-" }
+
+[[match]]
+name = "SAP NetWeaver Application Server without version"
+pattern = "^SAP NetWeaver Application Server$"
+vendor = "SAP"
+product = "NetWeaver Application Server"
+context = "http_header.server"
+example = "SAP NetWeaver Application Server"
+metadata = { "service.family" = "NetWeaver", "service.cpe23" = "cpe:/a:sap:netweaver_application_server:-" }
+
+[[match]]
+name = "SAP NetWeaver Application Server Java"
+pattern = "^SAP NetWeaver Application Server ([\\d.]+) / AS Java ([\\d.]+)$"
+version_group = 2
+vendor = "SAP"
+product = "NetWeaver Application Server Java"
+context = "http_header.server"
+example = "SAP NetWeaver Application Server 7.22 / AS Java 7.30"
+metadata = { "service.family" = "NetWeaver", "service.cpe23" = "cpe:/a:sap:netweaver_application_server_java:{service.version}", "service.component.vendor" = "SAP", "service.component.product" = "NetWeaver Application Server", "service.component.version" = "{capture:1}", "service.component.cpe23" = "cpe:/a:sap:netweaver_application_server:{service.component.version}" }
+
+[[match]]
+name = "SAP NetWeaver Application Server - Internet Communication Manager"
+pattern = "^SAP NetWeaver Application Server ([\\d.]+) / ICM ([\\d.]+)$"
+version_group = 2
+vendor = "SAP"
+product = "NetWeaver Internet Communication Manager"
+context = "http_header.server"
+example = "SAP NetWeaver Application Server 7.21 / ICM 7.21"
+metadata = { "service.family" = "NetWeaver", "service.component.vendor" = "SAP", "service.component.product" = "NetWeaver Application Server", "service.component.version" = "{capture:1}", "service.component.cpe23" = "cpe:/a:sap:netweaver_application_server:{service.component.version}" }
+
+[[match]]
+name = "SAP NetWeaver Application Server - Internet Communication Manager without version"
+pattern = "^SAP NetWeaver Application Server \\(ICM\\)$"
+vendor = "SAP"
+product = "NetWeaver Internet Communication Manager"
+context = "http_header.server"
+example = "SAP NetWeaver Application Server (ICM)"
+metadata = { "service.family" = "NetWeaver", "service.component.vendor" = "SAP", "service.component.product" = "NetWeaver Application Server", "service.component.cpe23" = "cpe:/a:sap:netweaver_application_server:-" }
+
+[[match]]
+name = "SAP NetWeaver Application Server - Advanced Business Application Programming"
+pattern = "^SAP NetWeaver Application Server / ABAP ([\\d.]+)$"
+version_group = 1
+vendor = "SAP"
+product = "NetWeaver Application Server ABAP"
+context = "http_header.server"
+example = "SAP NetWeaver Application Server / ABAP 731"
+metadata = { "service.family" = "NetWeaver", "service.cpe23" = "cpe:/a:sap:netweaver_application_server_abap:{service.version}", "service.component.vendor" = "SAP", "service.component.product" = "NetWeaver Application Server", "service.component.cpe23" = "cpe:/a:sap:netweaver_application_server:-" }
+
+[[match]]
+name = "SAP Internet Graphics Server"
+pattern = "^SAP Internet Graphics Server$"
+vendor = "SAP"
+product = "Internet Graphics Server"
+context = "http_header.server"
+example = "SAP Internet Graphics Server"
+metadata = { "service.cpe23" = "cpe:/a:sap:internet_graphics_server:-", "service.component.vendor" = "SAP", "service.component.product" = "NetWeaver Application Server", "service.component.cpe23" = "cpe:/a:sap:netweaver_application_server:-" }
+
+[[match]]
+name = "SAP Message Server"
+pattern = "^SAP Message Server, release ([\\d.]+) \\(LNK\\)$"
+version_group = 1
+vendor = "SAP"
+product = "SAP Message Server"
+context = "http_header.server"
+example = "SAP Message Server, release 753 (LNK)"
+
+[[match]]
+name = "SAP SQLAnywhere"
+pattern = "^SQLAnywhere/([\\d.]+)$"
+version_group = 1
+vendor = "SAP"
+product = "SQL Anywhere"
+context = "http_header.server"
+example = "SQLAnywhere/16.0.0.2207"
+metadata = { "service.cpe23" = "cpe:/a:sap:sql_anywhere:{service.version}" }
+
+[[match]]
+name = "OpenVPN Access Server"
+pattern = "^OpenVPN-AS$"
+vendor = "OpenVPN"
+product = "OpenVPN Access Server"
+context = "http_header.server"
+example = "OpenVPN-AS"
+metadata = { "service.cpe23" = "cpe:/a:openvpn:openvpn_access_server:-", "hw.device" = "VPN" }
+
+[[match]]
+name = "SonicWALL SSL-VPN device"
+pattern = "^SonicWALL SSL-?VPN Web Server$"
+vendor = "SonicWall"
+product = "SSL-VPN"
+context = "http_header.server"
+example = "SonicWALL SSLVPN Web Server"
+metadata = { "service.family" = "SSL-VPN", "os.vendor" = "SonicWall", "os.device" = "VPN", "os.family" = "SonicOS", "os.product" = "SonicOS", "os.cpe23" = "cpe:/o:sonicwall:sonicos:-", "hw.vendor" = "SonicWall", "hw.device" = "VPN" }
+
+[[match]]
+name = "SonicWALL device"
+pattern = "^SonicWALL$"
+vendor = "SonicWall"
+product = "HTTP"
+context = "http_header.server"
+example = "SonicWALL"
+metadata = { "os.vendor" = "SonicWall", "os.device" = "VPN", "os.family" = "SSL-VPN", "os.product" = "SonicOS", "os.cpe23" = "cpe:/o:sonicwall:sonicos:-", "hw.vendor" = "SonicWall", "hw.device" = "VPN" }
+
+[[match]]
+name = "NetCache appliance (product line formerly owned by Network Appliances, now owned by Blue Coat Systems)."
+pattern = "^NetCache appliance \\(NetApp/+(\\d+\\.\\d+[\\w.]+)\\)$"
+version_group = 1
+vendor = "Blue Coat"
+product = "NetCache"
+context = "http_header.server"
+example = "NetCache appliance (NetApp/5.3.1R3)"
+metadata = { "service.family" = "NetCache", "os.vendor" = "Blue Coat", "os.device" = "Web Proxy", "os.family" = "NetCache", "os.product" = "NetCache" }
+
+[[match]]
+name = "NetApp file servers"
+pattern = "^NetApp/+(.*)$"
+context = "http_header.server"
+example = "NetApp/7.3.4P1"
+metadata = { "os.certainty" = "0.9", "os.vendor" = "NetApp", "os.family" = "Data ONTAP", "os.product" = "Data ONTAP", "os.version" = "{capture:1}", "os.device" = "NAS", "os.cpe23" = "cpe:/o:netapp:data_ontap:{os.version}", "hw.vendor" = "NetApp", "hw.family" = "Data ONTAP", "hw.device" = "NAS", "hw.product" = "Data ONTAP" }
+
+[[match]]
+name = "Blue Coat security appliance"
+pattern = "^BlueCoat-Security-Appliance$"
+context = "http_header.server"
+example = "BlueCoat-Security-Appliance"
+metadata = { "os.vendor" = "Blue Coat", "os.device" = "Web Proxy", "os.family" = "Blue Coat", "os.product" = "Appliance" }
+
+[[match]]
+name = "F5 BIG-IP"
+pattern = "^(?:BigIP|BIG-IP)$"
+vendor = "F5"
+product = "BIG-IP LTM"
+context = "http_header.server"
+metadata = { "service.family" = "BIG-IP", "service.cpe23" = "cpe:/a:f5:big-ip_local_traffic_manager:-", "os.family" = "Linux", "os.product" = "Linux" }
+
+[[match]]
+name = "Mercury Security TargetOS"
+pattern = "^TargetWeb/[\\d\\.]+ \\(TargetOS\\)$"
+context = "http_header.server"
+example = "TargetWeb/2011.0 (TargetOS)"
+metadata = { "hw.vendor" = "Mercury Security", "hw.device" = "Access Control", "hw.product" = "EP-series" }
+
+[[match]]
+name = "Foundry Networks device (though not sure which)"
+pattern = "^Foundry Networks(?:/(\\d+\\.\\d+))?$"
+version_group = 1
+vendor = "Foundry"
+product = "HTTP"
+context = "http_header.server"
+metadata = { "os.vendor" = "Foundry" }
+
+[[match]]
+name = "HP Printer running the Chai embedded web server"
+pattern = "^HP-Chai(?:Server|SOE)/(\\d+\\.\\d+)$"
+version_group = 1
+vendor = "HP"
+product = "JetDirect"
+context = "http_header.server"
+example = "HP-ChaiServer/2.2"
+metadata = { "service.family" = "JetDirect", "os.vendor" = "HP", "os.device" = "Printer", "os.family" = "JetDirect", "os.product" = "JetDirect", "hw.vendor" = "HP", "hw.family" = "JetDirect", "hw.product" = "JetDirect", "hw.device" = "Printer" }
+
+[[match]]
+name = "HP Printer"
+pattern = "^HP HTTP Server; (?:Hewlett-Packard )?HP ((\\S+) \\S+)[^;]+; Serial Number: ([^;]+);"
+vendor = "HP"
+product = "JetDirect"
+context = "http_header.server"
+example = "HP HTTP Server; HP Photosmart C309a series - CC335A; Serial Number: abc123; Vader Built:Wed Apr 15, 2009 11:40:58AM {abc123, ASIC id 0x00280004}"
+metadata = { "service.family" = "JetDirect", "os.vendor" = "HP", "os.device" = "Printer", "os.family" = "{capture:2}", "os.product" = "{capture:1}", "hw.vendor" = "HP", "hw.family" = "JetDirect", "hw.product" = "JetDirect", "hw.device" = "Printer", "hw.serial_number" = "{capture:3}" }
+
+[[match]]
+name = "Old HP printers identify themselves as \"HTTP/1.0\""
+pattern = "^HTTP/1\\.0$"
+vendor = "HP"
+product = "JetDirect"
+context = "http_header.server"
+metadata = { "service.family" = "JetDirect", "os.vendor" = "HP", "os.device" = "Printer", "os.family" = "JetDirect", "os.product" = "JetDirect", "hw.vendor" = "HP", "hw.family" = "JetDirect", "hw.product" = "JetDirect", "hw.device" = "Printer" }
+
+[[match]]
+name = "Embedded HTTP server used by many vendors and device\n      types, including APC, 3Com, Andover Controls, Cisco VoIP, D-Link,\n      Extreme Networks, Foundry Networks, Konica Minolta, Kronos\n      Timekeeper, McDATA, Netopia, Nortel Networks, Power Measurement Ltd,\n      and Xerox."
+pattern = "^(?:Allegro-Software-)?RomPager(?:-Digi)?/\\s*(\\S+)"
+version_group = 1
+vendor = "Allegro Software"
+product = "RomPager"
+context = "http_header.server"
+example = "Allegro-Software-RomPager/4.01"
+
+[[match]]
+name = "Yamaha RT series routers"
+pattern = "^YAMAHA-RT$"
+vendor = "Yamaha"
+product = "RT"
+context = "http_header.server"
+metadata = { "service.family" = "RT", "os.vendor" = "Yamaha", "os.device" = "Router", "os.family" = "RT", "os.product" = "RT", "hw.vendor" = "Yamaha", "hw.device" = "Router" }
+
+[[match]]
+name = "Canon Multifunction Printer/Copiers"
+pattern = "^(?:Canon Http|CANON HTTP) Server (?:Ver)?(?:\\d+\\.\\d+)$"
+vendor = "Canon"
+product = "HTTP"
+context = "http_header.server"
+metadata = { "os.vendor" = "Canon", "hw.vendor" = "Canon", "hw.device" = "Multifunction Device" }
+
+[[match]]
+name = "Linksys Wireless Access Point"
+pattern = "Linksys"
+context = "http_header.server"
+metadata = { "os.vendor" = "Linksys", "os.device" = "WAP", "hw.vendor" = "Linksys", "hw.device" = "WAP" }
+
+[[match]]
+name = "Cisco IOS"
+pattern = "^cisco-IOS$"
+vendor = "Cisco"
+product = "IOS"
+context = "http_header.server"
+example = "cisco-IOS"
+metadata = { "service.family" = "IOS", "os.vendor" = "Cisco", "os.family" = "IOS", "os.product" = "IOS", "os.certainty" = "0.8", "os.cpe23" = "cpe:/o:cisco:ios:-", "hw.vendor" = "Cisco" }
+
+[[match]]
+name = "Cisco IOS with version information"
+pattern = "^cisco-IOS/([^\\s]+) HTTP-server/"
+vendor = "Cisco"
+product = "IOS"
+context = "http_header.server"
+example = "cisco-IOS/12.1 HTTP-server/1.0(1)"
+metadata = { "service.family" = "IOS", "os.vendor" = "Cisco", "os.family" = "IOS", "os.product" = "IOS", "os.version" = "{capture:1}", "os.cpe23" = "cpe:/o:cisco:ios:{os.version}", "hw.vendor" = "Cisco" }
+
+[[match]]
+name = "Cisco ASA"
+pattern = "^Cisco AWARE (.*)$"
+version_group = 1
+vendor = "Cisco"
+product = "HTTP"
+context = "http_header.server"
+example = "Cisco AWARE 2.0"
+metadata = { "os.vendor" = "Cisco", "os.family" = "Adaptive Security Appliance", "os.product" = "Adaptive Security Appliance", "hw.vendor" = "Cisco", "hw.family" = "Adaptive Security Appliance", "hw.product" = "Adaptive Security Appliance", "hw.device" = "Firewall", "hw.cpe23" = "cpe:/h:cisco:adaptive_security_appliance:-" }
+
+[[match]]
+name = "Cisco Expressway-E (Edge)"
+pattern = "^CE_E$"
+vendor = "Cisco"
+product = "Expressway"
+context = "http_header.server"
+example = "CE_E"
+metadata = { "service.cpe23" = "cpe:/a:cisco:expressway:-", "hw.vendor" = "Cisco", "hw.device" = "VoIP" }
+
+[[match]]
+name = "Cisco Expressway-C (Core)"
+pattern = "^CE_C$"
+vendor = "Cisco"
+product = "Expressway"
+context = "http_header.server"
+example = "CE_C"
+metadata = { "service.cpe23" = "cpe:/a:cisco:expressway:-", "hw.vendor" = "Cisco", "hw.device" = "VoIP" }
+
+[[match]]
+name = "Cradlepoint HTTP service"
+pattern = "^CradlepointHTTPService/([\\d\\.]+)$"
+version_group = 1
+vendor = "Cradlepoint"
+product = "HTTP"
+context = "http_header.server"
+example = "CradlepointHTTPService/1.0.0"
+
+[[match]]
+name = "ScriptLogic DesktopAuthority"
+pattern = "^DesktopAuthority/(.*)$"
+version_group = 1
+vendor = "ScriptLogic"
+product = "Desktop Authority"
+context = "http_header.server"
+metadata = { "service.family" = "Desktop Authority", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows", "os.cpe23" = "cpe:/o:microsoft:windows:-" }
+
+[[match]]
+name = "McAfee ePolicy Orchestrator"
+pattern = "^Agent-ListenServer-HttpSvr/"
+vendor = "McAfee"
+product = "ePolicy Orchestrator"
+context = "http_header.server"
+metadata = { "service.family" = "ePolicy Orchestrator", "service.cpe23" = "cpe:/a:mcafee:epolicy_orchestrator:-" }
+
+[[match]]
+name = "LANDesk Management Agent"
+pattern = "^LANDesk Management Agent/"
+vendor = "LANDesk"
+product = "Management Agent"
+context = "http_header.server"
+metadata = { "service.family" = "Management Agent" }
+
+[[match]]
+name = "Xerox Embedded Web Server (EWS)"
+pattern = "^EWS-NIC\\d/(\\S+)$"
+version_group = 1
+vendor = "Xerox"
+product = "EWS"
+context = "http_header.server"
+example = "EWS-NIC3/6.31"
+metadata = { "service.family" = "EWS", "os.vendor" = "Xerox", "os.device" = "Printer", "hw.vendor" = "Xerox", "hw.device" = "Printer" }
+
+[[match]]
+name = "Adaptec - Adaptec Storage Manager (runs on Windows Only)"
+pattern = "^Adaptec ASM (\\S+)$"
+version_group = 1
+vendor = "Adaptec"
+product = "ASM"
+context = "http_header.server"
+metadata = { "service.family" = "ASM", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows", "os.cpe23" = "cpe:/o:microsoft:windows:-" }
+
+[[match]]
+name = "Macromedia (formerly Allaire) JRun"
+pattern = "^JRun Web Server$"
+vendor = "Macromedia"
+product = "JRun"
+context = "http_header.server"
+metadata = { "service.family" = "JRun", "service.cpe23" = "cpe:/a:macromedia:jrun:-" }
+
+[[match]]
+name = "Symantec Raptor Firewall"
+pattern = "^(?:Raptor )?Simple, Secure Web Server ([\\d.]+)$"
+context = "http_header.server"
+example = "Simple, Secure Web Server 1.1"
+metadata = { "os.vendor" = "Symantec", "os.family" = "Raptor", "os.device" = "Firewall", "os.product" = "Raptor", "os.version" = "{capture:1}" }
+
+[[match]]
+name = "Systech Internet Payment Gateway"
+pattern = "^IPG(\\d+)$"
+context = "http_header.server"
+example = "IPG8000"
+metadata = { "hw.vendor" = "Systech", "hw.device" = "Telecom", "hw.product" = "Internet Payment Gateway", "hw.model" = "{capture:1}" }
+
+[[match]]
+name = "Citrix NetScaler"
+pattern = "^NS_(\\d\\.\\d)$"
+version_group = 1
+vendor = "Citrix"
+product = "NetScaler"
+context = "http_header.server"
+example = "NS_6.1"
+metadata = { "os.vendor" = "Citrix", "os.family" = "NetScaler", "os.device" = "Network Management Device", "os.product" = "NetScaler", "os.cpe23" = "cpe:/o:citrix:netscaler_firmware:-", "service.family" = "NetScaler", "service.device" = "Network Management Device", "service.cpe23" = "cpe:/a:citrix:netscaler:{service.version}" }
+
+[[match]]
+name = "Citrix STUN server"
+pattern = "^Citrix-([\\d.]+) \\'[^']*\\'$"
+version_group = 1
+vendor = "Citrix"
+product = "STUN Server"
+context = "http_header.server"
+example = "Citrix-3.2.5.9 'Marshal West'"
+
+[[match]]
+name = "Rumpus FTP Server, Web File Manager interface"
+pattern = "^Rumpus$"
+context = "http_header.server"
+example = "Rumpus"
+metadata = { "os.vendor" = "Apple", "os.family" = "Mac OS X", "os.product" = "Mac OS X", "os.cpe23" = "cpe:/o:apple:mac_os_x:-" }
+
+[[match]]
+name = "Mac OS X Server administrative daemon"
+pattern = "^servermgrd$"
+context = "http_header.server"
+example = "servermgrd"
+metadata = { "os.vendor" = "Apple", "os.family" = "Mac OS X", "os.product" = "Mac OS X", "os.cpe23" = "cpe:/o:apple:mac_os_x:-" }
+
+[[match]]
+name = "Dell Remote Access Controller"
+pattern = "^(RMC Webserver|RAC_ONE_HTTP) (\\d\\.\\d)$"
+version_group = 2
+vendor = "Dell"
+context = "http_header.server"
+metadata = { "os.vendor" = "Dell", "os.family" = "Dell Remote Access Controller", "os.product" = "Dell Remote Access Controller", "service.family" = "Remote Access Controller", "service.product" = "{capture:1}" }
+
+[[match]]
+name = "Xerox Document Centre"
+pattern = "^Xerox_MicroServer/Xerox11$"
+context = "http_header.server"
+metadata = { "os.vendor" = "Xerox", "os.family" = "Document Centre", "os.product" = "Document Centre", "os.device" = "Printer", "hw.vendor" = "Xerox", "hw.family" = "Document Centre", "hw.product" = "Document Centre", "hw.device" = "Printer" }
+
+[[match]]
+name = "IBM Tivoli Storage Manager"
+pattern = "^TSM_HTTP/\\d\\.\\d$"
+vendor = "IBM"
+product = "Tivoli Storage Manager"
+context = "http_header.server"
+metadata = { "service.family" = "Tivoli", "service.cpe23" = "cpe:/a:ibm:tivoli_storage_manager:-" }
+
+[[match]]
+name = "D-Link embedded web server for web cams"
+pattern = "^D-Link MiniAVServer$"
+context = "http_header.server"
+metadata = { "os.vendor" = "D-Link", "os.device" = "IP Camera" }
+
+[[match]]
+name = "Lyris ListManager"
+pattern = "^ListManagerWeb/(\\S+)"
+version_group = 1
+vendor = "Lyris"
+product = "ListManager"
+context = "http_header.server"
+example = "ListManagerWeb/8.8a (based on Tcl-Webserver/3.4.2)"
+
+[[match]]
+name = "TUX web server, an in-kernel Linux HTTP Accelerator"
+pattern = "^kHTTPd (\\S+)"
+version_group = 1
+product = "TUX Web Server"
+context = "http_header.server"
+example = "kHTTPd 0.1.6"
+metadata = { "os.vendor" = "Linux", "os.family" = "Linux", "os.product" = "Linux", "os.cpe23" = "cpe:/o:linux:linux_kernel:-" }
+
+[[match]]
+name = "RealVNC built-in webserver - Enterprise edition"
+pattern = "^VNC Server (Enterprise|Personal) Edition/(?:E|P)([\\d.]+) \\(r([\\d.]+)\\)$"
+version_group = 2
+vendor = "RealVNC Ltd."
+product = "RealVNC"
+context = "http_header.server"
+example = "VNC Server Enterprise Edition/E4.5.1 (r27892)"
+metadata = { "service.edition" = "{capture:1}", "service.version.version" = "{capture:3}", "service.cpe23" = "cpe:/a:realvnc:realvnc:{service.version}" }
+
+[[match]]
+name = "RealVNC built-in webserver - Enterprise edition, short variant"
+pattern = "^RealVNC/E([\\d.]+)$"
+version_group = 1
+vendor = "RealVNC Ltd."
+product = "RealVNC"
+context = "http_header.server"
+example = "RealVNC/E4"
+metadata = { "service.version.version" = "Enterprise", "service.cpe23" = "cpe:/a:realvnc:realvnc:{service.version}" }
+
+[[match]]
+name = "RealVNC built-in webserver"
+pattern = "^RealVNC/([\\d.]+)$"
+version_group = 1
+vendor = "RealVNC Ltd."
+product = "RealVNC"
+context = "http_header.server"
+example = "RealVNC/4.0"
+metadata = { "service.cpe23" = "cpe:/a:realvnc:realvnc:{service.version}" }
+
+[[match]]
+name = "TigerVNC built-in webserver"
+pattern = "^TigerVNC/([\\d.]+)$"
+version_group = 1
+vendor = "TigerVNC"
+product = "TigerVNC"
+context = "http_header.server"
+example = "TigerVNC/4.0"
+metadata = { "service.cpe23" = "cpe:/a:tigervnc:tigervnc:{service.version}" }
+
+[[match]]
+name = "AxWay SecureTransport"
+pattern = "^SecureTransport (\\d+[\\d\\.]+) \\(build: (\\d+)\\)$"
+version_group = 1
+vendor = "Axway"
+product = "SecureTransport"
+context = "http_header.server"
+example = "SecureTransport 5.3.6 (build: 412)"
+metadata = { "service.cpe23" = "cpe:/a:axway:securetransport:{service.version}", "securetransport.build" = "{capture:2}" }
+
+[[match]]
+name = "EmWeb variants"
+pattern = "(Agranat|Conexant|(?:Globespan)?Virata)-EmWeb/(R[\\d_]+)$"
+version_group = 2
+product = "EmWeb"
+context = "http_header.server"
+example = "Agranat-EmWeb/R4_01"
+metadata = { "service.vendor" = "{capture:1}", "service.family" = "EmWeb" }
+
+[[match]]
+name = "Rapid7 NSC"
+pattern = "^NSC/\\S+ \\(JVM\\)$"
+vendor = "Rapid7"
+product = "Nexpose"
+context = "http_header.server"
+example = "NSC/0.6.4 (JVM)"
+metadata = { "service.cpe23" = "cpe:/a:rapid7:nexpose:-" }
+
+[[match]]
+name = "Rapid7 Nexpose Security Console"
+pattern = "^Security Console$"
+vendor = "Rapid7"
+product = "Nexpose"
+context = "http_header.server"
+example = "Security Console"
+metadata = { "service.cpe23" = "cpe:/a:rapid7:nexpose:-" }
+
+[[match]]
+name = "Polycom Soundpoint IP Telephone"
+pattern = "^Polycom SoundPoint IP Telephone HTTPd$"
+vendor = "Polycom"
+context = "http_header.server"
+example = "Polycom SoundPoint IP Telephone HTTPd"
+metadata = { "service.family" = "SoundPoint", "hw.vendor" = "Polycom", "hw.family" = "SoundPoint", "hw.device" = "VoIP" }
+
+[[match]]
+name = "Sentinel Protection Server - Embedded httpd in SafeNet's memory key dongles"
+pattern = "^SentinelProtectionServer/((?:\\d+\\.)*\\d+)$"
+version_group = 1
+vendor = "SafeNet"
+product = "Sentinel Protection Server"
+context = "http_header.server"
+example = "SentinelProtectionServer/7.1"
+metadata = { "service.family" = "Sentinel" }
+
+[[match]]
+name = "Sentinel Key Server - Embedded httpd in SafeNet's memory key dongles"
+pattern = "^SentinelKeysServer/((?:\\d+\\.)*\\d+)$"
+version_group = 1
+vendor = "SafeNet"
+product = "Sentinel Keys Server"
+context = "http_header.server"
+example = "SentinelKeysServer/1.3.1"
+metadata = { "service.family" = "Sentinel" }
+
+[[match]]
+name = "Web server component of CherryPy web application framework."
+pattern = "^CherryPy/((?:\\d+\\.)*\\d+)$"
+version_group = 1
+vendor = "CherryPy"
+product = "CherryPy"
+context = "http_header.server"
+example = "CherryPy/3.1.2"
+metadata = { "service.family" = "CherryPy", "service.cpe23" = "cpe:/a:cherrypy:cherrypy:{service.version}" }
+
+[[match]]
+name = "Tornado Python web framework and asynchronous networking library."
+pattern = "(?i)^TornadoServer/((?:\\d+\\.)*\\d+)$"
+version_group = 1
+vendor = "TornadoWeb"
+product = "Tornado"
+context = "http_header.server"
+example = "TornadoServer/4.0.2"
+metadata = { "service.family" = "Tornado", "service.cpe23" = "cpe:/a:tornadoweb:tornado:{service.version}" }
+
+[[match]]
+name = "SimpleHTTPRequestHandler Python class is a simple HTTP request handler."
+pattern = "(?i)^SimpleHTTP/((?:\\d+\\.)*\\d+)\\s*Python/((?:\\d+\\.)*\\d+)$"
+version_group = 1
+vendor = "Python Software Foundation"
+product = "SimpleHTTP"
+context = "http_header.server"
+example = "SimpleHTTP/0.6 Python/2.7.6"
+metadata = { "service.family" = "Python", "python.version" = "{capture:2}" }
+
+[[match]]
+name = "BaseHTTPRequestHandler Python class must be subclassed to handle each request method."
+pattern = "(?i)^BaseHTTP/((?:\\d+\\.)*\\d+)\\s*Python/((?:\\d+\\.)*\\d+)$"
+version_group = 1
+vendor = "Python Software Foundation"
+product = "BaseHTTP"
+context = "http_header.server"
+example = "BaseHTTP/0.3 Python/2.7.18"
+metadata = { "service.family" = "Python", "python.version" = "{capture:2}" }
+
+[[match]]
+name = "AIOHTTP Project AIOHTTP"
+pattern = "^Python/(\\d\\.[\\d.]+) aiohttp/(\\d[\\w.]+)$"
+version_group = 2
+vendor = "AIOHTTP Project"
+product = "AIOHTTP"
+context = "http_header.server"
+example = "Python/3.8 aiohttp/3.7.4.post0"
+metadata = { "service.cpe23" = "cpe:/a:aiohttp_project:aiohttp:{service.version}", "python.version" = "{capture:1}" }
+
+[[match]]
+name = "Encode uvicorn"
+pattern = "^uvicorn$"
+vendor = "Encode"
+product = "uvicorn"
+context = "http_header.server"
+example = "uvicorn"
+metadata = { "service.cpe23" = "cpe:/a:encode:uvicorn:-" }
+
+[[match]]
+name = "WSGIServer (wsgiref.simple_server) – a simple WSGI HTTP server for Python"
+pattern = "^WSGIServer/(\\d+(?:\\.\\d+)*)\\s*C?Python/(\\d+(?:\\.\\d+)*)$"
+version_group = 1
+vendor = "Python Software Foundation"
+product = "WSGIServer"
+context = "http_header.server"
+example = "WSGIServer/0.1 Python/2.7.18"
+metadata = { "service.family" = "Python", "python.version" = "{capture:2}" }
+
+[[match]]
+name = "Medusa - extensible Internet server framework for Python"
+pattern = "^Medusa/(\\d+(?:\\.\\d+)*)$"
+version_group = 1
+vendor = "Nightmare Software"
+product = "Medusa"
+context = "http_header.server"
+example = "Medusa/3.41"
+
+[[match]]
+name = "Grandstream IP Phone"
+pattern = "^Grandstream (GXP[^\\s]+) ([\\d\\.]+)$"
+context = "http_header.server"
+example = "Grandstream GXP2020 1.2.5.3"
+metadata = { "hw.vendor" = "Grandstream", "hw.device" = "VoIP", "hw.version" = "{capture:2}", "hw.product" = "{capture:1}" }
+
+[[match]]
+name = "Apache variant for web access to HP printers."
+pattern = "^HP Web Jetadmin/((?:\\d+\\.)*\\d+)\\s*(.*)$"
+version_group = 1
+vendor = "Apache"
+product = "HTTPD"
+context = "http_header.server"
+example = "HP Web Jetadmin/2.0.50 (Win32) mod_auth_sspi/1.0.1 mod_ssl/2.0.50 OpenSSL/0.9.6m"
+metadata = { "service.family" = "Apache", "apache.variant" = "HP Web Jetadmin", "service.cpe23" = "cpe:/a:apache:http_server:{service.version}", "apache.info" = "{capture:2}" }
+
+[[match]]
+name = "HP printers, perhaps Apache, but we can't say for sure"
+pattern = "^HP Web Jetadmin ([\\d\\.]+)(?: \\([^\\)]+\\))?$"
+version_group = 1
+vendor = "HP"
+product = "Web Jetadmin"
+context = "http_header.server"
+example = "HP Web Jetadmin 10.3.85669"
+metadata = { "service.cpe23" = "cpe:/a:hp:web_jetadmin:{service.version}" }
+
+[[match]]
+name = "Kyocera Printers"
+pattern = "^KM-MFP-http/V([\\d\\.]+)$"
+version_group = 1
+vendor = "Kyocera"
+product = "KM-MFP-HTTP"
+context = "http_header.server"
+example = "KM-MFP-http/V0.0.1"
+metadata = { "os.vendor" = "Kyocera", "os.device" = "Multifunction Device", "hw.vendor" = "Kyocera", "hw.device" = "Multifunction Device" }
+
+[[match]]
+name = "Citrix Web PN (Program Neighborhood) Server is an HTTP server used by Citrix products"
+pattern = "^Citrix Web PN Server$"
+vendor = "Citrix"
+product = "Web PN Server"
+context = "http_header.server"
+example = "Citrix Web PN Server"
+metadata = { "service.family" = "Web PN Server" }
+
+[[match]]
+name = "ConnectWise Control formerly ScreenConnect"
+pattern = "^ScreenConnect/([\\d.]+)-(\\d+)(?: Microsoft-HTTPAPI/2.0)?$"
+version_group = 1
+vendor = "ConnectWise"
+product = "Control"
+context = "http_header.server"
+example = "ScreenConnect/6.3.13446.6374-4039728469 Microsoft-HTTPAPI/2.0"
+metadata = { "service.version.version" = "{capture:2}", "service.cpe23" = "cpe:/a:connectwise:control:{service.version}" }
+
+[[match]]
+name = "Expeditor is a framework used by IBM in many products in the Lotus brand, such as Sametime and Notes."
+pattern = "^Lotus Expeditor Web Container/((?:\\d+\\.)*\\d+)$"
+version_group = 1
+vendor = "IBM"
+product = "Lotus Expeditor Server"
+context = "http_header.server"
+example = "Lotus Expeditor Web Container/6.1"
+metadata = { "service.family" = "Lotus Expeditor" }
+
+[[match]]
+name = "GoAhead-Webs - no version"
+pattern = "^GoAhead-(?:Webs|http)$"
+vendor = "EmbedThis"
+product = "GoAhead Webserver"
+context = "http_header.server"
+example = "GoAhead-Webs"
+metadata = { "service.family" = "GoAhead Webserver", "service.cpe23" = "cpe:/a:embedthis:goahead:-" }
+
+[[match]]
+name = "GoAhead-Webs - version"
+pattern = "(?i)^GoAhead(?:-Webs|-http)?\\/([\\d.]+)(?: PeerSec-MatrixSSL\\/[\\d.]+-OPEN)?$"
+version_group = 1
+vendor = "Oracle"
+product = "GoAhead Webserver"
+context = "http_header.server"
+example = "GoAhead-Webs/2.5.0 PeerSec-MatrixSSL/3.4.2-OPEN"
+metadata = { "service.family" = "GoAhead Webserver" }
+
+[[match]]
+name = "Mbedthis Appweb"
+pattern = "^Mbedthis-App[Ww]eb/([\\d.]+)$"
+version_group = 1
+vendor = "Mbedthis Software"
+product = "Appweb"
+context = "http_header.server"
+example = "Mbedthis-Appweb/2.4.0"
+metadata = { "service.family" = "Appweb" }
+
+[[match]]
+name = "Embedthis AppWeb"
+pattern = "^Embedthis-(?:Appweb|http)\\/?([\\d.]+)?$"
+version_group = 1
+vendor = "Embedthis"
+product = "Appweb"
+context = "http_header.server"
+example = "Embedthis-Appweb/3.2.3"
+metadata = { "service.family" = "Appweb", "service.cpe23" = "cpe:/a:embedthis:appweb:{service.version}" }
+
+[[match]]
+name = "Web server for Avaya Aura Communication Manager Branch, a SIP-based communications platform."
+pattern = "^Avaya CMBE/((?:\\d+\\.)*\\d+)$"
+version_group = 1
+vendor = "Avaya"
+product = "Aura Communication Manager"
+context = "http_header.server"
+example = "Avaya CMBE/2.0.0"
+metadata = { "service.family" = "Aura", "service.cpe23" = "cpe:/a:avaya:aura_communication_manager:{service.version}" }
+
+[[match]]
+name = "Embedded web server by Rapid Logic, which was acquired by Wind River."
+pattern = "^Rapid Logic/((?:\\d+\\.)*\\d+)$"
+version_group = 1
+vendor = "Wind River"
+product = "Rapid Logic"
+context = "http_header.server"
+example = "Rapid Logic/1.1"
+
+[[match]]
+name = "Wind River HTTP server"
+pattern = "^WindRiver-WebServer/((?:\\d+\\.)*\\d+)$"
+version_group = 1
+vendor = "Wind River"
+product = "WebServer"
+context = "http_header.server"
+example = "WindRiver-WebServer/4.4"
+
+[[match]]
+name = "Sophos - Embedded web server for a rack-mounted email appliance that blocks spam and malware."
+pattern = "^Sophos Email Appliance$"
+vendor = "Sophos"
+product = "Email Appliance"
+context = "http_header.server"
+example = "Sophos Email Appliance"
+metadata = { "os.vendor" = "Sophos", "os.product" = "Email Appliance" }
+
+[[match]]
+name = "Server for the CUPS web interface."
+pattern = "^CUPS\\/((?:\\d\\.)+\\d+)(?:\\s*IPP\\/\\d+\\.\\d+)?$"
+version_group = 1
+vendor = "Apple"
+product = "CUPS"
+context = "http_header.server"
+example = "CUPS/1.1"
+metadata = { "service.family" = "CUPS", "service.cpe23" = "cpe:/a:apple:cups:{service.version}" }
+
+[[match]]
+name = "Twisted Matrix Labs - TwistedWeb"
+pattern = "^TwistedWeb/([\\d.rc]+)$"
+version_group = 1
+vendor = "TwistedMatrix"
+product = "Twisted Web"
+context = "http_header.server"
+example = "TwistedWeb/2.5.0"
+metadata = { "service.family" = "Twisted Web", "service.cpe23" = "cpe:/a:twistedmatrix:twistedweb:{service.version}" }
+
+[[match]]
+name = "Twisted Matrix Labs - TwistedWeb - verbose variant"
+pattern = "^Twisted/([\\d.]+) TwistedWeb/([\\d.]+)$"
+version_group = 1
+vendor = "TwistedMatrix"
+product = "Twisted Web"
+context = "http_header.server"
+example = "Twisted/13.0.0 TwistedWeb/9.0.0"
+metadata = { "service.family" = "Twisted Web", "service.version.version" = "{capture:2}", "service.cpe23" = "cpe:/a:twistedmatrix:twistedweb:{service.version}" }
+
+[[match]]
+name = "ACME mini_httpd with version and date"
+pattern = "^mini_httpd/((?:\\d+\\.)*\\d+) \\S*$"
+version_group = 1
+vendor = "ACME"
+product = "mini_httpd"
+context = "http_header.server"
+example = "mini_httpd/1.14 23jun2000"
+metadata = { "service.family" = "mini_httpd", "service.cpe23" = "cpe:/a:acme:mini_httpd:{service.version}" }
+
+[[match]]
+name = "Marc-André Cournoyer's thin webserver"
+pattern = "^thin ((?:\\d+\\.)*\\d+) codename .+$"
+version_group = 1
+product = "Thin"
+context = "http_header.server"
+example = "thin 1.2.4 codename Flaming Astroboy"
+metadata = { "service.family" = "Thin" }
+
+[[match]]
+name = "Web server interface for controlling data centers."
+pattern = "^Avocent DSView \\d+/((?:\\d+\\.)*\\d+)$"
+version_group = 1
+vendor = "Avocent"
+product = "DSView"
+context = "http_header.server"
+example = "Avocent DSView 3/3.7.0.71"
+metadata = { "service.family" = "DSView", "service.cpe23" = "cpe:/a:avocent:dsview:{service.version}" }
+
+[[match]]
+name = "Ruby-based web server and HTTP library."
+pattern = "^Mongrel ((?:\\d+\\.)*\\d+)$"
+version_group = 1
+vendor = "Zed Shaw"
+product = "Mongrel"
+context = "http_header.server"
+example = "Mongrel 1.1.5"
+metadata = { "service.family" = "Mongrel", "service.cpe23" = "cpe:/a:zed_shaw:mongrel:{service.version}" }
+
+[[match]]
+name = "Embedded web server used by Microplex."
+pattern = "^Microplex emHTTPD/((?:\\d+\\.)*\\d+)$"
+version_group = 1
+vendor = "Microplex"
+product = "emHTTPD"
+context = "http_header.server"
+example = "Microplex emHTTPD/1.0"
+metadata = { "service.family" = "emHTTPD", "os.vendor" = "Microplex", "os.device" = "Print Server" }
+
+[[match]]
+name = "An embedded web server used for UPS management; primarily by Eaton, but also by APC."
+pattern = "^UPS_Server/((?:\\d+\\.)*\\d+)$"
+version_group = 1
+vendor = "Eaton"
+product = "ConnectUPS"
+context = "http_header.server"
+example = "UPS_Server/1.0"
+metadata = { "service.family" = "ConnectUPS", "os.vendor" = "Eaton", "os.device" = "UPS" }
+
+[[match]]
+name = "An embedded web server, used notably by Oki and Kyocera in printers."
+pattern = "^JC-HTTPD/((?:\\d+\\.)*\\d+)$"
+version_group = 1
+product = "JC-HTTPD"
+context = "http_header.server"
+example = "JC-HTTPD/1.11.14"
+metadata = { "service.family" = "JC-HTTPD" }
+
+[[match]]
+name = "An embedded web server."
+pattern = "^JC-SHTTPD/((?:\\d+\\.)*\\d+)$"
+version_group = 1
+product = "JC-SHTTPD"
+context = "http_header.server"
+example = "JC-SHTTPD/1.17.20"
+metadata = { "service.family" = "JC-SHTTPD" }
+
+[[match]]
+name = "Web server providing web services for Oracle's XML DB - with version string"
+pattern = "^Oracle XML DB/Oracle\\S+ (?:Enterprise Edition )?Release ((?:\\d+\\.)*\\d+) - Production$"
+version_group = 1
+vendor = "Oracle"
+product = "XML DB"
+context = "http_header.server"
+example = "Oracle XML DB/Oracle9i Enterprise Edition Release 9.2.0.1.0 - Production"
+metadata = { "service.family" = "Oracle" }
+
+[[match]]
+name = "Web server providing web services for Oracle's XML DB"
+pattern = "^Oracle XML DB/Oracle Database$"
+vendor = "Oracle"
+product = "XML DB"
+context = "http_header.server"
+example = "Oracle XML DB/Oracle Database"
+metadata = { "service.family" = "Oracle" }
+
+[[match]]
+name = "Server for HTTP interface to sfcb, a lightweight CIM server"
+pattern = "^sfcHttpd$"
+vendor = "SBLIM"
+product = "sfcb"
+context = "http_header.server"
+example = "sfcHttpd"
+metadata = { "service.family" = "sfcb" }
+
+[[match]]
+name = "HTTP and HTTPS server found on Palo Alto Networks devices"
+pattern = "^PanWeb Server/ -"
+vendor = "Palo Alto Networks"
+product = "PA Firewall"
+context = "http_header.server"
+example = "PanWeb Server/ -"
+metadata = { "hw.vendor" = "Palo Alto Networks", "service.device" = "Firewall", "os.vendor" = "Palo Alto Networks", "os.product" = "PAN-OS", "os.family" = "PAN-OS", "os.device" = "Firewall", "os.cpe23" = "cpe:/o:paloaltonetworks:pan-os:-" }
+
+[[match]]
+name = "IBM Network Printer Manager."
+pattern = "^Ews/((?:\\d+\\.)*\\d+)$"
+version_group = 1
+vendor = "IBM"
+product = "Network Printer Manager"
+context = "http_header.server"
+example = "Ews/0.1"
+metadata = { "service.family" = "Network Printer Manager" }
+
+[[match]]
+name = "This banner is used to see if devices have Treck TCP/IP"
+pattern = "^\\$ProjectRevision:[\\s\\w:]* ([\\d\\.]+) \\$$"
+version_group = 1
+vendor = "Treck"
+product = "TCP/IP"
+context = "http_header.server"
+example = "$ProjectRevision: 4.0.2.38 $"
+metadata = { "service.cpe23" = "cpe:/a:treck:tcp%2fip:{service.version}" }
+
+[[match]]
+name = "WEBrick default setup"
+pattern = "^WEBrick/([\\d\\.]+)"
+version_group = 1
+vendor = "Ruby-Lang"
+product = "WEBrick"
+context = "http_header.server"
+example = "WEBrick/1.3.1 (Ruby/1.9.3/2013-02-22)"
+metadata = { "service.cpe23" = "cpe:/a:ruby-lang:webrick:{service.version}" }
+
+[[match]]
+name = "Aspen web server"
+pattern = "^Aspen/(\\S+)"
+version_group = 1
+vendor = "Aspen"
+product = "Aspen"
+context = "http_header.server"
+example = "Aspen/0.8"
+metadata = { "service.cpe23" = "cpe:/a:aspen:aspen:{service.version}" }
+
+[[match]]
+name = "Boa web server"
+pattern = "^Boa/([\\d\\.]+\\S*)"
+version_group = 1
+vendor = "Boa"
+product = "Boa"
+context = "http_header.server"
+example = "Boa/0.94.14rc21"
+metadata = { "service.cpe23" = "cpe:/a:boa:boa:{service.version}" }
+
+[[match]]
+name = "Hydra - high performance multi threaded HTTP web server"
+pattern = "^Hydra/([\\d.]+)(?: GnuTLS/([\\d.]+))?$"
+version_group = 1
+vendor = "Hydra Project"
+product = "Hydra"
+context = "http_header.server"
+example = "Hydra/0.1.8"
+metadata = { "service.cpe23" = "cpe:/a:hydra_project:hydra:{service.version}", "service.component.vendor" = "GNU", "service.component.product" = "GnuTLS", "service.component.version" = "{capture:2}", "service.component.cpe23" = "cpe:/a:gnu:gnutls:{service.component.version}" }
+
+[[match]]
+name = "Web server found on DVR and webcam servers sourced from HiSilicon"
+pattern = "^Cross Web Server$"
+vendor = "HiSilicon"
+product = "Cross Web Server"
+context = "http_header.server"
+example = "Cross Web Server"
+metadata = { "os.vendor" = "HiSilicon", "os.device" = "DVR", "hw.device" = "DVR" }
+
+[[match]]
+name = "Web server found on DVR and webcam servers sourced from Hikvision"
+pattern = "^(?:Hikvision|DNVRS|DVRDVS)-Webs$"
+vendor = "Hikvision"
+product = "Hikvision Web Server"
+context = "http_header.server"
+example = "Hikvision-Webs"
+metadata = { "os.vendor" = "Hikvision", "os.device" = "DVR", "hw.vendor" = "Hikvision", "hw.device" = "DVR" }
+
+[[match]]
+name = "Web server found on ARRIS cable modems"
+pattern = "^NET-DK[/ ](\\d+\\.\\d+)$"
+version_group = 1
+vendor = "ARRIS"
+product = "Net-DK Web Server"
+context = "http_header.server"
+example = "NET-DK/1.0"
+metadata = { "os.vendor" = "ARRIS", "os.device" = "Cable Modem", "hw.vendor" = "ARRIS", "hw.device" = "Cable Modem" }
+
+[[match]]
+name = "Web server found on some Arris/2wire devices"
+pattern = "^2wire Gateway$"
+vendor = "ARRIS"
+product = "2wire"
+context = "http_header.server"
+example = "2wire Gateway"
+
+[[match]]
+name = "A banner consisting of an IPv4 address and port -- assert nothing."
+pattern = "^(?:(?:\\d{1,3}\\.){3}\\d{1,3}):\\d{1,5}$"
+context = "http_header.server"
+example = "192.168.0.4:9999"
+metadata = { "hw.certainty" = "0.0", "os.certainty" = "0.0", "service.certainty" = "0.0" }
+
+[[match]]
+name = "Obfuscated web server -- assert nothing."
+pattern = "^Web-Server/(?:\\d+\\.+\\d+)$"
+context = "http_header.server"
+example = "Web-Server/3.0"
+metadata = { "hw.certainty" = "0.0", "os.certainty" = "0.0", "service.certainty" = "0.0" }
+
+[[match]]
+name = "httpd - generic -- assert nothing."
+pattern = "^httpd$"
+context = "http_header.server"
+example = "httpd"
+metadata = { "hw.certainty" = "0.0", "os.certainty" = "0.0", "service.certainty" = "0.0" }
+
+[[match]]
+name = "Akamai Global Host"
+pattern = "^(?:Akamai)?GHost$"
+vendor = "Akamai"
+product = "GHost"
+context = "http_header.server"
+example = "AkamaiGHost"
+metadata = { "service.cpe23" = "cpe:/a:akamai:akamaighost:-", "os.vendor" = "Akamai", "os.family" = "Linux", "os.device" = "Web Proxy" }
+
+[[match]]
+name = "Google Web Services"
+pattern = "^gws$"
+vendor = "Google"
+product = "Google Web Services"
+context = "http_header.server"
+example = "gws"
+metadata = { "service.family" = "Google Web Server", "service.cpe23" = "cpe:/a:google:web_server:-" }
+
+[[match]]
+name = "Google Front End for apps running on Google services."
+pattern = "^GFE/((?:\\d+\\.)*\\d+)$"
+version_group = 1
+vendor = "Google"
+product = "Google Front End"
+context = "http_header.server"
+example = "GFE/1.3"
+metadata = { "service.family" = "Google Web Server" }
+
+[[match]]
+name = "Amazon CloudFront web load balancer endpoint"
+pattern = "^CloudFront$"
+vendor = "Amazon"
+product = "CloudFront Load Balancer"
+context = "http_header.server"
+example = "CloudFront"
+metadata = { "service.family" = "Web Services", "service.cpe23" = "cpe:/a:amazon:amazon_cloudfront:-" }
+
+[[match]]
+name = "Amazon Cloud Drive / Drive"
+pattern = "^Amazon-Cloud-Drive$"
+vendor = "Amazon"
+product = "Drive"
+context = "http_header.server"
+example = "Amazon-Cloud-Drive"
+
+[[match]]
+name = "Amazon S3 (Simple Cloud Storage Service)"
+pattern = "^AmazonS3$"
+vendor = "Amazon"
+product = "S3"
+context = "http_header.server"
+example = "AmazonS3"
+metadata = { "service.family" = "Web Services", "service.cpe23" = "cpe:/a:amazon:amazon_simple_storage_service:-" }
+
+[[match]]
+name = "Amazon SimpleDB / Simple Database Service"
+pattern = "^Amazon SimpleDB$"
+vendor = "Amazon"
+product = "SimpleDB"
+context = "http_header.server"
+example = "Amazon SimpleDB"
+metadata = { "service.family" = "Web Services" }
+
+[[match]]
+name = "Amazon Snowball"
+pattern = "^AmazonSnowball$"
+vendor = "Amazon"
+product = "Snowball"
+context = "http_header.server"
+example = "AmazonSnowball"
+metadata = { "service.family" = "Web Services" }
+
+[[match]]
+name = "Amazon Elastic Load Balancing"
+pattern = "^awselb/([\\d.rc]+)$"
+version_group = 1
+vendor = "Amazon"
+product = "Elastic Load Balancing"
+context = "http_header.server"
+example = "awselb/2.0"
+metadata = { "service.family" = "Web Services", "service.cpe23" = "cpe:/a:amazon:elastic_load_balancing:{service.version}" }
+
+[[match]]
+name = "CloudFlare web load balancer endpoint"
+pattern = "^cloudflare(?:-nginx)?$"
+vendor = "CloudFlare"
+product = "CloudFlare Load Balancer"
+context = "http_header.server"
+example = "cloudflare-nginx"
+metadata = { "service.family" = "CloudFlare", "service.cpe23" = "cpe:/a:cloudflare:load_balancing:-" }
+
+[[match]]
+name = "Microsoft Azure Application Gateway"
+pattern = "^Microsoft-Azure-Application-Gateway\\/(v\\d+)$"
+version_group = 1
+vendor = "Microsoft"
+product = "Azure Application Gateway"
+context = "http_header.server"
+example = "Microsoft-Azure-Application-Gateway/v2"
+metadata = { "service.family" = "Azure" }
+
+[[match]]
+name = "gSOAP"
+pattern = "^gSOAP/([\\d\\.]+)$"
+version_group = 1
+vendor = "Genivia"
+product = "gSOAP"
+context = "http_header.server"
+example = "gSOAP/2.7"
+metadata = { "service.cpe23" = "cpe:/a:genivia:gsoap:{service.version}" }
+
+[[match]]
+name = "Alibaba Cloud Object Storage Service (OSS)"
+pattern = "^AliyunOSS$"
+vendor = "Alibaba"
+product = "Object Storage Service"
+context = "http_header.server"
+example = "AliyunOSS"
+metadata = { "service.family" = "Cloud" }
+
+[[match]]
+name = "QTSS on OS X 10.3"
+pattern = "^QTSS\\/([\\d\\.]+) \\(Build\\/[\\d\\.]+; Platform\\/MacOSX; Release\\/Panther"
+version_group = 1
+product = "QTSS"
+context = "http_header.server"
+example = "QTSS/5.0 (Build/452; Platform/MacOSX; Release/Panther; )"
+metadata = { "os.vendor" = "Apple", "os.family" = "Mac OS X", "os.product" = "Mac OS X", "os.version" = "10.3", "os.cpe23" = "cpe:/o:apple:mac_os_x:10.3" }
+
+[[match]]
+name = "QTSS OS X"
+pattern = "^QTSS\\/([\\d\\.]+) \\(Build\\/[\\d\\.]+; Platform\\/MacOSX; Release\\/Mac OS X"
+version_group = 1
+product = "QTSS"
+context = "http_header.server"
+example = "QTSS/6.1.0 (Build/532; Platform/MacOSX; Release/Mac OS X Server; )"
+metadata = { "os.vendor" = "Apple", "os.family" = "Mac OS X", "os.product" = "Mac OS X", "os.cpe23" = "cpe:/o:apple:mac_os_x:-" }
+
+[[match]]
+name = "Symantec Endpoint Protection Manager"
+pattern = "^SEPM$"
+vendor = "Symantec"
+product = "Endpoint Protection Manager"
+context = "http_header.server"
+example = "SEPM"
+metadata = { "service.family" = "Endpoint Protection Manager", "service.cpe23" = "cpe:/a:symantec:endpoint_protection_manager:-" }
+
+[[match]]
+name = "Symantec Endpoint Protection Manager - long variant"
+pattern = "^Symantec Endpoint Protection Manager$"
+vendor = "Symantec"
+product = "Endpoint Protection Manager"
+context = "http_header.server"
+example = "Symantec Endpoint Protection Manager"
+metadata = { "service.family" = "Endpoint Protection Manager", "service.cpe23" = "cpe:/a:symantec:endpoint_protection_manager:-" }
+
+[[match]]
+name = "Intel(R) Active Management Technology (AMT) with a version"
+pattern = "^Intel\\(R\\) Active Management Technology\\s(\\d+\\.\\d+\\.\\d+\\.\\d+|\\d+\\.\\d+\\.\\d+|\\d+\\.\\d+)"
+version_group = 1
+vendor = "Intel"
+product = "Intel(R) Active Management Technology"
+context = "http_header.server"
+example = "Intel(R) Active Management Technology 7.1.86"
+metadata = { "service.family" = "Intel(R) Active Management Technology", "os.vendor" = "Intel", "os.family" = "Intel(R) Active Management Technology", "os.product" = "Intel(R) Active Management Technology Firmware", "os.version" = "{capture:1}", "os.cpe23" = "cpe:/o:intel:active_management_technology_firmware:{os.version}" }
+
+[[match]]
+name = "Intel(R) Active Management Technology (AMT) without a version"
+pattern = "^(?:AMT|Intel\\(R\\) Active Management Technology)$"
+vendor = "Intel"
+product = "Intel(R) Active Management Technology"
+context = "http_header.server"
+example = "AMT"
+metadata = { "service.family" = "Intel(R) Active Management Technology", "os.vendor" = "Intel", "os.family" = "Intel(R) Active Management Technology", "os.product" = "Intel(R) Active Management Technology Firmware", "os.cpe23" = "cpe:/o:intel:active_management_technology_firmware:-" }
+
+[[match]]
+name = "Intel(R) Standard Manageability"
+pattern = "^Intel\\(R\\) Standard Manageability\\s(\\d+\\.\\d+\\.\\d+\\.\\d+|\\d+\\.\\d+\\.\\d+|\\d+\\.\\d+)"
+version_group = 1
+vendor = "Intel"
+product = "Intel(R) Standard Manageability"
+context = "http_header.server"
+example = "Intel(R) Standard Manageability 5.0.50"
+metadata = { "service.family" = "Intel(R) Active Management Technology", "service.cpe23" = "cpe:/a:intel:standard_manageability:{service.version}" }
+
+[[match]]
+name = "Sunny WebBox"
+pattern = "^Sunny WebBox$"
+vendor = "SMA"
+product = "Sunny WebBox"
+context = "http_header.server"
+example = "Sunny WebBox"
+metadata = { "service.family" = "Sunny", "hw.vendor" = "SMA", "hw.family" = "Sunny", "hw.product" = "Sunny WebBox", "hw.device" = "Power Device", "hw.cpe23" = "cpe:/h:sma:sunny_webbox:-", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows CE", "os.cpe23" = "cpe:/o:microsoft:windows_ce:-" }
+
+[[match]]
+name = "EnergyICT RTU"
+pattern = "^EnergyICT RTU \\d+-\\w+-\\d+$"
+context = "http_header.server"
+example = "EnergyICT RTU 101-F25CE1-1524"
+metadata = { "hw.family" = "Honeywell", "hw.product" = "RTU", "hw.device" = "Power Device" }
+
+[[match]]
+name = "AV-TECH AVC787 Video Web Server"
+pattern = "^AV-TECH AV787 Video Web Server$"
+vendor = "AVTECH"
+product = "HTTPD"
+context = "http_header.server"
+example = "AV-TECH AV787 Video Web Server"
+metadata = { "service.family" = "MPEG4 DVR", "hw.family" = "MPEG4 DVR", "hw.product" = "AVC787", "hw.device" = "DVR" }
+
+[[match]]
+name = "Splunk HTTP server used in the web interface, forwarders, indexers and more"
+pattern = "^Splunkd$"
+vendor = "Splunk"
+context = "http_header.server"
+example = "Splunkd"
+
+[[match]]
+name = "Tivo DVR"
+pattern = "^tivo-httpd-\\S+$"
+context = "http_header.server"
+example = "tivo-httpd-1:20.7.4.RC35-D18-6:D18"
+metadata = { "hw.vendor" = "Tivo", "hw.family" = "DVR", "hw.device" = "DVR" }
+
+[[match]]
+name = "OpenTV"
+pattern = "^OpenTV/([\\d\\.]+)$"
+context = "http_header.server"
+example = "OpenTV/5.40"
+metadata = { "os.vendor" = "NAGRA", "os.product" = "OpenTV", "os.device" = "DVR", "os.version" = "{capture:1}", "hw.device" = "DVR" }
+
+[[match]]
+name = "Kong Gateway"
+pattern = "^kong/([\\d.]+)$"
+version_group = 1
+vendor = "Kong"
+product = "Gateway"
+context = "http_header.server"
+example = "kong/1.2.1"
+metadata = { "service.family" = "Gateway", "service.cpe23" = "cpe:/a:konghq:kong_gateway:{service.version}" }
+
+[[match]]
+name = "Kong Gateway - Enterprise Edition"
+pattern = "^kong/([\\d.-]+)-enterprise-edition$"
+version_group = 1
+vendor = "Kong"
+product = "Gateway"
+context = "http_header.server"
+example = "kong/0.30-enterprise-edition"
+metadata = { "service.family" = "Gateway", "service.cpe23" = "cpe:/a:konghq:kong_gateway:{service.version}" }
+
+[[match]]
+name = "Tridium Niagara AX Framework"
+pattern = "^Niagara Web Server\\/([\\d.]+)$"
+version_group = 1
+vendor = "Tridium"
+product = "Niagara AX"
+context = "http_header.server"
+example = "Niagara Web Server/3.8.111"
+metadata = { "service.family" = "Niagara", "service.cpe23" = "cpe:/a:tridium:niagara_ax:{service.version}" }
+
+[[match]]
+name = "Fidelix Industrial Control Web Server"
+pattern = "^Microsoft WinCE Fidelix v([\\d.]+)$"
+version_group = 1
+vendor = "Fidelix"
+product = "Web Server"
+context = "http_header.server"
+example = "Microsoft WinCE Fidelix v11.50.29"
+metadata = { "os.certainty" = "0.9", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows CE", "os.cpe23" = "cpe:/o:microsoft:windows_ce:-", "hw.vendor" = "Fidelix", "hw.device" = "Industrial Control" }
+
+[[match]]
+name = "Chainpoint Node"
+pattern = "^chainpoint-node$"
+vendor = "Chainpoint"
+product = "Node"
+context = "http_header.server"
+example = "chainpoint-node"
+
+[[match]]
+name = "AVM FRITZ! devices of various types"
+pattern = "(?i)^(.{0,256}) UPnP/[\\d\\.]+\\s+AVM FRITZ!(.*) ([\\d\\.]+)$"
+context = "http_header.server"
+example = "some thing UPnP/1.0 AVM FRITZ!WLAN Repeater 1750E 134.07.01"
+metadata = { "os.vendor" = "AVM", "os.family" = "FRITZ!Box", "os.product" = "{capture:2}", "os.version" = "{capture:3}", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "Ubiquiti airMAX airCube accessory"
+pattern = "^airCube$"
+context = "http_header.server"
+example = "airCube"
+metadata = { "os.vendor" = "Ubiquiti", "os.family" = "Linux", "hw.vendor" = "Ubiquiti", "hw.family" = "airMAX", "hw.product" = "airCube", "hw.device" = "WAP" }
+
+[[match]]
+name = "Linux MiniUPnPd UPnP Server"
+pattern = "(?i)^Linux/(\\S+) UPnP/[\\d\\.]+ miniupnpd/([\\d\\.]+)$"
+version_group = 2
+vendor = "MiniUPnP Project"
+product = "MiniUPnPd"
+context = "http_header.server"
+example = "Linux/Cross_compiled UPnP/1.0 miniupnpd/1.0"
+metadata = { "service.cpe23" = "cpe:/a:miniupnp_project:miniupnpd:{service.version}", "os.vendor" = "Linux", "os.product" = "Linux", "os.version" = "{capture:1}", "os.cpe23" = "cpe:/o:linux:linux_kernel:{os.version}" }
+
+[[match]]
+name = "Tomato UPnP Server"
+pattern = "^Tomato UPnP/\\S+ MiniUPnPd/(\\S+)$"
+version_group = 1
+vendor = "MiniUPnP Project"
+product = "MiniUPnPd"
+context = "http_header.server"
+example = "Tomato UPnP/1.0 MiniUPnPd/1.2"
+metadata = { "service.cpe23" = "cpe:/a:miniupnp_project:miniupnpd:{service.version}", "os.vendor" = "Tomato", "os.family" = "Linux", "os.product" = "Tomato", "os.device" = "Router" }
+
+[[match]]
+name = "TomatoUSB UPnP Server"
+pattern = "^UPnP/Tomato ([\\d\\.]+)?[\\w\\s\\.-]{1,30} UPnP/[\\d\\.]+ MiniUPnPd/([\\d\\.]+)$"
+version_group = 2
+vendor = "MiniUPnP Project"
+product = "MiniUPnPd"
+context = "http_header.server"
+example = "UPnP/Tomato 1.28.9014 MIPSR2-RAF-v1.3g K26 UPnP/1.1 MiniUPnPd/1.8"
+metadata = { "service.cpe23" = "cpe:/a:miniupnp_project:miniupnpd:{service.version}", "os.vendor" = "TomatoUSB", "os.family" = "Linux", "os.product" = "TomatoUSB", "os.device" = "Router", "os.version" = "{capture:1}" }
+
+[[match]]
+name = "Asus WAP UPnP Server"
+pattern = "(?i)^(RT-\\w+) UPnP/\\S+ MiniUPnPd/([\\d.]+)$"
+version_group = 2
+vendor = "MiniUPnP Project"
+product = "MiniUPnPd"
+context = "http_header.server"
+example = "RT-G32 UPnP/1.0 MiniUPnPd/1.2"
+metadata = { "service.cpe23" = "cpe:/a:miniupnp_project:miniupnpd:{service.version}", "os.vendor" = "Asus", "os.product" = "{capture:1}", "os.device" = "WAP" }
+
+[[match]]
+name = "AsusWRT Firmware"
+pattern = "(?i)^(AsusWRT)\\/(\\S+) UPnP/\\S+ MiniUPnPd/([\\d.]+)$"
+version_group = 3
+vendor = "MiniUPnP Project"
+product = "MiniUPnPd"
+context = "http_header.server"
+example = "AsusWRT/3.0.0.4 UPnP/1.1 MiniUPnPd/1.9"
+metadata = { "service.cpe23" = "cpe:/a:miniupnp_project:miniupnpd:{service.version}", "os.vendor" = "Asus", "os.product" = "{capture:1}", "os.version" = "{capture:2}", "os.device" = "Router" }
+
+[[match]]
+name = "DrayTek Vigor router UPnP Server"
+pattern = "(?i)^DrayTek/Vigor(\\S+) UPnP/\\S+ miniupnpd/([\\d.]+)$"
+version_group = 2
+vendor = "MiniUPnP Project"
+product = "MiniUPnPd"
+context = "http_header.server"
+example = "DrayTek/Vigor2130 UPnP/1.0 miniupnpd/1.0"
+metadata = { "service.cpe23" = "cpe:/a:miniupnp_project:miniupnpd:{service.version}", "hw.vendor" = "DrayTek", "hw.product" = "Vigor", "hw.model" = "{capture:1}", "hw.device" = "Router" }
+
+[[match]]
+name = "Huawei Echolife / Home Gateway (and possibly other) devices with UPnP"
+pattern = "(?i)Linux UPnP/\\d\\.\\d Huawei-ATP-IGD$"
+context = "http_header.server"
+example = "Linux UPnP/1.0 Huawei-ATP-IGD"
+metadata = { "hw.vendor" = "Huawei", "hw.device" = "Broadband Router" }
+
+[[match]]
+name = "OpenWRT Kamikaze WAP UPnP Server"
+pattern = "(?i)^OpenWRT/kamikaze UPnP/\\S+ MiniUPnPd/([\\d.]+)$"
+version_group = 1
+vendor = "MiniUPnP Project"
+product = "MiniUPnPd"
+context = "http_header.server"
+example = "OpenWRT/kamikaze UPnP/1.0 MiniUPnPd/1.5"
+metadata = { "service.cpe23" = "cpe:/a:miniupnp_project:miniupnpd:{service.version}", "os.vendor" = "Linux", "os.family" = "OpenWRT", "os.product" = "Kamikaze", "os.device" = "WAP" }
+
+[[match]]
+name = "Netgear DG834G or WNDR3300 WAP UPnP Server"
+pattern = "(?i)^Netgear/\\S+ UPnP/\\S+ miniupnpd/([\\d.]+)$"
+version_group = 1
+vendor = "MiniUPnP Project"
+product = "MiniUPnPd"
+context = "http_header.server"
+example = "Netgear/1.0 UPnP/1.0 miniupnpd/1.0"
+metadata = { "service.cpe23" = "cpe:/a:miniupnp_project:miniupnpd:{service.version}", "os.vendor" = "Netgear", "os.device" = "WAP", "hw.vendor" = "Netgear", "hw.device" = "WAP" }
+
+[[match]]
+name = "DLNADOC UPnP Server"
+pattern = "^[^/]+/(\\S+) DLNADOC/\\S+ UPnP/\\S+ MiniDLNA/(\\S+)$"
+version_group = 2
+product = "MiniDLNA"
+context = "http_header.server"
+example = "Debian/4.0r8 DLNADOC/1.50 UPnP/1.0 MiniDLNA/1.0"
+metadata = { "os.vendor" = "Linux", "os.product" = "Linux", "os.version" = "{capture:1}", "os.cpe23" = "cpe:/o:linux:linux_kernel:{os.version}" }
+
+[[match]]
+name = "miniupnpd on a Debian variant"
+pattern = "(?i)^Debian\\/(\\S+) UPnP/\\S+ MiniUPnPd/(\\S+)$"
+version_group = 2
+vendor = "MiniUPnP Project"
+product = "MiniUPnPd"
+context = "http_header.server"
+example = "Debian/wheezy/sid UPnP/1.1 MiniUPnPd/1.8"
+metadata = { "service.cpe23" = "cpe:/a:miniupnp_project:miniupnpd:{service.version}", "os.vendor" = "Debian", "os.product" = "Linux", "os.certainty" = "0.5", "os.version" = "{capture:1}", "os.cpe23" = "cpe:/o:debian:debian_linux:{os.version}" }
+
+[[match]]
+name = "miniupnpd on a Fedora variant"
+pattern = "(?i)^Fedora(?:Core)?\\/(\\S+) UPnP/\\S+ MiniUPnPd/(\\S+)$"
+version_group = 2
+vendor = "MiniUPnP Project"
+product = "MiniUPnPd"
+context = "http_header.server"
+example = "Fedora/10 UPnP/1.0 MiniUPnPd/1.4"
+metadata = { "service.cpe23" = "cpe:/a:miniupnp_project:miniupnpd:{service.version}", "os.family" = "Linux", "os.vendor" = "Fedora Project", "os.product" = "Fedora Core", "os.version" = "{capture:1}", "os.cpe23" = "cpe:/o:fedoraproject:fedora_core:{os.version}" }
+
+[[match]]
+name = "miniupnpd on an Ubuntu variant"
+pattern = "(?i)^Ubuntu\\/([\\d\\.]+) UPnP/\\S+ MiniUPnPd/(\\S+)$"
+version_group = 2
+vendor = "MiniUPnP Project"
+product = "MiniUPnPd"
+context = "http_header.server"
+example = "Ubuntu/10.04 UPnP/1.0 miniupnpd/1.0"
+metadata = { "service.cpe23" = "cpe:/a:miniupnp_project:miniupnpd:{service.version}", "os.vendor" = "Ubuntu", "os.product" = "Linux", "os.version" = "{capture:1}", "os.cpe23" = "cpe:/o:canonical:ubuntu_linux:{os.version}" }
+
+[[match]]
+name = "miniupnpd on an Ubuntu bionic/18.04"
+pattern = "(?i)^Ubuntu\\/bionic UPnP/\\S+ MiniUPnPd/(\\S+)$"
+version_group = 1
+vendor = "MiniUPnP Project"
+product = "MiniUPnPd"
+context = "http_header.server"
+example = "Ubuntu/bionic UPnP/1.0 MiniUPnPd/1.4"
+metadata = { "service.cpe23" = "cpe:/a:miniupnp_project:miniupnpd:{service.version}", "os.vendor" = "Ubuntu", "os.product" = "Linux", "os.version" = "18.04", "os.cpe23" = "cpe:/o:canonical:ubuntu_linux:18.04" }
+
+[[match]]
+name = "miniupnpd on an Ubuntu yakkety/16.10"
+pattern = "(?i)^Ubuntu\\/yakkety UPnP/\\S+ MiniUPnPd/(\\S+)$"
+version_group = 1
+vendor = "MiniUPnP Project"
+product = "MiniUPnPd"
+context = "http_header.server"
+example = "Ubuntu/yakkety UPnP/1.0 MiniUPnPd/1.4"
+metadata = { "service.cpe23" = "cpe:/a:miniupnp_project:miniupnpd:{service.version}", "os.vendor" = "Ubuntu", "os.product" = "Linux", "os.version" = "16.10", "os.cpe23" = "cpe:/o:canonical:ubuntu_linux:16.10" }
+
+[[match]]
+name = "miniupnpd on an Ubuntu xenial/16.04"
+pattern = "(?i)^Ubuntu\\/xenial UPnP/\\S+ MiniUPnPd/(\\S+)$"
+version_group = 1
+vendor = "MiniUPnP Project"
+product = "MiniUPnPd"
+context = "http_header.server"
+example = "Ubuntu/xenial UPnP/1.0 MiniUPnPd/1.4"
+metadata = { "service.cpe23" = "cpe:/a:miniupnp_project:miniupnpd:{service.version}", "os.vendor" = "Ubuntu", "os.product" = "Linux", "os.version" = "16.04", "os.cpe23" = "cpe:/o:canonical:ubuntu_linux:16.04" }
+
+[[match]]
+name = "miniupnpd on an Ubuntu utopic/14.10"
+pattern = "(?i)^Ubuntu\\/utopic UPnP/\\S+ MiniUPnPd/(\\S+)$"
+version_group = 1
+vendor = "MiniUPnP Project"
+product = "MiniUPnPd"
+context = "http_header.server"
+example = "Ubuntu/utopic UPnP/1.0 MiniUPnPd/1.4"
+metadata = { "service.cpe23" = "cpe:/a:miniupnp_project:miniupnpd:{service.version}", "os.vendor" = "Ubuntu", "os.product" = "Linux", "os.version" = "14.10", "os.cpe23" = "cpe:/o:canonical:ubuntu_linux:14.10" }
+
+[[match]]
+name = "miniupnpd on an Ubuntu trusty/14.04"
+pattern = "(?i)^Ubuntu\\/trusty UPnP/\\S+ MiniUPnPd/(\\S+)$"
+version_group = 1
+vendor = "MiniUPnP Project"
+product = "MiniUPnPd"
+context = "http_header.server"
+example = "Ubuntu/trusty UPnP/1.0 MiniUPnPd/1.4"
+metadata = { "service.cpe23" = "cpe:/a:miniupnp_project:miniupnpd:{service.version}", "os.vendor" = "Ubuntu", "os.product" = "Linux", "os.version" = "14.04", "os.cpe23" = "cpe:/o:canonical:ubuntu_linux:14.04" }
+
+[[match]]
+name = "miniupnpd on an Ubuntu saucy/13.10"
+pattern = "(?i)^Ubuntu\\/saucy UPnP/\\S+ MiniUPnPd/(\\S+)$"
+version_group = 1
+vendor = "MiniUPnP Project"
+product = "MiniUPnPd"
+context = "http_header.server"
+example = "Ubuntu/saucy UPnP/1.0 MiniUPnPd/1.4"
+metadata = { "service.cpe23" = "cpe:/a:miniupnp_project:miniupnpd:{service.version}", "os.vendor" = "Ubuntu", "os.product" = "Linux", "os.version" = "13.10", "os.cpe23" = "cpe:/o:canonical:ubuntu_linux:13.10" }
+
+[[match]]
+name = "miniupnpd on an Ubuntu raring/13.04"
+pattern = "(?i)^Ubuntu\\/raring UPnP/\\S+ MiniUPnPd/(\\S+)$"
+version_group = 1
+vendor = "MiniUPnP Project"
+product = "MiniUPnPd"
+context = "http_header.server"
+example = "Ubuntu/raring UPnP/1.0 MiniUPnPd/1.4"
+metadata = { "service.cpe23" = "cpe:/a:miniupnp_project:miniupnpd:{service.version}", "os.vendor" = "Ubuntu", "os.product" = "Linux", "os.version" = "13.04", "os.cpe23" = "cpe:/o:canonical:ubuntu_linux:13.04" }
+
+[[match]]
+name = "miniupnpd on an Ubuntu quantal/12.10"
+pattern = "(?i)^Ubuntu\\/quantal UPnP/\\S+ MiniUPnPd/(\\S+)$"
+version_group = 1
+vendor = "MiniUPnP Project"
+product = "MiniUPnPd"
+context = "http_header.server"
+example = "Ubuntu/quantal UPnP/1.0 MiniUPnPd/1.4"
+metadata = { "service.cpe23" = "cpe:/a:miniupnp_project:miniupnpd:{service.version}", "os.vendor" = "Ubuntu", "os.product" = "Linux", "os.version" = "12.10", "os.cpe23" = "cpe:/o:canonical:ubuntu_linux:12.10" }
+
+[[match]]
+name = "miniupnpd on an Ubuntu precise/12.04"
+pattern = "(?i)^Ubuntu\\/precise UPnP/\\S+ MiniUPnPd/(\\S+)$"
+version_group = 1
+vendor = "MiniUPnP Project"
+product = "MiniUPnPd"
+context = "http_header.server"
+example = "Ubuntu/precise UPnP/1.0 MiniUPnPd/1.4"
+metadata = { "service.cpe23" = "cpe:/a:miniupnp_project:miniupnpd:{service.version}", "os.vendor" = "Ubuntu", "os.product" = "Linux", "os.version" = "12.04", "os.cpe23" = "cpe:/o:canonical:ubuntu_linux:12.04" }
+
+[[match]]
+name = "miniupnpd on an Ubuntu oneiric/11.10"
+pattern = "(?i)^Ubuntu\\/oneiric UPnP/\\S+ MiniUPnPd/(\\S+)$"
+version_group = 1
+vendor = "MiniUPnP Project"
+product = "MiniUPnPd"
+context = "http_header.server"
+example = "Ubuntu/oneiric UPnP/1.0 MiniUPnPd/1.4"
+metadata = { "service.cpe23" = "cpe:/a:miniupnp_project:miniupnpd:{service.version}", "os.vendor" = "Ubuntu", "os.product" = "Linux", "os.version" = "11.10", "os.cpe23" = "cpe:/o:canonical:ubuntu_linux:11.10" }
+
+[[match]]
+name = "miniupnpd on an Ubuntu natty/11.04"
+pattern = "(?i)^Ubuntu\\/natty UPnP/\\S+ MiniUPnPd/(\\S+)$"
+version_group = 1
+vendor = "MiniUPnP Project"
+product = "MiniUPnPd"
+context = "http_header.server"
+example = "Ubuntu/natty UPnP/1.0 MiniUPnPd/1.4"
+metadata = { "service.cpe23" = "cpe:/a:miniupnp_project:miniupnpd:{service.version}", "os.vendor" = "Ubuntu", "os.product" = "Linux", "os.version" = "11.04", "os.cpe23" = "cpe:/o:canonical:ubuntu_linux:11.04" }
+
+[[match]]
+name = "miniupnpd on an Ubuntu maverick/10.10"
+pattern = "(?i)^Ubuntu\\/maverick UPnP/\\S+ MiniUPnPd/(\\S+)$"
+version_group = 1
+vendor = "MiniUPnP Project"
+product = "MiniUPnPd"
+context = "http_header.server"
+example = "Ubuntu/maverick UPnP/1.0 MiniUPnPd/1.4"
+metadata = { "service.cpe23" = "cpe:/a:miniupnp_project:miniupnpd:{service.version}", "os.vendor" = "Ubuntu", "os.product" = "Linux", "os.version" = "10.10", "os.cpe23" = "cpe:/o:canonical:ubuntu_linux:10.10" }
+
+[[match]]
+name = "miniupnpd on an Ubuntu lucid/10.04"
+pattern = "(?i)^Ubuntu\\/lucid UPnP/\\S+ MiniUPnPd/(\\S+)$"
+version_group = 1
+vendor = "MiniUPnP Project"
+product = "MiniUPnPd"
+context = "http_header.server"
+example = "Ubuntu/lucid UPnP/1.0 MiniUPnPd/1.4"
+metadata = { "service.cpe23" = "cpe:/a:miniupnp_project:miniupnpd:{service.version}", "os.vendor" = "Ubuntu", "os.product" = "Linux", "os.version" = "10.04", "os.cpe23" = "cpe:/o:canonical:ubuntu_linux:10.04" }
+
+[[match]]
+name = "miniupnpd on an Ubuntu karmic/9.10"
+pattern = "(?i)^Ubuntu\\/karmic UPnP/\\S+ MiniUPnPd/(\\S+)$"
+version_group = 1
+vendor = "MiniUPnP Project"
+product = "MiniUPnPd"
+context = "http_header.server"
+example = "Ubuntu/karmic UPnP/1.0 MiniUPnPd/1.4"
+metadata = { "service.cpe23" = "cpe:/a:miniupnp_project:miniupnpd:{service.version}", "os.vendor" = "Ubuntu", "os.product" = "Linux", "os.version" = "9.10", "os.cpe23" = "cpe:/o:canonical:ubuntu_linux:9.10" }
+
+[[match]]
+name = "miniupnpd on an Ubuntu jaunty/9.04"
+pattern = "(?i)^Ubuntu\\/jaunty UPnP/\\S+ MiniUPnPd/(\\S+)$"
+version_group = 1
+vendor = "MiniUPnP Project"
+product = "MiniUPnPd"
+context = "http_header.server"
+example = "Ubuntu/jaunty UPnP/1.0 MiniUPnPd/1.4"
+metadata = { "service.cpe23" = "cpe:/a:miniupnp_project:miniupnpd:{service.version}", "os.vendor" = "Ubuntu", "os.product" = "Linux", "os.version" = "9.04", "os.cpe23" = "cpe:/o:canonical:ubuntu_linux:9.04" }
+
+[[match]]
+name = "miniupnpd on an Ubuntu hardy/8.04"
+pattern = "(?i)^Ubuntu\\/hardy UPnP/\\S+ MiniUPnPd/(\\S+)$"
+version_group = 1
+vendor = "MiniUPnP Project"
+product = "MiniUPnPd"
+context = "http_header.server"
+example = "Ubuntu/hardy UPnP/1.0 MiniUPnPd/1.4"
+metadata = { "service.cpe23" = "cpe:/a:miniupnp_project:miniupnpd:{service.version}", "os.vendor" = "Ubuntu", "os.product" = "Linux", "os.version" = "8.04", "os.cpe23" = "cpe:/o:canonical:ubuntu_linux:8.04" }
+
+[[match]]
+name = "Linux MIPS UPnP Server"
+pattern = "(?i)^Linux Mips (\\S+) UPnP/\\S+ MiniUPnPd/(\\S+)$"
+version_group = 2
+vendor = "MiniUPnP Project"
+product = "MiniUPnPd"
+context = "http_header.server"
+example = "Linux Mips 2.4.20 UPnP/1.0 MiniUPnPd/1.2"
+metadata = { "service.cpe23" = "cpe:/a:miniupnp_project:miniupnpd:{service.version}", "os.vendor" = "Linux", "os.product" = "Linux", "os.version" = "{capture:1}", "os.cpe23" = "cpe:/o:linux:linux_kernel:{os.version}" }
+
+[[match]]
+name = "Smoothwall Express UPnP Server"
+pattern = "(?i)^SmoothWall Express/(\\S+) UPnP/\\S+ miniupnpd/(\\S+)$"
+version_group = 2
+vendor = "MiniUPnP Project"
+product = "MiniUPnPd"
+context = "http_header.server"
+example = "SmoothWall Express/3.0 UPnP/1.0 miniupnpd/1.0"
+metadata = { "os.vendor" = "SmoothWall", "os.product" = "SmoothWall", "os.version" = "{capture:1}", "os.cpe23" = "cpe:/o:smoothwall:smoothwall:{os.version}", "service.cpe23" = "cpe:/a:miniupnp_project:miniupnpd:{service.version}" }
+
+[[match]]
+name = "TVersity Media Server UPnP Server with Service Pack"
+pattern = "^(\\S{1,16}) \\d+/Service Pack \\d+, UPnP/[\\d\\.]+, TVersity Media Server$"
+version_group = 1
+vendor = "TVersity"
+product = "Media Server"
+context = "http_header.server"
+example = "5.2.3790 2/Service Pack 1, UPnP/1.0, TVersity Media Server"
+
+[[match]]
+name = "TVersity Media Server UPnP Server"
+pattern = "^(\\S{1,16}) 2/, UPnP/\\S+, TVersity Media Server$"
+version_group = 1
+vendor = "TVersity"
+product = "Media Server"
+context = "http_header.server"
+example = "6.2.8400 2/, UPnP/1.0, TVersity Media Server"
+
+[[match]]
+name = "Belkin/Linksys BRCM400 Wireless Router UPnP Server"
+pattern = "^LINUX/([\\d\\.]+) UPnP/[\\d\\.]+ BRCM400/([\\d\\.]+)$"
+version_group = 2
+vendor = "Linksys"
+product = "BRCM400"
+context = "http_header.server"
+example = "LINUX/2.4 UPnP/1.0 BRCM400/1.0"
+metadata = { "os.vendor" = "Linksys", "os.product" = "Linux", "os.version" = "{capture:1}", "os.device" = "Router" }
+
+[[match]]
+name = "PlayStation3 Media Server UPnP Server - linux"
+pattern = "^Linux-(\\S+), UPnP/[\\d\\.]+, PMS/([\\d\\.]+)$"
+version_group = 2
+vendor = "Sony"
+product = "PMS"
+context = "http_header.server"
+example = "Linux-amd64-2.6.18-238.9.1.el5, UPnP/1.0, PMS/1.52.1"
+metadata = { "os.vendor" = "Linux", "os.product" = "Linux", "os.version" = "{capture:1}", "os.cpe23" = "cpe:/o:linux:linux_kernel:{os.version}" }
+
+[[match]]
+name = "PlayStation3 Media Server UPnP Server - Windows XP"
+pattern = "^Windows_XP-(\\S+), UPnP/[\\d\\.]+, PMS/([\\d\\.]+)$"
+version_group = 2
+vendor = "Sony"
+product = "PMS"
+context = "http_header.server"
+example = "Windows_XP-amd64-5.2, UPnP/1.0, PMS/1.54.0"
+metadata = { "os.vendor" = "Microsoft", "os.product" = "Windows XP", "os.version" = "{capture:1}", "os.cpe23" = "cpe:/o:microsoft:windows_xp:{os.version}" }
+
+[[match]]
+name = "PlayStation3 Media Server UPnP Server - Windows 7 x86"
+pattern = "^Windows_7-x86-(\\S+), UPnP/[\\d\\.]+, PMS/([\\d\\.]+)$"
+version_group = 2
+vendor = "Sony"
+product = "PMS"
+context = "http_header.server"
+example = "Windows_7-x86-6.1, UPnP/1.0, PMS/1.20"
+metadata = { "os.vendor" = "Microsoft", "os.product" = "Windows 7", "os.version" = "{capture:1}", "os.cpe23" = "cpe:/o:microsoft:windows_7:{os.version}" }
+
+[[match]]
+name = "PlayStation3 Media Server UPnP Server - Windows 7 x86_64"
+pattern = "^Windows_7-x86_64-(\\S+), UPnP/[\\d\\.]+, PMS/([\\d\\.]+)$"
+version_group = 2
+vendor = "Sony"
+product = "PMS"
+context = "http_header.server"
+metadata = { "os.vendor" = "Microsoft", "os.product" = "Windows 7", "os.version" = "{capture:1}", "os.cpe23" = "cpe:/o:microsoft:windows_7:{os.version}" }
+
+[[match]]
+name = "Windows 8 or Windows Server 2012 with unknown UPnP components"
+pattern = "^Microsoft-Windows/6.2 UPnP/(?:\\S+) UPnP-Device-Host/(?:\\S+)$"
+context = "http_header.server"
+metadata = { "os.vendor" = "Microsoft", "os.product" = "Windows 8", "os.certainty" = "0.65", "os.cpe23" = "cpe:/o:microsoft:windows_8:-" }
+
+[[match]]
+name = "PlayStation3 Media Server UPnP Server - macOS x86_64"
+pattern = "^Mac_OS_X-x86_64-(\\S+), UPnP/[\\d\\.]+, PMS/([\\d\\.]+)$"
+version_group = 2
+vendor = "Sony"
+product = "PMS"
+context = "http_header.server"
+example = "Mac_OS_X-x86_64-10.5.8, UPnP/1.0, PMS/1.20"
+metadata = { "os.vendor" = "Apple", "os.product" = "Mac OS X", "os.version" = "{capture:1}", "os.cpe23" = "cpe:/o:apple:mac_os_x:{os.version}" }
+
+[[match]]
+name = "Free UPnP Entertainment Service UPnP Server - Linux on ReadyNAS"
+pattern = "^Linux/(\\S+), UPnP/\\S+, Free UPnP Entertainment Service/ReadyNAS$"
+product = "FUPPES"
+context = "http_header.server"
+metadata = { "os.vendor" = "Linux", "os.product" = "Linux", "os.version" = "{capture:1}", "os.cpe23" = "cpe:/o:linux:linux_kernel:{os.version}", "hw.vendor" = "Netgear", "hw.device" = "NAS", "hw.family" = "ReadyNAS", "hw.product" = "ReadyNAS" }
+
+[[match]]
+name = "Free UPnP Entertainment Service UPnP Server - Linux"
+pattern = "^Linux/(\\S+), UPnP/\\S+, Free UPnP Entertainment Service/$"
+product = "FUPPES"
+context = "http_header.server"
+metadata = { "os.vendor" = "Linux", "os.product" = "Linux", "os.version" = "{capture:1}", "os.cpe23" = "cpe:/o:linux:linux_kernel:{os.version}" }
+
+[[match]]
+name = "Free UPnP Entertainment Service UPnP Server - FreeBSD"
+pattern = "^FreeBSD/(\\S+), UPnP/\\S+, Free UPnP Entertainment Service/$"
+product = "FUPPES"
+context = "http_header.server"
+metadata = { "os.vendor" = "FreeBSD", "os.product" = "FreeBSD", "os.version" = "{capture:1}", "os.cpe23" = "cpe:/o:freebsd:freebsd:{os.version}" }
+
+[[match]]
+name = "D-Link WAP Dynamic DNS UPnP Server"
+pattern = "^ipOS/([\\d\\.]+) UPnP/[\\d\\.]+ ipUPnP/([\\d\\.]+)$"
+version_group = 2
+vendor = "D-Link"
+product = "ipUPnP"
+context = "http_header.server"
+metadata = { "os.vendor" = "D-Link", "os.product" = "ipOS", "os.version" = "{capture:1}", "os.device" = "WAP" }
+
+[[match]]
+name = "D-Link DGL-4300 Gaming Router UPnP Server"
+pattern = "^ipOS/([\\d\\.]+) UPnP/[\\d\\.]+ ipGENADevice/([\\d\\.]+)$"
+version_group = 2
+vendor = "D-Link"
+product = "ipGENADevice"
+context = "http_header.server"
+metadata = { "os.vendor" = "D-Link", "os.product" = "ipOS", "os.version" = "{capture:1}", "os.device" = "Router" }
+
+[[match]]
+name = "D-Link DIR-8XX Router"
+pattern = "Linux, STUNNEL/1.0, (DIR-8\\d+\\w*) Ver (\\S+)$"
+context = "http_header.server"
+example = "Linux, STUNNEL/1.0, DIR-850L Ver 1.09"
+metadata = { "hw.vendor" = "D-Link", "hw.product" = "{capture:1}", "hw.device" = "Router", "os.vendor" = "D-Link", "os.version" = "{capture:2}", "os.device" = "Router" }
+
+[[match]]
+name = "D-Link DIR-XXX Router - WEBACCESS variant"
+pattern = "Linux, WEBACCESS/1.0, (DIR-\\d+\\w*) Ver (\\S+)$"
+context = "http_header.server"
+example = "Linux, WEBACCESS/1.0, DIR-850L Ver 1.09"
+metadata = { "hw.vendor" = "D-Link", "hw.product" = "{capture:1}", "hw.device" = "Router", "os.vendor" = "D-Link", "os.version" = "{capture:2}", "os.device" = "Router" }
+
+[[match]]
+name = "D-Link DIR-XXX Router - HTTP variant"
+pattern = "Linux, HTTP/1.1, (DIR-\\d+\\w*) Ver (\\S+)$"
+context = "http_header.server"
+example = "Linux, HTTP/1.1, DIR-815 Ver 1.04"
+metadata = { "hw.vendor" = "D-Link", "hw.product" = "{capture:1}", "hw.device" = "Router", "os.vendor" = "D-Link", "os.version" = "{capture:2}", "os.device" = "Router" }
+
+[[match]]
+name = "D-Link DSL-XXX Router - WEBACCESS variant"
+pattern = "Linux, WEBACCESS/1.0, (DSL-\\d+\\w*) Ver (\\S+)$"
+context = "http_header.server"
+example = "Linux, WEBACCESS/1.0, DSL-2890AL Ver AU_1.02.10"
+metadata = { "hw.vendor" = "D-Link", "hw.product" = "{capture:1}", "hw.device" = "Router", "os.vendor" = "D-Link", "os.version" = "{capture:2}", "os.device" = "Router" }
+
+[[match]]
+name = "D-Link generic"
+pattern = "^TBS/R2 UPnP/[\\d\\.]+ MiniUPnPd/([\\d\\.]+)$"
+version_group = 1
+vendor = "MiniUPnP Project"
+product = "MiniUPnPd"
+context = "http_header.server"
+example = "TBS/R2 UPnP/1.0 MiniUPnPd/1.2"
+metadata = { "hw.vendor" = "D-Link", "service.cpe23" = "cpe:/a:miniupnp_project:miniupnpd:{service.version}" }
+
+[[match]]
+name = "D-Link alphapd - likely DCS series cameras"
+pattern = "^alphapd/(\\d\\.[\\d.]+)$"
+version_group = 1
+vendor = "D-Link"
+product = "alphapd"
+context = "http_header.server"
+example = "alphapd/2.1.8"
+metadata = { "hw.vendor" = "D-Link" }
+
+[[match]]
+name = "TP-Link WAP UPnP Server"
+pattern = "^ipos/([\\d\\.]+) UPnP/[\\d\\.]+ (TL-\\w+)/(\\S+)$"
+version_group = 3
+vendor = "TP-LINK"
+context = "http_header.server"
+example = "ipos/7.0 UPnP/1.0 TL-WR841N/6.0/7.0"
+metadata = { "service.product" = "{capture:2}", "os.vendor" = "TP-LINK", "os.product" = "ipOS", "os.version" = "{capture:1}", "os.device" = "WAP" }
+
+[[match]]
+name = "TP-Link Router httpd - seen on Wireless N and portable 3G routers"
+pattern = "^Router Webserver$"
+vendor = "TP-LINK"
+context = "http_header.server"
+example = "Router Webserver"
+metadata = { "os.vendor" = "TP-LINK", "os.device" = "Router", "hw.vendor" = "TP-LINK", "hw.device" = "Router" }
+
+[[match]]
+name = "TP-Link httpd"
+pattern = "^TP-LINK HTTPD/1.0$"
+vendor = "TP-LINK"
+context = "http_header.server"
+example = "TP-LINK HTTPD/1.0"
+metadata = { "os.vendor" = "TP-LINK", "hw.vendor" = "TP-LINK", "hw.device" = "Device" }
+
+[[match]]
+name = "Siqura Video Encoder"
+pattern = "^Linux/(\\S+\\_eureka_1), UPnP/[\\d\\.]+, Portable SDK for UPnP devices/(\\S+)$"
+version_group = 2
+product = "libupnp"
+context = "http_header.server"
+example = "Linux/2.6.37_eureka_1, UPnP/1.0, Portable SDK for UPnP devices/1.6.6"
+metadata = { "hw.vendor" = "Siqura", "hw.device" = "Video Encoder", "os.vendor" = "Siqura", "os.family" = "Linux", "os.product" = "Linux", "os.version" = "{capture:1}" }
+
+[[match]]
+name = "Steinsvik Orbit IP Camera (Truen TCAM Rebrand)"
+pattern = "^Linux/(\\S+\\-Mozart-8G), UPnP/[\\d\\.]+, Portable SDK for UPnP devices/(\\S+)$"
+version_group = 2
+product = "libupnp"
+context = "http_header.server"
+example = "Linux/2.6.28.9-Mozart-8G, UPnP/1.0, Portable SDK for UPnP devices/1.6.6"
+metadata = { "hw.vendor" = "Steinsvik", "hw.device" = "IP Camera", "hw.product" = "Orbit IP Camera", "os.vendor" = "Steinsvik", "os.family" = "Linux", "os.product" = "Linux", "os.version" = "{capture:1}" }
+
+[[match]]
+name = "AMI MegaRAC LOM UPnP"
+pattern = "^Linux/(\\S+\\-ami), UPnP/[\\d\\.]+, Portable SDK for UPnP devices/(\\S+)$"
+version_group = 2
+product = "libupnp"
+context = "http_header.server"
+example = "Linux/3.14.17-ami, UPnP/1.0, Portable SDK for UPnP devices/1.6.20"
+metadata = { "hw.device" = "Lights Out Management", "hw.vendor" = "AMI", "hw.family" = "MegaRAC", "hw.product" = "MegaRAC", "os.device" = "Lights Out Management", "os.vendor" = "AMI", "os.family" = "Linux", "os.product" = "Linux", "os.version" = "{capture:1}" }
+
+[[match]]
+name = "Axis Network Camera"
+pattern = "^Linux/(\\S+\\-axis[^,]+), UPnP/[\\d\\.]+, Portable SDK for UPnP devices/(\\S+)$"
+version_group = 2
+product = "libupnp"
+context = "http_header.server"
+example = "Linux/4.9.94-axis5, UPnP/1.0, Portable SDK for UPnP devices/1.6.22"
+metadata = { "hw.vendor" = "AXIS", "hw.device" = "IP Camera", "os.vendor" = "AXIS", "os.device" = "IP Camera", "os.family" = "Linux", "os.product" = "Linux", "os.version" = "{capture:1}" }
+
+[[match]]
+name = "Portable SDK for UPnP Server - Linux"
+pattern = "^Linux/(\\S+), UPnP/[\\d\\.]+, Portable SDK for UPnP devices/(\\S+)$"
+version_group = 2
+product = "libupnp"
+context = "http_header.server"
+example = "Linux/2.4.20-46.7asp, UPnP/1.0, Portable SDK for UPnP devices/1.6.17"
+metadata = { "os.vendor" = "Linux", "os.product" = "Linux", "os.version" = "{capture:1}", "os.cpe23" = "cpe:/o:linux:linux_kernel:{os.version}" }
+
+[[match]]
+name = "DLNADOC Portable SDK for UPnP Server - Linux DNLADOC variant"
+pattern = "^Linux/(\\S+) UPnP/[\\d\\.]+ DLNADOC/[\\d\\.]+ Portable SDK for UPnP devices/(\\S+)$"
+version_group = 2
+product = "libupnp"
+context = "http_header.server"
+example = "Linux/3.0.8 UPnP/1.0 DLNADOC/1.50 Portable SDK for UPnP devices/1.6.6"
+metadata = { "os.vendor" = "Linux", "os.product" = "Linux", "os.version" = "{capture:1}", "os.cpe23" = "cpe:/o:linux:linux_kernel:{os.version}" }
+
+[[match]]
+name = "Intel SDK for UPnP Server with verbose banner"
+pattern = "^Linux/(\\S+), UPnP/[\\d\\.]+, Intel SDK for UPnP devices ?/(\\S+)$"
+version_group = 2
+product = "libupnp"
+context = "http_header.server"
+example = "Linux/2.6.10_dev-malta-mips2_fp_le, UPnP/1.0, Intel SDK for UPnP devices /1.2"
+metadata = { "os.vendor" = "Linux", "os.product" = "Linux", "os.version" = "{capture:1}", "os.cpe23" = "cpe:/o:linux:linux_kernel:{os.version}" }
+
+[[match]]
+name = "Intel SDK for UPnP Server"
+pattern = "^Linux, UPnP/[\\d\\.]+, Intel SDK for UPnP devices ?/(\\S+)$"
+version_group = 1
+product = "libupnp"
+context = "http_header.server"
+example = "Linux, UPnP/1.0, Intel SDK for UPnP devices /1.2"
+
+[[match]]
+name = "Portable SDK for UPnP Server - macOS"
+pattern = "^Darwin/(\\S+), UPnP/\\S+, Portable SDK for UPnP devices/(\\S+)$"
+version_group = 2
+product = "libupnp"
+context = "http_header.server"
+example = "Darwin/10.2.0, UPnP/1.0, Portable SDK for UPnP devices/1.6.6"
+metadata = { "os.vendor" = "Apple", "os.product" = "Mac OS X", "os.version" = "{capture:1}", "os.cpe23" = "cpe:/o:apple:mac_os_x:{os.version}" }
+
+[[match]]
+name = "Loxone Miniserver Smart Home"
+pattern = "^Loxone Miniserver (.*) UPnP/1.0$"
+context = "http_header.server"
+example = "Loxone Miniserver some name UPnP/1.0"
+metadata = { "hw.vendor" = "Loxone", "hw.product" = "Miniserver", "hw.device" = "Building Automation", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "MikroTik RouterOS"
+pattern = "^RouterOS/(\\S+)UPnP/1.0 MikroTik UPnP/1.0$"
+context = "http_header.server"
+example = "RouterOS/6.43UPnP/1.0 MikroTik UPnP/1.0"
+metadata = { "os.vendor" = "MikroTik", "os.device" = "Router", "os.family" = "RouterOS", "os.product" = "RouterOS", "os.version" = "{capture:1}", "os.cpe23" = "cpe:/o:mikrotik:routeros:{os.version}" }
+
+[[match]]
+name = "Roku with a version"
+pattern = "^Roku UPnP/\\S+ Roku/(\\S+)$"
+context = "http_header.server"
+example = "Roku UPnP/1.0 Roku/8.1.6"
+metadata = { "hw.vendor" = "Roku", "hw.product" = "Roku", "hw.device" = "Media Server", "hw.version" = "{capture:1}", "hw.cpe23" = "cpe:/h:roku:roku:{hw.version}" }
+
+[[match]]
+name = "Roku with double versions"
+pattern = "^Roku/(\\S+) UPnP/\\S+ Roku/\\S+$"
+context = "http_header.server"
+example = "Roku/9.2.0 UPnP/1.0 Roku/9.2.0"
+metadata = { "hw.vendor" = "Roku", "hw.product" = "Roku", "hw.device" = "Media Server", "hw.version" = "{capture:1}", "hw.cpe23" = "cpe:/h:roku:roku:{hw.version}" }
+
+[[match]]
+name = "Roku without a version"
+pattern = "^Roku UPnP/\\S+ MiniUPnPd/([\\d\\.]+)$"
+version_group = 1
+vendor = "MiniUPnP Project"
+product = "MiniUPnPd"
+context = "http_header.server"
+example = "Roku UPnP/1.0 MiniUPnPd/1.4"
+metadata = { "hw.vendor" = "Roku", "hw.product" = "Roku", "hw.device" = "Media Server", "hw.cpe23" = "cpe:/h:roku:roku:-", "service.cpe23" = "cpe:/a:miniupnp_project:miniupnpd:{service.version}" }
+
+[[match]]
+name = "Xbox Media Center UPnP Server"
+pattern = "^UPnP/\\S+, DLNADOC/\\S+, Platinum/(\\S+)$"
+version_group = 1
+vendor = "Microsoft"
+product = "XBMC"
+context = "http_header.server"
+example = "UPnP/1.0, DLNADOC/1.50, Platinum/0.5.1"
+
+[[match]]
+name = "Synology DiskStation NAS with IP"
+pattern = "Synology/DSM/(\\d+\\.\\d+\\.\\d+\\.\\d+)$"
+context = "http_header.server"
+example = "Synology/DSM/192.168.1.100"
+metadata = { "hw.vendor" = "Synology", "hw.family" = "DiskStation", "hw.device" = "NAS", "os.device" = "NAS", "os.family" = "Linux", "os.product" = "DSM", "os.vendor" = "Synology", "host.ip" = "{capture:1}" }
+
+[[match]]
+name = "Synology DiskStation NAS with hostname"
+pattern = "Synology/DSM/(\\S+)$"
+context = "http_header.server"
+example = "Synology/DSM/stuff"
+metadata = { "hw.vendor" = "Synology", "hw.family" = "DiskStation", "hw.device" = "NAS", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "NetData Embedded HTTP Server"
+pattern = "^NetData Embedded HTTP Server v([a-zA-Z0-9\\-\\.]+)$"
+version_group = 1
+vendor = "NetData"
+product = "NetData"
+context = "http_header.server"
+example = "NetData Embedded HTTP Server v1.16.1-146-g2f5e36ef"
+metadata = { "service.cpe23" = "cpe:/a:netdata:netdata:{service.version}" }
+
+[[match]]
+name = "SolsticePod"
+pattern = "^Solstice 2\\.0+$"
+context = "http_header.server"
+example = "Solstice 2.0"
+metadata = { "hw.vendor" = "Mersive", "hw.device" = "Wireless Presenter", "hw.product" = "SolsticePod" }
+
+[[match]]
+name = "Extron MediaLink Controller HTTP Server"
+pattern = "^MLC ([^\\/]+)/([\\d\\.]+)$"
+context = "http_header.server"
+example = "MLC 104 IP PLUS/1.03"
+metadata = { "hw.vendor" = "Extron", "hw.device" = "Display Controller", "hw.product" = "{extron.model} MediaLink Controller", "os.vendor" = "Extron", "os.family" = "Linux", "extron.model" = "{capture:1}", "hw.version" = "{capture:2}" }
+
+[[match]]
+name = "BlueCat Appliance"
+pattern = "^Jetty \\(Bluecat Networks\\)$"
+context = "http_header.server"
+example = "Jetty (Bluecat Networks)"
+metadata = { "hw.vendor" = "BlueCat", "hw.device" = "Network Appliance" }
+
+[[match]]
+name = "Crestron Video Conferencing"
+pattern = "^Crestron Webserver$"
+context = "http_header.server"
+example = "Crestron Webserver"
+metadata = { "hw.vendor" = "Crestron", "hw.device" = "Video Conferencing", "os.vendor" = "Crestron", "os.family" = "Linux", "os.device" = "Video Conferencing" }
+
+[[match]]
+name = "OPNsense Firewall"
+pattern = "^OPNsense$"
+vendor = "OPNSense"
+product = "OPNSense"
+context = "http_header.server"
+example = "OPNsense"
+metadata = { "service.device" = "Firewall", "service.cpe23" = "cpe:/a:opnsense:opnsense:-", "service.component.vendor" = "lighttpd", "service.component.product" = "lighttpd", "service.component.cpe23" = "cpe:/a:lighttpd:lighttpd:-", "os.vendor" = "FreeBSD", "os.product" = "FreeBSD", "os.cpe23" = "cpe:/o:freebsd:freebsd:-" }
+
+[[match]]
+name = "ELAN Smart Home Controller"
+pattern = "^ELAN Controller$"
+context = "http_header.server"
+example = "ELAN Controller"
+metadata = { "hw.vendor" = "ELAN", "hw.device" = "Building Automation", "hw.product" = "Home Controller", "os.vendor" = "ELAN", "os.family" = "Linux" }
+
+[[match]]
+name = "Sony STR AV Receiver"
+pattern = "^STR_SettingServer$"
+context = "http_header.server"
+example = "STR_SettingServer"
+metadata = { "hw.vendor" = "Sony", "hw.device" = "Media Server", "hw.product" = "AV Receiver" }
+
+[[match]]
+name = "Yamaha AV Receiver"
+pattern = "^AV_Receiver/([\\d\\.]+) \\(([^\\)]+)\\)$"
+context = "http_header.server"
+example = "AV_Receiver/3.1 (RX-V675)"
+metadata = { "hw.vendor" = "Yamaha", "hw.device" = "AV Receiver", "hw.version" = "{capture:1}", "hw.product" = "{capture:2}" }
+
+[[match]]
+name = "ANNKE IP Camera"
+pattern = "^MWS 0.01$"
+context = "http_header.server"
+example = "MWS 0.01"
+metadata = { "hw.vendor" = "ANNKE", "hw.device" = "IP Camera", "hw.product" = "IP Camera" }
+
+[[match]]
+name = "Icecast Streaming Media server"
+pattern = "^Icecast (\\S+)$"
+version_group = 1
+vendor = "Xiph"
+product = "Icecast"
+context = "http_header.server"
+example = "Icecast 2.4.3"
+metadata = { "service.cpe23" = "cpe:/a:xiph:icecast:{service.version}" }
+
+[[match]]
+name = "Tableau Tableau Server web interface"
+pattern = "^Tableau$"
+vendor = "Tableau"
+product = "Tableau Server"
+context = "http_header.server"
+example = "Tableau"
+metadata = { "service.cpe23" = "cpe:/a:tableau:tableau_server:-" }
+
+[[match]]
+name = "Wowza Streaming Engine"
+pattern = "^WowzaStreamingEngine/(\\d\\.[\\w.]+)$"
+version_group = 1
+vendor = "Wowza"
+product = "Streaming Engine"
+context = "http_header.server"
+example = "WowzaStreamingEngine/4.7.7"
+metadata = { "service.cpe23" = "cpe:/a:wowza:streaming_engine:{service.version}" }
+
+[[match]]
+name = "Couchbase Sync Gateway Community Edition"
+pattern = "^Couchbase Sync Gateway/([\\d.]+) CE$"
+version_group = 1
+vendor = "Couchbase"
+product = "Sync Gateway"
+context = "http_header.server"
+example = "Couchbase Sync Gateway/2.5.0 CE"
+metadata = { "service.edition" = "Community Edition", "service.cpe23" = "cpe:/a:couchbase:sync_gateway:{service.version}" }
+
+[[match]]
+name = "Couchbase Sync Gateway Enterprise Edition"
+pattern = "^Couchbase Sync Gateway/([\\d.]+) EE$"
+version_group = 1
+vendor = "Couchbase"
+product = "Sync Gateway"
+context = "http_header.server"
+example = "Couchbase Sync Gateway/2.7.1 EE"
+metadata = { "service.edition" = "Enterprise Edition", "service.cpe23" = "cpe:/a:couchbase:sync_gateway:{service.version}" }
+
+[[match]]
+name = "Couchbase Sync Gateway"
+pattern = "^Couchbase Sync Gateway/([\\d.]+)$"
+version_group = 1
+vendor = "Couchbase"
+product = "Sync Gateway"
+context = "http_header.server"
+example = "Couchbase Sync Gateway/1.3.0"
+metadata = { "service.cpe23" = "cpe:/a:couchbase:sync_gateway:{service.version}" }
+
+[[match]]
+name = "Couchbase Server without version"
+pattern = "^Couchbase Server$"
+vendor = "Couchbase"
+product = "Couchbase Server"
+context = "http_header.server"
+example = "Couchbase Server"
+metadata = { "service.cpe23" = "cpe:/a:couchbase:couchbase_server:-" }
+
+[[match]]
+name = "Kestrel web server implementation in ASP.NET core"
+pattern = "^Kestrel$"
+vendor = "Microsoft"
+product = "Kestrel web server"
+context = "http_header.server"
+example = "Kestrel"
+
+[[match]]
+name = "Tencent Secure Tencent Gateway"
+pattern = "^stgw/([\\d.]+)_([\\d.]+)$"
+version_group = 1
+vendor = "Tencent"
+product = "Secure Tencent Gateway"
+context = "http_header.server"
+example = "stgw/1.3.12.9_1.13.5"
+metadata = { "service.component.version" = "{capture:2}" }
+
+[[match]]
+name = "axTLS Project axTLS web server"
+pattern = "^axhttpd/([\\d.]+)$"
+version_group = 1
+vendor = "axTLS Project"
+product = "axTLS"
+context = "http_header.server"
+example = "axhttpd/1.5.3"
+metadata = { "service.cpe23" = "cpe:/a:axtls_project:axtls:{service.version}" }
+
+[[match]]
+name = "Communigate Communigate Pro"
+pattern = "^CommuniGatePro/(\\d\\.[\\w.]+)$"
+version_group = 1
+vendor = "Communigate"
+product = "Communigate Pro"
+context = "http_header.server"
+example = "CommuniGatePro/5.2.20"
+metadata = { "service.family" = "Pro", "service.cpe23" = "cpe:/a:communigate:communigate_pro:{service.version}" }
+
+[[match]]
+name = "TinyProxy Project tinyproxy"
+pattern = "^tinyproxy/([\\d.]+)$"
+version_group = 1
+vendor = "Tinyproxy Project"
+product = "Tinyproxy"
+context = "http_header.server"
+example = "tinyproxy/1.8.2"
+metadata = { "service.cpe23" = "cpe:/a:tinyproxy_project:tinyproxy:{service.version}" }
+
+[[match]]
+name = "mitmproxy interactive HTTPS proxy - https://github.com/mitmproxy/mitmproxy"
+pattern = "^mitmproxy ([\\d.]+)$"
+version_group = 1
+vendor = "mitmproxy"
+product = "mitmproxy"
+context = "http_header.server"
+example = "mitmproxy 7.0.4"
+metadata = { "service.cpe23" = "cpe:/a:mitmproxy:mitmproxy:{service.version}" }
+
+[[match]]
+name = "Comcast Xfinity Broadband Router Server"
+pattern = "^Xfinity Broadband Router Server$"
+context = "http_header.server"
+example = "Xfinity Broadband Router Server"
+metadata = { "hw.vendor" = "Comcast", "hw.product" = "Xfinity Broadband Router", "hw.device" = "Broadband Router" }
+
+[[match]]
+name = "NEC Univerge Router - enterprise class with VPN, UTM, etc"
+pattern = "^IX Series IX21\\d\\d \\(magellan-sec\\) Software, Version ([^, ]+), (?:MAINTENANCE )?RELEASE SOFTWARE$"
+context = "http_header.server"
+example = "IX Series IX2106 (magellan-sec) Software, Version 10.2.20, RELEASE SOFTWARE"
+metadata = { "hw.vendor" = "NEC", "hw.product" = "Univerge", "hw.version" = "{capture:1}", "hw.device" = "Router", "hw.cpe23" = "cpe:/h:nec:univerge:{hw.version}" }
+
+[[match]]
+name = "CaddyServer Caddy - golang based httpd"
+pattern = "^Caddy$"
+vendor = "CaddyServer"
+product = "Caddy"
+context = "http_header.server"
+example = "Caddy"
+metadata = { "service.cpe23" = "cpe:/a:caddyserver:caddy:-" }
+
+[[match]]
+name = "FastHTTP - Fast HTTP package for Go"
+pattern = "^fasthttp$"
+vendor = "FastHTTP Project"
+product = "FastHTTP"
+context = "http_header.server"
+example = "fasthttp"
+metadata = { "service.cpe23" = "cpe:/a:fasthttp_project:fasthttp:-" }
+
+[[match]]
+name = "Moxa devices - service used on multiple families of devices"
+pattern = "^MoxaHttp/(\\d\\.\\d)$"
+version_group = 1
+vendor = "Moxa"
+product = "httpd"
+context = "http_header.server"
+example = "MoxaHttp/2.3"
+metadata = { "hw.vendor" = "Moxa", "os.vendor" = "Moxa" }
+
+[[match]]
+name = "Facebook Proxygen httpd software"
+pattern = "^proxygen-bolt$"
+vendor = "Facebook"
+product = "Proxygen"
+context = "http_header.server"
+example = "proxygen-bolt"
+metadata = { "service.cpe23" = "cpe:/a:facebook:proxygen:-" }
+
+[[match]]
+name = "GFI Kerio Connect"
+pattern = "^Kerio Connect ([\\d.]+)(?: patch (\\d))?$"
+version_group = 1
+vendor = "GFI"
+product = "Kerio Connect"
+context = "http_header.server"
+example = "Kerio Connect 8.2.2"
+metadata = { "service.version.version" = "{capture:2}" }
+
+[[match]]
+name = "GFI Kerio Control - embedded web server"
+pattern = "^Kerio Control Embedded Web Server$"
+vendor = "GFI"
+product = "Kerio Control"
+context = "http_header.server"
+example = "Kerio Control Embedded Web Server"
+metadata = { "service.cpe23" = "cpe:/a:gfi:kerio_control:-" }
+
+[[match]]
+name = "Cesanta Mongoose embedded web server / networking library"
+pattern = "^Mongoose/([\\d.]+)$"
+version_group = 1
+vendor = "Cesanta"
+product = "Mongoose"
+context = "http_header.server"
+example = "Mongoose/6.7.1"
+metadata = { "service.cpe23" = "cpe:/a:cesanta:mongoose:{service.version}" }
+
+[[match]]
+name = "Bangteng Kangle web server"
+pattern = "^kangle/([\\d.]+)$"
+version_group = 1
+vendor = "Bangteng"
+product = "Kangle"
+context = "http_header.server"
+example = "kangle/3.5.21.9"
+
+[[match]]
+name = "PalletsProjects Werkzeug web server"
+pattern = "^Werkzeug/([\\d.]+) Python/([\\d.]+)$"
+version_group = 1
+vendor = "PalletsProjects"
+product = "Werkzeug"
+context = "http_header.server"
+example = "Werkzeug/0.14.1 Python/3.6.9"
+metadata = { "service.cpe23" = "cpe:/a:palletsprojects:werkzeug:{service.version}", "python.version" = "{capture:2}" }
+
+[[match]]
+name = "Proxmox api daemon"
+pattern = "^pve-api-daemon/[\\d.]+"
+vendor = "Proxmox"
+product = "Virtual Environment"
+context = "http_header.server"
+example = "pve-api-daemon/3.0"
+metadata = { "service.cpe23" = "cpe:/a:proxmox:virtual_environment:-", "os.vendor" = "Proxmox", "os.family" = "Linux", "os.product" = "Proxmox" }
+
+[[match]]
+name = "Cherokee Web Server - Debian variant"
+pattern = "^Cherokee/([\\d.]+) \\(Debian\\)$"
+version_group = 1
+vendor = "Cherokee Project"
+product = "Cherokee"
+context = "http_header.server"
+example = "Cherokee/1.2.104 (Debian)"
+metadata = { "service.cpe23" = "cpe:/a:cherokee-project:cherokee:{service.version}", "os.vendor" = "Debian", "os.product" = "Linux", "os.certainty" = "0.5", "os.cpe23" = "cpe:/o:debian:debian_linux:-" }
+
+[[match]]
+name = "Cherokee Web Server - Ubuntu variant"
+pattern = "^Cherokee/([\\d.]+) \\(Ubuntu\\)$"
+version_group = 1
+vendor = "Cherokee Project"
+product = "Cherokee"
+context = "http_header.server"
+example = "Cherokee/1.2.104 (Ubuntu)"
+metadata = { "service.cpe23" = "cpe:/a:cherokee-project:cherokee:{service.version}", "os.vendor" = "Ubuntu", "os.product" = "Linux", "os.certainty" = "0.5", "os.cpe23" = "cpe:/o:canonical:ubuntu_linux:-" }
+
+[[match]]
+name = "Cherokee Web Server - Gentoo variant"
+pattern = "^Cherokee/([\\d.]+) \\(Gentoo Linux\\)$"
+version_group = 1
+vendor = "Cherokee Project"
+product = "Cherokee"
+context = "http_header.server"
+example = "Cherokee/1.2.104 (Gentoo Linux)"
+metadata = { "service.cpe23" = "cpe:/a:cherokee-project:cherokee:{service.version}", "os.vendor" = "Gentoo", "os.product" = "Linux", "os.certainty" = "0.5", "os.cpe23" = "cpe:/o:gentoo:linux:-" }
+
+[[match]]
+name = "Cherokee Web Server"
+pattern = "^Cherokee(?:/([\\d.]+))?(?: \\(UNIX\\))?$"
+version_group = 1
+vendor = "Cherokee Project"
+product = "Cherokee"
+context = "http_header.server"
+example = "Cherokee"
+metadata = { "service.cpe23" = "cpe:/a:cherokee-project:cherokee:{service.version}" }
+
+[[match]]
+name = "SerenityOS Web Server - https://github.com/SerenityOS/serenity"
+pattern = "^WebServer \\(SerenityOS\\)$"
+vendor = "SerenityOS"
+product = "WebServer"
+context = "http_header.server"
+example = "WebServer (SerenityOS)"
+metadata = { "os.vendor" = "SerenityOS", "os.product" = "SerenityOS", "os.cpe23" = "cpe:/o:serenityos:serenityos:-" }
+
+[[match]]
+name = "ACME mini_httpd with randomized Server header"
+pattern = "^[a-f\\d]{7,8}-[a-f\\d]{3,4}-[a-f\\d]{3,4}-[a-f\\d]{3,4}-[a-f\\d]{10,12}$"
+vendor = "ACME"
+product = "mini_httpd"
+context = "http_header.server"
+example = "a74b7cd4-4a4e-4115-7a48-1c7ebb4ae45b"
+metadata = { "service.cpe23" = "cpe:/a:acme:mini_httpd:-" }
+
+[[match]]
+name = "UPNP server"
+pattern = "^Unspecified, UPnP/[\\d\\.]+, Unspecified$"
+context = "http_header.server"
+example = "Unspecified, UPnP/1.0, Unspecified"
+metadata = { "service.family" = "UPnP" }
+
+[[match]]
+name = "Netgear WNR2000v5 Router UPnP"
+pattern = "^WNR2000v([0-9]) UPnP/[\\d\\.]+ miniupnpd/([\\d\\.]+)$"
+version_group = 2
+vendor = "Netgear"
+product = "MiniUPnPd"
+context = "http_header.server"
+example = "WNR2000v5 UPnP/1.0 miniupnpd/1.0"
+metadata = { "hw.version" = "{capture:1}", "service.family" = "UPnP", "hw.vendor" = "Netgear", "hw.product" = "WNR2000", "hw.device" = "Router", "hw.cpe23" = "cpe:/h:netgear:wnr2000:{hw.version}" }
+
+[[match]]
+name = "PELCO CAMERA DEVICE"
+pattern = "^ev-compat$"
+vendor = "Pelco"
+context = "http_header.server"
+example = "ev-compat"
+metadata = { "service.family" = "UPnP", "hw.vendor" = "Pelco", "hw.device" = "IP Camera" }
+
+[[match]]
+name = "Ubiquiti UNMS"
+pattern = "UNMS (\\d+\\.\\d+\\.\\d+)"
+version_group = 1
+vendor = "Ubiquiti"
+product = "UNMS"
+context = "http_header.server"
+example = "302 Found UNMS 1.2.7"
+
+[[match]]
+name = "Fortinet - device unknown"
+pattern = "^xxxxxxxx-xxxxx$"
+context = "http_header.server"
+example = "xxxxxxxx-xxxxx"
+metadata = { "os.vendor" = "Fortinet", "os.family" = "FortiOS", "os.product" = "FortiOS", "os.device" = "Firewall", "os.cpe23" = "cpe:/o:fortinet:fortios:-", "hw.vendor" = "Fortinet" }
+
+[[match]]
+name = "VBrick Encoding Server"
+pattern = "^VBrick (\\S+) Server$"
+vendor = "VBrick"
+context = "http_header.server"
+example = "VBrick VB6000 Server"
+metadata = { "service.product" = "{capture:1}", "hw.product" = "{service.product}", "hw.vendor" = "{service.vendor}", "hw.device" = "Video Encoder" }
+
+[[match]]
+name = "Panasonic KX-NS1000 IP PBX"
+pattern = "^kx-ns1000$"
+context = "http_header.server"
+example = "kx-ns1000"
+metadata = { "hw.product" = "KX-NS1000", "hw.vendor" = "Panasonic", "hw.device" = "VoIP Server" }
+
+[[match]]
+name = "Oce Printer"
+pattern = "^Oce Express WebTools$"
+vendor = "Oce"
+product = "Express WebTools"
+context = "http_header.server"
+example = "Oce Express WebTools"
+metadata = { "hw.vendor" = "Oce", "hw.device" = "Printer" }
+
+[[match]]
+name = "Eltex TAU model VoIP gateway"
+pattern = "^Eltex (TAU-\\d+[A-Z]*(?:\\.IP)?)$"
+context = "http_header.server"
+example = "Eltex TAU-72"
+metadata = { "os.vendor" = "Eltex", "os.product" = "{hw.product} Firmware", "os.device" = "VoIP Gateway", "hw.vendor" = "Eltex", "hw.product" = "{capture:1}", "hw.device" = "VoIP Gateway" }
+
+[[match]]
+name = "Eltex SMG model VoIP gateway"
+pattern = "^(SMG-?\\d+[A-Z]?)$"
+context = "http_header.server"
+example = "SMG2"
+metadata = { "os.vendor" = "Eltex", "os.product" = "{hw.product} Firmware", "os.device" = "VoIP Gateway", "hw.vendor" = "Eltex", "hw.product" = "{capture:1}", "hw.device" = "VoIP Gateway" }
+
+[[match]]
+name = "WSO2 Carbon - service-oriented platform for WSO2 products"
+pattern = "^WSO2 Carbon Server$"
+vendor = "WSO2"
+product = "Carbon"
+context = "http_header.server"
+example = "WSO2 Carbon Server"
+metadata = { "service.cpe23" = "cpe:/a:wso2:carbon:-", "service.component.vendor" = "Apache", "service.component.product" = "Tomcat", "service.component.family" = "Tomcat", "service.component.cpe23" = "cpe:/a:apache:tomcat:-" }
+
+[[match]]
+name = "Ballerina - programming language HTTP module"
+pattern = "^ballerina(?:\\/([\\d.]+(?:-[a-zA-Z0-9.-]+)?))?$"
+version_group = 1
+vendor = "Ballerina"
+product = "Ballerina"
+context = "http_header.server"
+example = "ballerina"
+metadata = { "service.cpe23" = "cpe:/a:ballerina:ballerina:{service.version}" }
+
+[[match]]
+name = "Restlet Framework - REST API framework for Java"
+pattern = "^Restlet-Framework/(\\d+(?:\\.\\d+)*)$"
+version_group = 1
+vendor = "Talend"
+product = "Restlet"
+context = "http_header.server"
+example = "Restlet-Framework/2.4.3"
+metadata = { "service.cpe23" = "cpe:/a:talend:restlet:{service.version}" }
+
+[[match]]
+name = "Assorted ZTE CPE device web server"
+pattern = "^((?:Mini|ZTE) web server) ([\\d.]+) ZTE corp \\d{4}\\.$"
+version_group = 2
+vendor = "ZTE"
+context = "http_header.server"
+example = "Mini web server 1.0 ZTE corp 2005."
+metadata = { "service.product" = "{capture:1}", "service.certainty" = "0.5", "hw.vendor" = "ZTE" }
+
+[[match]]
+name = "ManageEngine PAM360"
+pattern = "^PAM360$"
+vendor = "ManageEngine"
+product = "PAM360"
+context = "http_header.server"
+example = "PAM360"
+metadata = { "service.cpe23" = "cpe:/a:zohocorp:manageengine_pam360:-" }
+
+[[match]]
+name = "ManageEngine Password Manager Pro"
+pattern = "^PMP$"
+vendor = "ManageEngine"
+product = "ManageEngine Password Manager Pro"
+context = "http_header.server"
+example = "PMP"
+metadata = { "service.cpe23" = "cpe:/a:zohocorp:manageengine_password_manager_pro:-" }
+
+[[match]]
+name = "Crow - C++ framework for web services"
+pattern = "^Crow/((?:\\d+(?:\\.\\d+)*)|\\S+)$"
+version_group = 1
+vendor = "CrowCPP"
+product = "Crow"
+context = "http_header.server"
+example = "Crow/0.3"
+metadata = { "service.cpe23" = "cpe:/a:crowcpp:crow:{service.version}" }
+
+[[match]]
+name = "darkstat - network statistics gatherer"
+pattern = "^darkstat/(\\d+(?:\\.\\d+)*)$"
+version_group = 1
+vendor = "darkstat Project"
+product = "darkstat"
+context = "http_header.server"
+example = "darkstat/3.0.719"
+
+[[match]]
+name = "darkhttpd - web server"
+pattern = "^darkhttpd/(\\d+(?:\\.\\d+)*)(?:\\.from\\.git)?$"
+version_group = 1
+vendor = "darkhttpd Project"
+product = "darkhttpd"
+context = "http_header.server"
+example = "darkhttpd/1.12"
+metadata = { "service.cpe23" = "cpe:/a:darkhttpd_project:darkhttpd:{service.version}" }
+
+[[match]]
+name = "Server Technology Advanced Web Server (AWS)"
+pattern = "^ServerTech-AWS/v(\\d+(?:\\.\\d+)*[a-z](?:-[a-z][0-9])*)$"
+version_group = 1
+vendor = "Server Technology"
+product = "Advanced Web Server"
+context = "http_header.server"
+example = "ServerTech-AWS/v7.1g-b1"
+metadata = { "os.vendor" = "Server Technology", "hw.vendor" = "Server Technology" }
+
+[[match]]
+name = "frp - fast reverse proxy, not found response"
+pattern = "^frp/(\\d+(?:\\.\\d+)*)$"
+version_group = 1
+vendor = "frp"
+product = "frp"
+context = "http_header.server"
+example = "frp/0.48.0"
+
+[[match]]
+name = "ntopng - web-based network traffic monitoring on FreeBSD"
+pattern = "^ntopng (\\d+(?:\\.\\d+)*) \\[(?:FreeBSD |[\\w-]+-freebsd)(\\d+(?:\\.\\d+)*)(?:[a-z0-9-])* \\[(\\w+)\\]\\[[^\\]]*\\]\\]$"
+version_group = 1
+vendor = "ntop"
+product = "ntopng"
+context = "http_header.server"
+example = "ntopng 5.0.220112 [FreeBSD 12.3 [amd64][FreeBSD 12.3]]"
+metadata = { "service.cpe23" = "cpe:/a:ntop:ntopng:{service.version}", "os.vendor" = "FreeBSD", "os.family" = "FreeBSD", "os.product" = "FreeBSD", "os.version" = "{capture:2}", "os.arch" = "{capture:3}", "os.cpe23" = "cpe:/o:freebsd:freebsd:{os.version}" }
+
+[[match]]
+name = "ntopng - web-based network traffic monitoring on CentOS"
+pattern = "^ntopng (\\d+(?:\\.\\d+)*) \\[(?:[\\w-]+-linux-gnu)? \\[(\\w+)\\]\\[CentOS (?:Linux )?release (\\d+(?:\\.\\d+)*)(?: \\((?:Core|Final)\\)\\s*)?\\]\\]$"
+version_group = 1
+vendor = "ntop"
+product = "ntopng"
+context = "http_header.server"
+example = "ntopng 3.2.171221 [x86_64-unknown-linux-gnu [x86_64][CentOS release 6.9 (Final)]]"
+metadata = { "service.cpe23" = "cpe:/a:ntop:ntopng:{service.version}", "os.vendor" = "CentOS", "os.family" = "Linux", "os.product" = "Linux", "os.version" = "{capture:3}", "os.arch" = "{capture:2}", "os.cpe23" = "cpe:/o:centos:centos:{os.version}" }
+
+[[match]]
+name = "ntopng - web-based network traffic monitoring on Linux"
+pattern = "^ntopng (\\d+(?:\\.\\d+)*) \\[[\\w-]+-linux-gnu \\[(\\w+)\\]\\[[^\\]]*\\]\\]$"
+version_group = 1
+vendor = "ntop"
+product = "ntopng"
+context = "http_header.server"
+example = "ntopng 4.2.201125 [x86_64-unknown-linux-gnu [x86_64][]]"
+metadata = { "service.cpe23" = "cpe:/a:ntop:ntopng:{service.version}", "os.vendor" = "Linux", "os.family" = "Linux", "os.product" = "Linux", "os.arch" = "{capture:2}", "os.cpe23" = "cpe:/o:linux:linux_kernel:-" }
+
+[[match]]
+name = "ntopng - web-based network traffic monitoring on Linux (older ntopng)"
+pattern = "^ntopng (\\d+(?:\\.\\d+)*)\\s+\\[[\\w-]+-linux-gnu \\((\\w+)\\)\\]$"
+version_group = 1
+vendor = "ntop"
+product = "ntopng"
+context = "http_header.server"
+example = "ntopng 2.0.150531  [x86_64-unknown-linux-gnu (x86_64)]"
+metadata = { "service.cpe23" = "cpe:/a:ntop:ntopng:{service.version}", "os.vendor" = "Linux", "os.family" = "Linux", "os.product" = "Linux", "os.arch" = "{capture:2}", "os.cpe23" = "cpe:/o:linux:linux_kernel:-" }
+
+[[match]]
+name = "ntopng - web-based network traffic monitoring on Ubuntu"
+pattern = "^ntopng (\\d+(?:\\.\\d+)*) \\[Debian [\\w/]+ \\[(\\w+)\\]\\[Ubuntu (\\d+(?:\\.\\d+)*) LTS\\]\\]$"
+version_group = 1
+vendor = "ntop"
+product = "ntopng"
+context = "http_header.server"
+example = "ntopng 4.2.210309 [Debian buster/sid [x86_64][Ubuntu 18.04.5 LTS]]"
+metadata = { "service.cpe23" = "cpe:/a:ntop:ntopng:{service.version}", "os.vendor" = "Ubuntu", "os.family" = "Linux", "os.product" = "Linux", "os.version" = "{capture:3}", "os.arch" = "{capture:2}", "os.cpe23" = "cpe:/o:canonical:ubuntu_linux:{os.version}" }
+
+[[match]]
+name = "ntopng - web-based network traffic monitoring on Debian"
+pattern = "^ntopng (\\d+(?:\\.\\d+)*) \\[Debian (\\d+(?:\\.\\d+)*) \\[(\\w+)\\]\\[[^\\]]*\\]\\]$"
+version_group = 1
+vendor = "ntop"
+product = "ntopng"
+context = "http_header.server"
+example = "ntopng 5.4.221124 [Debian 11.0 [x86_64][Debian GNU/Linux 11 (bullseye)]]"
+metadata = { "service.cpe23" = "cpe:/a:ntop:ntopng:{service.version}", "os.vendor" = "Debian", "os.family" = "Linux", "os.product" = "Linux", "os.version" = "{capture:2}", "os.arch" = "{capture:3}", "os.cpe23" = "cpe:/o:debian:debian_linux:{os.version}" }
+
+[[match]]
+name = "ntopng - web-based network traffic monitoring on Debian 12.0 (bookworm)"
+pattern = "^ntopng (\\d+(?:\\.\\d+)*) \\[Debian bookworm/sid \\[(\\w+)\\]\\[[^\\]]*\\]\\]$"
+version_group = 1
+vendor = "ntop"
+product = "ntopng"
+context = "http_header.server"
+example = "ntopng 5.2.220414 [Debian bookworm/sid [x86_64][]]"
+metadata = { "service.cpe23" = "cpe:/a:ntop:ntopng:{service.version}", "os.vendor" = "Debian", "os.family" = "Linux", "os.product" = "Linux", "os.version" = "12.0", "os.arch" = "{capture:2}", "os.cpe23" = "cpe:/o:debian:debian_linux:12.0" }
+
+[[match]]
+name = "ntopng - web-based network traffic monitoring on Debian 11.0 (bullseye)"
+pattern = "^ntopng (\\d+(?:\\.\\d+)*) \\[Debian bullseye/sid \\[(\\w+)\\]\\[[^\\]]*\\]\\]$"
+version_group = 1
+vendor = "ntop"
+product = "ntopng"
+context = "http_header.server"
+example = "ntopng 3.8.200814 [Debian bullseye/sid [x86_64][]]"
+metadata = { "service.cpe23" = "cpe:/a:ntop:ntopng:{service.version}", "os.vendor" = "Debian", "os.family" = "Linux", "os.product" = "Linux", "os.version" = "11.0", "os.arch" = "{capture:2}", "os.cpe23" = "cpe:/o:debian:debian_linux:11.0" }
+
+[[match]]
+name = "ntopng - web-based network traffic monitoring on Debian 10.0 (buster)"
+pattern = "^ntopng (\\d+(?:\\.\\d+)*) \\[Debian buster/sid \\[(\\w+)\\]\\[[^\\]]*\\]\\]$"
+version_group = 1
+vendor = "ntop"
+product = "ntopng"
+context = "http_header.server"
+example = "ntopng 3.8.190204 [Debian buster/sid [x86_64][]]"
+metadata = { "service.cpe23" = "cpe:/a:ntop:ntopng:{service.version}", "os.vendor" = "Debian", "os.family" = "Linux", "os.product" = "Linux", "os.version" = "10.0", "os.arch" = "{capture:2}", "os.cpe23" = "cpe:/o:debian:debian_linux:10.0" }
+
+[[match]]
+name = "ntopng - web-based network traffic monitoring on Debian 9.0 (stretch)"
+pattern = "^ntopng (\\d+(?:\\.\\d+)*) \\[Debian stretch/sid \\((\\w+)\\)\\]$"
+version_group = 1
+vendor = "ntop"
+product = "ntopng"
+context = "http_header.server"
+example = "ntopng 2.3.160415 [Debian stretch/sid (x86_64)]"
+metadata = { "service.cpe23" = "cpe:/a:ntop:ntopng:{service.version}", "os.vendor" = "Debian", "os.family" = "Linux", "os.product" = "Linux", "os.version" = "9.0", "os.arch" = "{capture:2}", "os.cpe23" = "cpe:/o:debian:debian_linux:9.0" }
+
+[[match]]
+name = "ntopng - web-based network traffic monitoring on Debian 7.0 (wheezy)"
+pattern = "^ntopng (\\d+(?:\\.\\d+)*) \\[Debian wheezy/sid \\((\\w+)\\)\\]$"
+version_group = 1
+vendor = "ntop"
+product = "ntopng"
+context = "http_header.server"
+example = "ntopng 2.2.160403 [Debian wheezy/sid (x86_64)]"
+metadata = { "service.cpe23" = "cpe:/a:ntop:ntopng:{service.version}", "os.vendor" = "Debian", "os.family" = "Linux", "os.product" = "Linux", "os.version" = "7.0", "os.arch" = "{capture:2}", "os.cpe23" = "cpe:/o:debian:debian_linux:7.0" }
+
+[[match]]
+name = "ntopng - web-based network traffic monitoring on OpenBSD"
+pattern = "^ntopng (\\d+(?:\\.\\d+)*) \\[[\\w-]+openbsd(\\d+(?:\\.\\d+)*) \\[(\\w+)\\]\\[[^\\]]*\\]\\]$"
+version_group = 1
+vendor = "ntop"
+product = "ntopng"
+context = "http_header.server"
+example = "ntopng 3.8.201001 [amd64-unknown-openbsd6.8 [amd64][]]"
+metadata = { "service.cpe23" = "cpe:/a:ntop:ntopng:{service.version}", "os.vendor" = "OpenBSD", "os.family" = "OpenBSD", "os.product" = "OpenBSD", "os.version" = "{capture:2}", "os.arch" = "{capture:3}", "os.cpe23" = "cpe:/o:openbsd:openbsd:{os.version}" }
+
+[[match]]
+name = "ntopng - web-based network traffic monitoring on Windows"
+pattern = "^ntopng (\\d+(?:\\.\\d+)*) \\[[^\\]]* \\[(\\w+)\\]\\[Windows\\]\\]$"
+version_group = 1
+vendor = "ntop"
+product = "ntopng"
+context = "http_header.server"
+example = "ntopng 5.5.221014 [Win64 [x64][Windows]]"
+metadata = { "service.cpe23" = "cpe:/a:ntop:ntopng:{service.version}", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows", "os.arch" = "{capture:2}", "os.cpe23" = "cpe:/o:microsoft:windows:-" }
+
+[[match]]
+name = "ntopng - web-based network traffic monitoring on unknown OS"
+pattern = "^ntopng (\\d+(?:\\.\\d+)*) \\((\\w+)\\)$"
+version_group = 1
+vendor = "ntop"
+product = "ntopng"
+context = "http_header.server"
+example = "ntopng 5.4.220905 (amd64)"
+metadata = { "service.cpe23" = "cpe:/a:ntop:ntopng:{service.version}", "os.arch" = "{capture:2}" }
+
+[[match]]
+name = "Freebox Device"
+pattern = "^FbxWSD/1[.]0$"
+context = "http_header.server"
+example = "FbxWSD/1.0"
+metadata = { "os.vendor" = "Freebox", "os.product" = "Freebox OS", "os.family" = "Linux", "hw.vendor" = "Freebox", "hw.device" = "Device" }
+
+[[match]]
+name = "Apache APISIX"
+pattern = "^APISIX\\/([\\d\\.]+)"
+version_group = 1
+vendor = "Apache"
+product = "APISIX"
+context = "http_header.server"
+example = "APISIX/3.13.0"
+

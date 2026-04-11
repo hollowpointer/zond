@@ -1,0 +1,1346 @@
+# This file contains fingerprints imported from Rapid7 Recog.
+# Source: https://github.com/rapid7/recog
+# License: BSD-2-Clause
+
+[service]
+attribution = "Rapid7 Recog"
+name = "smtp"
+default_ports = []
+description = "Imported from Rapid7 smtp_banners"
+
+[[match]]
+name = "IMail - EVAL version"
+pattern = "^X1 NT-ESMTP Server ([^ ]+) \\(IMail (\\d+\\.[^ ]+) EVAL \\d+-\\d+\\)$"
+version_group = 2
+vendor = "Ipswitch"
+product = "IMail Server"
+context = "smtp.banner"
+example = "X1 NT-ESMTP Server foo.bar (IMail 6.06 EVAL 11347-1)"
+metadata = { "service.family" = "IMail Server", "service.cpe23" = "cpe:/a:ipswitch:imail_server:{service.version}", "host.name" = "{capture:1}", "imail.eval" = "yes" }
+
+[[match]]
+name = "IMail - non-EVAL version"
+pattern = "^X1 NT-ESMTP Server ([^ ]+) \\(IMail (\\d+\\.[^ ]+) \\d+-\\d+\\)$"
+version_group = 2
+vendor = "Ipswitch"
+product = "IMail Server"
+context = "smtp.banner"
+example = "X1 NT-ESMTP Server foo.bar (IMail 6.06 899085-1)"
+metadata = { "service.family" = "IMail Server", "service.cpe23" = "cpe:/a:ipswitch:imail_server:{service.version}", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "IMail - non-EVAL version, NT-ESMTP at end"
+pattern = "^([^ ]{1,512}) \\(IMail (\\d+\\.[^ ]+) \\d+-\\d+\\) NT-ESMTP Server X1$"
+version_group = 2
+vendor = "Ipswitch"
+product = "IMail Server"
+context = "smtp.banner"
+example = "foo.bar (IMail 12.4.2.27 21349-1) NT-ESMTP Server X1"
+metadata = { "service.family" = "IMail Server", "service.cpe23" = "cpe:/a:ipswitch:imail_server:{service.version}", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "AnalogX proxy  (http://www.analogx.com/contents/download/network/proxy.htm)"
+pattern = "^([^ ]{1,512}) SMTP AnalogX Proxy ([^ ]+\\.[^ ]+) \\(Release\\) ready *$"
+version_group = 2
+vendor = "AnalogX"
+product = "Proxy"
+context = "smtp.banner"
+example = "192.168.1.1 SMTP AnalogX Proxy 4.15 (Release) ready"
+metadata = { "service.family" = "Proxy", "service.cpe23" = "cpe:/a:analogx:proxy:{service.version}", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "ArGoSoft Mail Server"
+pattern = "^ArGoSoft Mail Server, Version [^ ]+ \\(([^ ]+\\.[^ ]+\\.[^ ]+\\.[^ ]+)\\) *$"
+version_group = 1
+vendor = "ArGoSoft"
+product = "Mail Server"
+context = "smtp.banner"
+example = "ArGoSoft Mail Server, Version 1.4 (1.4.0.7)"
+metadata = { "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows", "os.cpe23" = "cpe:/o:microsoft:windows:-", "service.family" = "Mail Server", "service.cpe23" = "cpe:/a:argosoft:mail_server:{service.version}" }
+
+[[match]]
+name = "ArGoSoft Mail Server - freeware version"
+pattern = "^(?:(\\S{1,512}) {1,8})?ArGoSoft Mail Server Freeware, Version [^ ]+ \\(([^ ]+\\.[^ ]+\\.[^ ]+\\.[^ ]+)\\) *$"
+version_group = 2
+vendor = "ArGoSoft"
+product = "Mail Server"
+context = "smtp.banner"
+example = "foo.bar ArGoSoft Mail Server Freeware, Version 1.8 (1.8.8.8)"
+metadata = { "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows", "os.cpe23" = "cpe:/o:microsoft:windows:-", "service.family" = "Mail Server", "service.cpe23" = "cpe:/a:argosoft:mail_server:{service.version}", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "ArGoSoft Mail Server - Pro version"
+pattern = "^(?:(\\S{1,512}) {1,8})?ArGoSoft Mail Server Pro for WinNT\\/2000(?:\\/XP)?, Version [^ ]+ \\(([^ ]+\\.[^ ]+\\.[^ ]+\\.[^ ]+)\\) *$"
+version_group = 2
+vendor = "ArGoSoft"
+product = "Mail Server"
+context = "smtp.banner"
+example = "ArGoSoft Mail Server Pro for WinNT/2000, Version 1.61 (1.6.1.8)"
+metadata = { "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows", "os.cpe23" = "cpe:/o:microsoft:windows:-", "service.family" = "Mail Server", "host.name" = "{capture:1}", "service.cpe23" = "cpe:/a:argosoft:mail_server:{service.version}" }
+
+[[match]]
+name = "AppleShare IP Mail Server"
+pattern = "^([^ ]{1,512}) +AppleShare IP Mail Server ([^ ]+\\.[\\d.]+) SMTP Server Ready *$"
+version_group = 2
+vendor = "Apple"
+product = "AppleShare IP Mail Server"
+context = "smtp.banner"
+example = "foo.bar AppleShare IP Mail Server 6.2.1 SMTP Server Ready"
+metadata = { "service.family" = "AppleShare IP Mail Server", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "CheckPoint FireWall-1"
+pattern = "^CheckPoint FireWall-1 secure E?SMTP server *$"
+vendor = "Check Point"
+product = "Firewall-1"
+context = "smtp.banner"
+example = "CheckPoint FireWall-1 secure SMTP server"
+metadata = { "service.family" = "Check Point", "service.cpe23" = "cpe:/a:checkpoint:firewall-1:-" }
+
+[[match]]
+name = "Cisco Pix v4.x"
+pattern = "^SMTP/cmap ready_+$"
+context = "smtp.banner"
+example = "SMTP/cmap ready________________________________________________________________________"
+metadata = { "os.vendor" = "Cisco", "os.family" = "PIX", "os.product" = "PIX", "os.version" = "4", "os.cpe23" = "cpe:/o:cisco:pix_firewall_software:4" }
+
+[[match]]
+name = "Youngzsoft CCProxy SMTP"
+pattern = "CCProxy (\\S+) SMTP Service Ready(?:\\(Unregistered\\))?$"
+version_group = 1
+vendor = "Youngzsoft"
+product = "CCProxy"
+context = "smtp.banner"
+example = "CCProxy 7.3 SMTP Service Ready(Unregistered)"
+metadata = { "service.family" = "CCProxy" }
+
+[[match]]
+name = "Cisco PIX firewall MailGuard banner stripping"
+pattern = "^[\\*20 ]{1,1000}$"
+context = "smtp.banner"
+example = "***************************"
+metadata = { "os.vendor" = "Cisco", "os.family" = "PIX", "os.product" = "PIX", "os.cpe23" = "cpe:/o:cisco:pix_firewall_software:-" }
+
+[[match]]
+name = "Critical Path (aka InScribe) Messaging Server on Windows NT4/2k, Solaris 2.6/2.7/2.8 Sparc/Intel, SGI IRIX 6.5.3 or later, or AIX "
+pattern = "^([^ ]{1,512}) +ESMTP CPMTA-([^ ]+)_([^ ]+)_([^ ]+)_([^ ]+) - NO UCE *$"
+version_group = 2
+vendor = "Critical Path"
+product = "Messaging Server"
+context = "smtp.banner"
+metadata = { "service.family" = "Messaging Server", "host.name" = "{capture:1}", "service.version.version" = "{capture:3}", "service.version.version.version" = "{capture:4}", "service.version.version.version.version" = "{capture:5}" }
+
+[[match]]
+name = "CSM Internet Mail Scanner SMTP Proxy"
+pattern = "^CSM Internet Mail Scanner SMTP-Gateway ready?\\. *$"
+vendor = "CSM"
+product = "Internet Mail Scanner"
+context = "smtp.banner"
+example = "CSM Internet Mail Scanner SMTP-Gateway ready."
+metadata = { "service.family" = "Internet Mail Scanner" }
+
+[[match]]
+name = "EMWAC Internet Mail Services (http://emwac.ed.ac.uk/html/internet_toolchest/ims/ims.htm)"
+pattern = "^([^ ]{1,512}) +IMS SMTP Receiver Version ([^ ]+\\.[^ ]+) Ready *$"
+version_group = 2
+vendor = "EMWAC"
+product = "Internet Mail Services"
+context = "smtp.banner"
+example = "foo.bar IMS SMTP Receiver Version 0.83 Ready"
+metadata = { "service.family" = "Internet Mail Services", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "Eudora Internet Mail Server"
+pattern = "^([^ ]{1,512}) running Eudora Internet Mail Server (\\d\\.[\\d.]+) *$"
+version_group = 2
+vendor = "Eudora"
+product = "Internet Mail Server"
+context = "smtp.banner"
+example = "foo.bar running Eudora Internet Mail Server 3.0.2"
+metadata = { "service.family" = "Internet Mail Server", "os.vendor" = "Apple", "os.family" = "Mac OS", "os.product" = "Mac OS", "os.cpe23" = "cpe:/o:apple:macos:-", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "Microsoft Exchange Server 5.5 and above (for sure, can't be confused with the IIS builtin SMTP service)"
+pattern = "^([^ ]{1,512}) +ESMTP Server \\(Microsoft Exchange Internet Mail Service (\\d+\\.\\d+\\.\\d+\\.\\d+)\\) ready *$"
+version_group = 2
+vendor = "Microsoft"
+product = "Exchange Server"
+context = "smtp.banner"
+example = "foo.bar ESMTP Server (Microsoft Exchange Internet Mail Service 5.5.2653.13) ready"
+metadata = { "service.family" = "Exchange Server", "service.cpe23" = "cpe:/a:microsoft:exchange_server:{service.version}", "host.name" = "{capture:1}", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows", "os.cpe23" = "cpe:/o:microsoft:windows:-" }
+
+[[match]]
+name = "Microsoft Exchange Server 5.0 (for sure, can't be confused with the IIS builtin SMTP service)"
+pattern = "^([^ ]{1,512}) Microsoft Exchange Internet Mail Service (\\d+\\.\\d+\\.\\d+\\.\\d+) ready *$"
+version_group = 2
+vendor = "Microsoft"
+product = "Exchange Server"
+context = "smtp.banner"
+example = "foo.bar Microsoft Exchange Internet Mail Service 5.0.1460.8 ready"
+metadata = { "service.family" = "Exchange Server", "service.cpe23" = "cpe:/a:microsoft:exchange_server:{service.version}", "host.name" = "{capture:1}", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows", "os.cpe23" = "cpe:/o:microsoft:windows:-" }
+
+[[match]]
+name = "Microsoft Exchange 2007/2010 (for sure, can't be confused with the IIS builtin SMTP service)"
+pattern = "^([^ ]{1,512}) Microsoft ESMTP MAIL Service ready at"
+vendor = "Microsoft"
+product = "Exchange Server"
+context = "smtp.banner"
+example = "foo.bar Microsoft ESMTP MAIL Service ready at Wed, 21 Jul 2010 19:04:24 -0700"
+metadata = { "service.family" = "Exchange Server", "service.cpe23" = "cpe:/a:microsoft:exchange_server:-", "host.name" = "{capture:1}", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows", "os.cpe23" = "cpe:/o:microsoft:windows:-" }
+
+[[match]]
+name = "Microsoft IIS builtin SMTP service - Windows Server 2016"
+pattern = "^([^ ]{1,512})? ?Microsoft ESMTP MAIL Service, Version: +(10\\.0\\.14393\\.[\\d.]+) +ready +(?:at +)?(.+)$"
+version_group = 2
+vendor = "Microsoft"
+product = "IIS"
+context = "smtp.banner"
+example = "foo.bar Microsoft ESMTP MAIL Service, Version: 10.0.14393.2608 ready at  Sun, 19 May 2019 09:04:29 -0500"
+metadata = { "service.family" = "IIS", "service.cpe23" = "cpe:/a:microsoft:iis:{service.version}", "host.name" = "{capture:1}", "system.time" = "{capture:3}", "system.time.format" = "EEE, d MMM yyyy HH:mm:ss Z", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows Server 2016", "os.cpe23" = "cpe:/o:microsoft:windows_server_2016:-" }
+
+[[match]]
+name = "Microsoft IIS builtin SMTP service - Windows Server 2019"
+pattern = "^([^ ]{1,512})? ?Microsoft ESMTP MAIL Service, Version: +(10\\.0\\.17763\\.[\\d.]+) +ready +(?:at +)?(.+)$"
+version_group = 2
+vendor = "Microsoft"
+product = "IIS"
+context = "smtp.banner"
+example = "foo.bar Microsoft ESMTP MAIL Service, Version: 10.0.17763.1 ready at  Sun, 19 May 2019 09:04:29 -0500"
+metadata = { "service.family" = "IIS", "service.cpe23" = "cpe:/a:microsoft:iis:{service.version}", "host.name" = "{capture:1}", "system.time" = "{capture:3}", "system.time.format" = "EEE, d MMM yyyy HH:mm:ss Z", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows Server 2019", "os.cpe23" = "cpe:/o:microsoft:windows_server_2019:-" }
+
+[[match]]
+name = "Microsoft IIS builtin SMTP service, or Microsoft Exchange Server (they are differentiated from each other in smtp-iis.clp)  - variant 1"
+pattern = "^([^ ]{1,512}) Microsoft SMTP MAIL ready at (.+) Version: +(\\d+\\.\\d+\\.\\d+\\.\\d+\\.\\d+) *$"
+version_group = 3
+vendor = "Microsoft"
+product = "IIS"
+context = "smtp.banner"
+example = "foo.bar Microsoft SMTP MAIL ready at Wed, 29 Nov 2017 23:48:59 +0000 Version: 5.5.1877.197.19"
+metadata = { "service.family" = "IIS", "service.cpe23" = "cpe:/a:microsoft:iis:{service.version}", "host.name" = "{capture:1}", "system.time" = "{capture:2}", "system.time.format" = "EEE, d MMM yyyy HH:mm:ss Z", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows", "os.cpe23" = "cpe:/o:microsoft:windows:-" }
+
+[[match]]
+name = "Microsoft IIS builtin SMTP service, or Microsoft Exchange Server (they are differentiated from each other in smtp-iis.clp) - variant 2 "
+pattern = "^([^ ]{1,512})? ?Microsoft ESMTP MAIL Service, Version: +(\\d+\\.\\d+\\.\\d+\\.\\d+)(?: +ready)?(?: +(?:at +)?(\\w\\w\\w, \\d.+))?$"
+version_group = 2
+vendor = "Microsoft"
+product = "IIS"
+context = "smtp.banner"
+example = " Microsoft ESMTP MAIL Service, Version: 5.0.2195.5329 ready Thu, 30 Nov 2017 11:40:25 +0200"
+metadata = { "service.family" = "IIS", "service.cpe23" = "cpe:/a:microsoft:iis:{service.version}", "host.name" = "{capture:1}", "system.time" = "{capture:3}", "system.time.format" = "EEE, d MMM yyyy HH:mm:ss Z", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows", "os.cpe23" = "cpe:/o:microsoft:windows:-" }
+
+[[match]]
+name = "Exim - without version string or hostname - timestamp optional"
+pattern = "^ESMTP Exim ?((?:\\w\\w\\w, \\d+ \\w\\w\\w \\d\\d\\d\\d [\\d:]+ [-+]\\d{3,4})?)$"
+vendor = "exim"
+product = "exim"
+context = "smtp.banner"
+example = "ESMTP Exim"
+metadata = { "service.family" = "exim", "service.cpe23" = "cpe:/a:exim:exim:-", "system.time" = "{capture:1}" }
+
+[[match]]
+name = "Exim - with version string and optional timestamp"
+pattern = "(?i)^ ?([^, ]{1,512}),? +ESMTP \\(?Exim +(\\d+\\.[\\d_.bdRC-]+)\\)?(?: +#\\d+)? ?.?((?:\\w\\w\\w, \\d+ \\w\\w\\w \\d\\d\\d\\d [\\d:]+ [-+]\\d{3,4})?) *(?:We do not authorize the use of this system to transport unsolicited, and\\/or bulk e-mail.)?$"
+version_group = 2
+vendor = "exim"
+product = "exim"
+context = "smtp.banner"
+example = "foo.bar  ESMTP Exim 4.91 Thu, 29 Apr 2021 05:41:36 +400"
+metadata = { "service.family" = "exim", "system.time.format" = "EEE, d MMM yyyy HH:mm:ss Z", "host.name" = "{capture:1}", "service.cpe23" = "cpe:/a:exim:exim:{service.version}", "system.time" = "{capture:3}" }
+
+[[match]]
+name = "Exim - with digit only version string and optional timestamp"
+pattern = "(?i)^([^, ]{1,512}),? ESMTP Exim +(\\d+) ((?:\\w\\w\\w, \\d+ \\w\\w\\w \\d\\d\\d\\d [\\d:]+ [-+]\\d\\d\\d\\d)?) *$"
+version_group = 2
+vendor = "exim"
+product = "exim"
+context = "smtp.banner"
+example = "foo.bar ESMTP Exim 125302 Thu, 16 Nov 2017 04:55:11 -0500 "
+metadata = { "service.family" = "exim", "system.time.format" = "EEE, d MMM yyyy HH:mm:ss Z", "host.name" = "{capture:1}", "service.cpe23" = "cpe:/a:exim:exim:{service.version}", "system.time" = "{capture:3}" }
+
+[[match]]
+name = "Exim - with version string and optional timestamp (Ubuntu)"
+pattern = "(?i)^([^, ]{1,512}),? ESMTP Exim +(\\d+\\.[\\d_.]+)(?: +#\\d)? Ubuntu ((?:\\w\\w\\w, \\d+ \\w\\w\\w \\d\\d\\d\\d [\\d:]+ [-+]\\d\\d\\d\\d)?) *$"
+version_group = 2
+vendor = "exim"
+product = "exim"
+context = "smtp.banner"
+example = "foo.bar ESMTP Exim 4.82 Ubuntu Thu, 16 Nov 2017 11:30:44 +0300 "
+metadata = { "os.vendor" = "Ubuntu", "os.family" = "Linux", "os.product" = "Linux", "os.cpe23" = "cpe:/o:canonical:ubuntu_linux:-", "service.family" = "exim", "system.time.format" = "EEE, d MMM yyyy HH:mm:ss Z", "host.name" = "{capture:1}", "service.cpe23" = "cpe:/a:exim:exim:{service.version}", "system.time" = "{capture:3}" }
+
+[[match]]
+name = "Exim - without version string and with optional timestamp"
+pattern = "(?i)^([^, ]{1,512}),? ESMTP Exim(?: +#\\d)? *((?:\\w\\w\\w, \\d+ \\w\\w\\w \\d\\d\\d\\d [\\d:]+ [-+]\\d\\d\\d\\d)?) *$"
+vendor = "exim"
+product = "exim"
+context = "smtp.banner"
+example = "foo.bar ESMTP Exim"
+metadata = { "service.family" = "exim", "service.cpe23" = "cpe:/a:exim:exim:-", "system.time.format" = "EEE, d MMM yyyy HH:mm:ss Z", "host.name" = "{capture:1}", "system.time" = "{capture:2}" }
+
+[[match]]
+name = "Exim - without hostname"
+pattern = "(?i)^ ?ESMTP Exim (\\d+\\.[\\d_.]+)(?: +#\\d)? ?.?((?:\\w\\w\\w, \\d+ \\w\\w\\w \\d\\d\\d\\d [\\d:]+ [-+]\\d\\d\\d\\d)?) *$"
+version_group = 1
+vendor = "exim"
+product = "exim"
+context = "smtp.banner"
+example = "ESMTP Exim 4.82 Thu, 16 Nov 2017 12:19:22 +0300 "
+metadata = { "service.family" = "exim", "system.time.format" = "EEE, d MMM yyyy HH:mm:ss Z", "service.cpe23" = "cpe:/a:exim:exim:{service.version}", "system.time" = "{capture:2}" }
+
+[[match]]
+name = "Exim - with hostname "
+pattern = "^ ?([^, ]{1,512}) Exim ESMTP Service ready$"
+vendor = "exim"
+product = "exim"
+context = "smtp.banner"
+example = "foo.bar Exim ESMTP Service ready"
+metadata = { "service.family" = "exim", "service.cpe23" = "cpe:/a:exim:exim:-", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "Barracuda Email Security Gateway - physical or virtual appliance"
+pattern = "^([\\w.-]{1,512}) ESMTP \\([a-z0-9]{32}\\)$"
+vendor = "Barracuda"
+product = "Email Security Gateway"
+context = "smtp.banner"
+example = "barracuda.foo.bar ESMTP (0a8d40ef45300cc1bd0f16ced5c9e6f1)"
+metadata = { "hw.vendor" = "Barracuda", "hw.product" = "Email Security Gateway", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "FTGate mail server, runs on Windows 9x/NT/2k (http://www.ftgate.com)"
+pattern = "^([^ ]{1,512}) FTGate server ready"
+vendor = "Floosietek"
+product = "FTGate"
+context = "smtp.banner"
+example = "foo.bar FTGate server ready -attitude [C.o.r.E]"
+metadata = { "service.family" = "FTGate", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "TIS FWTK and derivatives (other firewalls, like Gauntlet, are derived from TIS)"
+pattern = "^([^ ]{1,512}) +SMTP/smap Ready\\.$"
+vendor = "TIS"
+product = "FWTK"
+context = "smtp.banner"
+example = "foo.bar SMTP/smap Ready."
+metadata = { "service.family" = "FWTK", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "Novell GroupWise Internet Agent - versions 5 and higher"
+pattern = "^([^ ]{1,512}) GroupWise Internet Agent ([^ ]+\\.[^ ]+\\.[^ ]+) Ready \\(C\\).* Novell, Inc\\. *$"
+version_group = 2
+vendor = "Novell"
+product = "GroupWise"
+context = "smtp.banner"
+example = "foo.bar GroupWise Internet Agent 5.5.1 Ready (C)1993, 1998 Novell, Inc."
+metadata = { "service.family" = "GroupWise", "host.name" = "{capture:1}", "service.cpe23" = "cpe:/a:novell:groupwise:{service.version}" }
+
+[[match]]
+name = "Novell GroupWise Internet Agent - versions 5 and higher, second variant"
+pattern = "^([^ ]{1,512}) GroupWise Internet Agent (\\d+\\.[\\d.]+)  Copyright .*\\d{4}-\\d{4} Novell, Inc..* All rights reserved. Ready *$"
+version_group = 2
+vendor = "Novell"
+product = "GroupWise"
+context = "smtp.banner"
+example = "foo.bar GroupWise Internet Agent 8.0.3  Copyright (c) 1993-2012 Novell, Inc.  All rights reserved. Ready"
+metadata = { "service.family" = "GroupWise", "host.name" = "{capture:1}", "service.cpe23" = "cpe:/a:novell:groupwise:{service.version}" }
+
+[[match]]
+name = "Novell GroupWise - versions below 5"
+pattern = "^([^ ]{1,512}) GroupWise SMTP/MIME Daemon ([^ ]+\\.[^ ]+) v([^ ]+) Ready \\(C\\).* Novell, Inc\\. *$"
+version_group = 2
+vendor = "Novell"
+product = "GroupWise"
+context = "smtp.banner"
+example = "foo.bar GroupWise SMTP/MIME Daemon 4.1 v3 Ready (C)1993, 1996 Novell, Inc."
+metadata = { "service.family" = "GroupWise", "host.name" = "{capture:1}", "service.version.version" = "{capture:3}", "service.cpe23" = "cpe:/a:novell:groupwise:{service.version}" }
+
+[[match]]
+name = "IBM SMTP server for VM/ESA on IBM S/390 and IBM eserver z/Series 900."
+pattern = "^([^ ]{1,512}) (?:ESMTP )?running IBM VM SMTP (.+)(?:; | on )(.+) *$"
+version_group = 2
+vendor = "IBM"
+product = "VM"
+context = "smtp.banner"
+example = "foo.bar running IBM VM SMTP Level 640 on Thu, 30 Nov 2017 01:08:59 PDT"
+metadata = { "service.family" = "VM", "system.time.format" = "EEE, d MMM yyyy HH:mm:ss Z", "host.name" = "{capture:1}", "system.time" = "{capture:3}" }
+
+[[match]]
+name = "\n         Syntegra/CDC IntraStore TurboSendmail, part of the IntraStore server which runs on\n         the following platforms ONLY: Linux, HP-UX, Solaris, AIX, and Windows NT/2000\n         see http://www.cdc.com for more information\n      "
+pattern = "^([^ ]{1,512}) \\(IntraStore TurboSendmail\\) ESMTP Service ready *$"
+vendor = "BT"
+product = "IntraStore"
+context = "smtp.banner"
+example = "192.168.1.1 (IntraStore TurboSendmail) ESMTP Service ready"
+metadata = { "service.family" = "IntraStore", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "JAMES SMTP Server"
+pattern = "^(\\S{1,512}) E?SMTP Server \\(JAMES E?SMTP Server ([\\d\\.]+)\\) ready (\\w\\w\\w, \\d+ \\w\\w\\w \\d\\d\\d\\d [\\d:]+ [-+]\\d\\d\\d\\d) \\(.+\\)$"
+version_group = 2
+vendor = "Apache"
+product = "James"
+context = "smtp.banner"
+example = "foo.bar SMTP Server (JAMES SMTP Server 2.3.2) ready Tue, 19 May 2015 00:36:13 +0200 (CEST)"
+metadata = { "service.cpe23" = "cpe:/a:apache:james:{service.version}", "host.name" = "{capture:1}", "system.time" = "{capture:3}", "system.time.format" = "EEE, d MMM yyyy HH:mm:ss Z" }
+
+[[match]]
+name = "MailEnable - Simple"
+pattern = "^(?:(\\S{1,512}) {1,8})?ESMTP MailEnable Service, Version: ([\\d.]+)$"
+version_group = 2
+vendor = "MailEnable"
+product = "Mail Server"
+context = "smtp.banner"
+example = "ESMTP MailEnable Service, Version: 9.53"
+metadata = { "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows", "os.cpe23" = "cpe:/o:microsoft:windows:-", "service.family" = "Mail Server", "host.name" = "{capture:1}", "service.cpe23" = "cpe:/a:mailenable:mailenable:{service.version}" }
+
+[[match]]
+name = "MailEnable - Complex"
+pattern = "^(?:(\\S{1,512}) {1,8})?ESMTP MailEnable Service, Version: (?:([\\d.]+))?-[\\d.]*-[\\d.]* (?:ready|denied access) at (\\d{2}/\\d{2}/\\d{2} \\d{2}:\\d{2}:\\d{2})$"
+version_group = 2
+vendor = "MailEnable"
+product = "Mail Server"
+context = "smtp.banner"
+example = "foo.bar ESMTP MailEnable Service, Version: 1.8-- ready at 05/20/15 08:50:22"
+metadata = { "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows", "os.cpe23" = "cpe:/o:microsoft:windows:-", "service.family" = "Mail Server", "system.time.format" = "MM/dd/yy HH:mm:ss", "host.name" = "{capture:1}", "service.cpe23" = "cpe:/a:mailenable:mailenable:{service.version}", "system.time" = "{capture:3}" }
+
+[[match]]
+name = "Mail Max"
+pattern = "^([^ ]{1,512}) \\(Mail-Max Version (\\d+\\.[\\d\\.]+), (.+, .+)\\) ESMTP Mail Server Ready. *$"
+version_group = 2
+vendor = "Mail-Max"
+product = "Mail-Max"
+context = "smtp.banner"
+example = "foo.bar (Mail-Max Version 4.2.4.7, Wed, 31 Jan 2001 03:44:35 +0100 WST) ESMTP Mail Server Ready."
+metadata = { "service.family" = "Mail-Max", "system.time.format" = "EEE, d MMM yyyy HH:mm:ss Z", "host.name" = "{capture:1}", "system.time" = "{capture:3}" }
+
+[[match]]
+name = "Rockliffe MailSite - with version (http://www.rockliffe.com)"
+pattern = "^([^ ]{1,512}) {1,8}MailSite E?SMTP Receiver Version (\\d+\\.[\\d.]+) Ready *$"
+version_group = 2
+vendor = "Rockliffe"
+product = "MailSite"
+context = "smtp.banner"
+example = "foo.bar  MailSite ESMTP Receiver Version 3.4.6.0 Ready"
+metadata = { "service.family" = "MailSite", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "Rockliffe MailSite - without version (http://www.rockliffe.com)"
+pattern = "^([^ ]{1,512}) {1,8}MailSite E?SMTP Receiver Ready *$"
+vendor = "Rockliffe"
+product = "MailSite"
+context = "smtp.banner"
+example = "foo.bar MailSite SMTP Receiver Ready"
+metadata = { "service.family" = "MailSite", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "Rockliffe MailSite - without hostname (http://www.rockliffe.com)"
+pattern = "^ ?MailSite E?SMTP Receiver Version (\\d+\\.[\\d.]+) Ready *$"
+version_group = 1
+vendor = "Rockliffe"
+product = "MailSite"
+context = "smtp.banner"
+example = " MailSite ESMTP Receiver Version 10.2.0.0 Ready"
+metadata = { "service.family" = "MailSite" }
+
+[[match]]
+name = "Content Security MAILsweeper for SMTP (http://www.contenttechnologies.com/products/msw4smtp/default.asp)"
+pattern = "^([^ ]{1,512}) {1,8}MAILsweeper ESMTP Receiver Version (\\d\\.[\\d.]+) Ready *$"
+version_group = 2
+vendor = "Clearswift"
+product = "MAILsweeper"
+context = "smtp.banner"
+example = "foo.bar MAILsweeper ESMTP Receiver Version 4.2.1.0 Ready"
+metadata = { "service.family" = "MAILsweeper", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "MDaemon mail server - with timestamp, unregistered"
+pattern = "^([^ ]{1,512}) {1,8}ESMTP MDaemon ([^ ]+\\.[^ ]+\\.[^ ]+) UNREGISTERED; *(.+) *$"
+version_group = 2
+vendor = "Alt-N"
+product = "MDaemon"
+context = "smtp.banner"
+example = "foo.bar ESMTP MDaemon 4.0.5 UNREGISTERED; Sat, 06 Oct 2001 09:10:56 +0400"
+metadata = { "service.family" = "MDaemon", "system.time.format" = "EEE, d MMM yyyy HH:mm:ss Z", "mdaemon.unregistered" = "yes", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows", "os.arch" = "x86", "os.cpe23" = "cpe:/o:microsoft:windows:-", "host.name" = "{capture:1}", "service.cpe23" = "cpe:/a:altn:mdaemon:{service.version}", "system.time" = "{capture:3}" }
+
+[[match]]
+name = "MDaemon mail server - with timestamp"
+pattern = "^([^ ]{1,512}) {1,8}ESMTP MDaemon ([^ ]+\\.[^ ]+\\.[^ ]+); *(.+) *$"
+version_group = 2
+vendor = "Alt-N"
+product = "MDaemon"
+context = "smtp.banner"
+example = "foo.bar ESMTP MDaemon 4.0.2; Sat, 06 Oct 2001 01:46:44 -0500"
+metadata = { "service.family" = "MDaemon", "system.time.format" = "EEE, d MMM yyyy HH:mm:ss Z", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows", "os.arch" = "x86", "os.cpe23" = "cpe:/o:microsoft:windows:-", "host.name" = "{capture:1}", "service.cpe23" = "cpe:/a:altn:mdaemon:{service.version}", "system.time" = "{capture:3}" }
+
+[[match]]
+name = "MDaemon mail server - without timestamp"
+pattern = "^([^ ]{1,512}) {1,8}ESMTP MDaemon ([^ ]+\\.[^ ]+\\.[^ ]+) ready *$"
+version_group = 2
+vendor = "Alt-N"
+product = "MDaemon"
+context = "smtp.banner"
+example = "foo.bar ESMTP MDaemon 3.5.7 ready"
+metadata = { "service.family" = "MDaemon", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows", "os.arch" = "x86", "os.cpe23" = "cpe:/o:microsoft:windows:-", "host.name" = "{capture:1}", "service.cpe23" = "cpe:/a:altn:mdaemon:{service.version}" }
+
+[[match]]
+name = "MDaemon mail server - with version revision"
+pattern = "^([^ ]{1,512}) {1,8}ESMTP service ready \\[[0-9]+\\] (?:using )?MDaemon v(\\d+\\.[\\d.]+) ([^ ]+) *$"
+version_group = 2
+vendor = "Alt-N"
+product = "MDaemon"
+context = "smtp.banner"
+example = "foo.bar ESMTP service ready [1] MDaemon v2.84 R"
+metadata = { "service.family" = "MDaemon", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows", "os.arch" = "x86", "os.cpe23" = "cpe:/o:microsoft:windows:-", "host.name" = "{capture:1}", "service.version.version" = "{capture:3}", "service.cpe23" = "cpe:/a:altn:mdaemon:{service.version}" }
+
+[[match]]
+name = "MDaemon mail server - with service pack"
+pattern = "^([^ ]{1,512}) {1,8}ESMTP service ready \\[[0-9]+\\] (?:\\()?MDaemon v([\\d.]+) ([^ ]+) ([^ )]+)(?:\\))? *$"
+version_group = 2
+vendor = "Alt-N"
+product = "MDaemon"
+context = "smtp.banner"
+example = "foo.bar ESMTP service ready [1] MDaemon v2.7 SP5 R"
+metadata = { "service.family" = "MDaemon", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows", "os.arch" = "x86", "os.cpe23" = "cpe:/o:microsoft:windows:-", "host.name" = "{capture:1}", "service.version.version" = "{capture:3}", "service.version.version.version" = "{capture:4}", "service.cpe23" = "cpe:/a:altn:mdaemon:{service.version}" }
+
+[[match]]
+name = "MDaemon mail server"
+pattern = "^([^ ]{1,512}) {1,8}ESMTP service ready \\[[0-9]+\\] \\(MDaemon v([^ ]+\\.[^ ]+) ([^ ]+) ([^ ]+) ([^ ]+)\\) *$"
+version_group = 2
+vendor = "Alt-N"
+product = "MDaemon"
+context = "smtp.banner"
+example = "foo.bar ESMTP service ready [1] (MDaemon v2.5 rB b1 32-T)"
+metadata = { "service.family" = "MDaemon", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows", "os.arch" = "x86", "os.cpe23" = "cpe:/o:microsoft:windows:-", "host.name" = "{capture:1}", "service.version.version" = "{capture:3}", "service.version.version.version" = "{capture:4}", "service.version.version.version.version" = "{capture:5}", "service.cpe23" = "cpe:/a:altn:mdaemon:{service.version}" }
+
+[[match]]
+name = "Merak mail server - http://www.icewarp.com/merakmail/ (runs on 2000/NT/9x)"
+pattern = "(?i)^([^ ]{1,512}) +E?SMTP MERAK ([^ ]+\\.[^ ]+\\.[^ ]+); *(.+) *$"
+version_group = 2
+vendor = "Merak"
+product = "Mail Server"
+context = "smtp.banner"
+example = "foo.bar SMTP Merak 8.0.3; Thu, 30 Nov 2017 20:01:41 +1000"
+metadata = { "service.family" = "Mail Server", "system.time.format" = "EEE, d MMM yyyy HH:mm:ss Z", "host.name" = "{capture:1}", "system.time" = "{capture:3}" }
+
+[[match]]
+name = "Atrium's MERCUR SMTP server (http://www.atrium-software.com/pub/support_e.cfm)"
+pattern = "^MERCUR SMTP-Server \\(v([^ ]+\\.[^ ])0\\.([^ ]+) ([^ ]+)\\) for (.+) ready at (.+) *$"
+version_group = 1
+vendor = "Atrium Software"
+product = "MERCUR"
+context = "smtp.banner"
+example = "MERCUR SMTP-Server (v3.30.09 SA-0000005) for Windows NT ready at Thu, 30 Nov 2017  10:01:06 +0100"
+metadata = { "service.family" = "MERCUR", "system.time.format" = "EEE, d MMM yyyy  HH:mm:ss Z", "service.version.version" = "{capture:2}", "service.version.version.version" = "{capture:3}", "mercur.os.info" = "{capture:4}", "system.time" = "{capture:5}" }
+
+[[match]]
+name = "Mercury NLM for Netware ( http://www.pmail.com/index.cfm )"
+pattern = "^([^ ]{1,512}) Mercury ([^ ]+\\.[^ ]+) ESMTP server ready.$"
+version_group = 2
+product = "Mercury Mail Transport System"
+context = "smtp.banner"
+example = "foo.bar Mercury 1.43 ESMTP server ready."
+metadata = { "service.family" = "Mercury Mail Transport System", "os.vendor" = "Novell", "os.family" = "NetWare", "os.product" = "NetWare", "os.cpe23" = "cpe:/o:novell:netware:-", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "Mercury/32 for Win9x/NT/2000 ( http://www.pmail.com/index.cfm )"
+pattern = "^^([^ ]{1,512}) Mercury\\/32 v([^ ]+\\.[^ ]+) (?:SMTP\\/)?ESMTP server ready.?$"
+version_group = 2
+product = "Mercury Mail Transport System"
+context = "smtp.banner"
+example = "foo.bar Mercury/32 v3.01a SMTP/ESMTP server ready."
+metadata = { "service.family" = "Mercury Mail Transport System", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows", "os.cpe23" = "cpe:/o:microsoft:windows:-", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "Norton Antivirus for Internet Email Gateways (becomes NAVGW in 2.1)"
+pattern = "^([^ ]{1,512}) SMTP NAVIEG ([^ ]+\\.[^ ]+\\.[^ ]+); (.+)* http"
+version_group = 2
+vendor = "Norton"
+product = "Antivirus for Gateways"
+context = "smtp.banner"
+example = "foo.bar SMTP NAVIEG 2.0.1; Sun, 29 Jul 2001 22:02:16 -0500 http://www.symantec.com"
+metadata = { "service.family" = "Antivirus for Gateways", "system.time.format" = "EEE, d MMM yyyy HH:mm:ss Z", "host.name" = "{capture:1}", "system.time" = "{capture:3}" }
+
+[[match]]
+name = "Netscape Messaging Server - with patch number"
+pattern = "^([^ ]{1,512}) ESMTP service \\(Netscape Messaging Server ([^ ]+\\.[^ ]+) Patch ([^ ]+)"
+version_group = 2
+vendor = "Netscape"
+product = "Messaging Server"
+context = "smtp.banner"
+example = "foo.bar ESMTP service (Netscape Messaging Server 4.15 Patch 7 (built Sep 12 2001))"
+metadata = { "service.family" = "Messaging Server", "host.name" = "{capture:1}", "service.version.version" = "{capture:3}", "service.cpe23" = "cpe:/a:netscape:messaging_server:{service.version}" }
+
+[[match]]
+name = "Netscape Messaging Server - w/o patch number"
+pattern = "^([^ ]{1,512}) ESMTP server \\(Netscape Messaging Server - Version ([\\d.]+)\\) ready (\\w\\w\\w, \\d+ \\w\\w\\w \\d\\d\\d\\d [\\d:]+ [-+]\\d\\d\\d\\d) *$"
+version_group = 2
+vendor = "Netscape"
+product = "Messaging Server"
+context = "smtp.banner"
+example = "foo.bar ESMTP server (Netscape Messaging Server - Version 3.6) ready Thu, 30 Nov 2017 04:19:10 -0500"
+metadata = { "service.family" = "Messaging Server", "system.time.format" = "EEE, d MMM yyyy HH:mm:ss Z", "host.name" = "{capture:1}", "service.cpe23" = "cpe:/a:netscape:messaging_server:{service.version}", "system.time" = "{capture:3}" }
+
+[[match]]
+name = "Lotus Notes 4 SMTP MTA"
+pattern = "^([^ ]{1,512}) Lotus SMTP MTA Service Ready *$"
+vendor = "Lotus"
+product = "Lotus Domino"
+context = "smtp.banner"
+example = "foo.bar Lotus SMTP MTA Service Ready"
+metadata = { "service.family" = "Lotus Domino", "service.version" = "4", "service.cpe23" = "cpe:/a:ibm:lotus_domino:4", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "Lotus Domino SMTP MTA"
+pattern = " ?(?:([^ ]{1,512}))? {0,8}ESMTP Service \\(Lotus Domino Release (\\d+\\.[\\w.]+(?: FP\\d+)?(?: HF\\d+)?)(?: \\(Intl\\))?\\) ready at (.+) *$"
+version_group = 2
+vendor = "IBM"
+product = "Lotus Domino"
+context = "smtp.banner"
+example = "foo.bar  ESMTP Service (Lotus Domino Release 8.5) ready at Thu, 30 Nov 2017 17:01:45 +0800"
+metadata = { "service.family" = "Lotus Domino", "system.time.format" = "EEE, d MMM yyyy HH:mm:ss Z", "host.name" = "{capture:1}", "service.cpe23" = "cpe:/a:ibm:lotus_domino:{service.version}", "system.time" = "{capture:3}" }
+
+[[match]]
+name = "IBM Domino SMTP MTA"
+pattern = "^ ?(?:([^ ]{1,512}))? {0,8}ESMTP Service \\(IBM Domino Release (\\d+\\.[\\w.]+(?: HF\\d+)?)\\) ready at (.+) *$"
+version_group = 2
+vendor = "IBM"
+product = "IBM Domino"
+context = "smtp.banner"
+example = "foo.bar ESMTP Service (IBM Domino Release 9.0.1FP8 HF475) ready at Thu, 30 Nov 2017 17:55:48 +0900"
+metadata = { "service.family" = "IBM Domino", "system.time.format" = "EEE, d MMM yyyy HH:mm:ss Z", "host.name" = "{capture:1}", "service.cpe23" = "cpe:/a:ibm:lotus_domino:{service.version}", "system.time" = "{capture:3}" }
+
+[[match]]
+name = "Lotus Domino (some early build)"
+pattern = "^([^ ]{1,512}) ESMTP Service \\(Lotus Domino Build (V?[\\w.]+)\\) ready at (.+) *$"
+vendor = "Lotus"
+product = "Lotus Domino"
+context = "smtp.banner"
+example = "foo.bar ESMTP Service (Lotus Domino Build 166.1) ready at Thu, 16 Nov 2017 10:39:22 +0200"
+metadata = { "service.family" = "Lotus Domino", "service.cpe23" = "cpe:/a:ibm:lotus_domino:-", "host.name" = "{capture:1}", "notes.build.version" = "{capture:2}", "system.time" = "{capture:3}" }
+
+[[match]]
+name = "Lotus Notes 4.x with SMTP MTA add-on"
+pattern = "^Lotus Notes ESMTP Server X[^ ]+\\.[^ ]+ on (.+) ready at (.+)\\. *$"
+vendor = "Lotus"
+product = "Lotus Domino"
+context = "smtp.banner"
+example = "Lotus Notes ESMTP Server X1.0 on FooBar R45 Server/Foo Bar/US ready at Fri, 15 Feb 2002 09:46:19 -0800."
+metadata = { "service.family" = "Lotus Domino", "service.cpe23" = "cpe:/a:ibm:lotus_domino:-", "system.time.format" = "EEE, d MMM yyyy HH:mm:ss Z", "host.name" = "{capture:1}", "system.time" = "{capture:2}" }
+
+[[match]]
+name = "NTMail (http://www.gordano.com)"
+pattern = "^([^ ]{1,512}) NTMail \\(v(\\d+\\.\\d+\\.\\d+)/([^ ]+)\\) ready for ESMTP transfer *$"
+version_group = 2
+vendor = "Gordano"
+product = "NTMail"
+context = "smtp.banner"
+example = "foo.bar NTMail (v7.02.3037/NU1319.01.5b000000) ready for ESMTP transfer   "
+metadata = { "service.family" = "NTMail", "host.name" = "{capture:1}", "ntmail.id" = "{capture:3}" }
+
+[[match]]
+name = "NTMail - versions 3.x and earlier (it was called Internet Shopper's something or other)"
+pattern = "^([^ ]{1,512}) WindowsNT SMTP Server v([^ ]+\\.[^ ]+\\.[^ ]+)/([^ ]+)/SP ESMTP ready at (.+) *$"
+version_group = 2
+vendor = "Gordano"
+product = "NTMail"
+context = "smtp.banner"
+example = "foo.bar WindowsNT SMTP Server v3.03.0018/7.aavn/SP ESMTP ready at Thu, 30 Nov 2017 10:15:31 +0100"
+metadata = { "service.family" = "NTMail", "system.time.format" = "EEE, d MMM yyyy HH:mm:ss Z", "host.name" = "{capture:1}", "ntmail.id" = "{capture:3}", "system.time" = "{capture:4}" }
+
+[[match]]
+name = "Some unknown mail server on OpenVMS"
+pattern = "^([^ ]{1,512})(?: UCX)? V\\S+, OpenVMS V(\\S+) (\\S+) ready at"
+context = "smtp.banner"
+example = "foo.bar V5.7-ECO4, OpenVMS V8.4 IA64 ready at Wed, 20 May 2015 01:22:32 +0100 (BST)"
+metadata = { "host.name" = "{capture:1}", "os.vendor" = "HP", "os.family" = "OpenVMS", "os.product" = "OpenVMS", "os.version" = "{capture:2}", "os.arch" = "{capture:3}", "os.cpe23" = "cpe:/o:hp:openvms:{os.version}" }
+
+[[match]]
+name = "A.K.I PMail"
+pattern = "^([^ ]{1,512}) E?SMTP PMailServer(?: \\[Free Edition\\])? ([\\d\\.]+); (\\w\\w\\w, +\\d+ \\w\\w\\w \\d\\d\\d\\d [\\d:]+)$"
+version_group = 2
+vendor = "A.K.I Software"
+product = "PMail Server"
+context = "smtp.banner"
+example = "foo.bar ESMTP PMailServer [Free Edition] 1.91; Fri, 22 May 2015 02:04:56"
+metadata = { "system.time.format" = "EEE, d MMM yyyy HH:mm:ss", "host.name" = "{capture:1}", "system.time" = "{capture:3}" }
+
+[[match]]
+name = "Postfix - version + build, followed by os"
+pattern = "^([^ ]{1,512}) Postfix \\(Postfix-([^ ]+)-([^ ]+)\\) \\(([^ ]+)\\) *$"
+version_group = 2
+vendor = "Postfix"
+product = "Postfix"
+context = "smtp.banner"
+metadata = { "service.family" = "Postfix", "host.name" = "{capture:1}", "service.version.version" = "{capture:3}", "service.cpe23" = "cpe:/a:postfix:postfix:{service.version}", "postfix.os.info" = "{capture:4}" }
+
+[[match]]
+name = "Postfix - Std semantic versioning, w/ optional parens"
+pattern = "^([^ ]{1,512}) ESMTP Postfix \\(?([\\d.]+)\\)?$"
+version_group = 2
+vendor = "Postfix"
+product = "Postfix"
+context = "smtp.banner"
+example = "foo.bar ESMTP Postfix (3.1.4)"
+metadata = { "service.family" = "Postfix", "host.name" = "{capture:1}", "service.cpe23" = "cpe:/a:postfix:postfix:{service.version}" }
+
+[[match]]
+name = "Postfix - version + build"
+pattern = "^([^ ]{1,512}) ESMTP Postfix \\((?:Postfix-)?([\\d.]+)-([^ ]+)\\)$"
+version_group = 2
+vendor = "Postfix"
+product = "Postfix"
+context = "smtp.banner"
+example = "foo.bar ESMTP Postfix (2.8-20100306)"
+metadata = { "service.family" = "Postfix", "host.name" = "{capture:1}", "service.version.version" = "{capture:3}", "service.cpe23" = "cpe:/a:postfix:postfix:{service.version}" }
+
+[[match]]
+name = "Postfix - Ubuntu"
+pattern = "^([^ ]{1,512}) +E?SMTP Postfix \\(Ubuntu\\)$"
+vendor = "Postfix"
+product = "Postfix"
+context = "smtp.banner"
+example = "foo.bar ESMTP Postfix (Ubuntu)"
+metadata = { "service.family" = "Postfix", "service.cpe23" = "cpe:/a:postfix:postfix:-", "host.name" = "{capture:1}", "os.vendor" = "Ubuntu", "os.family" = "Linux", "os.product" = "Linux", "os.cpe23" = "cpe:/o:canonical:ubuntu_linux:-" }
+
+[[match]]
+name = "Postfix - Ubuntu, Mail-in-a-Box package"
+pattern = "^([^ ]{1,512})(?: ESMTP)? Hi, I'm a Mail-in-a-Box \\(Ubuntu/Postfix; see https://mailinabox.email/\\)$"
+vendor = "Postfix"
+product = "Postfix"
+context = "smtp.banner"
+example = "foo.bar ESMTP Hi, I'm a Mail-in-a-Box (Ubuntu/Postfix; see https://mailinabox.email/)"
+metadata = { "service.family" = "Postfix", "service.cpe23" = "cpe:/a:postfix:postfix:-", "host.name" = "{capture:1}", "os.vendor" = "Ubuntu", "os.family" = "Linux", "os.product" = "Linux", "os.cpe23" = "cpe:/o:canonical:ubuntu_linux:-" }
+
+[[match]]
+name = "Postfix - Debian"
+pattern = "^([^ ]{1,512}) +E?SMTP Postfix \\(Debian/GNU\\)$"
+vendor = "Postfix"
+product = "Postfix"
+context = "smtp.banner"
+example = "foo.bar ESMTP Postfix (Debian/GNU)"
+metadata = { "service.family" = "Postfix", "service.cpe23" = "cpe:/a:postfix:postfix:-", "host.name" = "{capture:1}", "os.vendor" = "Debian", "os.family" = "Linux", "os.product" = "Linux", "os.cpe23" = "cpe:/o:debian:debian_linux:-" }
+
+[[match]]
+name = "Postfix - generic banner with amusing comments in parentheses"
+pattern = "^([^ ]{1,512}) ESMTP.* Postfix *\\(.+\\) *$"
+vendor = "Postfix"
+product = "Postfix"
+context = "smtp.banner"
+example = "foo.bar ESMTP Postfix (lol)"
+metadata = { "service.family" = "Postfix", "service.cpe23" = "cpe:/a:postfix:postfix:-", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "Postfix - generic banner"
+pattern = "(?i)^([^ ]{1,512}) {1,8}E?SMTP.* Postfix *$"
+vendor = "Postfix"
+product = "Postfix"
+context = "smtp.banner"
+example = "foo.bar ESMTP Postfix"
+metadata = { "service.family" = "Postfix", "service.cpe23" = "cpe:/a:postfix:postfix:-", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "Postfix - banner without hostname or version"
+pattern = "^ {0,512}ESMTP Postfix$"
+vendor = "Postfix"
+product = "Postfix"
+context = "smtp.banner"
+example = "ESMTP Postfix"
+metadata = { "service.family" = "Postfix", "service.cpe23" = "cpe:/a:postfix:postfix:-" }
+
+[[match]]
+name = "Postfix - generic w/o ESMTP"
+pattern = "(?i)^([^ ]{1,512}) POSTFIX$"
+vendor = "Postfix"
+product = "Postfix"
+context = "smtp.banner"
+example = "foo.bar Postfix"
+metadata = { "service.family" = "Postfix", "service.cpe23" = "cpe:/a:postfix:postfix:-", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "Post.Office"
+pattern = "^([^ ]{1,512}) ESMTP server \\([Pp]ost\\.[Oo]ffice v([^ ]+\\.[^ ]+)(?: release)? (.+) ID# ([^ ]+)\\) ready (.+) *$"
+version_group = 2
+product = "Post.Office"
+context = "smtp.banner"
+example = "foo.bar ESMTP server (post.office v3.8.4 release 116 ID# 1001-65749U100L10S0V38) ready Thu, 30 Nov 2017 18:46:24 +0900"
+metadata = { "service.family" = "Post.Office", "system.time.format" = "EEE, d MMM yyyy HH:mm:ss Z", "host.name" = "{capture:1}", "postoffice.build" = "{capture:3}", "postoffice.id" = "{capture:4}", "system.time" = "{capture:5}" }
+
+[[match]]
+name = "Raptor Firewall (low confidence)"
+pattern = "^([^ ]{1,512}) Generic SMTP handler *$"
+product = "raptor"
+context = "smtp.banner"
+example = "foo.bar Generic SMTP handler"
+metadata = { "host.name" = "{capture:1}" }
+
+[[match]]
+name = "SAP SMTP Server"
+pattern = "^(\\S{1,512}) SAP (\\S+) E?SMTP service ready$"
+version_group = 2
+vendor = "SAP"
+product = "SMTP"
+context = "smtp.banner"
+example = "foo.bar SAP 8.04(53) ESMTP service ready"
+metadata = { "host.name" = "{capture:1}" }
+
+[[match]]
+name = "Sendmail - short banner w/o hostname, version, platform, or date."
+pattern = "^Sendmail ESMTP ready$"
+vendor = "Sendmail"
+product = "Sendmail"
+context = "smtp.banner"
+example = "Sendmail ESMTP ready"
+metadata = { "service.family" = "Sendmail", "service.cpe23" = "cpe:/a:sendmail:sendmail:-" }
+
+[[match]]
+name = "Sendmail - HP-UX with a PHNE (HP Networking patch) installed"
+pattern = "^([^ ]{1,512}) +ESMTP +Sendmail +([^ ]+) \\(PHNE_([^ ]+)\\) */ *(.+); *(.+) \\(.+\\)$"
+version_group = 2
+vendor = "Sendmail"
+product = "Sendmail"
+context = "smtp.banner"
+example = "foo.bar ESMTP Sendmail 8.8.6 (PHNE_14041)/8.7.1; Tue, 6 Feb 2001 10:04:32 -0300 (SAT)"
+metadata = { "service.family" = "Sendmail", "os.vendor" = "HP", "os.family" = "HP-UX", "os.product" = "HP-UX", "os.cpe23" = "cpe:/o:hp:hp-ux:-", "system.time.format" = "EEE, d MMM yyyy HH:mm:ss Z", "host.name" = "{capture:1}", "service.cpe23" = "cpe:/a:sendmail:sendmail:{service.version}", "sendmail.hpux.phne.version" = "{capture:3}", "sendmail.config.version" = "{capture:4}", "system.time" = "{capture:5}" }
+
+[[match]]
+name = "Sendmail - HP-UX"
+pattern = "^(\\S{1,512}) ESMTP Sendmail \\S+ version ([\\d\\.]+) - Revision \\S+ HP-UX([\\d\\.]+).*(\\w\\w\\w, \\d+ \\w\\w\\w \\d\\d\\d\\d [\\d:]+ \\w\\w\\w)$"
+version_group = 2
+vendor = "Sendmail"
+product = "Sendmail"
+context = "smtp.banner"
+example = "foo.bar ESMTP Sendmail @(#)Sendmail version 8.13.3 - Revision 1.004:: HP-UX11.31 - 03rd February,2010/8.11.1; Wed, 20 May 2015 23:35:38 GMT"
+metadata = { "service.family" = "Sendmail", "os.vendor" = "HP", "os.family" = "HP-UX", "os.product" = "HP-UX", "os.version" = "{capture:3}", "os.cpe23" = "cpe:/o:hp:hp-ux:{os.version}", "system.time.format" = "EEE, d MMM yyyy HH:mm:ss z", "host.name" = "{capture:1}", "service.cpe23" = "cpe:/a:sendmail:sendmail:{service.version}", "system.time" = "{capture:4}" }
+
+[[match]]
+name = "Sendmail - Unixware"
+pattern = "^([^ ]{1,512}) {1,8}ESMTP +Sendmail +([^ ]+)/UW([^ ]+) ready at *(.+) \\(.+\\) *$"
+version_group = 2
+vendor = "Sendmail"
+product = "Sendmail"
+context = "smtp.banner"
+example = "foo.bar ESMTP Sendmail 8.8.7/UW7.1.0 ready at Tue, 6 Feb 2001 16:39:30 -0300 (GMT-0300)"
+metadata = { "service.family" = "Sendmail", "os.vendor" = "SCO", "os.family" = "UnixWare", "os.product" = "UnixWare", "system.time.format" = "EEE, d MMM yyyy HH:mm:ss Z", "host.name" = "{capture:1}", "service.cpe23" = "cpe:/a:sendmail:sendmail:{service.version}", "os.version" = "{capture:3}", "system.time" = "{capture:4}" }
+
+[[match]]
+name = "Sendmail - AIX (UCB variant)"
+pattern = "^([^ ]{1,512}) ESMTP Sendmail AIX([^/]+)/UCB ([^;]+); (.+) \\(.+\\)$"
+version_group = 3
+vendor = "Sendmail"
+product = "Sendmail"
+context = "smtp.banner"
+example = "foo.bar ESMTP Sendmail AIX4.2/UCB 8.7; Sun, 29 Jul 2001 22:34:37 -0400 (EDT)"
+metadata = { "service.family" = "Sendmail", "os.vendor" = "IBM", "os.family" = "AIX", "os.product" = "AIX", "system.time.format" = "EEE, d MMM yyyy HH:mm:ss Z", "host.name" = "{capture:1}", "os.version" = "{capture:2}", "os.cpe23" = "cpe:/o:ibm:aix:{os.version}", "service.cpe23" = "cpe:/a:sendmail:sendmail:{service.version}", "system.time" = "{capture:4}" }
+
+[[match]]
+name = "Sendmail - AIX (UCB/ready at variant)"
+pattern = "^([^ ]{1,512}) Sendmail AIX([^/]+)/UCB ([^/]+)/([^ ]+) ready at (.+)$"
+version_group = 3
+vendor = "Sendmail"
+product = "Sendmail"
+context = "smtp.banner"
+example = "foo.bar Sendmail AIX 4.1/UCB 5.64/4.03 ready at Mon, 30 Jul 2001 00:42:21 -0500"
+metadata = { "service.family" = "Sendmail", "os.vendor" = "IBM", "os.family" = "AIX", "os.product" = "AIX", "system.time.format" = "EEE, d MMM yyyy HH:mm:ss Z", "host.name" = "{capture:1}", "os.version" = "{capture:2}", "os.cpe23" = "cpe:/o:ibm:aix:{os.version}", "service.cpe23" = "cpe:/a:sendmail:sendmail:{service.version}", "sendmail.config.version" = "{capture:4}", "system.time" = "{capture:5}" }
+
+[[match]]
+name = "Sendmail - AIX"
+pattern = "^([^ ]{1,512}) ESMTP Sendmail AIX([^/]+)/([^/]+)/([^;]+); (.+)(?: \\(.+\\))?$"
+version_group = 3
+vendor = "Sendmail"
+product = "Sendmail"
+context = "smtp.banner"
+example = "foo.bar ESMTP Sendmail AIX4.2/8.7/8.8; Sun, 29 Jul 2001 22:34:37 -0400 (EDT)"
+metadata = { "service.family" = "Sendmail", "os.vendor" = "IBM", "os.family" = "AIX", "os.product" = "AIX", "system.time.format" = "EEE, d MMM yyyy HH:mm:ss Z", "host.name" = "{capture:1}", "os.version" = "{capture:2}", "os.cpe23" = "cpe:/o:ibm:aix:{os.version}", "service.cpe23" = "cpe:/a:sendmail:sendmail:{service.version}", "sendmail.config.version" = "{capture:4}", "system.time" = "{capture:5}" }
+
+[[match]]
+name = "Sendmail - SuSE Linux"
+pattern = "^([^ ]{1,512}) ESMTP Sendmail ([^/]+)/([^/]+)/SuSE Linux ([^;]+); (.+)$"
+version_group = 2
+vendor = "Sendmail"
+product = "Sendmail"
+context = "smtp.banner"
+example = "foo.bar ESMTP Sendmail 8.9.3/8.9.3/SuSE Linux 8.9.3-0.1; Mon, 30 Jul 2001 04:48:54 +0200"
+metadata = { "service.family" = "Sendmail", "os.vendor" = "SuSE", "os.family" = "Linux", "os.product" = "Linux", "os.cpe23" = "cpe:/o:suse:linux:-", "system.time.format" = "EEE, d MMM yyyy HH:mm:ss Z", "host.name" = "{capture:1}", "service.cpe23" = "cpe:/a:sendmail:sendmail:{service.version}", "sendmail.config.version" = "{capture:3}", "sendmail.vendor.version" = "{capture:4}", "system.time" = "{capture:5}" }
+
+[[match]]
+name = "Sendmail - Solaris with date (no time offeset variant)"
+pattern = "^([^ ]{1,512}) ESMTP Sendmail ([^ ]+)\\+Sun/([^ ]+); (.+)$"
+version_group = 2
+vendor = "Sendmail"
+product = "Sendmail"
+context = "smtp.banner"
+example = "foo.bar ESMTP Sendmail 8.9.3+Sun/8.9.1; Mon, 30 Jul 2001 02:50:22 GMT"
+metadata = { "service.family" = "Sendmail", "os.vendor" = "Sun", "os.family" = "Solaris", "os.product" = "Solaris", "os.cpe23" = "cpe:/o:sun:solaris:-", "system.time.format" = "EEE, d MMM yyyy HH:mm:ss zzz", "host.name" = "{capture:1}", "service.cpe23" = "cpe:/a:sendmail:sendmail:{service.version}", "sendmail.config.version" = "{capture:3}", "system.time" = "{capture:4}" }
+
+[[match]]
+name = "Sendmail - Solaris with date (ready variant)"
+pattern = "^([^ ]{1,512}) ESMTP Sendmail ([^ ]+)\\+Sun/([^ ]+) ready at (.+) \\(.+\\)$"
+version_group = 2
+vendor = "Sendmail"
+product = "Sendmail"
+context = "smtp.banner"
+example = "foo.bar ESMTP Sendmail 8.8.8+Sun/8.6.4 ready at Thu, 15 Nov 2000 11:40:32 -0800 (PST)"
+metadata = { "service.family" = "Sendmail", "os.vendor" = "Sun", "os.family" = "Solaris", "os.product" = "Solaris", "os.cpe23" = "cpe:/o:sun:solaris:-", "system.time.format" = "EEE, d MMM yyyy HH:mm:ss Z", "host.name" = "{capture:1}", "service.cpe23" = "cpe:/a:sendmail:sendmail:{service.version}", "sendmail.config.version" = "{capture:3}", "system.time" = "{capture:4}" }
+
+[[match]]
+name = "Sendmail - Debian"
+pattern = "^([^ ]{1,512}) ESMTP (?:Debian )?Sendmail ([^/]+)/([^/]+)/Debian ([^/]+); (.+) *$"
+version_group = 2
+vendor = "Sendmail"
+product = "Sendmail"
+context = "smtp.banner"
+example = "foo.bar ESMTP Debian Sendmail 8.12.0.Beta7/8.12.0.Beta7/Debian 8.12.0.Beta7-1; Sun, 29 Jul 2001 18:52:20 -0800"
+metadata = { "service.family" = "Sendmail", "os.vendor" = "Debian", "os.family" = "Linux", "os.product" = "Linux", "os.cpe23" = "cpe:/o:debian:debian_linux:-", "system.time.format" = "EEE, d MMM yyyy HH:mm:ss Z", "host.name" = "{capture:1}", "service.cpe23" = "cpe:/a:sendmail:sendmail:{service.version}", "sendmail.config.version" = "{capture:3}", "sendmail.vendor.version" = "{capture:4}", "system.time" = "{capture:5}" }
+
+[[match]]
+name = "Sendmail - Debian 7.x (wheezy)"
+pattern = "^([^ ]{1,512}) ESMTP Sendmail ([^/]+)/([^/]+)/Debian-\\d\\+(?:wheezy|deb7u)\\d; (.+);"
+version_group = 2
+vendor = "Sendmail"
+product = "Sendmail"
+context = "smtp.banner"
+example = "foo.bar ESMTP Sendmail 8.14.4/8.14.4/Debian-4+wheezy1; Thu, 30 Nov 2017 10:33:05 +0100; (No UCE/UBE) logging access from: xyz.foo.bar(OK)-xyz.foo.bar [10.0.0.1]"
+metadata = { "service.family" = "Sendmail", "os.vendor" = "Debian", "os.family" = "Linux", "os.product" = "Linux", "os.version" = "7.0", "os.cpe23" = "cpe:/o:debian:debian_linux:7.0", "system.time.format" = "EEE, d MMM yyyy HH:mm:ss Z", "host.name" = "{capture:1}", "service.cpe23" = "cpe:/a:sendmail:sendmail:{service.version}", "sendmail.config.version" = "{capture:3}", "system.time" = "{capture:4}" }
+
+[[match]]
+name = "Sendmail - Debian 8.x (jessie)"
+pattern = "^([^ ]{1,512}) ESMTP Sendmail ([^/]+)/([^/]+)/Debian-\\d\\+deb8u\\d; (.+);"
+version_group = 2
+vendor = "Sendmail"
+product = "Sendmail"
+context = "smtp.banner"
+example = "foo.bar ESMTP Sendmail 8.14.4/8.14.4/Debian-8+deb8u2; Thu, 30 Nov 2017 10:25:48 +0100; (No UCE/UBE) logging access from: xyz.foo.bar(OK)-xyz.foo.bar [10.0.0.1]"
+metadata = { "service.family" = "Sendmail", "os.vendor" = "Debian", "os.family" = "Linux", "os.product" = "Linux", "os.version" = "8.0", "os.cpe23" = "cpe:/o:debian:debian_linux:8.0", "system.time.format" = "EEE, d MMM yyyy HH:mm:ss Z", "host.name" = "{capture:1}", "service.cpe23" = "cpe:/a:sendmail:sendmail:{service.version}", "sendmail.config.version" = "{capture:3}", "system.time" = "{capture:4}" }
+
+[[match]]
+name = "Sendmail - Debian 9.1 (stretch)"
+pattern = "^([^ ]{1,512}) ESMTP Sendmail ([^/]+)/([^/]+)/Debian-\\d\\+deb9u1; (.+);"
+version_group = 2
+vendor = "Sendmail"
+product = "Sendmail"
+context = "smtp.banner"
+example = "foo.bar ESMTP Sendmail 8.15.2/8.15.2/Debian-8+deb9u1; Thu, 29 Apr 2021 06:45:02 +0200; (No UCE/UBE) logging access from: xyz.foo.bar(OK)-xyz.foo.bar [10.0.0.1]"
+metadata = { "service.family" = "Sendmail", "os.vendor" = "Debian", "os.family" = "Linux", "os.product" = "Linux", "os.version" = "9.1", "os.cpe23" = "cpe:/o:debian:debian_linux:9.1", "system.time.format" = "EEE, d MMM yyyy HH:mm:ss Z", "host.name" = "{capture:1}", "service.cpe23" = "cpe:/a:sendmail:sendmail:{service.version}", "sendmail.config.version" = "{capture:3}", "system.time" = "{capture:4}" }
+
+[[match]]
+name = "Sendmail - Debian 5.x (lenny)"
+pattern = "^([^ ]{1,512}) ESMTP Sendmail ([^/]+)/([^/]+)/Debian-\\d\\+lenny\\d; (.+);"
+version_group = 2
+vendor = "Sendmail"
+product = "Sendmail"
+context = "smtp.banner"
+example = "foo.bar ESMTP Sendmail 8.14.3/8.14.3/Debian-5+lenny1; Thu, 30 Nov 2017 12:29:40 +0300; (No UCE/UBE) logging access from: xyz.foo.bar(OK)-xyz.foo.bar [10.0.0.1]"
+metadata = { "service.family" = "Sendmail", "os.vendor" = "Debian", "os.family" = "Linux", "os.product" = "Linux", "os.version" = "5.0", "os.cpe23" = "cpe:/o:debian:debian_linux:5.0", "system.time.format" = "EEE, d MMM yyyy HH:mm:ss Z", "host.name" = "{capture:1}", "service.cpe23" = "cpe:/a:sendmail:sendmail:{service.version}", "sendmail.config.version" = "{capture:3}", "system.time" = "{capture:4}" }
+
+[[match]]
+name = "Sendmail - Debian 4.x (etch)"
+pattern = "^([^ ]{1,512}) ESMTP Sendmail ([^/]+)/([^/]+)/Debian-\\d\\+etch\\d; (.+);"
+version_group = 2
+vendor = "Sendmail"
+product = "Sendmail"
+context = "smtp.banner"
+example = "foo.bar ESMTP Sendmail 8.13.8/8.13.8/Debian-3+etch1; Thu, 30 Nov 2017 10:28:23 +0100; (No UCE/UBE) logging access from: xyz.foo.bar(OK)-xyz.foo.bar [10.0.0.1]"
+metadata = { "service.family" = "Sendmail", "os.vendor" = "Debian", "os.family" = "Linux", "os.product" = "Linux", "os.version" = "4.0", "os.cpe23" = "cpe:/o:debian:debian_linux:4.0", "system.time.format" = "EEE, d MMM yyyy HH:mm:ss Z", "host.name" = "{capture:1}", "service.cpe23" = "cpe:/a:sendmail:sendmail:{service.version}", "sendmail.config.version" = "{capture:3}", "system.time" = "{capture:4}" }
+
+[[match]]
+name = "Sendmail - Debian 3.1 (sarge)"
+pattern = "^([^ ]{1,512}) ESMTP Sendmail ([^/]+)/([^/]+)/Debian-\\dsarge\\d; (.+);"
+version_group = 2
+vendor = "Sendmail"
+product = "Sendmail"
+context = "smtp.banner"
+example = "foo.bar ESMTP Sendmail 8.13.4/8.13.4/Debian-3sarge1; Thu, 30 Nov 2017 10:55:47 +0100; (No UCE/UBE) logging access from: xyz.foo.bar(OK)-xyz.foo.bar [10.0.0.1]"
+metadata = { "service.family" = "Sendmail", "os.vendor" = "Debian", "os.family" = "Linux", "os.product" = "Linux", "os.version" = "3.1", "os.cpe23" = "cpe:/o:debian:debian_linux:3.1", "system.time.format" = "EEE, d MMM yyyy HH:mm:ss Z", "host.name" = "{capture:1}", "service.cpe23" = "cpe:/a:sendmail:sendmail:{service.version}", "sendmail.config.version" = "{capture:3}", "system.time" = "{capture:4}" }
+
+[[match]]
+name = "Sendmail - Debian patch only"
+pattern = "^([^ ]{1,512}) ESMTP Sendmail ([^/]+)/([^/]+)/Debian-\\d(?:\\.\\d)?(?:build\\d)?;+ (.+);"
+version_group = 2
+vendor = "Sendmail"
+product = "Sendmail"
+context = "smtp.banner"
+example = "foo.bar ESMTP Sendmail 8.15.2/8.15.2/Debian-3; Thu, 30 Nov 2017 10:55:50 +0200; (No UCE/UBE) logging access from: xyz.foo.bar(OK)-xyz.foo.bar [10.0.0.1]"
+metadata = { "service.family" = "Sendmail", "os.vendor" = "Debian", "os.family" = "Linux", "os.product" = "Linux", "os.cpe23" = "cpe:/o:debian:debian_linux:-", "system.time.format" = "EEE, d MMM yyyy HH:mm:ss Z", "host.name" = "{capture:1}", "service.cpe23" = "cpe:/a:sendmail:sendmail:{service.version}", "sendmail.config.version" = "{capture:3}", "system.time" = "{capture:4}" }
+
+[[match]]
+name = "Sendmail - Ubuntu"
+pattern = "^([^ ]{1,512}) ESMTP Sendmail ([^/]+)/[^/]+/Debian-[\\d.]+ubuntu[^ ]*; (.+);"
+version_group = 2
+vendor = "Sendmail"
+product = "Sendmail"
+context = "smtp.banner"
+example = "foo.bar ESMTP Sendmail 8.13.5.20060308/8.13.5/Debian-3ubuntu1.1; Fri, 24 Jul 2009 01:41:21 -0700; (No UCE/UBE) logging access from: xyz.foo.bar(OK)-xyz.foo.bar [10.0.0.1]"
+metadata = { "service.family" = "Sendmail", "os.vendor" = "Ubuntu", "os.family" = "Linux", "os.product" = "Linux", "os.cpe23" = "cpe:/o:canonical:ubuntu_linux:-", "system.time.format" = "EEE, d MMM yyyy HH:mm:ss Z", "host.name" = "{capture:1}", "service.cpe23" = "cpe:/a:sendmail:sendmail:{service.version}", "system.time" = "{capture:3}" }
+
+[[match]]
+name = "Sendmail - Solaris (SMI variant)"
+pattern = "^([^ ]{1,512}) (?:E?SMTP )?Sendmail SMI-([^/]+)/(SMI-SVR4) ready at (.+)$"
+version_group = 2
+vendor = "Sendmail"
+product = "Sendmail"
+context = "smtp.banner"
+example = "foo.bar Sendmail SMI-8.6/SMI-SVR4 ready at Sun, 29 Jul 2001 22:58:46 -0400"
+metadata = { "service.family" = "Sendmail", "os.vendor" = "Sun", "os.family" = "SunOS", "os.product" = "Solaris", "os.cpe23" = "cpe:/o:sun:solaris:-", "system.time.format" = "EEE, d MMM yyyy HH:mm:ss Z", "host.name" = "{capture:1}", "service.cpe23" = "cpe:/a:sendmail:sendmail:{service.version}", "sendmail.config.version" = "{capture:3}", "system.time" = "{capture:4}" }
+
+[[match]]
+name = "Sendmail - unknown platform (linuxconf variant)"
+pattern = "^([^ ]{1,512}) ESMTP Sendmail ([^ ]+)/(linuxconf); (.+)$"
+version_group = 2
+vendor = "Sendmail"
+product = "Sendmail"
+context = "smtp.banner"
+example = "foo.bar ESMTP Sendmail 8.9.3/linuxconf; Sun, 29 Jul 2001 22:48:28 -0400"
+metadata = { "service.family" = "Sendmail", "os.family" = "Linux", "os.product" = "Linux", "system.time.format" = "EEE, d MMM yyyy HH:mm:ss Z", "host.name" = "{capture:1}", "service.cpe23" = "cpe:/a:sendmail:sendmail:{service.version}", "sendmail.config.version" = "{capture:3}", "system.time" = "{capture:4}" }
+
+[[match]]
+name = "Sendmail - MetaInfo"
+pattern = "^([^ ]{1,512}) ESMTP MetaInfo Sendmail ([^ ]+) Build ([^ ]+) \\(Berkeley ([^ ]+)\\)/([^;]+); (.+)$"
+version_group = 4
+vendor = "MetaInfo"
+product = "Sendmail"
+context = "smtp.banner"
+example = "foo.bar ESMTP MetaInfo Sendmail 2.5 Build 2630 (Berkeley 8.8.6)/8.8.4; Mon, 30 Jul"
+metadata = { "service.family" = "Sendmail", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows NT", "os.cpe23" = "cpe:/o:microsoft:windows_nt:-", "system.time.format" = "EEE, d MMM", "host.name" = "{capture:1}", "metainfo.version" = "{capture:2}", "metainfo.version.version" = "{capture:3}", "sendmail.config.version" = "{capture:5}", "system.time" = "{capture:6}" }
+
+[[match]]
+name = "Sendmail - optional timezone and timestamp, w/o OS"
+pattern = "^([^ ]{1,512}) +ESMTP .*Sendmail +([^/ ]+) */ *([^/ ]+); *((?:\\w\\w\\w, \\d+ \\w\\w\\w \\d\\d\\d\\d [\\d:]+ [-+]\\d\\d\\d\\d)?)(?: \\(.+\\))?$"
+version_group = 2
+vendor = "Sendmail"
+product = "Sendmail"
+context = "smtp.banner"
+example = "foo.bar ESMTP Sendmail 8.9.3+3.4W/8.9.3+3.4W; Tue, 30 Jan 2001 20:40:09 -0500 (EST)"
+metadata = { "system.time.format" = "EEE, d MMM yyyy HH:mm:ss Z", "host.name" = "{capture:1}", "service.cpe23" = "cpe:/a:sendmail:sendmail:{service.version}", "sendmail.config.version" = "{capture:3}", "system.time" = "{capture:4}" }
+
+[[match]]
+name = "Sendmail - with timezone and timestamp, w/o timezone offset or OS"
+pattern = "^([^ ]{1,512}) +ESMTP .*Sendmail +([^/ ]+) */ *([^/ ]+); *(\\w\\w\\w, \\d+ \\w\\w\\w \\d\\d\\d\\d [\\d:]+ \\w+)\\.?$"
+version_group = 2
+vendor = "Sendmail"
+product = "Sendmail"
+context = "smtp.banner"
+example = "foo.bar ESMTP Sendmail 8.14.4/8.14.4; Thu, 5 Apr 2018 19:30:58 GMT"
+metadata = { "system.time.format" = "EEE, d MMM yyyy HH:mm:ss z", "host.name" = "{capture:1}", "service.cpe23" = "cpe:/a:sendmail:sendmail:{service.version}", "sendmail.config.version" = "{capture:3}", "system.time" = "{capture:4}" }
+
+[[match]]
+name = "Sendmail - with version and date (optional timezone), w/o config version"
+pattern = "^([^ ]{1,512}) +ESMTP +Sendmail ([^ ]+) ready at *(\\w\\w\\w, \\d+ \\w\\w\\w \\d\\d\\d\\d [\\d:]+ [-+]\\d\\d\\d\\d)(?: \\(.+\\))$"
+version_group = 2
+vendor = "Sendmail"
+product = "Sendmail"
+context = "smtp.banner"
+example = "foo.bar ESMTP Sendmail 8.8.8 ready at Tue, 6 Feb 2001 14:37:14 +0100 (CET)"
+metadata = { "service.family" = "Sendmail", "system.time.format" = "EEE, d MMM yyyy HH:mm:ss Z", "host.name" = "{capture:1}", "service.cpe23" = "cpe:/a:sendmail:sendmail:{service.version}", "system.time" = "{capture:3}" }
+
+[[match]]
+name = "Sendmail - revision variant 1"
+pattern = "^([^ ]{1,512}) +ESMTP +Sendmail ([^ /]+) - \\([^\\)]+\\)/[^ ]+;? *(\\w\\w\\w, \\d+ \\w\\w\\w \\d\\d\\d\\d [\\d:]+ [-+]\\d\\d\\d\\d)(?: \\(.+\\)) *$"
+version_group = 2
+vendor = "Sendmail"
+product = "Sendmail"
+context = "smtp.banner"
+example = "foo.foo.bar ESMTP Sendmail 8.11.1 - (Revision 1.010)/8.9.3; Sat, 22 Jan 2011 10:08:35 -0500 (EST)"
+metadata = { "service.family" = "Sendmail", "system.time.format" = "EEE, d MMM yyyy HH:mm:ss Z", "host.name" = "{capture:1}", "service.cpe23" = "cpe:/a:sendmail:sendmail:{service.version}", "system.time" = "{capture:3}" }
+
+[[match]]
+name = "Sendmail - revision variant 2"
+pattern = "^([^ ]{1,512}) +ESMTP +Sendmail +(?:[^ ]+) +version +([^ ]+) +- +(?:[^;]+); *(\\w\\w\\w, \\d+ \\w\\w\\w \\d\\d\\d\\d [\\d:]+ [-+]\\d\\d\\d\\d)(?: \\(.+\\)) *$"
+version_group = 2
+vendor = "Sendmail"
+product = "Sendmail"
+context = "smtp.banner"
+example = "foo.foo.bar ESMTP Sendmail @(#)Sendmail version 8.13.3 - Revision 2.007 - 8 December 2008/8.8.6; Wed, 21 Jul 2010 11:17:01 -0400 (EDT)"
+metadata = { "service.family" = "Sendmail", "system.time.format" = "EEE, d MMM yyyy HH:mm:ss Z", "host.name" = "{capture:1}", "service.cpe23" = "cpe:/a:sendmail:sendmail:{service.version}", "system.time" = "{capture:3}" }
+
+[[match]]
+name = "Sendmail - with date, w/o version or platform, optional status string."
+pattern = "(?i)^([^ ]{1,512}) {1,8}(?:ESMTP +)?Sendmail *(?: Ready.? ?)?(?:;|at)? ?((?:\\w\\w\\w, \\d+ \\w\\w\\w \\d\\d\\d\\d [\\d:]+ [-+]\\d\\d\\d\\d)?)(?: \\(.+\\))?$"
+vendor = "Sendmail"
+product = "Sendmail"
+context = "smtp.banner"
+example = "foo.bar ESMTP Sendmail ; Thu, 30 Nov 2017 17:50:14 +0900"
+metadata = { "service.family" = "Sendmail", "service.cpe23" = "cpe:/a:sendmail:sendmail:-", "host.name" = "{capture:1}", "system.time" = "{capture:2}", "system.time.format" = "EEE, d MMM yyyy HH:mm:ss Z" }
+
+[[match]]
+name = "Sendmail - with version and date, w/o hostname or platform (semicolon variant)"
+pattern = "^\\s?ESMTP Sendmail +([^/ ]+) */ *([^/ ]+); (\\w\\w\\w, \\d+ \\w\\w\\w \\d\\d\\d\\d [\\d:]+ [-+]\\d\\d\\d\\d)$"
+version_group = 1
+vendor = "Sendmail"
+product = "Sendmail"
+context = "smtp.banner"
+example = "ESMTP Sendmail  8.13.1/8.13.1; Thu, 30 Nov 2017 01:58:22 -0700"
+metadata = { "service.family" = "Sendmail", "system.time.format" = "EEE, d MMM yyyy HH:mm:ss Z", "service.cpe23" = "cpe:/a:sendmail:sendmail:{service.version}", "sendmail.config.version" = "{capture:2}", "system.time" = "{capture:3}" }
+
+[[match]]
+name = "Sendmail - unknown (date in version string variant)"
+pattern = "^([^ ]{1,512}) +ESMTP +Sendmail ([^ /]+) \\([^\\)]+\\) *(.+) \\(.+\\)$"
+version_group = 2
+vendor = "Sendmail"
+product = "Sendmail"
+context = "smtp.banner"
+example = "mail.foo.bar ESMTP Sendmail 8.11.1 (1.1.2.11/12Jul01-1016AM) Wed, 8 Jan 2003 11:21:22 +0100 (MET)"
+metadata = { "service.family" = "Sendmail", "system.time.format" = "EEE, d MMM yyyy HH:mm:ss Z", "host.name" = "{capture:1}", "service.cpe23" = "cpe:/a:sendmail:sendmail:{service.version}", "system.time" = "{capture:3}" }
+
+[[match]]
+name = "Sendmail - unknown platform, variant 1"
+pattern = "^([^ ]{1,512}) Sendmail ([^;]+); ([^;\\.]+)$"
+version_group = 2
+vendor = "Sendmail"
+product = "Sendmail"
+context = "smtp.banner"
+metadata = { "service.family" = "Sendmail", "system.time.format" = "EEE, d MMM yyyy HH:mm:ss zzz", "host.name" = "{capture:1}", "service.cpe23" = "cpe:/a:sendmail:sendmail:{service.version}", "system.time" = "{capture:3}" }
+
+[[match]]
+name = "Sendmail - basic with version and date"
+pattern = "^Sendmail ([^/]+)/([^/]+) ready on ([^ ]+)$"
+version_group = 1
+vendor = "Sendmail"
+product = "Sendmail"
+context = "smtp.banner"
+metadata = { "service.family" = "Sendmail", "service.cpe23" = "cpe:/a:sendmail:sendmail:{service.version}", "sendmail.config.version" = "{capture:2}", "host.name" = "{capture:3}" }
+
+[[match]]
+name = "Sun Internet Mail Server"
+pattern = "^([^ ]{1,512}) -- Server ESMTP \\(Sun Internet Mail Server sims\\.(\\d\\.[\\w.]+)\\)$"
+version_group = 2
+vendor = "Sun"
+product = "Internet Mail Server"
+context = "smtp.banner"
+example = "foo.bar -- Server ESMTP (Sun Internet Mail Server sims.4.0.2000.10.12.16.25.p8)"
+metadata = { "service.family" = "Internet Mail Server", "os.vendor" = "Sun", "os.family" = "Solaris", "os.product" = "Solaris", "os.cpe23" = "cpe:/o:sun:solaris:-", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "Ecelerity"
+pattern = "^(?:2.0.0 )?([^ ]{1,512}) ESMTP ecelerity (\\d\\.[\\d.]+) r\\(([^)]+)\\) (\\w\\w\\w, \\d+ \\w\\w\\w \\d\\d\\d\\d [\\d:]+ [-+]\\d\\d\\d\\d) *$"
+version_group = 2
+vendor = "Ecelerity"
+product = "Ecelerity Mail Server"
+context = "smtp.banner"
+example = "2.0.0 foo.bar ESMTP ecelerity 4.0.0.43760 r(Platform:4.0.0.1) Thu, 30 Nov 2017 05:11:00 -0500"
+metadata = { "service.family" = "Ecelerity Mail Server", "system.time.format" = "EEE, d MMM yyyy HH:mm:ss Z", "host.name" = "{capture:1}", "service.component.version" = "{capture:3}", "system.time" = "{capture:4}" }
+
+[[match]]
+name = "Seattle Labs SLMail server for Windows NT/2k (v2.7 runs on Win9x)"
+pattern = "(?i)^([^ ]{1,512}) SMTP Server SLMail v?(\\d\\.[\\d.]+) Ready ESMTP spoken here *$"
+version_group = 2
+vendor = "Seattle Labs"
+product = "SLMail"
+context = "smtp.banner"
+example = "foo.bar Smtp Server SLMail v2.7 Ready ESMTP spoken here"
+metadata = { "service.family" = "SLMail", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "Symantec Mail Security for SMTP"
+pattern = "^([^ ]{1,512}) +ESMTP Symantec Mail Security$"
+vendor = "Symantec"
+product = "Mail Security for SMTP"
+context = "smtp.banner"
+example = "foo.bar ESMTP Symantec Mail Security"
+metadata = { "service.cpe23" = "cpe:/a:symantec:mail_security_for_smtp:-", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "Symantec Mail Gateway"
+pattern = "^([^ ]{1,512}) ESMTP Symantec Messaging Gateway$"
+vendor = "Symantec"
+product = "Messaging Gateway"
+context = "smtp.banner"
+example = "foo.bar ESMTP Symantec Messaging Gateway"
+metadata = { "service.cpe23" = "cpe:/a:symantec:messaging_gateway:-", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "SonicWall Email Security"
+pattern = "(?i)^([^ ]{1,512}) ESMTP SonicWALL \\(([\\d.]+)\\)$"
+version_group = 2
+vendor = "SonicWall"
+product = "Email Security"
+context = "smtp.banner"
+example = "foo.bar ESMTP SonicWALL (9.0.5.2077)"
+metadata = { "service.family" = "Email Security", "host.name" = "{capture:1}", "service.cpe23" = "cpe:/a:sonicwall:email_security:{service.version}" }
+
+[[match]]
+name = "PowerMTA"
+pattern = "^([^ ]{1,512}) \\(PowerMTA\\(TM\\) v([\\d.r]+)\\) ESMTP service ready$"
+version_group = 2
+vendor = "port25"
+product = "PowerMTA"
+context = "smtp.banner"
+example = "foo.bar (PowerMTA(TM) v3.2r24) ESMTP service ready"
+metadata = { "service.family" = "PowerMTA", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "VOPMail http://www.vircom.com/en/products/vopmail/vopmail.shtml"
+pattern = "^([^ ]{1,512}) +VOPmail ESMTP Receiver Version (\\d\\.[\\d.]+) Ready$"
+version_group = 2
+vendor = "Vircom"
+product = "VOPMail"
+context = "smtp.banner"
+example = "foo.bar VOPmail ESMTP Receiver Version 4.0.179.0 Ready"
+metadata = { "service.family" = "VOPMail", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "VPOP3 Email server: http://www.pscs.co.uk/products/vpop3/index.html"
+pattern = "^([^ ]{1,512}) VPOP3 E?SMTP Server (?:Ready|access not allowed!)$"
+vendor = "Paul Smith Computer Services"
+product = "VPOP3"
+context = "smtp.banner"
+example = "foo.bar VPOP3 ESMTP Server Ready"
+metadata = { "service.family" = "VPOP3", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "McAfee WebShield"
+pattern = "^([^ ]{1,512}) WebShield SMTP V([^ ]+\\.[^ ]+) ([^ ]+)? ?Network Associates.*Ready at (.+) *$"
+version_group = 2
+vendor = "McAfee"
+product = "WebShield"
+context = "smtp.banner"
+example = "foo.bar WebShield SMTP V4.5 MR1a Network Associates, Inc. Ready at Thu Nov 30 09:15:32 2017"
+metadata = { "service.family" = "WebShield", "system.time.format" = "EEE d MMM HH:mm:ss yyyy", "host.name" = "{capture:1}", "service.version.version" = "{capture:3}", "service.cpe23" = "cpe:/a:mcafee:webshield:{service.version}", "system.time" = "{capture:4}" }
+
+[[match]]
+name = "McAfee Webshield ASaP (bundled hardware / software)"
+pattern = "^([^ ]{1,512}) McAfee WebShield ASaP v([^ ]+\\.[^ ]+\\.[^ ]+): (.+) *$"
+version_group = 2
+vendor = "McAfee"
+product = "WebShield"
+context = "smtp.banner"
+example = "foo.bar McAfee WebShield ASaP v1.0.1: Sun, 29 Jul 2001 22:46:18 -0700"
+metadata = { "service.family" = "WebShield", "system.time.format" = "EEE, d MMM yyyy HH:mm:ss Z", "os.vendor" = "McAfee", "os.family" = "Linux", "os.product" = "Linux", "host.name" = "{capture:1}", "service.cpe23" = "cpe:/a:mcafee:webshield:{service.version}", "system.time" = "{capture:3}" }
+
+[[match]]
+name = "McAfee VirusScreen"
+pattern = "^([^ ]{1,512}) McAfee VirusScreen ASaP v([^ ]+\\.[^ ]+): (.+) *$"
+version_group = 2
+vendor = "McAfee"
+product = "WebShield"
+context = "smtp.banner"
+example = "foo.bar McAfee VirusScreen ASaP v1.1: Sun, 20 Jul 2003 09:20:52 -0700"
+metadata = { "service.family" = "WebShield", "system.time.format" = "EEE, d MMM yyyy HH:mm:ss Z", "os.vendor" = "McAfee", "os.family" = "Linux", "os.product" = "Linux", "host.name" = "{capture:1}", "service.cpe23" = "cpe:/a:mcafee:webshield:{service.version}", "system.time" = "{capture:3}" }
+
+[[match]]
+name = "Lyris ListManager"
+pattern = "^([^ ]{1,512}) ESMTP Lyris ListManager service ready$"
+vendor = "Lyris"
+product = "ListManager"
+context = "smtp.banner"
+example = "foo.bar ESMTP Lyris ListManager service ready"
+metadata = { "service.family" = "ListManager", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "WinRoute Pro, runs on 9x/NT/2k http://www.tinysoftware.com/winpro.php"
+pattern = "^([^ ]{1,512}) ESMTP - WinRoute Pro ([^ ]+\\.[^ ]+)$"
+version_group = 2
+product = "WinRoute"
+context = "smtp.banner"
+example = "foo.bar ESMTP - WinRoute Pro 4.2.4"
+metadata = { "service.family" = "WinRoute", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "WinRoute Pro w/o hostname"
+pattern = "^ESMTP - WinRoute Pro ([^ ]+\\.[^ ]+) *(?: #\\d)? ?.?((?:\\w\\w\\w, \\d+ \\w\\w\\w \\d\\d\\d\\d [\\d:]+ [-+]\\d\\d\\d\\d)?)$"
+version_group = 1
+product = "WinRoute"
+context = "smtp.banner"
+example = "ESMTP - WinRoute Pro 4.2.1 Thu, 16 Nov 2017 11:48:15 +0300"
+metadata = { "service.family" = "WinRoute", "system.time.format" = "EEE, dd MMM yyyy HH:mm:ss Z", "system.time" = "{capture:2}" }
+
+[[match]]
+name = "ZMailer http://www.zmailer.org/technical.html"
+pattern = "^([^ ]{1,512}) ZMailer Server (\\d\\.[\\d.]+) #([^ ]+) ESMTP ready at (.+) *$"
+version_group = 2
+vendor = "ZMailer"
+product = "ZMailer"
+context = "smtp.banner"
+example = "foo.bar ZMailer Server 2.99.57 #1 ESMTP ready at Thu, 16 Nov 2017 12:00:12 +0300"
+metadata = { "service.family" = "ZMailer", "system.time.format" = "EEE, d MMM yyyy HH:mm:ss Z", "host.name" = "{capture:1}", "service.version.version" = "{capture:3}", "system.time" = "{capture:4}" }
+
+[[match]]
+name = "ZMailer server that supports IDENT"
+pattern = "^([^ ]{1,512}) ZMailer Server (\\d\\.[\\d.]+) #([^ ]+) ESMTP\\+IDENT ready at (.+) *$"
+version_group = 2
+vendor = "ZMailer"
+product = "ZMailer"
+context = "smtp.banner"
+example = "foo.bar ZMailer Server 2.99.55 #16 ESMTP+IDENT ready at Thu, 16 Nov 2017 06:51:42 -0300"
+metadata = { "service.family" = "ZMailer", "system.time.format" = "EEE, d MMM yyyy HH:mm:ss Z", "zmailer.ident" = "yes", "host.name" = "{capture:1}", "service.version.version" = "{capture:3}", "system.time" = "{capture:4}" }
+
+[[match]]
+name = "Kerio Connect ESMTP"
+pattern = "^([^ ]{1,512}) Kerio Connect (\\d\\.[\\d.]+) (?:patch (\\d) )?ESMTP ready$"
+version_group = 2
+vendor = "Kerio"
+product = "ESMTP"
+context = "smtp.banner"
+example = "foo.bar Kerio Connect 8.0.2 ESMTP ready"
+metadata = { "service.family" = "Connect", "host.name" = "{capture:1}", "service.version.version" = "{capture:3}" }
+
+[[match]]
+name = "Communigate Pro"
+pattern = "^([^ ]{1,512}) ESMTP CommuniGate Pro (\\d\\.[\\w.]+)(?:. It is you again :-\\()?$"
+version_group = 2
+vendor = "Communigate"
+product = "Communigate Pro"
+context = "smtp.banner"
+example = "foo.bar ESMTP CommuniGate Pro 5.3.1"
+metadata = { "service.family" = "Pro", "host.name" = "{capture:1}", "service.cpe23" = "cpe:/a:communigate:communigate_pro:{service.version}" }
+
+[[match]]
+name = "Twisted SMTP server"
+pattern = "^(\\S{1,512}) NO UCE NO UBE NO RELAY PROBES ESMTP"
+vendor = "Twisted Matrix Labs"
+product = "ESMTP"
+context = "smtp.banner"
+example = "foo.bar NO UCE NO UBE NO RELAY PROBES ESMTP"
+metadata = { "service.family" = "Twisted", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "Cellopoint E-mail Firewall"
+pattern = "^Cellopoint E-mail Firewall v(\\d\\.[\\d.]+) Build (\\d+) ready$"
+version_group = 1
+vendor = "Cellopoint"
+product = "E-mail Firewall"
+context = "smtp.banner"
+example = "Cellopoint E-mail Firewall v3.9.12 Build 0324 ready"
+metadata = { "service.family" = "UTM", "service.version.version" = "{capture:2}" }
+
+[[match]]
+name = "Ma Jian WinWebMail"
+pattern = "^ESMTP on WinWebMail \\[(\\d\\.[\\d.]+)\\] ready\\.  http://www.winwebmail.com$"
+version_group = 1
+vendor = "Ma Jian"
+product = "ESMTP"
+context = "smtp.banner"
+example = "ESMTP on WinWebMail [3.9.0.7] ready.  http://www.winwebmail.com"
+metadata = { "service.family" = "WinWebMail" }
+
+[[match]]
+name = "Tobit Software David"
+pattern = "^([^ ]{1,512}) Service ready by David.fx \\((\\d+)\\) ESMTP Server \\(Tobit.Software, Germany\\)$"
+version_group = 2
+vendor = "Tobit Software"
+product = "ESMTP"
+context = "smtp.banner"
+example = "foo.bar Service ready by David.fx (0486) ESMTP Server (Tobit.Software, Germany)"
+metadata = { "service.family" = "David", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "Some simple PERL SMTP server"
+pattern = "(?i)^(\\S{1,512}) E?SMTP Perl"
+product = "Perl"
+context = "smtp.banner"
+example = "foo.bar ESMTP Perl"
+metadata = { "host.name" = "{capture:1}" }
+
+[[match]]
+name = "Non-specific banner with optional hostname"
+pattern = "(?i)^(?:([^ ]{1,512}) )?E?SMTP(?: (?:Service )?Ready\\.?)?$"
+context = "smtp.banner"
+example = "foo.bar ESMTP"
+metadata = { "host.name" = "{capture:1}" }
+
+[[match]]
+name = "OpenSMPTD"
+pattern = "^([^ ]{1,512}) ESMTP OpenSMTPD$"
+vendor = "OpenBSD"
+product = "OpenSMTPD"
+context = "smtp.banner"
+example = "foo.bar ESMTP OpenSMTPD"
+metadata = { "service.family" = "OpenSMTPD", "service.cpe23" = "cpe:/a:openbsd:opensmtpd:-", "host.name" = "{capture:1}" }
+

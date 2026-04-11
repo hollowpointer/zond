@@ -1,0 +1,717 @@
+# This file contains fingerprints imported from Rapid7 Recog.
+# Source: https://github.com/rapid7/recog
+# License: BSD-2-Clause
+
+[service]
+attribution = "Rapid7 Recog"
+name = "dns"
+default_ports = []
+description = "Imported from Rapid7 dns_versionbind"
+
+[[match]]
+name = "empty string -- assert nothing."
+pattern = "^$"
+context = "dns.versionbind"
+metadata = { "hw.certainty" = "0.0", "os.certainty" = "0.0", "service.certainty" = "0.0" }
+
+[[match]]
+name = "bare 'none' -- assert nothing."
+pattern = "^none$"
+context = "dns.versionbind"
+example = "none"
+metadata = { "hw.certainty" = "0.0", "os.certainty" = "0.0", "service.certainty" = "0.0" }
+
+[[match]]
+name = "bare 'null' -- assert nothing."
+pattern = "^null$"
+context = "dns.versionbind"
+example = "null"
+metadata = { "hw.certainty" = "0.0", "os.certainty" = "0.0", "service.certainty" = "0.0" }
+
+[[match]]
+name = "bare 'unknown' -- assert nothing."
+pattern = "(?i)^unknown$"
+context = "dns.versionbind"
+example = "unknown"
+metadata = { "hw.certainty" = "0.0", "os.certainty" = "0.0", "service.certainty" = "0.0" }
+
+[[match]]
+name = "bare 'no version' -- assert nothing."
+pattern = "^no version$"
+context = "dns.versionbind"
+example = "no version"
+metadata = { "hw.certainty" = "0.0", "os.certainty" = "0.0", "service.certainty" = "0.0" }
+
+[[match]]
+name = "ISC BIND: Red Hat Enterprise Linux"
+pattern = "^(9.[^-]+(?:-rpz\\d?[+.]rl[\\d.]+)?(?:-[SP]\\d)?)-RedHat-[\\d.]+[-.][\\w.]+el([\\d]+)_?(\\d*)(?:.[\\w.]+)?$"
+version_group = 1
+vendor = "ISC"
+product = "BIND"
+context = "dns.versionbind"
+example = "9.8.2rc1-RedHat-9.8.2-0.62.rc1.el6_9.2"
+metadata = { "service.family" = "BIND", "service.cpe23" = "cpe:/a:isc:bind:{service.version}", "os.vendor" = "Red Hat", "os.family" = "Linux", "os.product" = "Enterprise Linux", "os.version" = "{capture:2}", "os.version.version" = "{capture:3}", "os.cpe23" = "cpe:/o:redhat:enterprise_linux:{os.version}" }
+
+[[match]]
+name = "ISC BIND: Fedora"
+pattern = "^(9.[^-]+(?:-rl[.\\d]+)?(?:-[SP]\\d)?)-RedHat-[\\d.]+-[\\w.]+fc([\\d]+)$"
+version_group = 1
+vendor = "ISC"
+product = "BIND"
+context = "dns.versionbind"
+example = "9.10.4-P8-RedHat-9.10.4-4.P8.fc25"
+metadata = { "service.family" = "BIND", "service.cpe23" = "cpe:/a:isc:bind:{service.version}", "os.vendor" = "Fedora Project", "os.family" = "Linux", "os.product" = "Fedora Core", "os.version" = "{capture:2}", "os.cpe23" = "cpe:/o:fedoraproject:fedora_core:{os.version}" }
+
+[[match]]
+name = "ISC BIND: Red Hat - Amazon hosted"
+pattern = "^(9.[^-]+(?:-[SP]\\d)?)-RedHat-[\\w.-]+amzn1$"
+version_group = 1
+vendor = "ISC"
+product = "BIND"
+context = "dns.versionbind"
+example = "9.8.2rc1-RedHat-9.8.2-0.37.rc1.45.amzn1"
+metadata = { "service.family" = "BIND", "service.cpe23" = "cpe:/a:isc:bind:{service.version}", "os.vendor" = "Red Hat", "os.family" = "Linux" }
+
+[[match]]
+name = "ISC BIND: Red Hat - Alibaba Customized EL"
+pattern = "(9.[^-]+(?:-[SP]\\d)?)-RedHat-[\\w.-]+alios([\\d\\.]+)$"
+version_group = 1
+vendor = "ISC"
+product = "BIND"
+context = "dns.versionbind"
+example = "9.9.9-P3-RedHat-9.9.9-2.1.alios6"
+metadata = { "service.family" = "BIND", "service.cpe23" = "cpe:/a:isc:bind:{service.version}", "os.vendor" = "Red Hat", "os.family" = "Linux", "os.product" = "Enterprise Linux", "os.version" = "{capture:2}", "os.cpe23" = "cpe:/o:redhat:enterprise_linux:{os.version}" }
+
+[[match]]
+name = "ISC BIND: Red Hat nonspecific platform"
+pattern = "^(9.[^-]+(?:rc\\d)?(?:-[SP]\\d)?)-RedHat-[\\d.-]+(?:[-\\.][SP]\\d)?(?:rc[\\d\\.]+)?$"
+version_group = 1
+vendor = "ISC"
+product = "BIND"
+context = "dns.versionbind"
+example = "9.9.10-P2-RedHat-9.9.10-P2"
+metadata = { "service.family" = "BIND", "service.cpe23" = "cpe:/a:isc:bind:{service.version}", "os.vendor" = "Red Hat", "os.family" = "Linux", "os.product" = "Linux", "os.cpe23" = "cpe:/o:redhat:linux:-" }
+
+[[match]]
+name = "ISC BIND: Ubuntu"
+pattern = "^(9.[^-]+(?:-[SP]\\d)?)-[\\d.]+ubuntu[\\d.]+-Ubuntu$"
+version_group = 1
+vendor = "ISC"
+product = "BIND"
+context = "dns.versionbind"
+example = "9.9.5-11ubuntu1.1-Ubuntu"
+metadata = { "service.family" = "BIND", "service.cpe23" = "cpe:/a:isc:bind:{service.version}", "os.vendor" = "Ubuntu", "os.family" = "Linux", "os.product" = "Linux", "os.cpe23" = "cpe:/o:canonical:ubuntu_linux:-" }
+
+[[match]]
+name = "ISC BIND: Ubuntu with Response Policy Zone and Request Limiting patches"
+pattern = "^(9.[^-]+-rpz\\d?[+.]rl[\\d.]+(?:-[SP]\\d)?)-Ubuntu-[\\d\\.:]+[\\w\\.]+(?:-[SP]\\d)?-\\d?ubuntu[\\d\\.]+$"
+version_group = 1
+vendor = "ISC"
+product = "BIND"
+context = "dns.versionbind"
+example = "9.9.3-rpz2+rl.13214.22-P2-Ubuntu-1:9.9.3.dfsg.P2-4ubuntu1.1"
+metadata = { "service.family" = "BIND", "service.cpe23" = "cpe:/a:isc:bind:{service.version}", "os.vendor" = "Ubuntu", "os.family" = "Linux", "os.product" = "Linux", "os.cpe23" = "cpe:/o:canonical:ubuntu_linux:-" }
+
+[[match]]
+name = "ISC BIND: Ubuntu short"
+pattern = "^(9.[^-]+(?:-[SP]\\d)?)(?:-[\\d\\.]+)?-Ubuntu$"
+version_group = 1
+vendor = "ISC"
+product = "BIND"
+context = "dns.versionbind"
+example = "9.10.3-P4-Ubuntu"
+metadata = { "service.family" = "BIND", "service.cpe23" = "cpe:/a:isc:bind:{service.version}", "os.vendor" = "Ubuntu", "os.family" = "Linux", "os.product" = "Linux", "os.cpe23" = "cpe:/o:canonical:ubuntu_linux:-" }
+
+[[match]]
+name = "ISC BIND: Ubuntu Zentyal custom distribution"
+pattern = "^(9.[\\d\\.]+(?:[+-]rpz\\d?[+.]rl[\\d.]+)?(?:-[SP]\\d)?).*[+-]zentyal\\d*"
+version_group = 1
+vendor = "ISC"
+product = "BIND"
+context = "dns.versionbind"
+example = "9.9.5-3+zentyal-Ubuntu"
+metadata = { "service.family" = "BIND", "service.cpe23" = "cpe:/a:isc:bind:{service.version}", "os.vendor" = "Ubuntu", "os.family" = "Linux", "os.product" = "Zentyal" }
+
+[[match]]
+name = "ISC BIND: Debian 10.0 (buster)"
+pattern = "^(9.[^-]+(?:-[SP]\\d)?)(?:-[\\d\\.]+)?\\+deb10[\\w~\\.]+-Debian$"
+version_group = 1
+vendor = "ISC"
+product = "BIND"
+context = "dns.versionbind"
+example = "9.11.5-P4-5.1+deb10u1-Debian"
+metadata = { "service.family" = "BIND", "service.cpe23" = "cpe:/a:isc:bind:{service.version}", "os.vendor" = "Debian", "os.family" = "Linux", "os.product" = "Linux", "os.version" = "10.0", "os.cpe23" = "cpe:/o:debian:debian_linux:10.0" }
+
+[[match]]
+name = "ISC BIND: Debian 8.0 (jessie)"
+pattern = "^(9.[^-]+(?:-[SP]\\d)?)-9\\+deb8u[\\w~\\.]+-Debian$"
+version_group = 1
+vendor = "ISC"
+product = "BIND"
+context = "dns.versionbind"
+example = "9.9.5-9+deb8u11-Debian"
+metadata = { "service.family" = "BIND", "service.cpe23" = "cpe:/a:isc:bind:{service.version}", "os.vendor" = "Debian", "os.family" = "Linux", "os.product" = "Linux", "os.version" = "8.0", "os.cpe23" = "cpe:/o:debian:debian_linux:8.0" }
+
+[[match]]
+name = "ISC BIND: Debian 7.0 (wheezy)"
+pattern = "^(9.[^-]+(?:-[SP]\\d)?)-9wheezy\\w+-Debian$"
+version_group = 1
+vendor = "ISC"
+product = "BIND"
+context = "dns.versionbind"
+example = "9.9.5-9wheezy1-Debian"
+metadata = { "service.family" = "BIND", "service.cpe23" = "cpe:/a:isc:bind:{service.version}", "os.vendor" = "Debian", "os.family" = "Linux", "os.product" = "Linux", "os.version" = "7.0", "os.cpe23" = "cpe:/o:debian:debian_linux:7.0" }
+
+[[match]]
+name = "ISC BIND: Debian no version simple"
+pattern = "^(9.[^-]+(?:-[SP]\\d)?)-(?:[\\d\\.]+-)?Debian$"
+version_group = 1
+vendor = "ISC"
+product = "BIND"
+context = "dns.versionbind"
+example = "9.10.3-P4-Debian"
+metadata = { "service.family" = "BIND", "service.cpe23" = "cpe:/a:isc:bind:{service.version}", "os.vendor" = "Debian", "os.family" = "Linux", "os.product" = "Linux", "os.cpe23" = "cpe:/o:debian:debian_linux:-" }
+
+[[match]]
+name = "ISC BIND: Response Policy Zone and Request Limiting patches"
+pattern = "^(9\\.\\d{1,2}\\.\\d{1,2}-rpz\\d?[+.]rl[\\d.]+(?:-[SPW]\\d+)?)$"
+version_group = 1
+vendor = "ISC"
+product = "BIND"
+context = "dns.versionbind"
+example = "9.8.4-rpz2+rl005.12-P1"
+metadata = { "service.family" = "BIND", "service.cpe23" = "cpe:/a:isc:bind:{service.version}" }
+
+[[match]]
+name = "ISC BIND: ESV"
+pattern = "^DNS Server BIND (9\\.\\d{1,2}-ESV(?:-R\\d+)?(?:-[SPW]\\d+)?)$"
+version_group = 1
+vendor = "ISC"
+product = "BIND"
+context = "dns.versionbind"
+example = "DNS Server BIND 9.6-ESV-R7-P2"
+metadata = { "service.family" = "BIND", "service.cpe23" = "cpe:/a:isc:bind:{service.version}" }
+
+[[match]]
+name = "ISC BIND: bare release number - ESV REL NOESW"
+pattern = "^(?:BIND )?([89]\\.[\\d\\.]+(?:[ab]\\d+)?(?:-ESV(?:-R\\d+)?)?(?:-[SPW][\\d\\.]+)?(?:-REL)?(?:-[W]\\d+)?(?:rc\\d)?)(?:-NOESW)?$"
+version_group = 1
+vendor = "ISC"
+product = "BIND"
+context = "dns.versionbind"
+example = "9.7.0-P1"
+metadata = { "service.family" = "BIND", "service.cpe23" = "cpe:/a:isc:bind:{service.version}" }
+
+[[match]]
+name = "dnsmasq: simple"
+pattern = "^dnsmasq-(\\d.[\\w\\.]+)$"
+version_group = 1
+vendor = "Thekelleys"
+product = "Dnsmasq"
+context = "dns.versionbind"
+example = "dnsmasq-2.40"
+metadata = { "service.family" = "Dnsmasq", "service.cpe23" = "cpe:/a:thekelleys:dnsmasq:{service.version}" }
+
+[[match]]
+name = "dnsmasq: Ubiquiti"
+pattern = "^dnsmasq-(\\d.[\\w]+-\\d)-ubnt\\d$"
+version_group = 1
+vendor = "Thekelleys"
+product = "Dnsmasq"
+context = "dns.versionbind"
+example = "dnsmasq-2.76-1-ubnt2"
+metadata = { "service.family" = "Dnsmasq", "service.cpe23" = "cpe:/a:thekelleys:dnsmasq:{service.version}", "hw.vendor" = "Ubiquiti" }
+
+[[match]]
+name = "dnsmasq: OpenDNS variant"
+pattern = "^dnsmasq-(\\d.[\\w]+)-OpenDNS-\\d$"
+version_group = 1
+vendor = "Thekelleys"
+product = "Dnsmasq"
+context = "dns.versionbind"
+example = "dnsmasq-2.15-OpenDNS-1"
+metadata = { "service.family" = "Dnsmasq", "service.cpe23" = "cpe:/a:thekelleys:dnsmasq:{service.version}" }
+
+[[match]]
+name = "dnsmasq: no version"
+pattern = "^dnsmasq-?(?:UNKNOWN)?$"
+vendor = "Thekelleys"
+product = "Dnsmasq"
+context = "dns.versionbind"
+example = "dnsmasq-UNKNOWN"
+metadata = { "service.family" = "Dnsmasq", "service.cpe23" = "cpe:/a:thekelleys:dnsmasq:-" }
+
+[[match]]
+name = "PowerDNS Recursor"
+pattern = "^PowerDNS Recursor (\\d\\.[\\d.]+(?:-\\w+)?) \\(\\w+@[\\w.]+ built \\d+ \\w+@[\\w.-]*\\)$"
+version_group = 1
+vendor = "PowerDNS"
+product = "Recursor"
+context = "dns.versionbind"
+example = "PowerDNS Recursor 3.6.2 (jenkins@autotest.powerdns.com built 20141031140810 mockbuild@)"
+metadata = { "service.family" = "PowerDNS", "service.cpe23" = "cpe:/a:powerdns:recursor:{service.version}" }
+
+[[match]]
+name = "PowerDNS Recursor: format 2"
+pattern = "^PowerDNS Recursor (\\d\\.[\\d.]+) \\(built [\\w\\s:]+ by [\\w]+\\@[\\w.-]*\\)$"
+version_group = 1
+vendor = "PowerDNS"
+product = "Recursor"
+context = "dns.versionbind"
+example = "PowerDNS Recursor 4.0.4 (built Apr 13 2017 09:59:06 by root@oof-e.baz.foo.bar)"
+metadata = { "service.family" = "PowerDNS", "service.cpe23" = "cpe:/a:powerdns:recursor:{service.version}" }
+
+[[match]]
+name = "PowerDNS Recursor: version only"
+pattern = "^PowerDNS Recursor (\\d\\.[\\d.]+(?:-\\w+)?)$"
+version_group = 1
+vendor = "PowerDNS"
+product = "Recursor"
+context = "dns.versionbind"
+example = "PowerDNS Recursor 4.0.4"
+metadata = { "service.family" = "PowerDNS", "service.cpe23" = "cpe:/a:powerdns:recursor:{service.version}" }
+
+[[match]]
+name = "PowerDNS Recursor: ID format"
+pattern = "^PowerDNS Recursor (\\d\\.[\\d.]+) \\$Id[^$]*\\$$"
+version_group = 1
+vendor = "PowerDNS"
+product = "Recursor"
+context = "dns.versionbind"
+example = "PowerDNS Recursor 3.5.3 $Id$"
+metadata = { "service.family" = "PowerDNS", "service.cpe23" = "cpe:/a:powerdns:recursor:{service.version}" }
+
+[[match]]
+name = "PowerDNS Recursor: no version"
+pattern = "^PowerDNS Recursor$"
+vendor = "PowerDNS"
+product = "Recursor"
+context = "dns.versionbind"
+example = "PowerDNS Recursor"
+metadata = { "service.family" = "PowerDNS", "service.cpe23" = "cpe:/a:powerdns:recursor:-" }
+
+[[match]]
+name = "PowerDNS Authoritative Server"
+pattern = "^PowerDNS Authoritative Server (\\d\\.[\\d.]+(?:-rc\\d)?) \\(\\w+@[\\w.]+ built [\\d\\s]+\\w*@[\\w.-]*\\)$"
+version_group = 1
+vendor = "PowerDNS"
+product = "Authoritative Server"
+context = "dns.versionbind"
+example = "PowerDNS Authoritative Server 3.4.19 (jenkins@autotest.powerdns.com built 20160102220341 root@)"
+metadata = { "service.family" = "PowerDNS", "service.cpe23" = "cpe:/a:powerdns:authoritative_server:{service.version}" }
+
+[[match]]
+name = "PowerDNS Authoritative Server: format 2"
+pattern = "^PowerDNS Authoritative Server (\\d\\.[\\w.]+(?:-rc\\d)?(?:-alpha\\d)?(?:-beta\\d)?[^ ]*) \\(built [\\w\\s:]+ by [\\w]+\\@[\\w.:-]*\\)$"
+version_group = 1
+vendor = "PowerDNS"
+product = "Authoritative Server"
+context = "dns.versionbind"
+example = "PowerDNS Authoritative Server 4.0.4 (built Jul 26 2017 15:04:27 by root@FreeBSD:11:amd64-default-job-03)"
+metadata = { "service.family" = "PowerDNS", "service.cpe23" = "cpe:/a:powerdns:authoritative_server:{service.version}" }
+
+[[match]]
+name = "PowerDNS Authoritative Server: version only"
+pattern = "^PowerDNS Authoritative Server (\\d\\.[\\d.]+(?:-\\w+)?)$"
+version_group = 1
+vendor = "PowerDNS"
+product = "Authoritative Server"
+context = "dns.versionbind"
+example = "PowerDNS Authoritative Server 4.0.0"
+metadata = { "service.family" = "PowerDNS", "service.cpe23" = "cpe:/a:powerdns:authoritative_server:{service.version}" }
+
+[[match]]
+name = "PowerDNS: Served by format with version"
+pattern = "^Served by POWERDNS (\\d\\.[\\d.]+) \\$Id[^$]*\\$$"
+version_group = 1
+vendor = "PowerDNS"
+context = "dns.versionbind"
+example = "Served by POWERDNS 2.9.22 $Id: packethandler.cc 1321 2008-12-06 19:44:36Z ahu $"
+metadata = { "service.family" = "PowerDNS" }
+
+[[match]]
+name = "PowerDNS: Served by format without version"
+pattern = "^Served by PowerDNS - https?:\\/\\/www.powerdns.com\\/?$"
+vendor = "PowerDNS"
+context = "dns.versionbind"
+example = "Served by PowerDNS - https://www.powerdns.com/"
+metadata = { "service.family" = "PowerDNS" }
+
+[[match]]
+name = "Nominum Vantio CacheServe"
+pattern = "^Nominum Vantio(?: CacheServe)? ([\\d.]+)$"
+version_group = 1
+vendor = "Nominum"
+product = "CacheServe"
+context = "dns.versionbind"
+example = "Nominum Vantio 4.3.0.2"
+metadata = { "service.family" = "Vantio" }
+
+[[match]]
+name = "Nominum Vantio CacheServe, with build"
+pattern = "^Nominum Vantio ([\\d.]+) \\(build (\\d+)\\)$"
+version_group = 1
+vendor = "Nominum"
+product = "CacheServe"
+context = "dns.versionbind"
+example = "Nominum Vantio 5.4.5.1 (build 114872)"
+metadata = { "service.family" = "Vantio", "service.version.version" = "{capture:2}" }
+
+[[match]]
+name = "Nominum Vantio AuthServ"
+pattern = "^Nominum ANS(?:Premier)? ([\\d\\.]+)$"
+version_group = 1
+vendor = "Nominum"
+product = "AuthServ"
+context = "dns.versionbind"
+example = "Nominum ANS 5.4.0.0"
+metadata = { "service.family" = "Vantio" }
+
+[[match]]
+name = "NLnet Labs Name Server Daemon"
+pattern = "^NSD ([\\d.]*(?:b\\d+)?)$"
+version_group = 1
+vendor = "NLnet Labs"
+product = "dnsd"
+context = "dns.versionbind"
+example = "NSD 3.2.18"
+metadata = { "service.family" = "NSD", "service.cpe23" = "cpe:/a:nlnetlabs:name_server_daemon:{service.version}" }
+
+[[match]]
+name = "NLnet Labs Unbound"
+pattern = "^unbound ([\\d.]+)$"
+version_group = 1
+vendor = "NLnet Labs"
+product = "unbound"
+context = "dns.versionbind"
+example = "unbound 1.4.22"
+metadata = { "service.family" = "Unbound", "service.cpe23" = "cpe:/a:nlnetlabs:unbound:{service.version}" }
+
+[[match]]
+name = "NLnet Labs Unbound no version string"
+pattern = "(?i)^unbound$"
+vendor = "NLnet Labs"
+product = "unbound"
+context = "dns.versionbind"
+example = "unbound"
+metadata = { "service.family" = "Unbound", "service.cpe23" = "cpe:/a:nlnetlabs:unbound:-" }
+
+[[match]]
+name = "ISC BIND: Raspbian based on Debian Buster"
+pattern = "^(?:BIND )?(9.[^-]+(?:-[SP]\\d)?)(?:-[\\d\\.]+)?\\+deb10u\\d+-Raspbian$"
+version_group = 1
+vendor = "ISC"
+product = "BIND"
+context = "dns.versionbind"
+example = "9.11.5-P4-5.1+deb10u1-Raspbian"
+metadata = { "service.family" = "BIND", "service.cpe23" = "cpe:/a:isc:bind:{service.version}", "os.vendor" = "Raspbian", "os.family" = "Linux", "os.product" = "Linux", "os.version" = "10.0" }
+
+[[match]]
+name = "ISC BIND: Raspbian based on Debian Jessie"
+pattern = "^(?:BIND )?(9.[^-]+(?:-[SP]\\d)?)-9\\+deb8u\\d+-Raspbian$"
+version_group = 1
+vendor = "ISC"
+product = "BIND"
+context = "dns.versionbind"
+example = "9.9.5-9+deb8u7-Raspbian"
+metadata = { "service.family" = "BIND", "service.cpe23" = "cpe:/a:isc:bind:{service.version}", "os.vendor" = "Raspbian", "os.family" = "Linux", "os.product" = "Linux", "os.version" = "8.0" }
+
+[[match]]
+name = "ISC BIND: Raspbian based on Debian Jessie no version simple"
+pattern = "^(9.[^-]+(?:-[SP]\\d)?)-(?:\\d-)?Raspbian$"
+version_group = 1
+vendor = "ISC"
+product = "BIND"
+context = "dns.versionbind"
+example = "9.10.3-P4-Raspbian"
+metadata = { "service.family" = "BIND", "service.cpe23" = "cpe:/a:isc:bind:{service.version}", "os.vendor" = "Raspbian", "os.family" = "Linux", "os.product" = "Linux" }
+
+[[match]]
+name = "Knot DNS"
+pattern = "^Knot DNS ([\\d.]+(?:-dev)?)$"
+version_group = 1
+vendor = "cz.nic"
+product = "Knot DNS"
+context = "dns.versionbind"
+example = "Knot DNS 1.6.0"
+metadata = { "service.family" = "Knot", "service.cpe23" = "cpe:/a:knot-dns:knot_dns:{service.version}" }
+
+[[match]]
+name = "Neustar UltraDNS Resolver"
+pattern = "^UltraDNS Resolver$"
+vendor = "Neustar"
+product = "Resolver"
+context = "dns.versionbind"
+example = "UltraDNS Resolver"
+metadata = { "service.family" = "UltraDNS" }
+
+[[match]]
+name = "Neustar UltraDNS TLD Platform"
+pattern = "^UltraDNS TLD Platform - www\\.ultradns\\.com$"
+vendor = "Neustar"
+product = "Resolver"
+context = "dns.versionbind"
+example = "UltraDNS TLD Platform - www.ultradns.com"
+metadata = { "service.family" = "UltraDNS" }
+
+[[match]]
+name = "Microsoft DNS on Windows 2016: GA"
+pattern = "^Microsoft DNS (10.0.\\d+)(?: \\(([^)]+)\\))?$"
+version_group = 1
+vendor = "Microsoft"
+product = "DNS"
+context = "dns.versionbind"
+example = "Microsoft DNS 10.0.14393 (383900CE)"
+metadata = { "service.family" = "DNS", "service.version.version" = "{capture:2}", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows Server 2016", "os.build" = "{capture:1}", "os.cpe23" = "cpe:/o:microsoft:windows_server_2016:-" }
+
+[[match]]
+name = "Microsoft DNS on Windows 2012 R2"
+pattern = "^Microsoft DNS 6.3.9600(?: \\(([^)]+)\\))?$"
+vendor = "Microsoft"
+product = "DNS"
+context = "dns.versionbind"
+example = "Microsoft DNS 6.3.9600 (25804825)"
+metadata = { "service.family" = "DNS", "service.version" = "6.3.9600", "service.version.version" = "{capture:1}", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows Server 2012 R2", "os.build" = "6.3.9600", "os.cpe23" = "cpe:/o:microsoft:windows_server_2012:-" }
+
+[[match]]
+name = "Microsoft DNS on Windows 2012"
+pattern = "^Microsoft DNS 6.2.9200(?: \\(([^)]+)\\))?$"
+vendor = "Microsoft"
+product = "DNS"
+context = "dns.versionbind"
+example = "Microsoft DNS 6.2.9200 (23F04000)"
+metadata = { "service.family" = "DNS", "service.version" = "6.2.9200", "service.version.version" = "{capture:1}", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows Server 2012", "os.build" = "6.2.9200", "os.cpe23" = "cpe:/o:microsoft:windows_server_2012:-" }
+
+[[match]]
+name = "Microsoft DNS on Windows 2008 R2 Service Pack 1"
+pattern = "^Microsoft DNS 6.1.7601(?: \\(([^)]+)\\))?$"
+vendor = "Microsoft"
+product = "DNS"
+context = "dns.versionbind"
+example = "Microsoft DNS 6.1.7601 (1DB15CD4)"
+metadata = { "service.family" = "DNS", "service.version" = "6.1.7601", "service.version.version" = "{capture:1}", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows Server 2008 R2", "os.version" = "Service Pack 1", "os.build" = "6.1.7601", "os.cpe23" = "cpe:/o:microsoft:windows_server_2008:Service Pack 1" }
+
+[[match]]
+name = "Microsoft DNS on Windows 2008 R2"
+pattern = "^Microsoft DNS 6.1.7600(?: \\(([^)]+)\\))?$"
+vendor = "Microsoft"
+product = "DNS"
+context = "dns.versionbind"
+example = "Microsoft DNS 6.1.7600 (1DB04228)"
+metadata = { "service.family" = "DNS", "service.version" = "6.1.7600", "service.version.version" = "{capture:1}", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows Server 2008 R2", "os.build" = "6.1.7600", "os.cpe23" = "cpe:/o:microsoft:windows_server_2008:-" }
+
+[[match]]
+name = "SPOOFED - Microsoft DNS on Windows 2008 SP something -- assert nothing."
+pattern = "^Microsoft DNS 6.0.6100 \\(2AEF76E\\)$"
+context = "dns.versionbind"
+example = "Microsoft DNS 6.0.6100 (2AEF76E)"
+metadata = { "hw.certainty" = "0.0", "os.certainty" = "0.0", "service.certainty" = "0.0" }
+
+[[match]]
+name = "Microsoft DNS on Windows 2008 Service Pack 2 - Preview Rollup KB4489887 and later"
+pattern = "^Microsoft DNS 6.0.6003(?: \\(([^)]+)\\))?$"
+vendor = "Microsoft"
+product = "DNS"
+context = "dns.versionbind"
+example = "Microsoft DNS 6.0.6003 (1773501D)"
+metadata = { "service.family" = "DNS", "service.version" = "6.0.6003", "service.version.version" = "{capture:1}", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows Server 2008", "os.version" = "Service Pack 2", "os.build" = "6.0.6003", "os.cpe23" = "cpe:/o:microsoft:windows_server_2008:Service Pack 2" }
+
+[[match]]
+name = "Microsoft DNS on Windows 2008 Service Pack 2"
+pattern = "^Microsoft DNS 6.0.6002(?: \\(([^)]+)\\))?$"
+vendor = "Microsoft"
+product = "DNS"
+context = "dns.versionbind"
+example = "Microsoft DNS 6.0.6002 (17724D35)"
+metadata = { "service.family" = "DNS", "service.version" = "6.0.6002", "service.version.version" = "{capture:1}", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows Server 2008", "os.version" = "Service Pack 2", "os.build" = "6.0.6002", "os.cpe23" = "cpe:/o:microsoft:windows_server_2008:Service Pack 2" }
+
+[[match]]
+name = "Microsoft DNS on Windows 2008 Service Pack 1"
+pattern = "^Microsoft DNS 6.0.6001(?: \\(([^)]+)\\))?$"
+vendor = "Microsoft"
+product = "DNS"
+context = "dns.versionbind"
+example = "Microsoft DNS 6.0.6001 (17714726)"
+metadata = { "service.family" = "DNS", "service.version" = "6.0.6001", "service.version.version" = "{capture:1}", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows Server 2008", "os.version" = "Service Pack 1", "os.build" = "6.0.6001", "os.cpe23" = "cpe:/o:microsoft:windows_server_2008:Service Pack 1" }
+
+[[match]]
+name = "Microsoft DNS on Windows 2003"
+pattern = "^Microsoft DNS 5.2.3790(?: \\(([^)]+)\\))?$"
+vendor = "Microsoft"
+product = "DNS"
+context = "dns.versionbind"
+example = "Microsoft DNS 5.2.3790 (ECE135D)"
+metadata = { "service.family" = "DNS", "service.version" = "5.2.3790", "service.version.version" = "{capture:1}", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows Server 2003", "os.build" = "5.2.3790", "os.cpe23" = "cpe:/o:microsoft:windows_server_2003:-" }
+
+[[match]]
+name = "Synology DNS service"
+pattern = "^DNSServer$"
+vendor = "Synology"
+product = "DNS Server"
+context = "dns.versionbind"
+example = "DNSServer"
+metadata = { "service.family" = "DSM", "service.cpe23" = "cpe:/a:synology:dns_server:-", "os.device" = "NAS", "os.family" = "Linux", "os.product" = "DSM", "os.vendor" = "Synology", "hw.vendor" = "Synology", "hw.device" = "NAS" }
+
+[[match]]
+name = "Incognito DNS Service"
+pattern = "^Incognito DNS Service ([\\d\\.]+) \\(built"
+version_group = 1
+vendor = "Incognito"
+product = "DNS"
+context = "dns.versionbind"
+example = "Incognito DNS Service 6.4.4.2 (built Aug 10 2015) [up=15d30902s, ser=9876]"
+metadata = { "service.family" = "DNS" }
+
+[[match]]
+name = "djbdns"
+pattern = "(?i)^djbdns[\\s-](\\d.\\d+)$"
+version_group = 1
+vendor = "D J Bernstein"
+product = "djbdns"
+context = "dns.versionbind"
+example = "djbdns 1.05"
+metadata = { "service.family" = "djbdns" }
+
+[[match]]
+name = "djbdns: no version"
+pattern = "(?i)^djbdns$"
+vendor = "D J Bernstein"
+product = "djbdns"
+context = "dns.versionbind"
+example = "DJBDNS"
+metadata = { "service.family" = "djbdns" }
+
+[[match]]
+name = "rbldnsd"
+pattern = "^rbldnsd (\\d[\\.\\w\\/-]+) \\(\\d\\d \\w\\w\\w \\d\\d\\d\\d\\)$"
+version_group = 1
+vendor = "Michael Tokarev"
+product = "rbldnsd"
+context = "dns.versionbind"
+example = "rbldnsd 0.997a (23 Jul 2013)"
+metadata = { "service.family" = "rbldnsd" }
+
+[[match]]
+name = "ALU (Alcatel Lucent?) DNS"
+pattern = "^ALU DNS ([\\d\\.]+) Build (\\d+)$"
+version_group = 1
+vendor = "ALU"
+product = "DNS"
+context = "dns.versionbind"
+example = "ALU DNS 6.2 Build 22"
+metadata = { "service.family" = "DNS", "service.version.version" = "{capture:2}" }
+
+[[match]]
+name = "DrayTek DNS"
+pattern = "^DraytekDNS-v([\\d\\.]+)$"
+version_group = 1
+vendor = "DrayTek"
+product = "DNS"
+context = "dns.versionbind"
+example = "DraytekDNS-v1.2.3006"
+metadata = { "service.family" = "DNS", "hw.vendor" = "DrayTek" }
+
+[[match]]
+name = "Ripe ATLAS Anchor"
+pattern = "^Atlas Anchor ([\\d\\.]+)$"
+version_group = 1
+vendor = "RIPE"
+product = "DNS"
+context = "dns.versionbind"
+example = "Atlas Anchor 0.1"
+metadata = { "service.family" = "Atlas Anchor" }
+
+[[match]]
+name = "ZyWALL DNS"
+pattern = "^ZyWALL DNS$"
+vendor = "Zyxel"
+product = "DNS"
+context = "dns.versionbind"
+example = "ZyWALL DNS"
+metadata = { "service.family" = "ZyWALL", "hw.vendor" = "Zyxel" }
+
+[[match]]
+name = "Array Networks SmartDNS"
+pattern = "^Array SmartDNS$"
+vendor = "Array Networks"
+product = "SmartDNS"
+context = "dns.versionbind"
+example = "Array SmartDNS"
+metadata = { "service.family" = "APV" }
+
+[[match]]
+name = "gdnsd"
+pattern = "^gdnsd$"
+vendor = "gdnsd"
+product = "gdnsd"
+context = "dns.versionbind"
+example = "gdnsd"
+metadata = { "service.family" = "gdnsd", "service.cpe23" = "cpe:/a:gdnsd:gdnsd:-" }
+
+[[match]]
+name = "OzymanDNS DNS tunnel"
+pattern = "^Hi: [\\w\\.: =]+\\d{4}$"
+vendor = "Dan Kaminsky"
+product = "OzymanDNS"
+context = "dns.versionbind"
+example = "Hi:  Thu Aug 17 23:29:10 2017"
+metadata = { "service.family" = "OzymanDNS" }
+
+[[match]]
+name = "Check Point Meta IP"
+pattern = "^Meta IP[\\s\\/]DNS (?:V[\\d\\.]+ )?- BIND V([\\d\\.]+(?:-REL)?) \\(Build (\\d+)\\s?\\)$"
+version_group = 1
+vendor = "Check Point"
+product = "DNS"
+context = "dns.versionbind"
+example = "Meta IP DNS - BIND V8.2.7-REL (Build 31)"
+metadata = { "service.family" = "META IP", "service.version.version" = "{capture:2}" }
+
+[[match]]
+name = "CleanBrowsing DNS Server"
+pattern = "^CleanBrowsing v([^ ]+) - (.*)"
+version_group = 1
+vendor = "CleanBrowsing"
+product = "DNS"
+context = "dns.versionbind"
+example = "CleanBrowsing v1.5a - dns-edge-usa-west-sunnyvale-p"
+metadata = { "service.family" = "CleanBrowsing", "service.node" = "{capture:2}" }
+
+[[match]]
+name = "dnsmasq: pi-hole"
+pattern = "^dnsmasq-pi-hole-(.*)$"
+version_group = 1
+vendor = "Pi-hole"
+product = "Pi-hole"
+context = "dns.versionbind"
+example = "dnsmasq-pi-hole-2.80"
+metadata = { "service.family" = "Pi-hole", "service.cpe23" = "cpe:/a:pi-hole:pi-hole:{service.version}" }
+
+[[match]]
+name = "Quad9 Resolver"
+pattern = "^Q9-[^\\-]-(.*)$"
+version_group = 1
+vendor = "IBM"
+product = "DNS"
+context = "dns.versionbind"
+example = "Q9-P-6.0"
+metadata = { "service.family" = "Quad9" }
+
+[[match]]
+name = "Keweon DNS"
+pattern = "^keweonDNS v\\.(.*)$"
+version_group = 1
+vendor = "Keweon"
+product = "DNS"
+context = "dns.versionbind"
+example = "keweonDNS v.9.63.7201"
+
+[[match]]
+name = "Akamai AnswerX DNS server"
+pattern = "^Version: recursive-main/(\\d+)$"
+version_group = 1
+vendor = "Akamai"
+product = "AnswerX"
+context = "dns.versionbind"
+example = "Version: recursive-main/22386077"
+

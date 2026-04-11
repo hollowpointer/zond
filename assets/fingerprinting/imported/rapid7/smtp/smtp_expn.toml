@@ -1,0 +1,85 @@
+# This file contains fingerprints imported from Rapid7 Recog.
+# Source: https://github.com/rapid7/recog
+# License: BSD-2-Clause
+
+[service]
+attribution = "Rapid7 Recog"
+name = "smtp"
+default_ports = []
+description = "Imported from Rapid7 smtp_expn"
+
+[[match]]
+name = "Cisco PIX - changes the command letters to 'X' before passing them to the real SMTP server - expn variant"
+pattern = "^500[ -]Syntax error, command \"XXXX.*\" unrecognized$"
+context = "unknown"
+metadata = { "os.vendor" = "Cisco", "os.family" = "PIX", "os.product" = "PIX", "os.cpe23" = "cpe:/o:cisco:pix_firewall_software:-" }
+
+[[match]]
+name = "Exim - expn variant 1"
+pattern = "^550[ -]EXPN not available to \\(.+\\) \\[.+\\] *$"
+vendor = "exim"
+product = "exim"
+context = "unknown"
+example = "550 EXPN not available to (foo.bar.com) [192.168.0.1]"
+metadata = { "service.family" = "exim", "service.cpe23" = "cpe:/a:exim:exim:-" }
+
+[[match]]
+name = "Exim - expn variant 2"
+pattern = "^550[ -]EXPN not available to [^ ]+ \\(.+\\) \\[.+\\] *$"
+vendor = "exim"
+product = "exim"
+context = "unknown"
+example = "550 EXPN not available to evil.com (foo.bar.com) [192.168.0.1]"
+metadata = { "service.family" = "exim", "service.cpe23" = "cpe:/a:exim:exim:-" }
+
+[[match]]
+name = "GNAT box SMTP"
+pattern = "^500[ -]Don't you wish! *$"
+vendor = "Global Technology Associates"
+product = "GNAT Box"
+context = "unknown"
+metadata = { "service.family" = "GNAT Box" }
+
+[[match]]
+name = "IBM VM SMTP"
+pattern = "^501[ -]Syntax Error\\. Only ListId or Userid allowed as argument to this command *$"
+vendor = "IBM"
+product = "VM"
+context = "unknown"
+metadata = { "service.family" = "VM" }
+
+[[match]]
+name = "Ipswitch IMail Server - expn variant"
+pattern = "^550[ -]lists are confidential *$"
+vendor = "Ipswitch"
+product = "IMail Server"
+context = "unknown"
+example = "550 lists are confidential"
+metadata = { "service.family" = "IMail Server", "service.cpe23" = "cpe:/a:ipswitch:imail_server:-" }
+
+[[match]]
+name = "Alt-N MDaemon - expn variant"
+pattern = "^502[ -]command is not active$"
+vendor = "Alt-N"
+product = "MDaemon"
+context = "unknown"
+example = "502 command is not active"
+metadata = { "service.family" = "MDaemon", "service.cpe23" = "cpe:/a:altn:mdaemon:-", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows", "os.arch" = "x86", "os.cpe23" = "cpe:/o:microsoft:windows:-" }
+
+[[match]]
+name = "Lotus Domino"
+pattern = "^252 Unable to EXPN \".*\", but will accept message and attempt delivery *$"
+vendor = "Lotus"
+product = "Lotus Domino"
+context = "unknown"
+metadata = { "service.family" = "Lotus Domino", "service.cpe23" = "cpe:/a:ibm:lotus_domino:-" }
+
+[[match]]
+name = "Seattle Labs SLMail"
+pattern = "^550[ -]Unable to find list '.*'\\.$"
+vendor = "Seattle Labs"
+product = "SLMail"
+context = "unknown"
+example = "550 Unable to find list 'list'."
+metadata = { "service.family" = "SLMail" }
+

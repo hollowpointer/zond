@@ -1,0 +1,165 @@
+# This file contains fingerprints imported from Rapid7 Recog.
+# Source: https://github.com/rapid7/recog
+# License: BSD-2-Clause
+
+[service]
+attribution = "Rapid7 Recog"
+name = "smtp"
+default_ports = []
+description = "Imported from Rapid7 smtp_help"
+
+[[match]]
+name = "ArgoSoft mail server HELP response with version"
+pattern = "^214[ -]This is ArGoSoft Mail Server, Version [^ ]+ \\(([^ ]+\\.[^ ]+\\.[^ ]+\\.[^ ]+)\\) *$"
+version_group = 1
+vendor = "ArGoSoft"
+product = "Mail Server"
+context = "unknown"
+example = "214-This is ArGoSoft Mail Server, Version 1.4 (1.4.0.3)"
+metadata = { "service.family" = "Mail Server", "service.cpe23" = "cpe:/a:argosoft:mail_server:{service.version}" }
+
+[[match]]
+name = "ArgoSoft mail server HELP response"
+pattern = "^214[ -].*support@argosoft\\.com *$"
+vendor = "ArGoSoft"
+product = "Mail Server"
+context = "unknown"
+example = "214-To report bug, send mail to support@argosoft.com"
+metadata = { "service.family" = "Mail Server", "service.cpe23" = "cpe:/a:argosoft:mail_server:-" }
+
+[[match]]
+name = "Cisco PIX - changes the command letters to 'X' before passing them to the real SMTP server"
+pattern = "^500[ -]Syntax error, command \"XXXX\" unrecognized$"
+context = "unknown"
+metadata = { "os.vendor" = "Cisco", "os.family" = "PIX", "os.product" = "PIX", "os.cpe23" = "cpe:/o:cisco:pix_firewall_software:-" }
+
+[[match]]
+name = "Eudora IMS uses the British spelling \"unrecognised\""
+pattern = "^500[ -]5.5.1 unrecognised command HELP$"
+vendor = "Eudora"
+product = "Internet Mail Server"
+context = "unknown"
+metadata = { "service.family" = "Internet Mail Server", "os.vendor" = "Apple", "os.family" = "Mac OS", "os.product" = "Mac OS", "os.cpe23" = "cpe:/o:apple:macos:-" }
+
+[[match]]
+name = "IBM VM"
+pattern = "^214[ -]([^ ]+) is running the IBM VM operating system$"
+vendor = "IBM"
+product = "VM"
+context = "unknown"
+metadata = { "service.family" = "VM", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "Microsoft Exchange/IIS server"
+pattern = "^214[ -].* XEXCH50 *"
+vendor = "Microsoft"
+product = "Exchange Server"
+context = "unknown"
+metadata = { "service.family" = "Exchange Server", "service.cpe23" = "cpe:/a:microsoft:exchange_server:-", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows", "os.cpe23" = "cpe:/o:microsoft:windows:-" }
+
+[[match]]
+name = "Alt-N MDaemon - 214 Help system currently inactive."
+pattern = "^214[ -]Help system currently inactive\\.$"
+vendor = "Alt-N"
+product = "MDaemon"
+context = "unknown"
+metadata = { "service.family" = "MDaemon", "service.cpe23" = "cpe:/a:altn:mdaemon:-", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows", "os.arch" = "x86", "os.cpe23" = "cpe:/o:microsoft:windows:-" }
+
+[[match]]
+name = " Merak mail server - http://www.icewarp.com/merakmail/ (runs on 2000/NT/9x)"
+pattern = "^214[ -].*This is MERAK ([^ ]+\\.[^ ]+\\.[^ ]+)"
+version_group = 1
+vendor = "Merak"
+product = "Mail Server"
+context = "unknown"
+metadata = { "service.family" = "Mail Server" }
+
+[[match]]
+name = "Merak mail server - http://www.icewarp.com/merakmail/ (runs on 2000/NT/9x) - variant 1"
+pattern = "^214[ -].*This is Merak ([^ ]+\\.[^ ]+\\.[^ ]+)"
+version_group = 1
+vendor = "Merak"
+product = "Mail Server"
+context = "unknown"
+metadata = { "service.family" = "Mail Server" }
+
+[[match]]
+name = "Merak mail server - http://www.icewarp.com/merakmail/ (runs on 2000/NT/9x) - email variant"
+pattern = "^214[ -].*bugs@merakmail\\.com"
+vendor = "Merak"
+product = "Mail Server"
+context = "unknown"
+metadata = { "service.family" = "Mail Server" }
+
+[[match]]
+name = "Merak mail server - http://www.icewarp.com/merakmail/ (runs on 2000/NT/9x) - icewarp variant "
+pattern = "^214[ -].*bugs@icewarp\\.com"
+vendor = "Merak"
+product = "Mail Server"
+context = "unknown"
+metadata = { "service.family" = "Mail Server" }
+
+[[match]]
+name = "QMail - help variant"
+pattern = "^214[ -]qmail home page: http://pobox.com/~djb/qmail.html *$"
+vendor = "qmail"
+product = "qmail"
+context = "unknown"
+example = "214 qmail home page: http://pobox.com/~djb/qmail.html"
+metadata = { "service.family" = "qmail" }
+
+[[match]]
+name = "Sendmail on Digital OSF UNIX"
+pattern = "^214[ -].*contact the Digital Customer Support Center at 1-800-354-9000"
+product = "Sendmail"
+context = "unknown"
+metadata = { "service.family" = "Sendmail", "service.certainty" = "0.85", "os.vendor" = "DEC", "os.family" = "Digital UNIX", "os.product" = "OSF/1" }
+
+[[match]]
+name = "Sendmail often returns version information for HELP, even when the greeting is obscured"
+pattern = "^214[ -]2.0.0 This is [s|S]endmail version ([^ ]+)$"
+version_group = 1
+product = "Sendmail"
+context = "unknown"
+metadata = { "service.family" = "Sendmail" }
+
+[[match]]
+name = "Sendmail often returns version information for HELP - variant 1"
+pattern = "^214[ -]This is [s|S]endmail version ([^ ]+)$"
+version_group = 1
+product = "Sendmail"
+context = "unknown"
+metadata = { "service.family" = "Sendmail" }
+
+[[match]]
+name = "Sendmail - help not implemented variant"
+pattern = "^502[ -]5\\.3\\.0 Sendmail ([^ ]+) -- HELP not implemented$"
+version_group = 1
+product = "Sendmail"
+context = "unknown"
+example = "502 5.3.0 Sendmail 8.11.2 -- HELP not implemented"
+metadata = { "service.family" = "Sendmail" }
+
+[[match]]
+name = "Sendmail often returns version information for HELP - email variant"
+pattern = "^214[ -].*sendmail-bugs@sendmail\\.org"
+product = "Sendmail"
+context = "unknown"
+metadata = { "service.family" = "Sendmail", "service.certainty" = "0.85" }
+
+[[match]]
+name = "ZMailer versions earlier than 2.99.21 mistakenly return the status code 241 on some HELP response lines (instead of 214)."
+pattern = "^241[ -]"
+vendor = "ZMailer"
+product = "ZMailer"
+context = "unknown"
+metadata = { "service.family" = "ZMailer" }
+
+[[match]]
+name = "ZMailer has distinctive default HELP text in smtpserver.conf"
+pattern = "^214[ -].*Yoyodyne Propulsion"
+vendor = "ZMailer"
+product = "ZMailer"
+context = "unknown"
+metadata = { "service.family" = "ZMailer" }
+

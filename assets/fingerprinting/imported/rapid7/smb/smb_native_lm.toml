@@ -1,0 +1,81 @@
+# This file contains fingerprints imported from Rapid7 Recog.
+# Source: https://github.com/rapid7/recog
+# License: BSD-2-Clause
+
+[service]
+attribution = "Rapid7 Recog"
+name = "smb"
+default_ports = []
+description = "Imported from Rapid7 smb_native_lm"
+
+[[match]]
+name = "Samba on OS X 10.6"
+pattern = "^Samba (3\\.0\\.28a-apple)$"
+version_group = 1
+vendor = "Samba"
+product = "Samba"
+context = "smb.native_lm"
+example = "Samba 3.0.28a-apple"
+metadata = { "os.vendor" = "Apple", "os.family" = "Mac OS X", "os.product" = "Mac OS X", "os.version" = "10.6", "os.cpe23" = "cpe:/o:apple:mac_os_x:10.6", "service.cpe23" = "cpe:/a:samba:samba:{service.version}" }
+
+[[match]]
+name = "Samba on OS X 10.5"
+pattern = "^Samba (3\\.0\\.25b-apple)$"
+version_group = 1
+vendor = "Samba"
+product = "Samba"
+context = "smb.native_lm"
+example = "Samba 3.0.25b-apple"
+metadata = { "os.vendor" = "Apple", "os.family" = "Mac OS X", "os.product" = "Mac OS X", "os.version" = "10.5", "os.cpe23" = "cpe:/o:apple:mac_os_x:10.5", "service.cpe23" = "cpe:/a:samba:samba:{service.version}" }
+
+[[match]]
+name = "Samba"
+pattern = "^Samba (\\d\\.\\d+.\\d+\\w*)"
+version_group = 1
+vendor = "Samba"
+product = "Samba"
+context = "smb.native_lm"
+example = "Samba 3.0.24"
+metadata = { "service.cpe23" = "cpe:/a:samba:samba:{service.version}" }
+
+[[match]]
+name = "Samba on a SnapServer appliance"
+pattern = "^Samba (?:Samba )?for GuardianOS v\\.?(\\d\\.[\\d.]+)$"
+vendor = "Samba"
+product = "Samba"
+context = "smb.native_lm"
+example = "Samba Samba for GuardianOS v4.3.007.200609131215"
+metadata = { "service.cpe23" = "cpe:/a:samba:samba:-", "os.vendor" = "SnapServer", "os.family" = "Linux", "os.product" = "GuardianOS", "os.version" = "{capture:1}" }
+
+[[match]]
+name = "Netreon SAN software"
+pattern = "^Netreon LANMAN 1.0$"
+vendor = "Netreon"
+context = "smb.native_lm"
+example = "Netreon LANMAN 1.0"
+
+[[match]]
+name = "Mikrotik"
+pattern = "(?i)^MikrotikSMB$"
+context = "smb.native_lm"
+example = "MikrotikSMB"
+metadata = { "os.vendor" = "MikroTik", "os.device" = "Router", "os.family" = "RouterOS", "os.product" = "RouterOS", "os.cpe23" = "cpe:/o:mikrotik:routeros:-" }
+
+[[match]]
+name = "Visuality Systems NQ Enterprise Storage SMB stack"
+pattern = "^NQ (\\d\\.\\d+)$"
+version_group = 1
+vendor = "Visuality Systems"
+product = "NQ"
+context = "smb.native_lm"
+example = "NQ 7.3"
+
+[[match]]
+name = "Visuality Systems YNQ Storage SMB stack"
+pattern = "^YNQ (\\d\\.[\\d.]+)$"
+version_group = 1
+vendor = "Visuality Systems"
+product = "YNQ"
+context = "smb.native_lm"
+example = "YNQ 1.2.1"
+

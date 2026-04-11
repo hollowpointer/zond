@@ -1,0 +1,18 @@
+# This file contains fingerprints imported from Rapid7 Recog.
+# Source: https://github.com/rapid7/recog
+# License: BSD-2-Clause
+
+[service]
+attribution = "Rapid7 Recog"
+name = "smtp"
+default_ports = []
+description = "Imported from Rapid7 smtp_rset"
+
+[[match]]
+name = "\n         500 What? I don't understand that.\n      "
+pattern = "^250[ -]RSET\\?  Well, OK\\.$"
+vendor = "Alt-N"
+product = "MDaemon"
+context = "unknown"
+metadata = { "service.family" = "MDaemon", "service.cpe23" = "cpe:/a:altn:mdaemon:-", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows", "os.arch" = "x86", "os.cpe23" = "cpe:/o:microsoft:windows:-" }
+

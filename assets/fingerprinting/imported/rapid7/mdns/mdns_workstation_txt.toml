@@ -1,0 +1,17 @@
+# This file contains fingerprints imported from Rapid7 Recog.
+# Source: https://github.com/rapid7/recog
+# License: BSD-2-Clause
+
+[service]
+attribution = "Rapid7 Recog"
+name = "mdns"
+default_ports = []
+description = "Imported from Rapid7 mdns_workstation_txt"
+
+[[match]]
+name = "Avahi"
+pattern = "^org\\.freedesktop\\.Avahi\\.cookie=\\S+$"
+product = "Avahi"
+context = "mdns.workstation.txt"
+example = "org.freedesktop.Avahi.cookie=1023312927"
+

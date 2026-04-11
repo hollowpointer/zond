@@ -1,0 +1,609 @@
+# This file contains fingerprints imported from Rapid7 Recog.
+# Source: https://github.com/rapid7/recog
+# License: BSD-2-Clause
+
+[service]
+attribution = "Rapid7 Recog"
+name = "http"
+default_ports = []
+description = "Imported from Rapid7 http_wwwauth"
+
+[[match]]
+name = "Transmission"
+pattern = "^(?:Basic|Digest) realm=\"Transmission\"$"
+vendor = "TransmissionBT"
+product = "Transmission"
+context = "http_header.wwwauth"
+example = "Basic realm=\"Transmission\""
+metadata = { "service.cpe23" = "cpe:/a:transmissionbt:transmission:-" }
+
+[[match]]
+name = "Monit"
+pattern = "^(?:Basic|Digest) realm=\"monit\"$"
+vendor = "Tildeslash"
+product = "Monit"
+context = "http_header.wwwauth"
+example = "Basic realm=\"monit\""
+metadata = { "service.cpe23" = "cpe:/a:tildeslash:monit:-" }
+
+[[match]]
+name = "Cisco IOS 11.x"
+pattern = "^(?:Basic|Digest) realm=\"access\"$"
+vendor = "Cisco"
+product = "IOS"
+context = "http_header.wwwauth"
+example = "Basic realm=\"access\""
+metadata = { "service.family" = "IOS", "service.version" = "11", "os.vendor" = "Cisco", "os.device" = "Router", "os.family" = "IOS", "os.product" = "IOS", "os.version" = "11", "os.cpe23" = "cpe:/o:cisco:ios:11", "hw.vendor" = "Cisco", "hw.device" = "Router" }
+
+[[match]]
+name = "Cisco IOS 12.x - view access variant"
+pattern = "^(?:Basic|Digest) realm=\"level[ _]15[ _]or[ _]view[ _]access\"$"
+vendor = "Cisco"
+product = "IOS"
+context = "http_header.wwwauth"
+example = "Basic realm=\"level_15 or view_access\""
+metadata = { "service.family" = "IOS", "service.version" = "12", "os.vendor" = "Cisco", "os.device" = "Router", "os.family" = "IOS", "os.product" = "IOS", "os.version" = "12", "os.cpe23" = "cpe:/o:cisco:ios:12", "hw.vendor" = "Cisco", "hw.device" = "Router" }
+
+[[match]]
+name = "Cisco IOS 12.x"
+pattern = "^(?:Basic|Digest) realm=\"level[ _]\\d\\d?[ _]access\"$"
+vendor = "Cisco"
+product = "IOS"
+context = "http_header.wwwauth"
+example = "Basic realm=\"level_15_access\""
+metadata = { "service.family" = "IOS", "service.version" = "12", "os.vendor" = "Cisco", "os.device" = "Router", "os.family" = "IOS", "os.product" = "IOS", "os.version" = "12", "os.cpe23" = "cpe:/o:cisco:ios:12", "hw.vendor" = "Cisco", "hw.device" = "Router" }
+
+[[match]]
+name = "ADTRAN Netvanta Router"
+pattern = "^Basic realm=\"(NetVanta [^\"]+)\"$"
+context = "http_header.wwwauth"
+example = "Basic realm=\"NetVanta 1238 PoE\""
+metadata = { "os.device" = "Router", "os.vendor" = "ADTRAN", "os.family" = "NetVanta", "hw.device" = "Router", "hw.vendor" = "ADTRAN", "hw.family" = "NetVanta", "hw.product" = "{capture:1}" }
+
+[[match]]
+name = "Generic Cisco CWMP/CPE equipment"
+pattern = "^(?:Basic|Digest) realm=\"Cisco_CCSP_CWMP_TCPCR\""
+context = "http_header.wwwauth"
+example = "Basic realm=\"Cisco_CCSP_CWMP_TCPCR\""
+metadata = { "hw.vendor" = "Cisco" }
+
+[[match]]
+name = "Check Point FireWall-1"
+pattern = "^(?:Basic|Digest) realm=\"FW-1.      Reason: no user      Server \"$"
+vendor = "Check Point"
+product = "Firewall-1"
+context = "http_header.wwwauth"
+example = "Basic realm=\"FW-1.      Reason: no user      Server \""
+metadata = { "service.family" = "Firewall-1", "service.cpe23" = "cpe:/a:checkpoint:firewall-1:-", "os.vendor" = "Check Point", "os.device" = "Firewall", "os.family" = "Firewall-1", "os.product" = "Firewall-1" }
+
+[[match]]
+name = "cPanel"
+pattern = "(?i)^(?:Basic|Digest).*realm=\"cpanel\""
+vendor = "cPanel"
+product = "cPanel"
+context = "http_header.wwwauth"
+example = "Basic realm=\"cPanel\""
+metadata = { "service.cpe23" = "cpe:/a:cpanel:cpanel:-" }
+
+[[match]]
+name = "APC device"
+pattern = "^(?:Basic|Digest) realm=\"APC Management Card\"$"
+vendor = "APC"
+product = "HTTP"
+context = "http_header.wwwauth"
+example = "Basic realm=\"APC Management Card\""
+metadata = { "os.vendor" = "APC", "os.device" = "Power Device" }
+
+[[match]]
+name = "Generic ADSL modems/routers"
+pattern = "^(?:Basic|Digest) realm=\"ADSL\\S* (?:Modem|Router|Modem/Router)\""
+context = "http_header.wwwauth"
+example = "Basic realm=\"ADSL Modem\""
+metadata = { "hw.device" = "ADSL Modem" }
+
+[[match]]
+name = "Generic Broadband modems/routers"
+pattern = "^(?:Basic|Digest) realm=\"Broadband Router\""
+context = "http_header.wwwauth"
+example = "Basic realm=\"Broadband Router\""
+metadata = { "hw.device" = "Broadband Router" }
+
+[[match]]
+name = "Generic DSL modems/routers"
+pattern = "^(?:Basic|Digest) realm=\"DSL\\S* (?:Modem|Router|Modem/Router)\""
+context = "http_header.wwwauth"
+example = "Basic realm=\"DSL Modem\""
+metadata = { "hw.device" = "DSL Modem" }
+
+[[match]]
+name = "Generic DVR"
+pattern = "^(?:Basic|Digest) realm=\"DVR\""
+context = "http_header.wwwauth"
+example = "Basic realm=\"DVR\""
+metadata = { "hw.device" = "DVR" }
+
+[[match]]
+name = "Web server found on DVR and webcam servers sourced from Hikvision"
+pattern = "(?i)^(?:Basic|Digest) realm=\"hikvision\""
+vendor = "Hikvision"
+product = "Hikvision Web Server"
+context = "http_header.wwwauth"
+example = "Basic realm=\"hikvision\""
+metadata = { "os.vendor" = "Hikvision", "os.device" = "DVR", "hw.vendor" = "Hikvision", "hw.device" = "DVR" }
+
+[[match]]
+name = "Merit LILIN generic device"
+pattern = "^(?:Basic|Digest) realm=\"Merit LILIN Ent\\. Co\\., Ltd.\""
+context = "http_header.wwwauth"
+example = "Basic realm=\"Merit LILIN Ent. Co., Ltd,\""
+metadata = { "hw.vendor" = "Merit LILIN" }
+
+[[match]]
+name = "Generic WAP"
+pattern = "^(?:Basic|Digest) realm=\"Wireless Access Point\""
+context = "http_header.wwwauth"
+example = "Basic realm=\"Wireless Access Point\""
+metadata = { "hw.device" = "WAP" }
+
+[[match]]
+name = "Generic IP Cameras"
+pattern = "(?i)^(?:Basic|Digest).*realm=\"(?:(?:Cube|(?:Mini )?Dome|Day/Night|PAN/Tilt|POE|IR|HD|H.264|Surveillance|Wired|Wireless(?: N)?|Network|Internet|(?:IP(?:[\\s_-])?)?Cameras?[\\s_]*\\d*) ?){1,4}?(?: Login)?\""
+context = "http_header.wwwauth"
+example = "Basic realm=\"camera\""
+metadata = { "hw.device" = "IP Camera" }
+
+[[match]]
+name = "D-Link DCS IP Cameras"
+pattern = "^(?:Basic|Digest) realm=\"(DCS-[^\"]+)\""
+context = "http_header.wwwauth"
+example = "Basic realm=\"DCS-5222LB1\""
+metadata = { "os.vendor" = "D-Link", "hw.vendor" = "D-Link", "hw.device" = "IP Camera", "hw.product" = "{capture:1}", "hw.model" = "{capture:1}" }
+
+[[match]]
+name = "GoAhead webserver"
+pattern = "^(?:Basic|Digest) realm=\"GoAhead\""
+vendor = "Oracle"
+product = "GoAhead Webserver"
+context = "http_header.wwwauth"
+example = "Basic realm=\"GoAhead\""
+metadata = { "service.family" = "GoAhead Webserver" }
+
+[[match]]
+name = "Logitech Media server"
+pattern = "^(?:Basic|Digest) realm=\"Logitech Media Server\""
+vendor = "Logitech"
+product = "Squeezebox"
+context = "http_header.wwwauth"
+example = "Basic realm=\"Logitech Media Server\""
+
+[[match]]
+name = "Kubernetes master nodes"
+pattern = "^(?:Basic|Digest) realm=\"kubernetes-master\""
+vendor = "Kubernetes"
+product = "Kubernetes"
+context = "http_header.wwwauth"
+example = "Basic realm=\"kubernetes-master\""
+metadata = { "service.family" = "Kubernetes", "service.cpe23" = "cpe:/a:kubernetes:kubernetes:-" }
+
+[[match]]
+name = "Ruijie Networks generic"
+pattern = "(?i)^(?:Basic|Digest) realm=\"RUIJIE(?:-CPE)?\""
+context = "http_header.wwwauth"
+example = "Digest realm=\"RUIJIE-CPE\""
+metadata = { "hw.vendor" = "Ruijie" }
+
+[[match]]
+name = "Thomson SpeedTouch xDSL router - short variant"
+pattern = "^Basic realm=\"SpeedTouch\"$"
+vendor = "Thomson"
+product = "SpeedTouch"
+context = "http_header.wwwauth"
+example = "Basic realm=\"SpeedTouch\""
+metadata = { "service.family" = "SpeedTouch", "os.vendor" = "Thomson", "os.device" = "Broadband Router", "os.family" = "SpeedTouch", "hw.vendor" = "Thomson", "hw.family" = "SpeedTouch", "hw.device" = "Broadband Router" }
+
+[[match]]
+name = "Thomson SpeedTouch xDSL router"
+pattern = "^(?:Basic|Digest) realm=\"SpeedTouch \\(([0-9A-F]{2}-[0-9A-F]{2}-[0-9A-F]{2}-[0-9A-F]{2}-[0-9A-F]{2}-[0-9A-F]{2})\\)\"$"
+vendor = "Thomson"
+product = "SpeedTouch"
+context = "http_header.wwwauth"
+example = "Basic realm=\"SpeedTouch (00-90-D0-F9-91-52)\""
+metadata = { "service.family" = "SpeedTouch", "os.vendor" = "Thomson", "os.device" = "Broadband Router", "os.family" = "SpeedTouch", "os.product" = "SpeedTouch", "hw.vendor" = "Thomson", "hw.family" = "SpeedTouch", "hw.device" = "Broadband Router", "host.mac" = "{capture:1}" }
+
+[[match]]
+name = "Thomson SpeedTouch xDSL router - qop variant"
+pattern = "^(?:Basic|Digest) realm=\"SpeedTouch\", nonce=\"[0-9A-Z]+:([0-9A-F]{2}-[0-9A-F]{2}-[0-9A-F]{2}-[0-9A-F]{2}-[0-9A-F]{2}-[0-9A-F]{2}):\\d+:\\d+\", qop=\"auth\"$"
+vendor = "Thomson"
+product = "SpeedTouch"
+context = "http_header.wwwauth"
+metadata = { "service.family" = "SpeedTouch", "os.vendor" = "Thomson", "os.device" = "Broadband Router", "os.family" = "SpeedTouch", "os.product" = "SpeedTouch", "hw.vendor" = "Thomson", "hw.family" = "SpeedTouch", "hw.device" = "Broadband Router", "host.mac" = "{capture:1}" }
+
+[[match]]
+name = "Thomson SpeedTouch xDSL router - Telecom Italia"
+pattern = "^(?:Basic|Digest) realm=\"ST (\\d+) R 5.x Telecom Italia\", nonce=\"[0-9A-Z]+:([0-9A-F]{2}-[0-9A-F]{2}-[0-9A-F]{2}-[0-9A-F]{2}-[0-9A-F]{2}-[0-9A-F]{2}):\\d+:\\d+\", qop=\"auth\"$"
+vendor = "Thomson"
+product = "SpeedTouch"
+context = "http_header.wwwauth"
+metadata = { "service.family" = "SpeedTouch", "os.vendor" = "Thomson", "os.device" = "Broadband Router", "os.family" = "SpeedTouch", "hw.vendor" = "Thomson", "hw.family" = "SpeedTouch", "hw.device" = "Broadband Router", "os.product" = "{capture:1}", "host.mac" = "{capture:2}" }
+
+[[match]]
+name = "Thomson generic devices"
+pattern = "^(?:Basic|Digest).*realm=\"Thomson(?: Gateway)?\""
+context = "http_header.wwwauth"
+example = "Digest realm=\"Thomson Gateway\""
+metadata = { "hw.vendor" = "Thomson", "hw.device" = "Broadband Router" }
+
+[[match]]
+name = "Huawei xDSL routers"
+pattern = "^(?:Basic|Digest) realm=\"(?:SmartAX )?(MT\\d+[^ ]*)(?: ADSL Router)?\"$"
+vendor = "Huawei"
+context = "http_header.wwwauth"
+example = "Basic realm=\"SmartAX MT882\""
+metadata = { "service.family" = "MT", "service.product" = "{capture:1}", "os.vendor" = "Huawei", "os.device" = "Broadband Router", "os.family" = "MT", "os.product" = "{capture:1}", "hw.vendor" = "Huawei", "hw.device" = "Broadband Router", "hw.family" = "MT", "hw.product" = "{capture:1}" }
+
+[[match]]
+name = "Huawei Home Gateway Routers"
+pattern = "^(?:Basic|Digest) realm=\"HuaweiHomeGateway\""
+context = "http_header.wwwauth"
+example = "Basic realm=\"HuaweiHomeGateway\""
+metadata = { "hw.vendor" = "Huawei", "hw.device" = "Broadband Router", "hw.product" = "Home Gateway" }
+
+[[match]]
+name = "Huawei EchoLife Home Gateways"
+pattern = "^(?:Basic|Digest) realm=\"EchoLife .*\""
+context = "http_header.wwwauth"
+example = "Basic realm=\"EchoLife Portal de Inicio\""
+metadata = { "hw.vendor" = "Huawei", "hw.device" = "Broadband Router", "hw.product" = "EchoLife Home Gateway" }
+
+[[match]]
+name = "Linksys WRT54G wireless access point (dozen of variants of the product)"
+pattern = "^(?:Basic|Digest) realm=\"(WRT54G\\w*)\"$"
+context = "http_header.wwwauth"
+example = "Basic realm=\"WRT54G\""
+metadata = { "os.vendor" = "Linksys", "os.device" = "WAP", "os.product" = "{capture:1}", "hw.vendor" = "Linksys", "hw.device" = "WAP", "hw.product" = "{capture:1}" }
+
+[[match]]
+name = "TP-LINK SoHo Router - dash variant"
+pattern = "^(?:Basic|Digest) realm=\"(TD-[VW8][A-Z0-9]+)(?:| \\d+\\.\\d+)\"$"
+context = "http_header.wwwauth"
+example = "Basic realm=\"TD-W8901G\""
+metadata = { "os.vendor" = "TP-LINK", "os.device" = "Router", "os.product" = "{capture:1}", "hw.vendor" = "TP-LINK", "hw.device" = "Router", "hw.product" = "{capture:1}" }
+
+[[match]]
+name = "TP-LINK SoHo Router"
+pattern = "^(?:Basic|Digest) realm=\"(TD8[A-Z0-9]+)\"$"
+context = "http_header.wwwauth"
+example = "Basic realm=\"TD854W\""
+metadata = { "os.vendor" = "TP-LINK", "os.device" = "Router", "os.product" = "{capture:1}", "hw.vendor" = "TP-LINK", "hw.device" = "Router", "hw.product" = "{capture:1}" }
+
+[[match]]
+name = "TP-LINK SoHo Router - verbose variant"
+pattern = "^(?:Basic|Digest) realm=\"TP-LINK.*(?:Access Point|Extender|AP) ([A-Z0-9\\-\\+]+)\""
+context = "http_header.wwwauth"
+example = "Basic realm=\"TP-LINK Wireless N Access Point WA801N\""
+metadata = { "os.vendor" = "TP-LINK", "os.device" = "WAP", "os.product" = "{capture:1}", "hw.vendor" = "TP-LINK", "hw.device" = "WAP", "hw.product" = "{capture:1}" }
+
+[[match]]
+name = "TP-LINK Routers"
+pattern = "(?i)^(?:Basic|Digest).*realm=\"TP-LINK (.*Router.*)\""
+context = "http_header.wwwauth"
+example = "Basic realm=\"TP-LINK Wireless N Router WR841N\""
+metadata = { "hw.vendor" = "TP-LINK", "hw.device" = "Router", "hw.product" = "{capture:1}" }
+
+[[match]]
+name = "TP-LINK IP-Cameras"
+pattern = "(?i)^(?:Basic|Digest).*realm=\"TP-LINK IP-Camera\""
+context = "http_header.wwwauth"
+example = "Basic realm=\"TP-LINK IP-Camera\""
+metadata = { "hw.vendor" = "TP-LINK", "hw.device" = "IP Camera" }
+
+[[match]]
+name = "Supposedly part of Broadcom Advanced Control Suite 3 (BACS3) or something similar"
+pattern = "(?i)^(?:Basic|Digest) .*realm=\"Broadcom Management Service\""
+vendor = "Broadcom"
+product = "Management Service"
+context = "http_header.wwwauth"
+example = "Digest qop=\"auth\", realm=\"Broadcom Management Service\", nonce=\"AAAAAAAAAAAAAP//DwHpMwYy1zc=\", algorithm=\"MD5\""
+
+[[match]]
+name = "Samba Web Administration Tool (SWAT)"
+pattern = "^(?:Basic|Digest) .*realm=\"SWAT\""
+vendor = "Samba"
+product = "SWAT"
+context = "http_header.wwwauth"
+example = "Basic realm=\"SWAT\""
+metadata = { "service.family" = "Samba" }
+
+[[match]]
+name = "SPIP publishing system (www.spip.net)"
+pattern = "^.{0,1000}(?:Basic|Digest) realm=\"SPIP Configuration\""
+vendor = "SPIP"
+product = "SPIP"
+context = "http_header.wwwauth"
+example = "Basic realm=\"SPIP Configuration\", Digest realm=\"SPIP Configuration\", nonce=\"116761147\", algorithm=\"MD5\""
+metadata = { "service.cpe23" = "cpe:/a:spip:spip:-" }
+
+[[match]]
+name = "HP Instant Support Enterprise Edition with a hostname"
+pattern = "^.{0,1000}(?:Basic|Digest) .*realm=\"HP ISEE @ ([^\"]+)\""
+vendor = "HP"
+product = "ISEE"
+context = "http_header.wwwauth"
+example = "Basic realm=\"HP ISEE @ blah\""
+metadata = { "host.name" = "{capture:1}" }
+
+[[match]]
+name = "Generic F5 Big-IP"
+pattern = "^.{0,1000}(?:Basic|Digest) .*realm=\"BIG-IP\""
+vendor = "F5"
+product = "BIG-IP LTM"
+context = "http_header.wwwauth"
+example = "Basic realm=\"BIG-IP\""
+metadata = { "service.family" = "BIG-IP", "service.cpe23" = "cpe:/a:f5:big-ip_local_traffic_manager:-" }
+
+[[match]]
+name = "Prowlarr"
+pattern = "^(?:Basic|Digest) realm=\"Prowlarr\"$"
+vendor = "Prowlarr"
+product = "Prowlarr"
+context = "http_header.wwwauth"
+example = "Basic realm=\"Prowlarr\""
+
+[[match]]
+name = "HP ProCurve Hubs"
+pattern = "(?i)^(?:Basic|Digest) realm=\"(?:HP|ProCurve) (J[3]\\d{3}A)\"$"
+context = "http_header.wwwauth"
+example = "Basic realm=\"HP J3295A\""
+metadata = { "os.vendor" = "HP", "os.family" = "ProCurve", "os.device" = "Hub", "os.product" = "{capture:1}" }
+
+[[match]]
+name = "HP ProCurve Switches"
+pattern = "(?i)^(?:Basic|Digest) realm=\"(?:HP|ProCurve) (J[489]\\d{3}A)\"$"
+context = "http_header.wwwauth"
+example = "Basic realm=\"HP J4110A\""
+metadata = { "os.vendor" = "HP", "os.family" = "ProCurve", "os.device" = "Switch", "os.product" = "{capture:1}" }
+
+[[match]]
+name = "Assorted Sercomm CPE devices"
+pattern = "(?i)^(?:Basic|Digest).*realm=\"SERCOMM CPE Authentication\""
+context = "http_header.wwwauth"
+example = "Digest realm=\"SERCOMM CPE Authentication\""
+metadata = { "hw.vendor" = "Sercomm" }
+
+[[match]]
+name = "Tivo DVR"
+pattern = "(?i)^(?:Basic|Digest).*realm=\"TiVo DVR\""
+context = "http_header.wwwauth"
+example = "Digest realm=\"TiVo DVR\""
+metadata = { "hw.vendor" = "Tivo", "hw.family" = "DVR", "hw.device" = "DVR" }
+
+[[match]]
+name = "Ubee Cable Modems"
+pattern = "(?i)^(?:Basic|Digest).*realm=\"UBEE\""
+context = "http_header.wwwauth"
+example = "Digest qop=\"auth\", realm=\"Ubee\", nonce=\"1544738973\""
+metadata = { "hw.vendor" = "Ubee", "hw.device" = "Broadband Router" }
+
+[[match]]
+name = "Web server providing web services for Oracle's XML DB."
+pattern = "^(?:Basic|Digest) realm=\"XDB\"$"
+vendor = "Oracle"
+product = "XML DB"
+context = "http_header.wwwauth"
+example = "Basic realm=\"XDB\""
+metadata = { "service.family" = "Oracle" }
+
+[[match]]
+name = "Assorted ZTE CPE devices"
+pattern = "(?i)^(?:Basic|Digest).*realm=\"cpe@zte.com\""
+context = "http_header.wwwauth"
+example = "Digest realm=\"cpe@zte.com\""
+metadata = { "hw.vendor" = "ZTE" }
+
+[[match]]
+name = "ZTE ZXHN router"
+pattern = "(?i)^(?:Basic|Digest).*realm=\"ZXHN (\\S+)\""
+context = "http_header.wwwauth"
+example = "Basic realm=\"ZXHN H108L\""
+metadata = { "hw.vendor" = "ZTE", "hw.device" = "Router", "hw.family" = "ZXHN", "hw.product" = "{capture:1}" }
+
+[[match]]
+name = "ZTE ZXV router"
+pattern = "(?i)^(?:Basic|Digest).*realm=\"(ZXV\\S* \\S+)\""
+context = "http_header.wwwauth"
+example = "Basic realm=\"ZXV10 W300\""
+metadata = { "hw.vendor" = "ZTE", "hw.device" = "Router", "hw.family" = "ZXV", "hw.product" = "{capture:1}" }
+
+[[match]]
+name = "Siqura Video Encoder"
+pattern = "(?i)^(?:Basic|Digest)\\s+realm=\"Siqura\"$"
+context = "http_header.wwwauth"
+example = "Basic realm=\"Siqura\""
+metadata = { "os.vendor" = "Siqura", "os.family" = "Linux", "hw.vendor" = "Siqura", "hw.device" = "Video Encoder" }
+
+[[match]]
+name = "Steinsvik Orbit 351 IP Camera (Truen TCAM Rebrand)"
+pattern = "^Digest realm=\"(Orbit-351)\""
+context = "http_header.wwwauth"
+example = "Digest realm=\"Orbit-351\", nonce=\"0000040dY892418598785d2a2304a74adf22f6098f2792\", stale=FALSE"
+metadata = { "hw.vendor" = "Steinsvik", "hw.device" = "IP Camera", "hw.product" = "{capture:1}", "os.vendor" = "Steinsvik", "os.family" = "Linux", "os.product" = "Linux" }
+
+[[match]]
+name = "Netgear Orbi"
+pattern = "^(?:Basic|Digest) realm=\"NETGEAR (Orbi(?:-(?:micro|mini))?)\""
+context = "http_header.wwwauth"
+example = "Basic realm=\"NETGEAR Orbi\""
+metadata = { "hw.vendor" = "Netgear", "hw.device" = "WAP", "hw.family" = "Orbi", "hw.product" = "{capture:1}" }
+
+[[match]]
+name = "Netgear Routers"
+pattern = "(?:Basic|Digest) realm=\"NETGEAR ([a-zA-Z0-9\\-\\+]+)\\s*\""
+context = "http_header.wwwauth"
+example = "Basic realm=\"NETGEAR DG834  \""
+metadata = { "hw.vendor" = "Netgear", "hw.device" = "Router", "hw.product" = "{capture:1}" }
+
+[[match]]
+name = "Netgear Unspecified Router"
+pattern = "(?:Basic|Digest) realm=\"Netgear\""
+context = "http_header.wwwauth"
+example = "Basic realm=\"Netgear\""
+metadata = { "hw.vendor" = "Netgear", "hw.device" = "Router" }
+
+[[match]]
+name = "Netgear Routers w/o Authentication Type"
+pattern = "^(?:NETGEAR|NetGear) Router ([a-zA-Z0-9\\-\\+]+)$"
+context = "http_header.wwwauth"
+example = "NETGEAR Router WNR2000v4"
+metadata = { "hw.vendor" = "Netgear", "hw.device" = "Router", "hw.product" = "{capture:1}" }
+
+[[match]]
+name = "Fujitsu Siemens Primergy with BMC RemoteView on an iRMC card"
+pattern = "^(?:Basic|Digest) realm=\"[iI]RMC(?:@(IRMC[0-9a-fA-F]{6}))?\""
+vendor = "Fujitsu Siemens"
+product = "RemoteView"
+context = "http_header.wwwauth"
+example = "Digest realm=\"iRMC@IRMCA0EC88\", qop=\"auth\", nonce=\"d569ace4-00029040\", opaque=\"29040\", stale=\"FALSE\""
+metadata = { "service.family" = "RemoteView", "hw.vendor" = "Fujitsu Siemens", "hw.family" = "Primergy", "hw.product" = "Primergy", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "SonicWall SonicPoint (non-specific)"
+pattern = "^(?:Basic|Digest) realm=\"DELL \\| SonicWALL SonicPoint"
+context = "http_header.wwwauth"
+example = "Basic realm=\"DELL | SonicWALL SonicPoint ACe/ACi/N2\""
+metadata = { "os.vendor" = "SonicWall", "os.device" = "WAP", "os.product" = "SonicOS", "os.cpe23" = "cpe:/o:sonicwall:sonicos:-", "hw.vendor" = "SonicWall", "hw.product" = "SonicPoint" }
+
+[[match]]
+name = "Roku Streaming Device"
+pattern = "(?i)^(?:Basic|Digest).*realm=\"rokudev\""
+context = "http_header.wwwauth"
+example = "Digest qop=\"auth\", realm=\"rokudev\", nonce=\"1111111111\""
+metadata = { "hw.vendor" = "Roku", "hw.device" = "Media Server" }
+
+[[match]]
+name = "Patton DSL Router"
+pattern = "(?i)^Basic realm=\"System Setup\""
+context = "http_header.wwwauth"
+example = "Basic realm=\"System Setup\""
+metadata = { "hw.vendor" = "Patton", "hw.device" = "Router", "hw.product" = "SHDSL Router", "hw.certainty" = "0.50" }
+
+[[match]]
+name = "Lorex NR900 Series DVR"
+pattern = "(?i)^Digest realm=\"Login to ND[0-9]{3,20}\", nonce="
+context = "http_header.wwwauth"
+example = "Digest realm=\"Login to ND011811000000\", nonce=\"ec3682ef24b2cd9cedefe5cc26110000\""
+metadata = { "hw.vendor" = "Lorex", "hw.device" = "DVR", "hw.product" = "NR900", "hw.certainty" = "0.50" }
+
+[[match]]
+name = "Psion Teklogix"
+pattern = "(?i)^Basic realm=\"the Access Point\""
+context = "http_header.wwwauth"
+example = "Basic realm=\"the Access Point\""
+metadata = { "hw.vendor" = "Psion Teklogix", "hw.device" = "Network Appliance", "hw.product" = "CommServer" }
+
+[[match]]
+name = "Bosch AutoDome IP Camera"
+pattern = "(?i)^Digest realm=\"Use 'live' as User Name"
+context = "http_header.wwwauth"
+example = "Digest realm=\"Use 'live' as User Name\",nonce=\"18e62d241a5358a9650640fa72c1773c\",opaque=\"\",stale=FALSE,algorithm=MD5"
+metadata = { "hw.vendor" = "Bosch", "hw.device" = "Web Cam", "hw.product" = "AutoDome", "hw.certainty" = "0.50" }
+
+[[match]]
+name = "Shelly Smart Device"
+pattern = "(?i)^Basic realm=\"Shelly\""
+context = "http_header.wwwauth"
+example = "Basic realm=\"Shelly\""
+metadata = { "hw.vendor" = "Shelly", "hw.device" = "Device" }
+
+[[match]]
+name = "Schneider Electric Eurotherm Device"
+pattern = "(?i)^Basic realm=\"Eurotherm\""
+context = "http_header.wwwauth"
+example = "Basic realm=\"Eurotherm\""
+metadata = { "hw.vendor" = "Schneider Electric", "hw.device" = "Device", "hw.family" = "Eurotherm" }
+
+[[match]]
+name = "TomatoUSB Router Firmware"
+pattern = "(?i)^Basic realm=\"TomatoUSB\""
+context = "http_header.wwwauth"
+example = "Basic realm=\"TomatoUSB\""
+metadata = { "os.vendor" = "TomatoUSB", "os.family" = "Linux", "os.product" = "TomatoUSB", "os.device" = "Router" }
+
+[[match]]
+name = "FreshTomato Router Firmware"
+pattern = "(?i)^Basic realm=\"FreshTomato\""
+context = "http_header.wwwauth"
+example = "Basic realm=\"FreshTomato\""
+metadata = { "os.vendor" = "FreshTomato", "os.family" = "Linux", "os.product" = "FreshTomato", "os.device" = "Router", "os.cpe23" = "cpe:/o:freshtomato:freshtomato:-" }
+
+[[match]]
+name = "Alentis Electronics NetPing PDU"
+pattern = "(?i)^Basic realm=\"NetPing \\d+/PWR-220\\s*v\\d+/(?:ETH|SMS|GSM(?:3G)?)\""
+context = "http_header.wwwauth"
+example = "Basic realm=\"NetPing 2/PWR-220v2/SMS\""
+metadata = { "os.vendor" = "Alentis Electronics", "os.product" = "NetPing Firmware", "os.device" = "Power Device", "hw.vendor" = "Alentis Electronics", "hw.product" = "NetPing", "hw.device" = "Power Device" }
+
+[[match]]
+name = "OpenSearch"
+pattern = "(?i)^Basic realm=\"OpenSearch Security\""
+vendor = "Amazon"
+product = "OpenSearch"
+context = "http_header.wwwauth"
+example = "Basic realm=\"OpenSearch Security\""
+metadata = { "service.cpe23" = "cpe:/a:amazon:opensearch:-" }
+
+[[match]]
+name = "Server Technology Sentry Switched Device"
+pattern = "(?i)^Basic realm=\"(Sentry Switched (?:CDU|(?:DC )*PDU))\""
+context = "http_header.wwwauth"
+example = "Basic realm=\"Sentry Switched CDU\""
+metadata = { "os.vendor" = "Server Technology", "os.product" = "{hw.product} Firmware", "hw.vendor" = "Server Technology", "hw.product" = "{capture:1}", "hw.device" = "Power Device" }
+
+[[match]]
+name = "Lidarr"
+pattern = "(?i)^Basic realm=\"Lidarr\""
+vendor = "Lidarr"
+product = "Lidarr"
+context = "http_header.wwwauth"
+
+[[match]]
+name = "Ignore NTLM-only -- assert nothing"
+pattern = "(?i)^NTLM$"
+context = "http_header.wwwauth"
+example = "NTLM"
+metadata = { "hw.certainty" = "0.0", "os.certainty" = "0.0", "service.certainty" = "0.0" }
+
+[[match]]
+name = "Ignore Negotiate-only -- assert nothing"
+pattern = "^Negotiate$"
+context = "http_header.wwwauth"
+example = "Negotiate"
+metadata = { "hw.certainty" = "0.0", "os.certainty" = "0.0", "service.certainty" = "0.0" }
+
+[[match]]
+name = "Ignore null/empty/period/index -- assert nothing"
+pattern = "^(?:Basic|Digest) .*realm=['\"](?:\\/|\\.|null|\\/?index.html?)?['\"]"
+context = "http_header.wwwauth"
+example = "Basic realm=\"null\""
+metadata = { "hw.certainty" = "0.0", "os.certainty" = "0.0", "service.certainty" = "0.0" }
+
+[[match]]
+name = "Ignore realms with an IPv4 address -- assert nothing"
+pattern = "^(?:Basic|Digest) .*realm=\"(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\""
+context = "http_header.wwwauth"
+example = "Basic realm=\"192.168.0.1\""
+metadata = { "hw.certainty" = "0.0", "os.certainty" = "0.0", "service.certainty" = "0.0" }
+
+[[match]]
+name = "Ignore generic 'config' realms -- assert nothing"
+pattern = "^(?:Basic|Digest) .*realm=\"config\""
+context = "http_header.wwwauth"
+example = "Digest realm=\"config\", nonce=\"1155041914\", algorithm=\"MD5\", qop=\"auth\""
+metadata = { "hw.certainty" = "0.0", "os.certainty" = "0.0", "service.certainty" = "0.0" }
+
+[[match]]
+name = "D-Link DNR Cloud Network Video Recorder"
+pattern = "^(?:Basic|Digest) realm=\"(DNR-[^\"]+)\""
+context = "http_header.wwwauth"
+example = "Basic realm=\"DNR-322L\""
+metadata = { "os.vendor" = "D-Link", "hw.vendor" = "D-Link", "hw.device" = "Cloud Network Video Recorder", "hw.product" = "{capture:1}", "hw.model" = "{capture:1}" }
+

@@ -1,0 +1,1247 @@
+# This file contains fingerprints imported from Rapid7 Recog.
+# Source: https://github.com/rapid7/recog
+# License: BSD-2-Clause
+
+[service]
+attribution = "Rapid7 Recog"
+name = "ftp"
+default_ports = []
+description = "Imported from Rapid7 ftp_banners"
+
+[[match]]
+name = "Microsoft FTP Server on Windows NT"
+pattern = "^([^ ]{1,512}) Microsoft FTP Service \\(Version ([1234]\\.\\d+)\\)\\.$"
+version_group = 2
+vendor = "Microsoft"
+product = "IIS"
+context = "ftp.banner"
+example = "foo.bar Microsoft FTP Service (Version 3.0)."
+metadata = { "service.family" = "IIS", "service.cpe23" = "cpe:/a:microsoft:iis:{service.version}", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows NT", "os.cpe23" = "cpe:/o:microsoft:windows_nt:-", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "Microsoft FTP Server on Windows 2000"
+pattern = "^([^ ]{1,512}) Microsoft FTP Service \\(Version 5.0\\)\\.$"
+vendor = "Microsoft"
+product = "IIS"
+context = "ftp.banner"
+example = "foo.bar Microsoft FTP Service (Version 5.0)."
+metadata = { "service.family" = "IIS", "service.version" = "5.0", "service.cpe23" = "cpe:/a:microsoft:iis:5.0", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows 2000", "os.cpe23" = "cpe:/o:microsoft:windows_2000:-", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "Microsoft FTP Server on Windows XP, 2003 or later versions of 2000"
+pattern = "^([^ ]{1,512}) Microsoft FTP Service \\(Version 5.1\\)\\.$"
+vendor = "Microsoft"
+product = "IIS"
+context = "ftp.banner"
+example = "foo.bar Microsoft FTP Service (Version 5.1)."
+metadata = { "service.family" = "IIS", "service.cpe23" = "cpe:/a:microsoft:iis:-", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows", "os.cpe23" = "cpe:/o:microsoft:windows:-", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "Microsoft FTP Server on Windows XP, 2003 or later without version"
+pattern = "^([^ ]{1,512}) Microsoft FTP Service$"
+vendor = "Microsoft"
+product = "IIS"
+context = "ftp.banner"
+example = "foo.bar Microsoft FTP Service"
+metadata = { "service.family" = "IIS", "service.cpe23" = "cpe:/a:microsoft:iis:-", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows", "os.cpe23" = "cpe:/o:microsoft:windows:-", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "Microsoft FTP Server on Windows XP, 2003 or later without version or hostname"
+pattern = "^Microsoft FTP Service$"
+vendor = "Microsoft"
+product = "IIS"
+context = "ftp.banner"
+example = "Microsoft FTP Service"
+metadata = { "service.family" = "IIS", "service.cpe23" = "cpe:/a:microsoft:iis:-", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows", "os.cpe23" = "cpe:/o:microsoft:windows:-" }
+
+[[match]]
+name = "FTP on HPUX with a PHNE (HP Networking patch) installed"
+pattern = "^([^ ]{1,512}) +FTP +Server \\(Version ([^\\(]+)\\(PHNE_\\d+\\) [^\\)]+\\) ready.?$"
+version_group = 2
+vendor = "HP"
+product = "FTPD"
+context = "ftp.banner"
+example = "example.com FTP server (Version 1.1.214.4(PHNE_38458) Mon Feb 15 06:03:12 GMT 2010) ready."
+metadata = { "os.vendor" = "HP", "os.family" = "HP-UX", "os.product" = "HP-UX", "os.cpe23" = "cpe:/o:hp:hp-ux:-", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "WU-FTPD on HPUX with a PHNE (HP Networking patch) installed"
+pattern = "^([^ ]{1,512}) +FTP +Server \\(Revision \\S+ Version wuftpd-([^\\(]+)\\(PHNE_\\d+\\) [^\\)]+\\) ready.?$"
+version_group = 2
+vendor = "Washington University"
+product = "WU-FTPD"
+context = "ftp.banner"
+example = "example.com FTP server (Revision 1.1 Version wuftpd-2.6.1(PHNE_38578) Fri Sep 5 12:10:54 GMT 2008) ready."
+metadata = { "os.vendor" = "HP", "os.family" = "HP-UX", "os.product" = "HP-UX", "os.cpe23" = "cpe:/o:hp:hp-ux:-", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "WU-FTPD on various OS"
+pattern = "^(\\S{1,512})(?: \\S{1,512})? FTP Server \\((?:Revision [\\d\\.]+ )?Version wu(?:ftpd)?-([\\d\\.]+).*\\) ready.?$"
+version_group = 2
+vendor = "Washington University"
+product = "WU-FTPD"
+context = "ftp.banner"
+example = "example.com FTP server (Version wu-2.6.2(1) Sat Jul 19 16:21:30 UTC 2008) ready."
+metadata = { "host.name" = "{capture:1}" }
+
+[[match]]
+name = "FTPD on Mac OS X Server with a version"
+pattern = "^(\\S{1,512})\\s{1,8}FTP Server \\(Version:\\s+Mac OS X Server\\s+([\\d\\.]+).*\\) ready\\.?"
+vendor = "Apple"
+product = "FTP"
+context = "ftp.banner"
+example = "example.com FTP server (Version:  Mac OS X Server 10.3 - +GSSAPI) ready."
+metadata = { "os.vendor" = "Apple", "os.family" = "Mac OS X", "os.product" = "Mac OS X Server", "host.name" = "{capture:1}", "os.version" = "{capture:2}", "os.cpe23" = "cpe:/o:apple:mac_os_x_server:{os.version}" }
+
+[[match]]
+name = "FTPD on Mac OS X Server without a version"
+pattern = "^(\\S{1,512})\\s{1,8}FTP Server \\(Version:\\s+Mac OS X Server\\) ready\\.?"
+vendor = "Apple"
+product = "FTP"
+context = "ftp.banner"
+example = "example.com FTP server (Version:  Mac OS X Server) ready."
+metadata = { "os.vendor" = "Apple", "os.family" = "Mac OS X", "os.product" = "Mac OS X Server", "os.cpe23" = "cpe:/o:apple:mac_os_x_server:-", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "Simple tnftpd banner with a version"
+pattern = "^(\\S{1,512})\\s{1,8}FTP Server \\(tnftpd (.*)\\) ready\\.?$"
+version_group = 2
+product = "tnftpd"
+context = "ftp.banner"
+example = "example.com FTP server (tnftpd 20061217) ready."
+metadata = { "host.name" = "{capture:1}" }
+
+[[match]]
+name = "SunOS/Solaris"
+pattern = "^(\\S{1,512}) FTP Server \\(SunOS 5.(1[1-9])\\) ready\\.?$"
+context = "ftp.banner"
+example = "example.com FTP server (SunOS 5.11) ready."
+metadata = { "os.vendor" = "Oracle", "os.family" = "Solaris", "os.product" = "Solaris", "host.name" = "{capture:1}", "os.version" = "{capture:2}", "os.cpe23" = "cpe:/o:oracle:solaris:{os.version}" }
+
+[[match]]
+name = "SunOS/Solaris 5.7-5.10"
+pattern = "^(\\S{1,512}) FTP Server \\(SunOS 5.([789]|10)\\) ready\\.?$"
+context = "ftp.banner"
+example = "example.com FTP server (SunOS 5.7) ready."
+metadata = { "os.vendor" = "Sun", "os.family" = "Solaris", "os.product" = "Solaris", "host.name" = "{capture:1}", "os.version" = "{capture:2}", "os.cpe23" = "cpe:/o:sun:solaris:{os.version}" }
+
+[[match]]
+name = "SunOS 5.6 (Solaris 2.6)"
+pattern = "^(\\S{1,512}) FTP Server \\(SunOS 5.6\\) ready\\."
+context = "ftp.banner"
+example = "example.com FTP Server (SunOS 5.6) ready."
+metadata = { "os.vendor" = "Sun", "os.family" = "Solaris", "os.product" = "Solaris", "os.version" = "2.6", "os.cpe23" = "cpe:/o:sun:solaris:2.6", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "ProFTPD on Debian Linux"
+pattern = "^ProFTPD (\\d+\\.[^\\s]+) Server \\(Debian\\) \\[(.+)\\]$"
+version_group = 1
+vendor = "ProFTPD Project"
+product = "ProFTPD"
+context = "ftp.banner"
+example = "ProFTPD 1.3.0rc2 Server (Debian) [host]"
+metadata = { "service.family" = "ProFTPD", "service.cpe23" = "cpe:/a:proftpd:proftpd:{service.version}", "os.vendor" = "Debian", "os.family" = "Linux", "os.product" = "Linux", "os.cpe23" = "cpe:/o:debian:debian_linux:-", "host.name" = "{capture:2}" }
+
+[[match]]
+name = "ProFTPD on a Linksys Wireless Access Point/Router"
+pattern = "^ProFTPD (\\d+\\.[^\\s]+) Server \\(Linksys(W.+)\\) \\[(.+)\\]$"
+version_group = 1
+vendor = "ProFTPD Project"
+product = "ProFTPD"
+context = "ftp.banner"
+example = "ProFTPD 1.3.0rc2 Server (LinksysWRT350N) [host]"
+metadata = { "service.family" = "ProFTPD", "service.cpe23" = "cpe:/a:proftpd:proftpd:{service.version}", "os.vendor" = "Linksys", "os.device" = "WAP", "os.product" = "{capture:2}", "hw.vendor" = "Linksys", "hw.product" = "{capture:2}", "host.name" = "{capture:3}" }
+
+[[match]]
+name = "ProFTPD on a Netgear ReadyNAS with a version and IP"
+pattern = "^ProFTPD (\\d+\\.[^\\s]+) Server \\(NETGEAR ReadyNAS\\) \\[(.+)\\]$"
+version_group = 1
+vendor = "ProFTPD Project"
+product = "ProFTPD"
+context = "ftp.banner"
+example = "ProFTPD 1.3.3g Server (NETGEAR ReadyNAS) [192.168.1.10]"
+metadata = { "service.family" = "ProFTPD", "service.cpe23" = "cpe:/a:proftpd:proftpd:{service.version}", "hw.vendor" = "Netgear", "hw.device" = "NAS", "hw.product" = "ReadyNAS", "host.ip" = "{capture:2}" }
+
+[[match]]
+name = "ProFTPD on a Netgear ReadyNAS with a hostname"
+pattern = "^ProFTPD Server \\(NETGEAR ReadyNAS\\) \\[(.+)\\]$"
+vendor = "ProFTPD Project"
+product = "ProFTPD"
+context = "ftp.banner"
+example = "ProFTPD Server (NETGEAR ReadyNAS) [test]"
+metadata = { "service.family" = "ProFTPD", "service.cpe23" = "cpe:/a:proftpd:proftpd:-", "hw.vendor" = "Netgear", "hw.device" = "NAS", "hw.product" = "ReadyNAS", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "ProFTPD with version info but no obvious OS info"
+pattern = "^ProFTPD (\\d+\\.[^\\s]+) Server \\((.*)\\) \\[(.+)\\]$"
+version_group = 1
+vendor = "ProFTPD Project"
+product = "ProFTPD"
+context = "ftp.banner"
+example = "ProFTPD 1.2.10 Server (Main FTP Server) [host]"
+metadata = { "service.family" = "ProFTPD", "service.cpe23" = "cpe:/a:proftpd:proftpd:{service.version}", "proftpd.server.name" = "{capture:2}", "host.name" = "{capture:3}" }
+
+[[match]]
+name = "ProFTPD with only version info"
+pattern = "^ProFTPD (\\d+\\.[^\\s]+) Server ready\\.$"
+version_group = 1
+vendor = "ProFTPD Project"
+product = "ProFTPD"
+context = "ftp.banner"
+example = "ProFTPD 1.3.0rc2 Server ready."
+metadata = { "service.family" = "ProFTPD", "service.cpe23" = "cpe:/a:proftpd:proftpd:{service.version}" }
+
+[[match]]
+name = "ProFTPD with no version info"
+pattern = "^ProFTPD (?:FTP )?Server ready\\.$"
+vendor = "ProFTPD Project"
+product = "ProFTPD"
+context = "ftp.banner"
+example = "ProFTPD FTP Server ready."
+metadata = { "service.family" = "ProFTPD", "service.cpe23" = "cpe:/a:proftpd:proftpd:-" }
+
+[[match]]
+name = "ProFTPD with no version info, parenthetical form"
+pattern = "^ProFTPD Server \\(.*\\) \\[([a-f\\d.:]+)\\]$"
+vendor = "ProFTPD Project"
+product = "ProFTPD"
+context = "ftp.banner"
+example = "ProFTPD Server (ProFTPD) [1.2.3.4]"
+metadata = { "service.family" = "ProFTPD", "service.cpe23" = "cpe:/a:proftpd:proftpd:-", "host.ip" = "{capture:1}" }
+
+[[match]]
+name = "ProFTPD with no version info, short form"
+pattern = "^ProFTPD Server$"
+vendor = "ProFTPD Project"
+product = "ProFTPD"
+context = "ftp.banner"
+example = "ProFTPD Server"
+metadata = { "service.family" = "ProFTPD", "service.cpe23" = "cpe:/a:proftpd:proftpd:-" }
+
+[[match]]
+name = "ProFTPD with no version info, super short form"
+pattern = "^ProFTPD\\s*$"
+vendor = "ProFTPD Project"
+product = "ProFTPD"
+context = "ftp.banner"
+example = "ProFTPD"
+metadata = { "service.family" = "ProFTPD", "service.cpe23" = "cpe:/a:proftpd:proftpd:-" }
+
+[[match]]
+name = "ProFTPD no valid servers configured"
+pattern = "^(?:\\d{4}\\-\\d\\d\\-\\d\\d \\d\\d:\\d\\d:\\d\\d,\\d\\d\\d )?(\\S{1,512}) proftpd\\[\\d+\\]: error: no valid servers configured"
+vendor = "ProFTPD Project"
+product = "ProFTPD"
+context = "ftp.banner"
+example = "ftp.host.com proftpd[40312]: error: no valid servers configured\\n"
+metadata = { "service.family" = "ProFTPD", "service.cpe23" = "cpe:/a:proftpd:proftpd:-", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "ProFTPD with version info - truncated"
+pattern = "^ProFTPD (\\d+\\.[^\\s]+) Server \\((.*)\\) \\[[a-f\\d.:\\]]*$"
+version_group = 1
+vendor = "ProFTPD Project"
+product = "ProFTPD"
+context = "ftp.banner"
+example = "ProFTPD 1.3.2c Server (ProFTPD Default Installation) ["
+metadata = { "service.family" = "ProFTPD", "service.cpe23" = "cpe:/a:proftpd:proftpd:{service.version}", "proftpd.server.name" = "{capture:2}" }
+
+[[match]]
+name = "ProFTPD with version info but no obvious OS info, take 2"
+pattern = "^ProFTPD (\\d+\\.[^\\s]+) Server ([\\w.-]+)$"
+version_group = 1
+vendor = "ProFTPD Project"
+product = "ProFTPD"
+context = "ftp.banner"
+example = "ProFTPD 1.3.2d Server localhost"
+metadata = { "service.family" = "ProFTPD", "service.cpe23" = "cpe:/a:proftpd:proftpd:{service.version}", "host.name" = "{capture:2}" }
+
+[[match]]
+name = "Pure-FTPd versions <= 1.0.13 (at least as far back as 1.0.11)"
+pattern = "^=\\(<\\*>\\)=-\\.:\\. \\(\\( Welcome to Pure-FTPd ([\\d.]+) \\)\\) \\.:\\.-=\\(<\\*>\\)=-"
+version_group = 1
+vendor = "PureFTPd"
+product = "Pure-FTPd"
+context = "ftp.banner"
+example = "=(<*>)=-.:. (( Welcome to Pure-FTPd 1.0.11 )) .:.-=(<*>)=-"
+metadata = { "service.family" = "Pure-FTPd", "service.cpe23" = "cpe:/a:pureftpd:pure-ftpd:{service.version}" }
+
+[[match]]
+name = "Pure-FTPd versions >= 1.0.14 - Config data can be zero or more of: [privsep] [TLS]"
+pattern = "^-{9,10}(?:.*)\\s+Pure-FTPd\\s+(.*)-{9,10}"
+vendor = "PureFTPd"
+product = "Pure-FTPd"
+context = "ftp.banner"
+example = "---------- Welcome to Pure-FTPd ----------"
+metadata = { "pureftpd.config" = "{capture:1}", "service.family" = "Pure-FTPd", "service.cpe23" = "cpe:/a:pureftpd:pure-ftpd:-" }
+
+[[match]]
+name = "Basic Pure-FTPd banner, no version"
+pattern = "^(?:Welcome to )?Pure-FTPd\\.?$"
+vendor = "PureFTPd"
+product = "Pure-FTPd"
+context = "ftp.banner"
+example = "Welcome to Pure-FTPd"
+metadata = { "service.family" = "Pure-FTPd", "service.cpe23" = "cpe:/a:pureftpd:pure-ftpd:-" }
+
+[[match]]
+name = "Older Pure-FTPd versions"
+pattern = "^=\\(.\\*.\\)=-\\.:\\. \\(\\( Welcome to PureFTPd (\\d+\\..+) \\)\\) \\.:\\.-=\\(.\\*.\\)=-"
+version_group = 1
+vendor = "PureFTPd"
+product = "Pure-FTPd"
+context = "ftp.banner"
+example = "=(<*>)=-.:. (( Welcome to PureFTPd 1.1.0 )) .:.-=(<*>)=-"
+metadata = { "service.family" = "Pure-FTPd", "service.cpe23" = "cpe:/a:pureftpd:pure-ftpd:{service.version}" }
+
+[[match]]
+name = "SolarWinds Serv-U with version "
+pattern = "^Serv-U FTP Server v(15\\.\\S+) ready\\.\\.\\.$"
+version_group = 1
+vendor = "SolarWinds"
+product = "Serv-U FTP Server"
+context = "ftp.banner"
+example = "Serv-U FTP Server v15.1.3.25 ready..."
+metadata = { "service.family" = "Serv-U", "service.cpe23" = "cpe:/a:solarwinds:serv-u_ftp_server:{service.version}" }
+
+[[match]]
+name = "Serv-U Serv-U with version on Windows"
+pattern = "^Serv-U FTP[ -]Server v(\\d+\\.\\S+) for WinSock ready"
+version_group = 1
+vendor = "Serv-U"
+product = "Serv-U FTP Server"
+context = "ftp.banner"
+example = "Serv-U FTP-Server v2.5n for WinSock ready..."
+metadata = { "service.family" = "Serv-U", "service.cpe23" = "cpe:/a:solarwinds:serv-u_ftp_server:{service.version}", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows", "os.cpe23" = "cpe:/o:microsoft:windows:-" }
+
+[[match]]
+name = "Serv-U Serv-U with version "
+pattern = "^Serv-U FTP[ -]Server v(\\d+\\.\\S+) ready"
+version_group = 1
+vendor = "Serv-U"
+product = "Serv-U FTP Server"
+context = "ftp.banner"
+example = "Serv-U FTP Server v7.2 ready..."
+metadata = { "service.family" = "Serv-U", "service.cpe23" = "cpe:/a:solarwinds:serv-u_ftp_server:{service.version}" }
+
+[[match]]
+name = "Common FTP banner modification to look like Serv-U -- assert nothing."
+pattern = "^Welcom to Serv-U FTP Server$"
+context = "ftp.banner"
+example = "Welcom to Serv-U FTP Server"
+metadata = { "hw.certainty" = "0.0", "os.certainty" = "0.0", "service.certainty" = "0.0" }
+
+[[match]]
+name = "zftpserver (only runs on Windows)"
+pattern = "^zFTPServer v?(\\S+), .*ready\\.$"
+version_group = 1
+vendor = "Västgöta-Data AB"
+product = "zFTPServer"
+context = "ftp.banner"
+example = "zFTPServer v4.0, build 2008-12-24 01:41 ready."
+metadata = { "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows", "os.cpe23" = "cpe:/o:microsoft:windows:-" }
+
+[[match]]
+name = "vsFTPd (Very Secure FTP Daemon)"
+pattern = "^\\(vsFTPd (\\d+\\..+)\\)(?: (.+))?$"
+version_group = 1
+vendor = "vsFTPd Project"
+product = "vsFTPd"
+context = "ftp.banner"
+example = "(vsFTPd 1.1.3) host"
+metadata = { "service.family" = "vsFTPd", "service.cpe23" = "cpe:/a:vsftpd_project:vsftpd:{service.version}", "host.name" = "{capture:2}" }
+
+[[match]]
+name = "vsFTPd (Very Secure FTP Daemon) - break me variant"
+pattern = "^ready, dude \\(vsFTPd (\\d+\\..+): beat me, break me\\)$"
+version_group = 1
+vendor = "vsFTPd Project"
+product = "vsFTPd"
+context = "ftp.banner"
+example = "ready, dude (vsFTPd 1.1.0: beat me, break me)"
+metadata = { "service.family" = "vsFTPd", "service.cpe23" = "cpe:/a:vsftpd_project:vsftpd:{service.version}" }
+
+[[match]]
+name = "vsFTPd (Very Secure FTP Daemon) extended build (vsftpd.devnet.ru)"
+pattern = "^vsFTPd ([\\d.]+\\+ \\(ext\\.3\\)) ready\\.\\.\\.$"
+version_group = 1
+vendor = "vsFTPd Project"
+product = "vsFTPd Extended"
+context = "ftp.banner"
+example = "vsFTPd 2.0.4+ (ext.3) ready..."
+metadata = { "service.family" = "vsFTPd" }
+
+[[match]]
+name = "vsFTPd (Very Secure FTP Daemon) error message"
+pattern = "^OOPS: .*vsftp"
+vendor = "vsFTPd Project"
+product = "vsFTPd"
+context = "ftp.banner"
+example = "OOPS: vsftpd: root is not mounted."
+metadata = { "service.family" = "vsFTPd", "service.cpe23" = "cpe:/a:vsftpd_project:vsftpd:-" }
+
+[[match]]
+name = "FileZilla FTP Server"
+pattern = "^FileZilla Server(?: version)? (?:v)?(\\d\\.[\\w.]+(?: beta)?)"
+version_group = 1
+vendor = "Filezilla-Project"
+product = "FileZilla Server"
+context = "ftp.banner"
+example = "FileZilla Server version 0.9.2 beta"
+metadata = { "service.family" = "FileZilla FTP", "service.cpe23" = "cpe:/a:filezilla-project:filezilla_server:{service.version}", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows", "os.cpe23" = "cpe:/o:microsoft:windows:-" }
+
+[[match]]
+name = "APC device"
+pattern = "^\\s{0,1000}APC FTP server ready\\.$"
+vendor = "APC"
+product = "FTP"
+context = "ftp.banner"
+example = "APC FTP server ready."
+metadata = { "os.vendor" = "APC", "os.device" = "Power Device", "hw.vendor" = "APC", "hw.device" = "Power Device" }
+
+[[match]]
+name = "APC power/cooling device"
+pattern = "^(\\S{1,64}) Network Management Card AOS v(\\d+\\..+) FTP server ready\\.$"
+version_group = 2
+vendor = "APC"
+product = "AOS"
+context = "ftp.banner"
+example = "AP7932 Network Management Card AOS v3.3.4 FTP server ready."
+metadata = { "service.family" = "AOS", "os.vendor" = "APC", "os.device" = "Power Device", "os.product" = "{capture:1}", "os.version" = "{capture:2}", "hw.vendor" = "APC", "hw.device" = "Power Device" }
+
+[[match]]
+name = "EMC Celerra"
+pattern = "^(\\S{1,512}) FTP server \\(EMC-SNAS: ([^\\)]+)\\)(?: \\S+)?$"
+version_group = 2
+vendor = "EMC"
+product = "Celerra"
+context = "ftp.banner"
+example = "foo2 FTP server (EMC-SNAS: 5.6.47.11)"
+metadata = { "os.vendor" = "EMC", "os.device" = "Storage", "os.product" = "Celerra", "os.version" = "{capture:2}", "host.name" = "{capture:1}", "hw.vendor" = "EMC", "hw.device" = "Storage", "hw.product" = "Celerra", "hw.cpe23" = "cpe:/h:emc:celerra_network_attached_storage:-" }
+
+[[match]]
+name = "HP JetDirect printer"
+pattern = "^JD FTP Server Ready"
+vendor = "HP"
+product = "JetDirect"
+context = "ftp.banner"
+example = "JD FTP Server Ready"
+metadata = { "service.family" = "JetDirect", "os.vendor" = "HP", "os.device" = "Printer", "os.family" = "JetDirect", "os.product" = "JetDirect", "hw.vendor" = "HP", "hw.device" = "Printer", "hw.family" = "JetDirect", "hw.product" = "JetDirect" }
+
+[[match]]
+name = "Check Point FireWall-1"
+pattern = "^Check Point FireWall-1 Secure FTP server running on (.+)$"
+vendor = "Check Point"
+product = "Firewall-1"
+context = "ftp.banner"
+example = "Check Point FireWall-1 Secure FTP server running on host"
+metadata = { "service.family" = "Firewall-1", "service.cpe23" = "cpe:/a:checkpoint:firewall-1:-", "os.vendor" = "Check Point", "os.device" = "Firewall", "os.family" = "Firewall-1", "os.product" = "GAiA OS", "os.cpe23" = "cpe:/o:checkpoint:gaia_os:-", "hw.vendor" = "Check Point", "hw.device" = "Firewall", "hw.family" = "Firewall-1", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "Blue Coat security appliances"
+pattern = "^Blue Coat FTP Service$"
+vendor = "Blue Coat"
+product = "Proxy"
+context = "ftp.banner"
+example = "Blue Coat FTP Service"
+metadata = { "os.vendor" = "Blue Coat", "os.device" = "Web Proxy" }
+
+[[match]]
+name = "Nepenthes honeypot"
+pattern = "^---freeFTPd 1.0---warFTPd 1.65---$"
+product = "Nepenthes"
+context = "ftp.banner"
+example = "---freeFTPd 1.0---warFTPd 1.65---"
+metadata = { "service.family" = "Nepenthes" }
+
+[[match]]
+name = "IBM z/OS FTP Service"
+pattern = "^[^ ]{1,512} IBM FTP CS (V1R\\d+) at ([^,]*),"
+vendor = "IBM"
+product = "z/OS FTP Server"
+context = "ftp.banner"
+example = "SFTPD1 IBM FTP CS V1R4 at x.y.z, 21:02:19 on 2007-12-15."
+metadata = { "os.vendor" = "IBM", "os.product" = "z/OS", "os.family" = "z/OS", "os.device" = "Mainframe", "os.version" = "{capture:1}", "os.cpe23" = "cpe:/o:ibm:z%2fos:{os.version}", "host.name" = "{capture:2}" }
+
+[[match]]
+name = "IBM 4690 FTP Service"
+pattern = "^FTP server \\(IBM 4690 TCP/IP FTP Version 1\\.0\\) ready\\."
+vendor = "IBM"
+product = "4690 FTP Server"
+context = "ftp.banner"
+example = "FTP server (IBM 4690 TCP/IP FTP Version 1.0) ready."
+metadata = { "os.vendor" = "IBM", "os.product" = "4690", "os.family" = "4690", "os.device" = "Point of Sale" }
+
+[[match]]
+name = "NcFTPd Server\n      http://www.ncftp.com/ncftpd/"
+pattern = "^([^ ]{1,512}) NcFTPd Server \\(licensed copy\\) ready\\.$"
+vendor = "NcFTP Software"
+product = "NcFTPd Server"
+context = "ftp.banner"
+example = "ftp.example.com NcFTPd Server (licensed copy) ready."
+metadata = { "host.name" = "{capture:1}" }
+
+[[match]]
+name = "D-Link DCS-2100 wireless internet camera"
+pattern = "^(\\S{1,512}) DCS-2100 FTP server ready\\.$"
+context = "ftp.banner"
+example = "hostname DCS-2100 FTP server ready."
+metadata = { "os.vendor" = "D-Link", "os.product" = "DCS-2100", "os.device" = "IP Camera", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "Raptor firewall"
+pattern = "^Secure Gateway FTP server ready\\.$"
+context = "ftp.banner"
+example = "Secure Gateway FTP server ready."
+metadata = { "os.vendor" = "Symantec", "os.family" = "Raptor", "os.product" = "Raptor", "os.device" = "Firewall" }
+
+[[match]]
+name = "Sun StorEdge disk array"
+pattern = "^SUN StorEdge (\\S+) RAID FTP server ready\\.$"
+context = "ftp.banner"
+example = "SUN StorEdge 3511 RAID FTP server ready."
+metadata = { "os.vendor" = "Sun", "os.family" = "StorEdge", "os.product" = "{capture:1}", "os.device" = "Storage" }
+
+[[match]]
+name = "Axis Network Camera"
+pattern = "(?i)^AXIS (\\S+) .* Camera(?:\\s+version)?\\s+(\\S+)"
+context = "ftp.banner"
+example = "Axis 2100 Network Camera 2.43 Nov 04 2008 ready."
+metadata = { "hw.vendor" = "Axis", "hw.device" = "IP Camera", "hw.product" = "{capture:1}", "hw.version" = "{capture:2}", "os.vendor" = "AXIS", "os.family" = "Linux", "os.device" = "IP Camera" }
+
+[[match]]
+name = "Axis Video encoders/servers"
+pattern = "(?i)^AXIS (\\S+) (?:(?:Mk II )?Video) (?:Encoder(?: Blade)?|Module|Server|Decoder) (\\S+)"
+context = "ftp.banner"
+example = "AXIS Q7406 Video Encoder Blade 5.01 (Aug 01 2008) ready."
+metadata = { "hw.vendor" = "Axis", "hw.product" = "{capture:1}", "hw.version" = "{capture:2}", "hw.device" = "Video Encoder", "os.vendor" = "AXIS", "os.family" = "Linux" }
+
+[[match]]
+name = "Axis Audio encoders/servers"
+pattern = "(?i)^AXIS (\\S+) (?:(?:Mk II )?IO Audio) (?:Encoder|Encoder Blade|Module|Server|Decoder) (\\S+)"
+context = "ftp.banner"
+example = "AXIS P8221 IO Audio Module 5.10.2 (Nov 07 2011) ready."
+metadata = { "hw.vendor" = "Axis", "hw.product" = "{capture:1}", "hw.version" = "{capture:2}", "hw.device" = "Audio Encoder", "os.vendor" = "AXIS", "os.family" = "Linux" }
+
+[[match]]
+name = "Axis Door Controllers"
+pattern = "(?i)^AXIS (\\S+) Network Door Controller (\\S+) .* ready\\.?$"
+context = "ftp.banner"
+example = "AXIS A1001 Network Door Controller 1.65.1.1 (2018) ready."
+metadata = { "hw.vendor" = "Axis", "hw.device" = "Access Control", "hw.product" = "{capture:1}", "hw.version" = "{capture:2}" }
+
+[[match]]
+name = "Axis print servers"
+pattern = "^AXIS (\\S+) .*FTP Network Print Server V?([\\d\\.]+\\S+) .* ready\\.?$"
+context = "ftp.banner"
+example = "AXIS 5600+ (rev 3) FTP Network Print Server V7.00 Sep 10 2004 ready."
+metadata = { "hw.vendor" = "Axis", "hw.device" = "Print Server", "hw.product" = "{capture:1}", "hw.version" = "{capture:2}" }
+
+[[match]]
+name = "Ricoh Aficio multifunction device"
+pattern = "^RICOH Aficio ((?:[MS]P )?\\S+) FTP server \\(([0-9\\.a-zA-Z]+)\\) ready.?$"
+context = "ftp.banner"
+example = "RICOH Aficio 2045e FTP server (4.12) ready."
+metadata = { "hw.vendor" = "Ricoh", "hw.family" = "Aficio", "hw.device" = "Multifunction Device", "hw.product" = "{capture:1}", "os.vendor" = "Ricoh", "os.family" = "Aficio", "os.device" = "Multifunction Device", "os.product" = "{capture:1}", "os.version" = "{capture:2}" }
+
+[[match]]
+name = "Ricoh NRG multifunction device"
+pattern = "^NRG ((?:[MS]P )?\\S+) FTP server \\(([0-9\\.a-zA-Z]+)\\) ready.?$"
+context = "ftp.banner"
+example = "NRG MP C2800 FTP server (8.25) ready."
+metadata = { "os.vendor" = "Ricoh", "os.device" = "Multifunction Device", "os.product" = "{capture:1}", "os.version" = "{capture:2}", "hw.vendor" = "Ricoh", "hw.device" = "Multifunction Device", "hw.product" = "{capture:1}" }
+
+[[match]]
+name = "Xerox WorkCentre"
+pattern = "^Xerox WorkCentre ([A-Za-z0-9]+)"
+context = "ftp.banner"
+example = "Xerox WorkCentre 6605DN"
+metadata = { "os.vendor" = "Xerox", "os.family" = "WorkCentre", "os.device" = "Printer", "hw.vendor" = "Xerox", "hw.family" = "WorkCentre", "hw.device" = "Printer", "hw.product" = "{capture:1}" }
+
+[[match]]
+name = "Xerox Phaser Laser Printer"
+pattern = "^Xerox Phaser (\\S+)$"
+context = "ftp.banner"
+example = "Xerox Phaser 6130N"
+metadata = { "os.vendor" = "Xerox", "os.family" = "Phaser", "os.device" = "Printer", "os.product" = "{capture:1}", "hw.vendor" = "Xerox", "hw.family" = "Phaser", "hw.device" = "Printer", "hw.product" = "{capture:1}" }
+
+[[match]]
+name = "Xerox Wide Format Series of Printers"
+pattern = "^XEROX (\\d+) Wide Format"
+context = "ftp.banner"
+example = "XEROX 6204 Wide Format FTP server ready"
+metadata = { "os.vendor" = "Xerox", "os.family" = "Wide Format", "os.device" = "Printer", "os.product" = "{capture:1}", "hw.vendor" = "Xerox", "hw.family" = "Wide Format", "hw.device" = "Printer", "hw.product" = "{capture:1}" }
+
+[[match]]
+name = "FUJI XEROX DocuPrint Series of Printers"
+pattern = "^FUJI XEROX DocuPrint (.*)$"
+context = "ftp.banner"
+example = "FUJI XEROX DocuPrint 3055"
+metadata = { "os.vendor" = "FUJI XEROX", "os.family" = "DocuPrint", "os.device" = "Printer", "os.product" = "{capture:1}" }
+
+[[match]]
+name = "Lexmark printer with MAC address"
+pattern = "^ET(\\S{12}) Lexmark (\\S+) FTP Server (\\S+) ready\\.?$"
+context = "ftp.banner"
+example = "ET000400CEA560 Lexmark T640 FTP Server NS.NP.N219 ready."
+metadata = { "os.vendor" = "Lexmark", "os.device" = "Printer", "host.mac" = "{capture:1}", "os.version" = "{capture:3}", "hw.vendor" = "Lexmark", "hw.device" = "Printer", "hw.product" = "{capture:2}" }
+
+[[match]]
+name = "Lexmark printer with OS version"
+pattern = "Lexmark (\\S+) FTP Server (\\S+) ready\\.?$"
+context = "ftp.banner"
+example = "ET0021718 Lexmark T654 FTP Server NR.APS.F368 ready."
+metadata = { "os.vendor" = "Lexmark", "os.device" = "Printer", "os.version" = "{capture:2}", "hw.vendor" = "Lexmark", "hw.device" = "Printer", "hw.product" = "{capture:1}" }
+
+[[match]]
+name = "Lexmark printer"
+pattern = "Lexmark (\\S+) FTP Server ready\\.?$"
+context = "ftp.banner"
+example = "Lexmark X500 FTP server ready"
+metadata = { "os.vendor" = "Lexmark", "os.device" = "Printer", "hw.vendor" = "Lexmark", "hw.device" = "Printer", "hw.product" = "{capture:1}" }
+
+[[match]]
+name = "Kyocera Multifunction Device"
+pattern = "^220 ECOSYS ([^\\s]+) FTP server$"
+context = "ftp.banner"
+example = "220 ECOSYS P2135dn FTP server"
+metadata = { "os.vendor" = "Kyocera", "os.device" = "Multifunction Device", "hw.vendor" = "Kyocera", "hw.device" = "Multifunction Device", "hw.product" = "{capture:1}" }
+
+[[match]]
+name = "VxWorks with version information"
+pattern = "^(?:Tornado-)?VxWorks \\((?:VxWorks)?([^\\)]+)\\) FTP server(?: ready)?\\.?$"
+context = "ftp.banner"
+example = "VxWorks (5.3.1) FTP server ready"
+metadata = { "os.vendor" = "Wind River", "os.product" = "VxWorks", "os.version" = "{capture:1}", "os.cpe23" = "cpe:/o:windriver:vxworks:{os.version}" }
+
+[[match]]
+name = "VxWorks without version information"
+pattern = "^Tornado-vxWorks FTP server ready$"
+context = "ftp.banner"
+example = "Tornado-vxWorks FTP server ready"
+metadata = { "os.vendor" = "Wind River", "os.product" = "VxWorks", "os.cpe23" = "cpe:/o:windriver:vxworks:-" }
+
+[[match]]
+name = "VxWorks 6 with version information"
+pattern = "^[\\w\\-\\.]{0,128} FTP server \\((?:VxWorks\\s?)+([\\d\\.]+)\\) ready.$"
+context = "ftp.banner"
+example = "NanoDAC FTP server (VxWorks VxWorks 6.6) ready."
+metadata = { "os.vendor" = "Wind River", "os.product" = "VxWorks", "os.version" = "{capture:1}", "os.cpe23" = "cpe:/o:windriver:vxworks:{os.version}" }
+
+[[match]]
+name = "VxWorks on Tenor MultiPath with version information"
+pattern = "^[\\w<>]{1,32}\\s{1,8}Tenor Multipath Switch FTP server \\(Version VxWorks([\\d\\.]+)\\) ready\\.$"
+context = "ftp.banner"
+example = "<38785ca0>  Tenor Multipath Switch FTP server (Version VxWorks5.4.2) ready."
+metadata = { "os.vendor" = "Wind River", "os.product" = "VxWorks", "os.version" = "{capture:1}", "os.cpe23" = "cpe:/o:windriver:vxworks:{os.version}" }
+
+[[match]]
+name = "VxWorks with Secure NetLinx"
+pattern = "^VxWorks FTP server \\(VxWorks ([\\d\\.]+) - Secure NetLinx version \\([\\d\\.]+\\)\\) ready.$"
+context = "ftp.banner"
+example = "VxWorks FTP server (VxWorks 5.3.1 - Secure NetLinx version (1.0)) ready."
+metadata = { "os.vendor" = "Wind River", "os.product" = "VxWorks", "os.version" = "{capture:1}", "os.cpe23" = "cpe:/o:windriver:vxworks:{os.version}" }
+
+[[match]]
+name = "ADC iScale"
+pattern = "^ADC iScale$"
+vendor = "ADC"
+product = "iScale"
+context = "ftp.banner"
+example = "ADC iScale"
+metadata = { "os.vendor" = "ADC", "os.product" = "iScale" }
+
+[[match]]
+name = "Taskalfa Series of Printers"
+pattern = "^TASKalfa (\\d+c?i) FTP server"
+context = "ftp.banner"
+example = "TASKalfa 300ci FTP server"
+metadata = { "os.vendor" = "Kyocera", "os.family" = "TASKalfa", "os.device" = "Multifunction Device", "os.product" = "{capture:1}", "hw.vendor" = "Kyocera", "hw.family" = "TASKalfa", "hw.device" = "Multifunction Device", "hw.product" = "{capture:1}" }
+
+[[match]]
+name = "SAVIN Printer FTP Server"
+pattern = "^SAVIN (\\S+) FTP server \\((.*)\\) ready.$"
+context = "ftp.banner"
+example = "SAVIN 4075 FTP server (4.08) ready."
+metadata = { "os.vendor" = "Savin", "os.device" = "Printer", "os.product" = "{capture:1}", "os.version" = "{capture:2}", "hw.vendor" = "Savin", "hw.device" = "Printer", "hw.product" = "{capture:1}" }
+
+[[match]]
+name = "OCE IM series Printer"
+pattern = "^Oce (im\\d+) Ver (\\S+) FTP server\\.$"
+context = "ftp.banner"
+example = "Oce im4512 Ver 01.04.00.0c FTP server."
+metadata = { "os.vendor" = "Oce", "os.device" = "Multifunction Device", "os.family" = "IM Series", "os.product" = "{capture:1}", "os.version" = "{capture:2}" }
+
+[[match]]
+name = "OCE Printer"
+pattern = "^Oce (Plotwave\\d+) FTP Service \\(Version (\\S+)\\)\\.$"
+context = "ftp.banner"
+example = "Oce Plotwave300 FTP Service (Version 4.5.7)."
+metadata = { "os.vendor" = "Oce", "os.device" = "Printer", "os.family" = "Plotwave Series", "os.product" = "{capture:1}", "os.version" = "{capture:2}" }
+
+[[match]]
+name = "MPI Technologies Linkcom Express FTP Server with os version"
+pattern = "^LinkCom Xpress (.*) FTP version ([\\d\\.]+) ready$"
+context = "ftp.banner"
+example = "LinkCom Xpress 10/100 +IPDS FTP version 1.0 ready"
+metadata = { "hw.vendor" = "MPI Technologies", "hw.family" = "LinkCom Xpress", "hw.device" = "Print Server", "hw.product" = "{capture:1}", "os.version" = "{capture:2}" }
+
+[[match]]
+name = "MPI Technologies Linkcom Express FTP Server"
+pattern = "^LinkCom Xpress (.*)$"
+context = "ftp.banner"
+example = "LinkCom Xpress EIO PRO 10"
+metadata = { "hw.vendor" = "MPI Technologies", "hw.family" = "LinkCom Xpress", "hw.device" = "Print Server", "hw.product" = "{capture:1}" }
+
+[[match]]
+name = "IBM Infoprint FTP"
+pattern = "^LXKE\\S+ IBM Infoprint (\\d+) FTP Server (\\d+\\.\\d+\\.\\d+) ready.$"
+context = "ftp.banner"
+example = "LXKE82124 IBM Infoprint 1332 FTP Server 55.10.21 ready."
+metadata = { "os.vendor" = "Ricoh", "os.family" = "Infoprint", "os.device" = "Printer", "os.product" = "{capture:1}", "os.version" = "{capture:2}" }
+
+[[match]]
+name = "Gestetner Printer FTP"
+pattern = "^(Gestetner \\S+(?: \\S+)?) FTP server \\((.*)\\)"
+context = "ftp.banner"
+example = "Gestetner MP5500/DSm755 FTP server (5.11c) ready."
+metadata = { "os.vendor" = "Ricoh", "os.device" = "Multifunction Device", "os.product" = "{capture:1}", "os.version" = "{capture:2}" }
+
+[[match]]
+name = "Gestetner Printer FTP - short banner"
+pattern = "^(Gestetner \\S+)$"
+context = "ftp.banner"
+example = "Gestetner MPC2500"
+metadata = { "os.vendor" = "Ricoh", "os.device" = "Multifunction Device", "os.product" = "{capture:1}" }
+
+[[match]]
+name = "Lexmark Marknet Printers FTP"
+pattern = "^EUFSALE MarkNet (\\S+) FTP Server (\\d+\\.\\d+\\.\\d+) ready.$"
+context = "ftp.banner"
+example = "EUFSALE MarkNet X2011e FTP Server 4.20.21 ready."
+metadata = { "os.vendor" = "Lexmark", "os.family" = "MarkNet", "os.device" = "Print Server", "os.product" = "{capture:1}", "os.version" = "{capture:2}" }
+
+[[match]]
+name = "Source Technologies ST9600 Series Secure Printer"
+pattern = "^ET(\\S{1,12}) Source Technologies (ST-96\\S+) FTP Server (\\S+) ready\\.?$"
+context = "ftp.banner"
+example = "ET0021B730F70E Source Technologies ST-9620 FTP Server NJ.APS.N254e ready."
+metadata = { "os.vendor" = "Source Technologies", "os.family" = "ST9600 Series", "os.device" = "Printer", "host.mac" = "{capture:1}", "os.product" = "{capture:2}", "os.version" = "{capture:3}" }
+
+[[match]]
+name = "Lexmark ProXXX Series of Printers"
+pattern = "^ET(\\S{1,12}) (Pro\\d+) Series FTP Server ready\\.$"
+context = "ftp.banner"
+example = "ET0020007E4D2A Pro700 Series FTP Server ready."
+metadata = { "os.vendor" = "Lexmark", "os.device" = "Printer", "os.family" = "Pro Series", "host.mac" = "{capture:1}", "hw.vendor" = "Lexmark", "hw.family" = "Pro Series", "hw.device" = "Printer", "hw.product" = "{capture:2}" }
+
+[[match]]
+name = "Lexmark Forms Printer"
+pattern = "^ET(\\S{1,12}) Lexmark Forms Printer (\\d+) Ethernet FTP Server (\\S+) ready\\.$"
+context = "ftp.banner"
+example = "ET0020004F54EE Lexmark Forms Printer 2590 Ethernet FTP Server LCL.CU.P012c ready."
+metadata = { "os.vendor" = "Lexmark", "os.family" = "Forms Printer", "os.device" = "Printer", "host.mac" = "{capture:1}", "os.product" = "{capture:2}", "os.version" = "{capture:3}", "hw.vendor" = "Lexmark", "hw.family" = "Forms Printer", "hw.device" = "Printer", "hw.product" = "{capture:2}" }
+
+[[match]]
+name = "Toshiba e-STUDIO Printer with MAC address"
+pattern = "^ET(\\S{1,12}) TOSHIBA e-STUDIO500S FTP Server (\\S+) ready\\.$"
+context = "ftp.banner"
+example = "ET0004001E9C00 TOSHIBA e-STUDIO500S FTP Server NC2.NPS.N221 ready."
+metadata = { "os.vendor" = "Toshiba", "os.device" = "Multifunction Device", "os.product" = "e-STUDIO", "host.mac" = "{capture:1}", "os.version" = "{capture:2}", "hw.vendor" = "Toshiba", "hw.device" = "Multifunction Device", "hw.product" = "e-STUDIO" }
+
+[[match]]
+name = "Toshiba e-STUDIO Printer"
+pattern = "^\\S{1,16} TOSHIBA e-STUDIO500S FTP Server (\\S+) ready\\.$"
+context = "ftp.banner"
+example = "JHBPRN13 TOSHIBA e-STUDIO500S FTP Server NC2.NPS.N211 ready."
+metadata = { "os.vendor" = "Toshiba", "os.device" = "Multifunction Device", "os.product" = "e-STUDIO", "os.version" = "{capture:1}", "hw.vendor" = "Toshiba", "hw.device" = "Multifunction Device", "hw.product" = "e-STUDIO" }
+
+[[match]]
+name = "Lexmark Optra Printer"
+pattern = "Lexmark Optra (\\S+) FTP Server (\\S+) ready\\.$"
+context = "ftp.banner"
+example = "lex142785470853 Lexmark Optra T612 FTP Server 3.20.30 ready."
+metadata = { "os.vendor" = "Lexmark", "os.family" = "Optra", "os.device" = "Printer", "os.product" = "{capture:1}", "os.version" = "{capture:2}", "hw.vendor" = "Lexmark", "hw.family" = "Optra", "hw.device" = "Printer", "hw.product" = "{capture:1}" }
+
+[[match]]
+name = "Sharp Printer/Copier/Scanne"
+pattern = "^SHARP (MX-\\S+) Ver (\\S+) FTP server\\.$"
+context = "ftp.banner"
+example = "SHARP MX-6200N Ver 01.02.00.0e FTP server."
+metadata = { "os.vendor" = "Sharp", "os.device" = "Printer", "os.family" = "MX Series", "os.product" = "{capture:1}", "os.version" = "{capture:2}", "hw.vendor" = "Sharp", "hw.device" = "Printer", "hw.family" = "MX Series", "hw.product" = "{capture:1}" }
+
+[[match]]
+name = "Kyocera Printer with version string"
+pattern = "^(FS-\\S+MFP\\S*?) FTP server\\.?$"
+context = "ftp.banner"
+example = "FS-C2126MFP FTP server"
+metadata = { "os.vendor" = "Kyocera", "os.device" = "Multifunction Device", "os.product" = "{capture:1}", "hw.vendor" = "Kyocera", "hw.device" = "Multifunction Device", "hw.product" = "{capture:1}" }
+
+[[match]]
+name = "Kyocera Printer"
+pattern = "^(FS-\\S+(?:DN|D|N)) FTP server\\.?$"
+context = "ftp.banner"
+example = "FS-1370DN FTP server"
+metadata = { "os.vendor" = "Kyocera", "os.device" = "Printer", "os.family" = "FS", "os.product" = "{capture:1}", "hw.vendor" = "Kyocera", "hw.device" = "Printer", "hw.family" = "FS", "hw.product" = "{capture:1}" }
+
+[[match]]
+name = "Extended Systems ExtendNet Print Server"
+pattern = "^(ESI-\\S+) Version (\\S+) ready\\.$"
+context = "ftp.banner"
+example = "ESI-2941B Version 6.34 ready."
+metadata = { "os.vendor" = "Sybase", "os.family" = "Extended Systems ExtendNet", "os.device" = "Print Server", "os.product" = "{capture:1}", "os.version" = "{capture:2}", "hw.family" = "Extended Systems ExtendNet", "hw.device" = "Print Server", "hw.product" = "{capture:1}" }
+
+[[match]]
+name = "SATO Printer"
+pattern = "^SATO SATO PRINTER Ver (\\S+) FTP server\\.$"
+context = "ftp.banner"
+example = "SATO SATO PRINTER Ver A1.2.3 FTP server."
+metadata = { "os.vendor" = "SATO", "os.device" = "Printer", "os.version" = "{capture:1}", "hw.vendor" = "SATO", "hw.device" = "Printer" }
+
+[[match]]
+name = "AMTDatasouth Fastmark M5"
+pattern = "^Printer FTP (\\d+\\.\\d+\\.\\d+) ready at (\\w{3} \\d{2} \\d{2}:\\d{2}:\\d{2})$"
+context = "ftp.banner"
+example = "Printer FTP 4.8.7 ready at Apr 30 20:13:23"
+metadata = { "os.vendor" = "AMTDatasouth", "os.product" = "Fastmark M5", "os.device" = "Printer", "os.version" = "{capture:1}", "system.time.format" = "MMM dd HH:mm:ss", "system.time" = "{capture:2}", "hw.vendor" = "AMTDatasouth", "hw.product" = "Fastmark M5", "hw.device" = "Printer" }
+
+[[match]]
+name = "EFI FTP Print Server"
+pattern = "^EFI FTP Print server ready\\.$"
+vendor = "EFI"
+product = "Fiery Print Server"
+context = "ftp.banner"
+example = "EFI FTP Print server ready."
+metadata = { "os.vendor" = "EFI", "os.product" = "Fiery Print Server", "os.device" = "Print Server" }
+
+[[match]]
+name = "Sharp AR Series multifunction device"
+pattern = "^SHARP (AR-\\S+) Ver (\\S+) FTP server"
+context = "ftp.banner"
+example = "SHARP AR-M450 Ver 01.05.00.0k FTP server."
+metadata = { "os.vendor" = "Sharp", "os.device" = "Multifunction Device", "os.family" = "AR Series", "os.product" = "{capture:1}", "os.version" = "{capture:2}", "hw.vendor" = "Sharp", "hw.device" = "Multifunction Device", "hw.family" = "AR Series", "hw.product" = "{capture:1}" }
+
+[[match]]
+name = "Konica Minolta FTP Server - w/o version"
+pattern = "^KONICA MINOLTA FTP server ready\\.?$"
+vendor = "Konica Minolta"
+product = "KM FTPD"
+context = "ftp.banner"
+example = "KONICA MINOLTA FTP server ready."
+metadata = { "os.device" = "Printer", "os.vendor" = "Konica Minolta", "os.product" = "Printer", "hw.device" = "Printer", "hw.vendor" = "Konica Minolta", "hw.product" = "Printer" }
+
+[[match]]
+name = "Konica Minolta FTP Server"
+pattern = "^(KM\\S+) FTP server \\(KM FTPD version (\\d*(?:\\.\\d*))\\) ready\\.?$"
+version_group = 2
+vendor = "Konica Minolta"
+product = "KM FTPD"
+context = "ftp.banner"
+example = "KM23BC97 FTP server (KM FTPD version 1.00) ready."
+metadata = { "os.device" = "Printer", "os.vendor" = "Konica Minolta", "os.product" = "{capture:1}" }
+
+[[match]]
+name = "Zebra ZebraNet Print Server FTP"
+pattern = "^(ZBR-\\d+) Version (\\S+) ready\\.?$"
+context = "ftp.banner"
+example = "ZBR-46686 Version 7.02 ready."
+metadata = { "os.vendor" = "Zebra", "os.family" = "ZebraNet", "os.product" = "{hw.product} Firmware", "os.version" = "{capture:2}", "os.device" = "Print Server", "hw.vendor" = "Zebra", "hw.family" = "ZebraNet", "hw.product" = "{capture:1}", "hw.device" = "Print Server" }
+
+[[match]]
+name = "Dell Laser Printer"
+pattern = "^(ET(\\S{1,32})) Dell (\\S+ Laser Printer) FTP Server"
+context = "ftp.banner"
+example = "ET0021B71A1111 Dell 2350dn Laser Printer FTP Server NR.APS.N449 ready."
+metadata = { "os.vendor" = "Dell", "os.device" = "Printer", "hw.vendor" = "Dell", "hw.device" = "Printer", "host.name" = "{capture:1}", "host.mac" = "{capture:2}", "hw.product" = "{capture:3}" }
+
+[[match]]
+name = "Generic/unknown FTP Server found on HP-UX and AIX systems"
+pattern = "^(\\S{1,512}) FTP server \\(Version \\S+ \\w+ \\w+ \\d{1,2} \\d{1,2}:\\d{1,2}:\\d{1,2} [A-Z]+ (?:1|2)\\d{3}\\) ready\\.?$"
+context = "ftp.banner"
+example = "host.example.com FTP server (Version 4.1 Sat Sep 7 14:31:53 CDT 2002) ready."
+metadata = { "host.name" = "{capture:1}", "hw.certainty" = "0.0", "os.certainty" = "0.0", "service.certainty" = "0.0" }
+
+[[match]]
+name = "Cisco TelePresence"
+pattern = "^Welcome to the (?:Cisco )?(?:TelePresence) ([a-zA-Z\\s]*?) ((?:MSE )?\\d+), version (\\d+.\\d+\\(\\d+.\\d+\\)).*?"
+context = "ftp.banner"
+example = "Welcome to the Cisco TelePresence AM GW 3610, version 1.1(1.34) "
+metadata = { "os.vendor" = "Cisco", "os.product" = "TelePresence", "os.device" = "Video Conferencing", "hw.vendor" = "Cisco", "hw.series" = "{capture:1}", "hw.model" = "{capture:2}", "os.version" = "{capture:3}" }
+
+[[match]]
+name = "Digital/Compaq/HP Tru64 Unix"
+pattern = "^(\\S{1,512}) FTP server \\((?:HP|Compaq) Tru64 UNIX Version (\\S+)\\) ready\\.?$"
+context = "ftp.banner"
+example = "example.com FTP server (Compaq Tru64 UNIX Version 5.60) ready."
+metadata = { "os.vendor" = "HP", "os.family" = "Unix", "os.product" = "Tru64 Unix", "host.name" = "{capture:1}", "os.version" = "{capture:2}", "os.cpe23" = "cpe:/o:hp:tru64_unix:{os.version}" }
+
+[[match]]
+name = "Digital/Compaq/HP Tru64 Unix w/o branding"
+pattern = "^(\\S{1,512}) FTP server \\(Digital UNIX Version (\\S+)\\) ready\\.?$"
+context = "ftp.banner"
+example = "example.com FTP server (Digital UNIX Version 5.60) ready."
+metadata = { "os.vendor" = "HP", "os.family" = "Unix", "os.product" = "Digital Unix", "host.name" = "{capture:1}", "os.version" = "{capture:2}" }
+
+[[match]]
+name = "MikroTik"
+pattern = "^(\\S{1,512}) FTP server \\(MikroTik ([\\d\\.]+)\\) ready\\.?$"
+context = "ftp.banner"
+example = "example.com FTP server (MikroTik 6.18) ready"
+metadata = { "os.vendor" = "MikroTik", "os.product" = "RouterOS", "host.name" = "{capture:1}", "os.version" = "{capture:2}", "os.cpe23" = "cpe:/o:mikrotik:routeros:{os.version}" }
+
+[[match]]
+name = "MikroTik with description"
+pattern = "^.{0,1000} FTP server \\(MikroTik (\\d\\.[\\w\\.]+)\\) ready\\.?$"
+context = "ftp.banner"
+example = "Super Thing_Place-  FTP server (MikroTik 6.43.16) ready"
+metadata = { "os.vendor" = "MikroTik", "os.product" = "RouterOS", "os.version" = "{capture:1}", "os.cpe23" = "cpe:/o:mikrotik:routeros:{os.version}" }
+
+[[match]]
+name = "FTPD on an Asus Wireless Access Point/Router"
+pattern = "^Welcome to ASUS (B?RT-[\\w.-]+) FTP service\\.$"
+context = "ftp.banner"
+example = "Welcome to ASUS RT-AC68U FTP service."
+metadata = { "os.family" = "Linux", "os.product" = "Linux", "hw.vendor" = "Asus", "hw.device" = "WAP", "hw.product" = "{capture:1}" }
+
+[[match]]
+name = "FTPD on a ADSL/VDSL Modem/Wireless Access Point/Router"
+pattern = "^Welcome to ASUS (DSL-[\\w.-]+) FTP service\\.$"
+context = "ftp.banner"
+example = "Welcome to ASUS DSL-AC68U FTP service."
+metadata = { "os.family" = "Linux", "os.product" = "Linux", "hw.vendor" = "Asus", "hw.device" = "DSL Modem", "hw.product" = "{capture:1}" }
+
+[[match]]
+name = "FTPD on a T-Mobile branded Asus Wireless Access Point/Router"
+pattern = "^Welcome to ASUS (TM-\\w+) FTP service\\.$"
+context = "ftp.banner"
+example = "Welcome to ASUS TM-AC1900 FTP service."
+metadata = { "os.family" = "Linux", "os.product" = "Linux", "hw.vendor" = "Asus", "hw.device" = "WAP", "hw.product" = "{capture:1}" }
+
+[[match]]
+name = "FTPD on an AWM multifunction Modem/Wireless Access Point/Router/VoIP device"
+pattern = "^(FRITZ!Box[\\w()]+) FTP server ready\\.$"
+context = "ftp.banner"
+example = "FRITZ!Box7490 FTP server ready."
+metadata = { "hw.vendor" = "AVM", "hw.device" = "WAP", "hw.family" = "FRITZ!Box", "hw.product" = "{capture:1}" }
+
+[[match]]
+name = "FTPD on a ZyXEL (Huawei rebrand) WiMax WAP"
+pattern = "^HES_CPE FTP server \\(GNU inetutils ([\\w.]+)\\) ready\\.$"
+version_group = 1
+vendor = "GNU"
+product = "inetutils ftpd"
+context = "ftp.banner"
+example = "HES_CPE FTP server (GNU inetutils 1.4.1) ready."
+metadata = { "service.family" = "inetutils", "hw.vendor" = "Zyxel", "hw.family" = "WiMax", "hw.device" = "WAP" }
+
+[[match]]
+name = "FTPD on Speedport WLAN/ADSL routers (Deutsche Telekom mfg by misc)"
+pattern = "^Speedport W ?(\\S+) (?:Typ [A|B] )?FTP Server v([\\d.]+) ready$$"
+context = "ftp.banner"
+example = "Speedport W 723V Typ B FTP Server v1.40.000 ready"
+metadata = { "hw.vendor" = "Deutsche Telekom", "hw.device" = "WAP", "hw.family" = "Speedport", "hw.product" = "{capture:1}", "os.version" = "{capture:2}" }
+
+[[match]]
+name = "FTPD on a Synology DiskStation NAS"
+pattern = "^DiskStation FTP server ready\\.$"
+vendor = "GNU"
+product = "SmbFTPD"
+context = "ftp.banner"
+example = "DiskStation FTP server ready."
+metadata = { "service.family" = "SmbFTPD", "os.family" = "Linux", "os.product" = "Linux", "hw.vendor" = "Synology", "hw.family" = "DiskStation", "hw.device" = "NAS" }
+
+[[match]]
+name = "FTPD on a Synology device"
+pattern = "^Synology FTP server ready\\.$"
+vendor = "GNU"
+product = "SmbFTPD"
+context = "ftp.banner"
+example = "Synology FTP server ready."
+metadata = { "service.family" = "SmbFTPD", "os.family" = "Linux", "os.product" = "Linux", "hw.vendor" = "Synology" }
+
+[[match]]
+name = "FTPD on Western Digital My Book Live NAS"
+pattern = "^.Welcome to MyBookLive.$"
+context = "ftp.banner"
+example = "\"Welcome to MyBookLive\""
+metadata = { "hw.vendor" = "Western Digital", "hw.family" = "My Book", "hw.product" = "My Book Live", "hw.device" = "NAS" }
+
+[[match]]
+name = "Multicraft FTPD Server"
+pattern = "^Multicraft ([\\w.-]+) FTP server$"
+version_group = 1
+vendor = "Multicraft"
+product = "Multicraft"
+context = "ftp.banner"
+example = "Multicraft 2.0.2 FTP server"
+metadata = { "service.family" = "Multicraft" }
+
+[[match]]
+name = "Bftpd FTPD Server"
+pattern = "^bftpd ([\\d.]+) at ([a-f\\d.:]+) ready\\.$"
+version_group = 1
+vendor = "Bftpd Project"
+product = "Bftpd"
+context = "ftp.banner"
+example = "bftpd 2.2.1 at 192.168.0.1 ready."
+metadata = { "service.family" = "Bftpd", "service.cpe23" = "cpe:/a:bftpd_project:bftpd:{service.version}", "host.ip" = "{capture:2}" }
+
+[[match]]
+name = "ProFTPD on QNAP Turbo Station NAS"
+pattern = "^NASFTPD Turbo station (?:2.x )?([\\w.]+) Server \\(ProFTPD\\)(?: \\[([a-f\\d.:]+)\\])?$"
+version_group = 1
+vendor = "ProFTPD Project"
+product = "ProFTPD"
+context = "ftp.banner"
+example = "NASFTPD Turbo station 1.3.5a Server (ProFTPD) [192.168.1.100]"
+metadata = { "service.family" = "ProFTPD", "service.cpe23" = "cpe:/a:proftpd:proftpd:{service.version}", "hw.vendor" = "QNAP", "hw.family" = "Turbo Station", "hw.device" = "NAS", "host.ip" = "{capture:2}" }
+
+[[match]]
+name = "Twisted (Python) FTP Server"
+pattern = "^Twisted ([\\w.]+) FTP Server$"
+version_group = 1
+vendor = "Twisted Matrix Labs"
+product = "Twisted FTPD"
+context = "ftp.banner"
+example = "Twisted 14.0.0 FTP Server"
+metadata = { "service.family" = "Twisted" }
+
+[[match]]
+name = "Gene6 FTP Server on Windows"
+pattern = "^Gene6 FTP Server v(\\d{1,2}\\.\\d{1,2}\\.\\d{1,2}\\s{1,2}\\(Build \\d{1,2}\\)) ready\\.\\.\\.$"
+version_group = 1
+vendor = "Gene6"
+product = "FTP Server"
+context = "ftp.banner"
+example = "Gene6 FTP Server v3.10.0 (Build 2) ready..."
+metadata = { "service.family" = "Gene6", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows", "os.cpe23" = "cpe:/o:microsoft:windows:-" }
+
+[[match]]
+name = "WS_FTP FTP Server on Windows - X2 variant"
+pattern = "^([\\w.-]{1,512}) X2 WS_FTP Server ([\\d.]{3,6}\\s?\\(\\d+\\))$"
+version_group = 2
+vendor = "Ipswitch"
+product = "WS_FTP"
+context = "ftp.banner"
+example = "a.host.name.tld X2 WS_FTP Server 7.7(50012467)"
+metadata = { "service.family" = "WS_FTP", "service.cpe23" = "cpe:/a:ipswitch:ws_ftp:{service.version}", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows", "os.cpe23" = "cpe:/o:microsoft:windows:-", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "WS_FTP FTP Server on Windows - V2 variant"
+pattern = "^V2 WS_FTP Server ([\\d.]{3,6}\\s?\\(\\d+\\))$"
+version_group = 1
+vendor = "Ipswitch"
+product = "WS_FTP"
+context = "ftp.banner"
+example = "V2 WS_FTP Server 6.1(05544322)"
+metadata = { "service.family" = "WS_FTP", "service.cpe23" = "cpe:/a:ipswitch:ws_ftp:{service.version}", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows", "os.cpe23" = "cpe:/o:microsoft:windows:-" }
+
+[[match]]
+name = "ZyXEL Unified Security Gateway"
+pattern = "^FTP Server \\(ZyWALL (USG\\s?[\\w-]+)\\) \\[([a-f\\d:.]+)\\]$"
+vendor = "Zyxel"
+product = "FTPD"
+context = "ftp.banner"
+example = "FTP Server (ZyWALL USG 20) [::ffff:192.168.0.2]"
+metadata = { "service.family" = "Unified Security Gateway", "host.ip" = "{capture:2}", "hw.vendor" = "Zyxel", "hw.family" = "Unified Security Gateway", "hw.product" = "{capture:1}" }
+
+[[match]]
+name = "FTPD on a TP-LINK device (no version/host info)"
+pattern = "^Welcome to TP-LINK FTP server$"
+context = "ftp.banner"
+example = "Welcome to TP-LINK FTP server"
+metadata = { "hw.vendor" = "TP-LINK" }
+
+[[match]]
+name = "FTPD on a TP-LINK device with version, but no host info"
+pattern = "^TP-LINK FTP version ([\\d\\.]+)"
+version_group = 1
+product = "FTPD"
+context = "ftp.banner"
+example = "TP-LINK FTP version 1.0 ready at Wed May  1 20:51:49 2019"
+metadata = { "hw.vendor" = "TP-LINK" }
+
+[[match]]
+name = "ucftpd with version"
+pattern = "^ucftpd\\((\\w{3}\\s+\\d{1,2} \\d{4}-\\d\\d:\\d\\d:\\d\\d)\\) FTP server ready\\.$"
+version_group = 1
+product = "ucftpd"
+context = "ftp.banner"
+example = "ucftpd(Jul  2 2012-22:13:49) FTP server ready."
+metadata = { "service.family" = "ucftpd" }
+
+[[match]]
+name = "ucftpd without version"
+pattern = "^ucftpd FTP server ready\\.$"
+product = "ucftpd"
+context = "ftp.banner"
+example = "ucftpd FTP server ready."
+metadata = { "service.family" = "ucftpd" }
+
+[[match]]
+name = "TBS FTP Server"
+pattern = "^Welcome to TBS FTP Server\\.$"
+product = "TBS FTP Server"
+context = "ftp.banner"
+example = "Welcome to TBS FTP Server."
+metadata = { "service.family" = "TBS FTP Server" }
+
+[[match]]
+name = "Sofrel Remote Terminal Unit"
+pattern = "^Sofrel (S5[\\w]+) SN ([\\d-]+)  ready. Time is (\\d{2}:\\d{2}:\\d{2} \\d{2}\\/\\d{2}\\/\\d{2})\\.$"
+context = "ftp.banner"
+example = "Sofrel S500 SN 01-499-00427  ready. Time is 00:11:39 01/11/16."
+metadata = { "hw.vendor" = "Sofrel", "hw.family" = "S500 Range", "hw.product" = "{capture:1}", "hw.serial_number" = "{capture:2}", "system.time.format" = "HH:mm:ss dd/MM/yy", "system.time" = "{capture:3}" }
+
+[[match]]
+name = "ALCATEL Service Router running TiMOS"
+pattern = "^TiMOS-[CB]-([\\S]+) cpm\\/[\\w]+ ALCATEL (SR [\\S]+) Copyright .{1,4}$"
+context = "ftp.banner"
+example = "TiMOS-C-13.0.R9 cpm/hops64 ALCATEL SR 7750 Copyright ("
+metadata = { "os.vendor" = "ALCATEL", "os.version" = "{capture:1}", "hw.vendor" = "ALCATEL", "hw.family" = "Service Router", "hw.product" = "{capture:2}" }
+
+[[match]]
+name = "Generic FTP fingerprint with a hostname"
+pattern = "^(\\S{1,512}) FTP server ready\\.?$"
+context = "ftp.banner"
+example = "example.com FTP server ready."
+metadata = { "host.name" = "{capture:1}", "hw.certainty" = "0.0", "os.certainty" = "0.0", "service.certainty" = "0.0" }
+
+[[match]]
+name = "Generic FTP fingerprint with a hostname and a version for a generic FTP implementation"
+pattern = "^(\\S{1,512}) FTP server \\(Version (\\d.*)\\) ready\\.?$"
+version_group = 2
+context = "ftp.banner"
+example = "example.com FTP server (Version 6.00LS) ready."
+metadata = { "host.name" = "{capture:1}" }
+
+[[match]]
+name = "Generic FTP fingerprint without a hostname"
+pattern = "(?i)^FTP[\\- ]+(?:server|service)?(?:(?: is)? ready)?\\.?$"
+context = "ftp.banner"
+example = "FTP server is ready."
+metadata = { "hw.certainty" = "0.0", "os.certainty" = "0.0", "service.certainty" = "0.0" }
+
+[[match]]
+name = "The FTP server of the ProRat malware"
+pattern = "^Welcom to ProRat Ftp Server$"
+vendor = "Pro Group"
+product = "ProRat"
+context = "ftp.banner"
+example = "Welcom to ProRat Ftp Server"
+
+[[match]]
+name = "Vermillion FTP Daemon"
+pattern = "^(?:(\\S{1,512}) )?FTP Server \\(vftpd ([\\d.]+)\\) ready\\.?$"
+version_group = 2
+vendor = "Vermillion"
+product = "FTP Daemon"
+context = "ftp.banner"
+example = "srv.name FTP Server (vftpd 1.23) ready."
+metadata = { "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows", "os.cpe23" = "cpe:/o:microsoft:windows:-", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "QVT/Net FTP Server"
+pattern = "^(?:(\\S{1,512}) )?FTP server \\(QVT\\/Net ([\\d.]+)\\) ready\\.?$"
+version_group = 2
+vendor = "QPC Software"
+product = "QVT/Net"
+context = "ftp.banner"
+example = "siren FTP server (QVT/Net 5.1) ready."
+metadata = { "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows", "os.cpe23" = "cpe:/o:microsoft:windows:-", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "Amazon Linux AMI"
+pattern = "Amazon\\sLinux\\sAMI\\srelease\\s(\\d+\\.\\d+)"
+context = "ftp.banner"
+example = "Amazon Linux AMI release 2016.09"
+metadata = { "os.vendor" = "Amazon", "os.family" = "Linux", "os.product" = "Linux AMI", "os.version" = "{capture:1}" }
+
+[[match]]
+name = "Idea FTP Server"
+pattern = "^Idea FTP Server ([\\d\\.]+) \\((.*)\\) \\[(.+)\\]$"
+version_group = 1
+vendor = "Idea"
+product = "FTP Server"
+context = "ftp.banner"
+example = "Idea FTP Server 0.83.213 (localhost) [1.2.3.4]"
+metadata = { "host.name" = "{capture:2}", "host.ip" = "{capture:3}" }
+
+[[match]]
+name = "Amazon FTP endpoint"
+pattern = "^Amazon Ftp$"
+vendor = "Amazon"
+product = "FTP Server"
+context = "ftp.banner"
+example = "Amazon Ftp"
+
+[[match]]
+name = "Dreamhost FTP endpoint"
+pattern = "^Dreamhost FTP Server$"
+vendor = "Dreamhost"
+product = "FTP Server"
+context = "ftp.banner"
+example = "Dreamhost FTP Server"
+
+[[match]]
+name = "IBM iSeries FTP"
+pattern = "^QTCP at ([a-zA-Z0-9\\.\\_\\-]+)$"
+context = "ftp.banner"
+example = "QTCP at core.bank.local."
+metadata = { "os.vendor" = "IBM", "os.family" = "OS/400", "os.product" = "OS/400", "os.cpe23" = "cpe:/o:ibm:os_400:-", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "ELAN Smart Home Controller"
+pattern = "^HomeLogic FTP Server"
+context = "ftp.banner"
+example = "HomeLogic FTP Server Please Give User Name"
+metadata = { "hw.vendor" = "ELAN", "hw.device" = "Building Automation", "hw.product" = "Home Controller", "os.vendor" = "ELAN", "os.family" = "Linux" }
+
+[[match]]
+name = "Honeywell Thermal Label Printer (Previously Intermec)"
+pattern = "^Welcome to Honeywell Printer (PM\\d+)\\S+?$"
+context = "ftp.banner"
+example = "Welcome to Honeywell Printer PM43c"
+metadata = { "hw.vendor" = "Honeywell", "hw.model" = "{capture:1}", "hw.product" = "Thermal Label Printer {hw.model}", "hw.device" = "Printer", "os.vendor" = "Honeywell", "os.product" = "Thermal Label Printer {hw.model}", "os.device" = "Printer" }
+
+[[match]]
+name = "NetWin SurgeFTP"
+pattern = "^SurgeFTP ([\\S]+) \\(Version ([a-f\\d.]+)\\)$"
+version_group = 2
+vendor = "NetWin"
+product = "SurgeFTP"
+context = "ftp.banner"
+example = "SurgeFTP 192.168.0.0 (Version 2.3a12)"
+metadata = { "service.cpe23" = "cpe:/a:netwin:surgeftp:{service.version}", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "CyberPower UPS Device"
+pattern = "^CyberPower Systems FTP Server Ready"
+context = "ftp.banner"
+example = "CyberPower Systems FTP Server Ready."
+metadata = { "hw.vendor" = "CyberPower", "hw.device" = "Power Device" }
+
+[[match]]
+name = "Server Technology Sentry Switched Device"
+pattern = "^(Sentry Switched (?:PDU|CDU)) v(\\d+(?:\\.\\d+)*[a-z](?:-[a-z][0-9])*) FTP server ready\\."
+context = "ftp.banner"
+example = "Sentry Switched PDU v8.0w FTP server ready."
+metadata = { "os.vendor" = "Server Technology", "os.product" = "{hw.product} Firmware", "os.version" = "{capture:2}", "hw.vendor" = "Server Technology", "hw.product" = "{capture:1}", "hw.device" = "Power Device" }
+
+[[match]]
+name = "Weidmüller Printer"
+pattern = "^Printer's ftp server (?:\\d+) Please login with USER and PASS\\.$"
+context = "ftp.banner"
+example = "Printer's ftp server 530 Please login with USER and PASS."
+metadata = { "hw.vendor" = "Weidmüller", "hw.device" = "Printer" }
+
+[[match]]
+name = "Medusa - extensible Internet server framework for Python"
+pattern = "^(\\S{1,512})?\\s*FTP server \\(Medusa Async V(\\d+(?:\\.\\d+)*) \\[experimental\\]\\) ready\\.$"
+version_group = 2
+vendor = "Nightmare Software"
+product = "Medusa"
+context = "ftp.banner"
+example = "foo.bar FTP server (Medusa Async V2.43 [experimental]) ready."
+metadata = { "host.name" = "{capture:1}" }
+

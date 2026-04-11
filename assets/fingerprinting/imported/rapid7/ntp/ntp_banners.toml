@@ -1,0 +1,636 @@
+# This file contains fingerprints imported from Rapid7 Recog.
+# Source: https://github.com/rapid7/recog
+# License: BSD-2-Clause
+
+[service]
+attribution = "Rapid7 Recog"
+name = "ntp"
+default_ports = []
+description = "Imported from Rapid7 ntp_banners"
+
+[[match]]
+name = "Greyware Automation Products, Inc. Domain Time II on Windows Server 2003"
+pattern = "version=Domain Time II (\\S+),hostname=([^,]+),.*system=Win2003.*,processor=(\\S+)"
+version_group = 1
+vendor = "Greyware Automation Products, Inc."
+product = "Domain Time II"
+context = "ntp.readvar"
+example = "\n      version=Domain Time II 5.1.b.20100331R,hostname=blah,domain=,flat=WORKGROUP,system=Win2003 x64,processor=x64\n    "
+metadata = { "host.name" = "{capture:2}", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows Server 2003", "os.arch" = "{capture:3}", "os.cpe23" = "cpe:/o:microsoft:windows_server_2003:-" }
+
+[[match]]
+name = "Greyware Automation Products, Inc. Domain Time II on Windows Server 2008 R2"
+pattern = "version=Domain Time II (\\S+),hostname=([^,]+),.*system=Win2008R2.*,processor=(\\S+)"
+version_group = 1
+vendor = "Greyware Automation Products, Inc."
+product = "Domain Time II"
+context = "ntp.readvar"
+example = "\n      version=Domain Time II 5.2.b.20120215R,hostname=blah,domain=blah,flat=blah,system=Win2008R2 x64,processor=x64\n    "
+metadata = { "host.name" = "{capture:2}", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows Server 2008 R2", "os.arch" = "{capture:3}", "os.cpe23" = "cpe:/o:microsoft:windows_server_2008:-" }
+
+[[match]]
+name = "Greyware Automation Products, Inc. Domain Time II on Windows 2008"
+pattern = "version=Domain Time II (\\S+),hostname=([^,]+),.*system=Win2008.*,processor=(\\S+)"
+version_group = 1
+vendor = "Greyware Automation Products, Inc."
+product = "Domain Time II"
+context = "ntp.readvar"
+example = "\n      version=Domain Time II 5.2.b.20140303R,hostname=blah,domain=blah,flat=blah,system=Win2008,processor=x86\n    "
+metadata = { "host.name" = "{capture:2}", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows Server 2008", "os.arch" = "{capture:3}", "os.cpe23" = "cpe:/o:microsoft:windows_server_2008:-" }
+
+[[match]]
+name = "Greyware Automation Products, Inc. Domain Time II on Windows Server 2012"
+pattern = "version=Domain Time II (\\S+),hostname=([^,]+),.*system=Win2012.*,processor=(\\S+)"
+version_group = 1
+vendor = "Greyware Automation Products, Inc."
+product = "Domain Time II"
+context = "ntp.readvar"
+example = "\n      version=Domain Time II 5.2.b.20140101R,hostname=blah,domain=blah,flat=blah,system=Win2012 x64,processor=x64\n    "
+metadata = { "host.name" = "{capture:2}", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows Server 2012", "os.arch" = "{capture:3}", "os.cpe23" = "cpe:/o:microsoft:windows_server_2012:-" }
+
+[[match]]
+name = "Greyware Automation Products, Inc. Domain Time II on Windows 7"
+pattern = "version=Domain Time II (\\S+),hostname=([^,]+),.*system=Win7.*,processor=(\\S+)"
+version_group = 1
+vendor = "Greyware Automation Products, Inc."
+product = "Domain Time II"
+context = "ntp.readvar"
+example = "\n      version=Domain Time II 5.2.b.20130405R,hostname=blah,domain=,flat=WORKGROUP,system=Win7 x64,processor=x64\n    "
+metadata = { "host.name" = "{capture:2}", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows 7", "os.arch" = "{capture:3}", "os.cpe23" = "cpe:/o:microsoft:windows_7:-" }
+
+[[match]]
+name = "ntpd running on an EqualLogic Storage Array that includes the NTP version"
+pattern = "version=\"ntpd (\\S+)[^\"]+\",.*system=\"Equallogic \\(R\\) storage array\""
+version_group = 1
+product = "NTP"
+context = "ntp.readvar"
+example = "\n      version=\"ntpd 4.2.0-r Fri Feb  5 15:18:30 EST 2010 (1)\",\n      processor=\"Working\", system=\"EqualLogic (R) storage array\", leap=0,\n      stratum=3, precision=-7, rootdelay=102.894, rootdispersion=245.154,\n      peer=63940, refid=172.23.16.40, reftime=0xd22791f2.e4026bd4, poll=10,\n      clock=0xd2279937.d078b9f3, state=4, offset=8.644, frequency=39.586,\n      jitter=10.870, stability=0.795\n    "
+metadata = { "service.family" = "NTP", "os.vendor" = "EqualLogic", "os.product" = "Storage Array" }
+
+[[match]]
+name = "ntpd running on an EqualLogic Storage Array that does not include the NTP version"
+pattern = "system=\"Equallogic \\(R\\) storage array\""
+context = "ntp.readvar"
+example = "\n      processor=\"Working\", system=\"Equallogic (R) storage array\", leap=3,\n      stratum=16, precision=-7, rootdelay=0.000, rootdispersion=11715.765,\n      peer=0, refid=0.0.0.0, reftime=0x00000000.00000000, poll=6,\n      clock=0xd229efe1.5559b3d0, state=1, phase=0.000, frequency=0.000,\n      jitter=0.000, stability=0.000\n    "
+metadata = { "os.vendor" = "EqualLogic", "os.product" = "Storage Array" }
+
+[[match]]
+name = "ntpd running on VMware ESX"
+pattern = "version=\"ntpd ([^ ]+)[^\"]+\",.*processor=\"([^ ]+)\",.*system=\"Linux/(?:[^ ]+\\.ESX)\""
+version_group = 1
+product = "NTP"
+context = "ntp.readvar"
+example = "\n      version=\"ntpd 4.2.2p1@1.1570-o Thu Nov 26 11:34:34 UTC 2009 (1)\",\n      processor=\"x86_64\", system=\"Linux/2.6.18-194.ESX\"\n    "
+metadata = { "service.family" = "NTP", "os.vendor" = "VMware", "os.family" = "VMware ESX/ESXi", "os.product" = "VMware ESX Server", "os.arch" = "{capture:2}", "os.device" = "Hypervisor", "os.cpe23" = "cpe:/o:vmware:esx:-", "hw.device" = "Hypervisor" }
+
+[[match]]
+name = "ntpd running on Linux"
+pattern = "version=\"ntpd ([^ ]+)[^\"]+\",.*processor=\"([^ ]+)\",.*system=\"Linux/?([^ ]+)\""
+version_group = 1
+product = "NTP"
+context = "ntp.readvar"
+example = "\n      version=\"ntpd 4.2.4p3@1.1502-o Wed Jul 18 11:45:01 UTC 2007 (1)\",\n      processor=\"i686\", system=\"Linux/2.4.29\", leap=00, stratum=3,\n    "
+metadata = { "service.family" = "NTP", "os.vendor" = "Linux", "os.family" = "Linux", "os.product" = "Linux", "os.arch" = "{capture:2}", "os.version" = "{capture:3}", "os.cpe23" = "cpe:/o:linux:linux_kernel:{os.version}" }
+
+[[match]]
+name = "ntpd running on Mac OSX 10.2/Jaguar"
+pattern = "version=\"ntpd ([^ ]+)[^\"]+\",.*processor=\"([^\"]+)\",.*system=\"Darwin/?6\\.([^\"]+)\""
+version_group = 1
+product = "NTP"
+context = "ntp.readvar"
+example = "\n      version=\"ntpd 4.1.1@1.786 Tue Nov 12 09:30:41 PST 2002 (1)\", processor=\"Power Macintosh\", system=\"Darwin6.8\",\n    "
+metadata = { "service.family" = "NTP", "os.vendor" = "Apple", "os.family" = "Mac OS X", "os.product" = "Mac OS X", "os.arch" = "{capture:2}", "os.version" = "10.2", "os.version.version" = "{capture:3}", "os.certainty" = "0.9", "os.cpe23" = "cpe:/o:apple:mac_os_x:10.2" }
+
+[[match]]
+name = "ntpd running on Mac OSX 10.3/Panther"
+pattern = "version=\"ntpd ([^ ]+)[^\"]+\",.*processor=\"([^\"]+)\",.*system=\"Darwin/?7\\.([^\"]+)\""
+version_group = 1
+product = "NTP"
+context = "ntp.readvar"
+metadata = { "service.family" = "NTP", "os.vendor" = "Apple", "os.family" = "Mac OS X", "os.product" = "Mac OS X", "os.arch" = "{capture:2}", "os.version" = "10.3", "os.version.version" = "{capture:3}", "os.certainty" = "0.9", "os.cpe23" = "cpe:/o:apple:mac_os_x:10.3" }
+
+[[match]]
+name = "ntpd running on Mac OSX 10.4/Tiger"
+pattern = "version=\"ntpd ([^ ]+)[^\"]+\",.*processor=\"([^\"]+)\",.*system=\"Darwin/?8\\.([^\"]+)\""
+version_group = 1
+product = "NTP"
+context = "ntp.readvar"
+example = "\n      version=\"ntpd 4.2.0@1.1161-r Fri Jan 13 11:36:23 PST 2006 (1)\",\n      processor=\"i386\", system=\"Darwin/8.11.1\", leap=11, stratum=16,\n    "
+metadata = { "service.family" = "NTP", "os.vendor" = "Apple", "os.family" = "Mac OS X", "os.product" = "Mac OS X", "os.arch" = "{capture:2}", "os.version" = "10.4", "os.version.version" = "{capture:3}", "os.certainty" = "0.9", "os.cpe23" = "cpe:/o:apple:mac_os_x:10.4" }
+
+[[match]]
+name = "ntpd running on Mac OSX 10.5/Leopard"
+pattern = "version=\"ntpd ([^ ]+)[^\"]+\",.*processor=\"([^\"]+)\",.*system=\"Darwin/?9\\.([^\"]+)\""
+version_group = 1
+product = "NTP"
+context = "ntp.readvar"
+example = "\n      version=\"ntpd 4.2.2@1.1532-o Mon Sep 24 01:42:27 UTC 2007 (1)\",\n      processor=\"Power Macintosh\", system=\"Darwin/9.0.0\", leap=3, stratum=16,\n    "
+metadata = { "service.family" = "NTP", "os.vendor" = "Apple", "os.family" = "Mac OS X", "os.product" = "Mac OS X", "os.arch" = "{capture:2}", "os.version" = "10.5", "os.version.version" = "{capture:3}", "os.certainty" = "0.9", "os.cpe23" = "cpe:/o:apple:mac_os_x:10.5" }
+
+[[match]]
+name = "ntpd running on Mac OSX 10.6/Snow Leopard"
+pattern = "version=\"ntpd ([^ ]+)[^\"]+\",.*processor=\"([^\"]+)\",.*system=\"Darwin/?10\\.([^\"]+)\""
+version_group = 1
+product = "NTP"
+context = "ntp.readvar"
+example = "\n      version=\"ntpd 4.2.4p4@1.1520-o Mon May 18 19:38:25 UTC 2009 (1)\",\n      processor=\"i386\", system=\"Darwin/10.8.0\", leap=0, stratum=3,\n    "
+metadata = { "service.family" = "NTP", "os.vendor" = "Apple", "os.family" = "Mac OS X", "os.product" = "Mac OS X", "os.arch" = "{capture:2}", "os.version" = "10.6", "os.version.version" = "{capture:3}", "os.certainty" = "0.9", "os.cpe23" = "cpe:/o:apple:mac_os_x:10.6" }
+
+[[match]]
+name = "BSD/OS with a version and arch"
+pattern = "processor=\"([^\"]+)\".*system=\"BSD/OS([\\d.]+)\""
+context = "ntp.readvar"
+example = "\n      processor=\"i386\", system=\"BSD/OS4.3.1\", leap=0, stratum=2\n    "
+metadata = { "os.vendor" = "Berkeley Software Design Inc.", "os.product" = "BSD/OS", "os.arch" = "{capture:1}", "os.version" = "{capture:2}" }
+
+[[match]]
+name = "BSD/OS without a version or arch"
+pattern = "system=\"BSD/OS\""
+context = "ntp.readvar"
+example = "\n      system=\"BSD/OS\", leap=3, stratum=16, rootdelay=0.00\n    "
+metadata = { "os.vendor" = "Berkeley Software Design Inc.", "os.product" = "BSD/OS" }
+
+[[match]]
+name = "ntpd running on Mac OSX 10.7/Lion"
+pattern = "version=\"ntpd ([^ ]+)[^\"]+\",.*processor=\"([^\"]+)\",.*system=\"Darwin/?11\\.([^\"]+)\""
+version_group = 1
+product = "NTP"
+context = "ntp.readvar"
+example = "\n      version=\"ntpd 4.2.6@1.2089-o Fri May 28 01:20:53 UTC 2010 (1)\",\n      processor=\"x86_64\", system=\"Darwin/11.2.0\", leap=11, stratum=16,\n    "
+metadata = { "service.family" = "NTP", "os.vendor" = "Apple", "os.family" = "Mac OS X", "os.product" = "Mac OS X", "os.arch" = "{capture:2}", "os.version" = "10.7", "os.version.version" = "{capture:3}", "os.certainty" = "0.9", "os.cpe23" = "cpe:/o:apple:mac_os_x:10.7" }
+
+[[match]]
+name = "ntpd running on Mac OSX 10.8/Mountain Lion"
+pattern = "version=\"ntpd ([^ ]+)[^\"]+\",.*processor=\"([^\"]+)\",.*system=\"Darwin/?12\\.([^\"]+)\""
+version_group = 1
+product = "NTP"
+context = "ntp.readvar"
+example = "\n      version=\"ntpd 4.2.6@1.2089-o Fri May 28 01:20:53 UTC 2010 (1)\",\n      processor=\"x86_64\", system=\"Darwin/12.1.0\", leap=3, stratum=16,\n    "
+metadata = { "service.family" = "NTP", "os.vendor" = "Apple", "os.family" = "Mac OS X", "os.product" = "Mac OS X", "os.arch" = "{capture:2}", "os.version" = "10.8", "os.version.version" = "{capture:3}", "os.certainty" = "0.9", "os.cpe23" = "cpe:/o:apple:mac_os_x:10.8" }
+
+[[match]]
+name = "ntpd running on Mac OSX 10.9/Mavericks"
+pattern = "version=\"ntpd ([^ ]+)[^\"]+\",.*processor=\"([^\"]+)\",.*system=\"Darwin/?13\\.([^\"]+)\""
+version_group = 1
+product = "NTP"
+context = "ntp.readvar"
+example = "\n      version=\"ntpd 4.2.6@1.2089-o Fri May 28 01:20:53 UTC 2010 (1)\",\n      processor=\"x86_64\", system=\"Darwin/13.4.0\", leap=3, stratum=16,\n    "
+metadata = { "service.family" = "NTP", "os.vendor" = "Apple", "os.family" = "Mac OS X", "os.product" = "Mac OS X", "os.arch" = "{capture:2}", "os.version" = "10.9", "os.version.version" = "{capture:3}", "os.certainty" = "0.9", "os.cpe23" = "cpe:/o:apple:mac_os_x:10.9" }
+
+[[match]]
+name = "ntpd running on Mac OSX 10.10/Yosemite"
+pattern = "version=\"ntpd ([^ ]+)[^\"]+\",.*processor=\"([^\"]+)\",.*system=\"Darwin/?14\\.([^\"]+)\""
+version_group = 1
+product = "NTP"
+context = "ntp.readvar"
+example = "\n      version=\"ntpd 4.2.6@1.2089-o Fri May 28 01:20:53 UTC 2010 (1)\",\n      processor=\"x86_64\", system=\"Darwin/14.3.0\", leap=00, stratum=2,\n    "
+metadata = { "service.family" = "NTP", "os.vendor" = "Apple", "os.family" = "Mac OS X", "os.product" = "Mac OS X", "os.arch" = "{capture:2}", "os.version" = "10.10", "os.version.version" = "{capture:3}", "os.certainty" = "0.9", "os.cpe23" = "cpe:/o:apple:mac_os_x:10.10" }
+
+[[match]]
+name = "ntpd running on Citrix Netscaler, which is based on FreeBSD"
+pattern = "version=\"ntpd ([^ p]+)(p[^ \"]+)?[^\"]+\",.*processor=\"([^ ]+)\",.*system=\"FreeBSD/?(?:[^ ]+-NETSCALER-([^ ]+))\""
+version_group = 1
+vendor = "NTP"
+product = "NTP"
+context = "ntp.readvar"
+example = "\n      version=\"ntpd 4.2.6p2@1.2194 Wed Nov 24 15:54:11 UTC 2010 (1)\",\n      processor=\"i386\", system=\"FreeBSD/6.3-NETSCALER-9.3\", leap=00, stratum=3,\n    "
+metadata = { "service.version.version" = "{capture:2}", "service.cpe23" = "cpe:/a:ntp:ntp:{service.version}", "os.vendor" = "Citrix", "os.family" = "NetScaler", "os.device" = "Network Management Device", "os.product" = "NetScaler", "os.arch" = "{capture:3}", "os.version" = "{capture:4}", "os.cpe23" = "cpe:/o:citrix:netscaler_firmware:{os.version}" }
+
+[[match]]
+name = "ntpd running on FreeBSD"
+pattern = "version=\"ntpd ([^ ]+)[^\"]+\",.*processor=\"([^ ]+)\",.*system=\"FreeBSD/?([^ ]+)\""
+version_group = 1
+product = "NTP"
+context = "ntp.readvar"
+example = "\n      version=\"ntpd 4.2.6p2@1.2194 Wed Nov 24 15:54:11 UTC 2010 (1)\",\n      processor=\"i386\", system=\"FreeBSD/7.4-PRERELEASE\", leap=00, stratum=3,\n    "
+metadata = { "service.family" = "NTP", "os.vendor" = "FreeBSD", "os.family" = "FreeBSD", "os.product" = "FreeBSD", "os.arch" = "{capture:2}", "os.version" = "{capture:3}", "os.cpe23" = "cpe:/o:freebsd:freebsd:{os.version}" }
+
+[[match]]
+name = "ntp without a version on FreeBSD"
+pattern = "processor=\"([^ ]+)\",.*system=\"FreeBSD/?([^ ]+)\""
+context = "ntp.readvar"
+example = "\n      processor=\"i386\", system=\"FreeBSD4.1-RELEASE\"\n    "
+metadata = { "os.vendor" = "FreeBSD", "os.family" = "FreeBSD", "os.product" = "FreeBSD", "os.arch" = "{capture:1}", "os.version" = "{capture:2}", "os.cpe23" = "cpe:/o:freebsd:freebsd:{os.version}" }
+
+[[match]]
+name = "ntpd running on NetBSD"
+pattern = "version=\"ntpd ([^ ]+)[^\"]+\",.*processor=\"([^ ]+)\",.*system=\"NetBSD/?([^ ]+)\""
+version_group = 1
+product = "NTP"
+context = "ntp.readvar"
+example = "\n      version=\"ntpd 4.2.4p6-o Thu Jan  8 21:02:40 MET 2009 (import)\",\n      processor=\"sparc64\", system=\"NetBSD/5.0_STABLE\", leap=00, stratum=1,\n    "
+metadata = { "service.family" = "NTP", "os.vendor" = "NetBSD", "os.family" = "NetBSD", "os.product" = "NetBSD", "os.arch" = "{capture:2}", "os.version" = "{capture:3}", "os.cpe23" = "cpe:/o:netbsd:netbsd:{os.version}" }
+
+[[match]]
+name = "ntpd running on NetBSD - variant 2"
+pattern = "processor=\"([^ ]+)\",.*system=\"NetBSD/?([^ ]+)\""
+context = "ntp.readvar"
+example = "\n      processor=\"i386\", system=\"NetBSD1.5.3\"\n    "
+metadata = { "os.vendor" = "NetBSD", "os.family" = "NetBSD", "os.product" = "NetBSD", "os.arch" = "{capture:1}", "os.version" = "{capture:2}", "os.cpe23" = "cpe:/o:netbsd:netbsd:{os.version}" }
+
+[[match]]
+name = "NetWare"
+pattern = "system=\"NetWare\""
+context = "ntp.readvar"
+example = "\n      system=\"NetWare\", leap=0, stratum=2, rootdelay=0.12\n    "
+metadata = { "os.vendor" = "Novell", "os.family" = "NetWare", "os.product" = "NetWare", "os.cpe23" = "cpe:/o:novell:netware:-" }
+
+[[match]]
+name = "ntpd running on Solaris 2.0 (SunOS/5.0) "
+pattern = "version=\"ntpd ([^ ]+)[^\"]+\",.*processor=\"([^ ]+)\",.*system=\"SunOS/?5.0\""
+version_group = 1
+product = "NTP"
+context = "ntp.readvar"
+example = "\n      version=\"ntpd 4.2.0@1.1161-r Wed Apr 20 11:28:05 EDT 2005 (1)\",\n      processor=\"sun4u\", system=\"SunOS/5.0\", leap=00, stratum=2,\n    "
+metadata = { "os.vendor" = "Sun", "os.family" = "Solaris", "os.product" = "Solaris", "service.family" = "NTP", "os.version" = "2.0", "os.arch" = "{capture:2}", "os.cpe23" = "cpe:/o:sun:solaris:2.0" }
+
+[[match]]
+name = " ntpd running on Solaris 2.1 (SunOS/5.1) "
+pattern = "version=\"ntpd ([^ ]+)[^\"]+\",.*processor=\"([^ ]+)\",.*system=\"SunOS/?5.1\""
+version_group = 1
+product = "NTP"
+context = "ntp.readvar"
+example = "\n      version=\"ntpd 4.2.0@1.1161-r Wed Apr 20 11:28:05 EDT 2005 (1)\",\n      processor=\"sun4u\", system=\"SunOS/5.1\", leap=00, stratum=2,\n    "
+metadata = { "os.vendor" = "Sun", "os.family" = "Solaris", "os.product" = "Solaris", "service.family" = "NTP", "os.version" = "2.1", "os.arch" = "{capture:2}", "os.cpe23" = "cpe:/o:sun:solaris:2.1" }
+
+[[match]]
+name = " ntpd running on Solaris 2.2 (SunOS/5.2) "
+pattern = "version=\"ntpd ([^ ]+)[^\"]+\",.*processor=\"([^ ]+)\",.*system=\"SunOS/?5.2\""
+version_group = 1
+product = "NTP"
+context = "ntp.readvar"
+example = "\n      version=\"ntpd 4.2.0@1.1161-r Wed Apr 20 11:28:05 EDT 2005 (1)\",\n      processor=\"sun4u\", system=\"SunOS/5.2\", leap=00, stratum=2,\n    "
+metadata = { "os.vendor" = "Sun", "os.family" = "Solaris", "os.product" = "Solaris", "service.family" = "NTP", "os.version" = "2.2", "os.arch" = "{capture:2}", "os.cpe23" = "cpe:/o:sun:solaris:2.2" }
+
+[[match]]
+name = " ntpd running on Solaris 2.3 (SunOS/5.3) "
+pattern = "version=\"ntpd ([^ ]+)[^\"]+\",.*processor=\"([^ ]+)\",.*system=\"SunOS/?5.3\""
+version_group = 1
+product = "NTP"
+context = "ntp.readvar"
+example = "\n      version=\"ntpd 4.2.0@1.1161-r Wed Apr 20 11:28:05 EDT 2005 (1)\",\n      processor=\"sun4u\", system=\"SunOS/5.3\", leap=00, stratum=2,\n    "
+metadata = { "os.vendor" = "Sun", "os.family" = "Solaris", "os.product" = "Solaris", "service.family" = "NTP", "os.version" = "2.3", "os.arch" = "{capture:2}", "os.cpe23" = "cpe:/o:sun:solaris:2.3" }
+
+[[match]]
+name = "ntpd running on Solaris 2.4 (SunOS/5.4) "
+pattern = "version=\"ntpd ([^ ]+)[^\"]+\",.*processor=\"([^ ]+)\",.*system=\"SunOS/?5.4\""
+version_group = 1
+product = "NTP"
+context = "ntp.readvar"
+example = "\n      version=\"ntpd 4.2.0@1.1161-r Wed Apr 20 11:28:05 EDT 2005 (1)\",\n      processor=\"sun4u\", system=\"SunOS/5.4\", leap=00, stratum=2,\n    "
+metadata = { "os.vendor" = "Sun", "os.family" = "Solaris", "os.product" = "Solaris", "service.family" = "NTP", "os.version" = "2.4", "os.arch" = "{capture:2}", "os.cpe23" = "cpe:/o:sun:solaris:2.4" }
+
+[[match]]
+name = "ntpd running on Solaris 2.5 (SunOS/5.5) "
+pattern = "version=\"ntpd ([^ ]+)[^\"]+\",.*processor=\"([^ ]+)\",.*system=\"SunOS/?5.5\""
+version_group = 1
+product = "NTP"
+context = "ntp.readvar"
+example = "\n      version=\"ntpd 4.2.0@1.1161-r Wed Apr 20 11:28:05 EDT 2005 (1)\",\n      processor=\"sun4u\", system=\"SunOS/5.5\", leap=00, stratum=2,\n    "
+metadata = { "os.vendor" = "Sun", "os.family" = "Solaris", "os.product" = "Solaris", "service.family" = "NTP", "os.version" = "2.5", "os.arch" = "{capture:2}", "os.cpe23" = "cpe:/o:sun:solaris:2.5" }
+
+[[match]]
+name = "ntpd running on Solaris 2.6 (SunOS/5.6) "
+pattern = "version=\"ntpd ([^ ]+)[^\"]+\",.*processor=\"([^ ]+)\",.*system=\"SunOS/?5.6\""
+version_group = 1
+product = "NTP"
+context = "ntp.readvar"
+example = "\n      version=\"ntpd 4.2.0@1.1161-r Wed Apr 20 11:28:05 EDT 2005 (1)\",\n      processor=\"sun4u\", system=\"SunOS/5.6\", leap=00, stratum=2,\n    "
+metadata = { "os.vendor" = "Sun", "os.family" = "Solaris", "os.product" = "Solaris", "service.family" = "NTP", "os.version" = "2.6", "os.arch" = "{capture:2}", "os.cpe23" = "cpe:/o:sun:solaris:2.6" }
+
+[[match]]
+name = "ntpd running on Solaris 11 or above (SunOS/5.11 and above) "
+pattern = "version=\"ntpd ([^ ]+)[^\"]+\",.*processor=\"([^ ]+)\",.*system=\"SunOS/?5.(1[1-9])\""
+version_group = 1
+product = "NTP"
+context = "ntp.readvar"
+example = "\n      version=\"ntpd 4.2.0@1.1161-r Wed Apr 20 11:28:05 EDT 2005 (1)\",\n      processor=\"sun4u\", system=\"SunOS/5.11\", leap=00, stratum=2,\n    "
+metadata = { "os.vendor" = "Oracle", "os.family" = "Solaris", "os.product" = "Solaris", "service.family" = "NTP", "os.arch" = "{capture:2}", "os.version" = "{capture:3}", "os.cpe23" = "cpe:/o:oracle:solaris:{os.version}" }
+
+[[match]]
+name = "ntpd running on Solaris 7-Solaris 10 (SunOS/5.7 - SunOS/5.10) "
+pattern = "version=\"ntpd ([^ ]+)[^\"]+\",.*processor=\"([^ ]+)\",.*system=\"SunOS/?5.([789]|10)\""
+version_group = 1
+product = "NTP"
+context = "ntp.readvar"
+example = "\n      version=\"ntpd 4.2.0@1.1161-r Wed Apr 20 11:28:05 EDT 2005 (1)\",\n      processor=\"sun4u\", system=\"SunOS/5.7\", leap=00, stratum=2,\n    "
+metadata = { "os.vendor" = "Sun", "os.family" = "Solaris", "os.product" = "Solaris", "service.family" = "NTP", "os.arch" = "{capture:2}", "os.version" = "{capture:3}", "os.cpe23" = "cpe:/o:sun:solaris:{os.version}" }
+
+[[match]]
+name = "Solaris 2.0 (SunOS/5.0) with no ntp version"
+pattern = "processor=\"([^ ]+)\",.*system=\"SunOS/?5.0\""
+context = "ntp.readvar"
+example = "\n     processor=\"sun4m\", system=\"SunOS/5.0\"\n   "
+metadata = { "os.vendor" = "Sun", "os.family" = "Solaris", "os.product" = "Solaris", "os.version" = "2.0", "os.arch" = "{capture:1}", "os.cpe23" = "cpe:/o:sun:solaris:2.0" }
+
+[[match]]
+name = "Solaris 2.1 (SunOS/5.1) with no ntp version"
+pattern = "processor=\"([^ ]+)\",.*system=\"SunOS/?5.1\""
+context = "ntp.readvar"
+example = "\n     processor=\"sun4m\", system=\"SunOS/5.1\"\n   "
+metadata = { "os.vendor" = "Sun", "os.family" = "Solaris", "os.product" = "Solaris", "os.version" = "2.1", "os.arch" = "{capture:1}", "os.cpe23" = "cpe:/o:sun:solaris:2.1" }
+
+[[match]]
+name = "Solaris 2.2 (SunOS/5.2) with no ntp version"
+pattern = "processor=\"([^ ]+)\",.*system=\"SunOS/?5.2\""
+context = "ntp.readvar"
+example = "\n     processor=\"sun4m\", system=\"SunOS/5.2\"\n   "
+metadata = { "os.vendor" = "Sun", "os.family" = "Solaris", "os.product" = "Solaris", "os.version" = "2.2", "os.arch" = "{capture:1}", "os.cpe23" = "cpe:/o:sun:solaris:2.2" }
+
+[[match]]
+name = "Solaris 2.3 (SunOS/5.3) with no ntp version"
+pattern = "processor=\"([^ ]+)\",.*system=\"SunOS/?5.3\""
+context = "ntp.readvar"
+example = "\n     processor=\"sun4m\", system=\"SunOS/5.3\"\n   "
+metadata = { "os.vendor" = "Sun", "os.family" = "Solaris", "os.product" = "Solaris", "os.version" = "2.3", "os.arch" = "{capture:1}", "os.cpe23" = "cpe:/o:sun:solaris:2.3" }
+
+[[match]]
+name = "Solaris 2.4 (SunOS/5.4) with no ntp version"
+pattern = "processor=\"([^ ]+)\",.*system=\"SunOS/?5.4\""
+context = "ntp.readvar"
+example = "\n     processor=\"sun4m\", system=\"SunOS/5.4\"\n   "
+metadata = { "os.vendor" = "Sun", "os.family" = "Solaris", "os.product" = "Solaris", "os.version" = "2.4", "os.arch" = "{capture:1}", "os.cpe23" = "cpe:/o:sun:solaris:2.4" }
+
+[[match]]
+name = "Solaris 2.5 (SunOS/5.5) with no ntp version"
+pattern = "processor=\"([^ ]+)\",.*system=\"SunOS/?5.5\""
+context = "ntp.readvar"
+example = "\n     processor=\"sun4m\", system=\"SunOS/5.5\"\n   "
+metadata = { "os.vendor" = "Sun", "os.family" = "Solaris", "os.product" = "Solaris", "os.version" = "2.5", "os.arch" = "{capture:1}", "os.cpe23" = "cpe:/o:sun:solaris:2.5" }
+
+[[match]]
+name = "Solaris 2.6 (SunOS/5.6) with no ntp version"
+pattern = "processor=\"([^ ]+)\",.*system=\"SunOS/?5.6\""
+context = "ntp.readvar"
+example = "\n     processor=\"sun4m\", system=\"SunOS/5.6\"\n   "
+metadata = { "os.vendor" = "Sun", "os.family" = "Solaris", "os.product" = "Solaris", "os.version" = "2.6", "os.arch" = "{capture:1}", "os.cpe23" = "cpe:/o:sun:solaris:2.6" }
+
+[[match]]
+name = "Solaris 7-10 (SunOS/5.7 - SunOS/5.10) with no ntp version"
+pattern = "processor=\"([^ ]+)\",.*system=\"SunOS/?5.([789]|10)\""
+context = "ntp.readvar"
+example = "\n     processor=\"sun4m\", system=\"SunOS/5.7\"\n   "
+metadata = { "os.vendor" = "Sun", "os.family" = "Solaris", "os.product" = "Solaris", "os.arch" = "{capture:1}", "os.version" = "{capture:2}", "os.cpe23" = "cpe:/o:sun:solaris:{os.version}" }
+
+[[match]]
+name = "Solaris 11 and up with no ntp version"
+pattern = "processor=\"([^ ]+)\",.*system=\"SunOS/?5.(1[1-9])\""
+context = "ntp.readvar"
+example = "\n    processor=\"sun4m\", system=\"SunOS/5.11\"\n   "
+metadata = { "os.vendor" = "Oracle", "os.family" = "Solaris", "os.product" = "Solaris", "os.arch" = "{capture:1}", "os.version" = "{capture:2}", "os.cpe23" = "cpe:/o:oracle:solaris:{os.version}" }
+
+[[match]]
+name = "SunOS with no ntp version"
+pattern = "system=\"UNIX/SunOS ([^ ]+)\""
+context = "ntp.readvar"
+example = "\n      system=\"UNIX/SunOS 4.x\",\n    "
+metadata = { "os.vendor" = "Sun", "os.family" = "Solaris", "os.product" = "Solaris", "os.version" = "{capture:1}", "os.cpe23" = "cpe:/o:sun:solaris:{os.version}" }
+
+[[match]]
+name = "ntpd running on Juniper/Netscreen JunOS"
+pattern = "version=\"ntpd ([^ ]+)[^\"]+\",.*processor=\"([^ ]+)\",.*system=\"JUNOS/?([^ ]+)\""
+version_group = 1
+product = "NTP"
+context = "ntp.readvar"
+example = "\n      version=\"ntpd 4.2.0-a Wed Aug 12 04:22:47 UTC 2009 (1)\",\n      processor=\"i386\", system=\"JUNOS9.3R4.4\", leap=11, stratum=16,\n    "
+metadata = { "os.vendor" = "Juniper", "os.family" = "Junos", "os.product" = "Junos OS", "service.family" = "NTP", "os.arch" = "{capture:2}", "os.version" = "{capture:3}", "os.cpe23" = "cpe:/o:juniper:junos:{os.version}" }
+
+[[match]]
+name = "Juniper/Netscreen JunOS NTP without a version"
+pattern = "processor=\"([^ ]+)\",.*system=\"JUNOS/?([^ ]+)\""
+context = "ntp.readvar"
+example = "processor=\"i386\", system=\"JUNOS7.0R2.7\", leap=0, stratum=3"
+metadata = { "os.vendor" = "Juniper", "os.family" = "Junos", "os.product" = "Junos OS", "os.arch" = "{capture:1}", "os.version" = "{capture:2}", "os.cpe23" = "cpe:/o:juniper:junos:{os.version}" }
+
+[[match]]
+name = "ntpd running on Windows"
+pattern = "version=\"ntpd ([^ ]+)[^\"]+\",.*processor=\"([^ ]+)\",.*system=\"Windows/?([^ ]+)?\""
+version_group = 1
+product = "NTP"
+context = "ntp.readvar"
+example = "\n      version=\"ntpd 4.2.4p7@copenhagen-o May 22 11:25:36 (UTC+02:00) 2009  (3)\",\n      processor=\"x86\", system=\"Windows\", leap=00, stratum=2, precision=-19,\n    "
+metadata = { "service.family" = "NTP", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows", "os.arch" = "{capture:2}", "os.version" = "{capture:3}", "os.cpe23" = "cpe:/o:microsoft:windows:{os.version}" }
+
+[[match]]
+name = "ntpd running on HP-UX"
+pattern = "version=\"ntpd ([^ ]+)[^\"]+\",.*processor=\"([^ ]+)\",.*system=\"HP-UX/?([^ ]+)?\""
+version_group = 1
+product = "NTP"
+context = "ntp.readvar"
+example = "\n      version=\"ntpd 4.2.2@1.1532-o Wed Sep  6 16:49:43 EDT 2006 (2)\",\n      processor=\"9000/800\", system=\"HP-UX/B.11.11\", leap=00, stratum=1,\n    "
+metadata = { "service.family" = "NTP", "os.vendor" = "HP", "os.family" = "HP-UX", "os.product" = "HP-UX", "os.arch" = "{capture:2}", "os.version" = "{capture:3}", "os.cpe23" = "cpe:/o:hp:hp-ux:{os.version}" }
+
+[[match]]
+name = "ntpd running on HP-UX with an empty processor"
+pattern = "version=\"ntpd ([^ ]+)[^\"]+\",.*processor=,.*system=\"HP-UX/\""
+version_group = 1
+product = "NTP"
+context = "ntp.readvar"
+example = "\n      version=\"ntpd 4.2.6 Revision 0.0 Tue Nov 5 14:21:22 UTC 2012\",\n      processor=, system=\"HP-UX/\"\n    "
+metadata = { "service.family" = "NTP", "os.vendor" = "HP", "os.family" = "HP-UX", "os.product" = "HP-UX", "os.cpe23" = "cpe:/o:hp:hp-ux:-" }
+
+[[match]]
+name = "ntpd running on HP-UX, where the processor is in the 'system' variable"
+pattern = "version=\"ntpd ([^ ]+)[^\"]+\",.*processor=\"[^ ]+\",.*system=\"([^ ]+)-hp-hpux([^ ]+)\""
+version_group = 1
+product = "NTP"
+context = "ntp.readvar"
+example = "\n      version=\"ntpd 4.2.5p154@1.1802 Tue Mar 22 22:09:00 UTC 2011 (39)\",\n      processor=\"unknown\", system=\"ia64-hp-hpux11.31\", leap=00, stratum=1,\n    "
+metadata = { "service.family" = "NTP", "os.vendor" = "HP", "os.family" = "HP-UX", "os.product" = "HP-UX", "os.arch" = "{capture:2}", "os.version" = "{capture:3}", "os.cpe23" = "cpe:/o:hp:hp-ux:{os.version}" }
+
+[[match]]
+name = "ntpd running on VMware ESXi"
+pattern = "version=\"ntpd ([^ ]+)[^\"]+\",.*processor=\"([^ ]+)\",.*system=\"VMkernel/?([^ ]+)?\""
+version_group = 1
+product = "NTP"
+context = "ntp.readvar"
+example = "\n      version=\"ntpd 4.2.4p6@1.1495 Wed Sep 22 02:33:15 UTC 2010 (1)\",\n      processor=\"x86_64\", system=\"VMkernel/4.1.0\", leap=11, stratum=16,\n    "
+metadata = { "service.family" = "NTP", "os.vendor" = "VMware", "os.family" = "VMware ESX/ESXi", "os.product" = "VMware ESXi Server", "os.arch" = "{capture:2}", "os.version" = "{capture:3}", "os.device" = "Hypervisor", "os.cpe23" = "cpe:/o:vmware:esxi:{os.version}", "hw.device" = "Hypervisor" }
+
+[[match]]
+name = "ntpd running on OSF/1"
+pattern = "processor=\"([^ ]+)\",.*system=\"OSF1[/V]?([^ ]+)\""
+product = "NTP"
+context = "ntp.readvar"
+example = "\n      processor=\"alpha\", system=\"OSF1V4.0\", leap=00, stratum=1, precision=-18,\n    "
+metadata = { "service.family" = "NTP", "os.vendor" = "DEC", "os.product" = "OSF/1", "os.version" = "{capture:2}", "os.arch" = "{capture:1}" }
+
+[[match]]
+name = "DEC OSF/1"
+pattern = "system=\"UNIX/DECOSF1\""
+context = "ntp.readvar"
+example = "\n      system=\"UNIX/DECOSF1\", leap=0, stratum=3, rootdelay=18.14,\n    "
+metadata = { "os.vendor" = "DEC", "os.product" = "OSF/1" }
+
+[[match]]
+name = "Linux with NTP enabled, no processor/version"
+pattern = "system=\"Linux\""
+product = "NTP"
+context = "ntp.readvar"
+example = "\n      system=\"Linux\", leap=00, stratum=2, rootdelay=6.480,\n    "
+metadata = { "os.vendor" = "Linux", "os.family" = "Linux", "os.product" = "Linux", "os.cpe23" = "cpe:/o:linux:linux_kernel:-", "service.family" = "NTP" }
+
+[[match]]
+name = "AIX with NTP enabled, no processor/version"
+pattern = "system=\"UNIX/AIX\""
+vendor = "IBM"
+product = "NTP"
+context = "ntp.readvar"
+example = "\n      system=\"UNIX/AIX\", leap=00, stratum=3, rootdelay=2.000,\n    "
+metadata = { "os.vendor" = "IBM", "os.family" = "AIX", "os.product" = "AIX", "os.cpe23" = "cpe:/o:ibm:aix:-", "service.family" = "NTP" }
+
+[[match]]
+name = "Solaris with NTP enabled, no processor/version"
+pattern = "system=\"SunOS\""
+vendor = "Sun"
+product = "NTP"
+context = "ntp.readvar"
+example = "\n      system=\"SunOS\", leap=00, stratum=1, rootdelay=0.000,\n    "
+metadata = { "os.vendor" = "Sun", "os.family" = "Solaris", "os.product" = "Solaris", "os.cpe23" = "cpe:/o:sun:solaris:-", "service.family" = "NTP" }
+
+[[match]]
+name = "Cisco IOS with NTP enabled"
+pattern = "system=\"cisco\""
+vendor = "Cisco"
+product = "NTP"
+context = "ntp.readvar"
+example = "\n      system=\"cisco\", leap=00, stratum=2, rootdelay=39.900,\n    "
+metadata = { "os.vendor" = "Cisco", "os.family" = "IOS", "os.product" = "IOS", "os.cpe23" = "cpe:/o:cisco:ios:-", "service.family" = "NTP" }
+
+[[match]]
+name = "NetApp file servers"
+pattern = "system=\"Data ONTAP/+(\\S+)\""
+context = "ntp.readvar"
+example = "\n      system=\"Data ONTAP/8.1RC2\"\n    "
+metadata = { "os.vendor" = "NetApp", "os.family" = "Data ONTAP", "os.product" = "Data ONTAP", "os.version" = "{capture:1}", "os.device" = "NAS", "os.cpe23" = "cpe:/o:netapp:data_ontap:{os.version}", "hw.vendor" = "NetApp", "hw.device" = "NAS", "hw.family" = "Data ONTAP", "hw.product" = "Data ONTAP" }
+
+[[match]]
+name = "Generic HPUX"
+pattern = "system=\"UNIX/HPUX\""
+context = "ntp.readvar"
+example = "\n      system=\"UNIX/HPUX\", leap=0, stratum=3, rootdelay=1.16,\n      rootdispersion=1.89, peer=52828, refid=A.B.C.D,\n      reftime=0xd2ec64af.5cca1000, poll=10, clock=0xd2ec6545.46514000,\n      phase=-1.080, freq=-2231.51, error=0.40\n    "
+metadata = { "os.vendor" = "HP", "os.family" = "HP-UX", "os.product" = "HP-UX", "os.cpe23" = "cpe:/o:hp:hp-ux:-" }
+
+[[match]]
+name = "Generic UNIX"
+pattern = "system=\"UNIX\""
+context = "ntp.readvar"
+example = "\n      version=\"4\", processor=\"unknown\", system=\"UNIX\", leap=0, stratum=2,\n    "
+metadata = { "os.family" = "UNIX", "os.product" = "UNIX", "os.certainty" = "0.5" }
+
+[[match]]
+name = "Generic VxWorks"
+pattern = "system=\"VxWorks(?:/TORNADO)?\""
+context = "ntp.readvar"
+example = "\n      system=\"VxWorks\", leap=0, stratum=8, rootdelay=63.74,\n      rootdispersion=151.29, peer=65508, refid=192.168.2.100,\n      reftime=0xd4747c5c.5851f000, poll=6, clock=0xd4747c6d.31206000,\n      phase=4.131, freq=18961.38, compliance=0\n    "
+metadata = { "os.vendor" = "Wind River", "os.product" = "VxWorks", "os.cpe23" = "cpe:/o:windriver:vxworks:-" }
+
+[[match]]
+name = "VxWorks ARM, cross-compiled on Linux"
+pattern = "system=\"arm-wrs-vxworks\""
+context = "ntp.readvar"
+example = "\n      processor=\"unknown\", system=\"arm-wrs-vxworks\", leap=0, stratum=2, rootdelay=999.86, rootdispersion=17.90, peer=32444\n    "
+metadata = { "os.vendor" = "Wind River", "os.product" = "VxWorks", "os.arch" = "ARM", "os.cpe23" = "cpe:/o:windriver:vxworks:-" }
+
+[[match]]
+name = "VxWorks x86, cross-compiled on Linux"
+pattern = "system=\"i386-wrs-vxworks\""
+context = "ntp.readvar"
+example = "\n      system=\"i386-wrs-vxworks\", leap=0, stratum=2, rootdelay=999.86, rootdispersion=17.90, peer=32444\n    "
+metadata = { "os.vendor" = "Wind River", "os.product" = "VxWorks", "os.arch" = "x86", "os.cpe23" = "cpe:/o:windriver:vxworks:-" }
+
+[[match]]
+name = "SCO Unixware NTP"
+pattern = "system=\"UNIX/Unixware([^ ]+)\""
+product = "NTP"
+context = "ntp.readvar"
+example = "\n      system=\"UNIX/Unixware2\", leap=3, stratum=16, rootdelay=0.00,\n      rootdispersion=0.00, peer=0, refid=0.0.0.0, reftime=0x00000000.00000000,\n      poll=4, clock=0xd1d874b7.051ec000, phase=0.000, freq=0.00, error=0.00\n    "
+metadata = { "service.family" = "NTP", "os.vendor" = "SCO", "os.product" = "{capture:1}" }
+
+[[match]]
+name = "SCO Unixware NTP - SCO_SV variant"
+pattern = "processor=\"([^\"]+)\", system=\"SCO_SV([\\d\\.]+)\""
+context = "ntp.readvar"
+example = "\n      processor=\"i386\", system=\"SCO_SV3.2\", leap=0, stratum=2, precision=-18\n    "
+metadata = { "os.vendor" = "SCO", "os.product" = "UNIX", "os.arch" = "{capture:1}", "os.version" = "{capture:2}" }
+
+[[match]]
+name = "McAfee Network Firewall Enterprise NTP (SecureOS)"
+pattern = "version=\"ntpd ([^ ]+)[^\"]+\",.*\\s*processor=\"([^ ]+)\",.*system=\"SecureOS/([^ ]+)\""
+version_group = 1
+product = "NTP"
+context = "ntp.readvar"
+example = "\n      version=\"ntpd 4.2.0-r Thu Aug 11 12:41:19 CDT 2005 (1)\",\n      processor=\"i386\", system=\"SecureOS/7.0.1.00\", leap=0, stratum=3,\n      precision=-19, rootdelay=27.044, rootdispersion=87.845, peer=2357,\n      refid=A.B.C.D, reftime=0xd2636966.fd61b098, poll=10,\n      clock=0xd2636c8e.d5e2d427, state=4, offset=0.519, frequency=-3.027,\n      jitter=5.132, stability=0.394\n    "
+metadata = { "service.family" = "NTP", "os.vendor" = "McAfee", "os.product" = "SecureOS", "os.arch" = "{capture:2}", "os.version" = "{capture:3}" }
+
+[[match]]
+name = "ntpd running on linux"
+pattern = "processor=\"([^ ]+)\".*system=\"Linux([^ ]+)\""
+product = "NTP"
+context = "ntp.readvar"
+example = "\n      processor=\"i686\", system=\"Linux2.6.10\", leap=0, stratum=2,\n      precision=-17, rootdelay=44.644, rootdispersion=29.933, peer=13317,\n      refid=A.B.C.D, reftime=0xd2c29f69.407570c5, poll=10,\n      clock=0xd2c2a335.360999dc, state=4, phase=1.037, frequency=55.898,\n      jitter=0.203, stability=0.004\n    "
+metadata = { "service.family" = "NTP", "os.vendor" = "Linux", "os.family" = "Linux", "os.product" = "Linux", "os.certainty" = "0.75", "os.arch" = "{capture:1}", "os.version" = "{capture:2}", "os.cpe23" = "cpe:/o:linux:linux_kernel:{os.version}" }
+
+[[match]]
+name = "Isilon OneFS NTP Server"
+pattern = "version=\"ntpd (\\S+)[^\"]+\",.*\\s*processor=\"([^ ]+)\".*system=\"Isilon OneFS/v([^ ]+)\""
+version_group = 1
+product = "NTP"
+context = "ntp.readvar"
+example = "\n      version=\"ntpd 4.2.4p4-o Thu Feb  4 20:43:00 UTC 2010 (1)\",\n      processor=\"i386\", system=\"Isilon OneFS/v5.5.4.21\", leap=0, stratum=14,\n      precision=-19, rootdelay=0.000, rootdispersion=11.260, peer=60044,\n      refid=A.B.C.D, reftime=0xd2c1c806.b32bca4f, poll=10,\n      clock=0xd2c1c81b.d2869541, state=4, offset=0.000, frequency=-9.100,\n      jitter=0.002, noise=0.002, stability=0.000, tai=0\n    "
+metadata = { "service.family" = "NTP", "os.vendor" = "Isilon", "os.product" = "OneFS", "os.arch" = "{capture:2}", "os.version" = "{capture:3}" }
+
+[[match]]
+name = "Nokia IPSO NTP"
+pattern = "system=\"IPSO\""
+product = "NTP"
+context = "ntp.readvar"
+example = "\n      system=\"IPSO\", leap=3, stratum=16, rootdelay=0.00, rootdispersion=0.00,\n      peer=0, refid=0.0.0.0, reftime=0x00000000.00000000, poll=4,\n      clock=0xd2066990.82704000, phase=0.000, freq=0.00, error=0.00\n    "
+metadata = { "service.family" = "NTP", "os.vendor" = "Nokia", "os.product" = "IPSO", "os.device" = "Firewall", "os.cpe23" = "cpe:/o:nokia:ipso:-" }
+
+[[match]]
+name = "Sun Solaris NTP"
+pattern = "system=\"UNIX/Solaris\\s[^ ]+\""
+vendor = "Sun"
+product = "NTP"
+context = "ntp.readvar"
+example = "\n      system=\"UNIX/Solaris 2.x\", leap=3, stratum=16, rootdelay=0.00,\n      rootdispersion=0.00, peer=0, refid=0.0.0.0, reftime=0x00000000.00000000,\n      poll=4, clock=0xd23e08ab.ecd7f000, phase=0.000, freq=11392.00,\n      error=0.00\n    "
+metadata = { "os.vendor" = "Sun", "os.family" = "Solaris", "os.product" = "Solaris", "os.cpe23" = "cpe:/o:sun:solaris:-", "service.family" = "NTP" }
+
+[[match]]
+name = "OpenVMS NTP Server"
+pattern = "version=\"ntpd version = ([^ ]+)\",\\s*processor=\"([A-Z0-9]+)\",\\s*system=\"OpenVMS/V([A-Z0-9.-]+)"
+version_group = 1
+product = "NTP"
+context = "ntp.readvar"
+example = "\n      version=\"ntpd version = 4.2.0\", processor=\"PHMNFP\",\n      system=\"OpenVMS/V8.3\", leap=0, stratum=4, precision=-10,\n      rootdelay=56.458, rootdispersion=51.315, peer=53868, refid=A.B.C.D,\n      reftime=0xd248836a.1af277e1, poll=10, clock=0xd2488581.0790e0a1,\n      state=4, offset=-0.561, frequency=8.597, jitter=1.507, stability=0.041\n    "
+metadata = { "service.family" = "NTP", "os.vendor" = "HP", "os.product" = "OpenVMS", "os.arch" = "{capture:2}", "os.version" = "{capture:3}", "os.cpe23" = "cpe:/o:hp:openvms:{os.version}" }
+
+[[match]]
+name = "OpenVMS AXP (Alpha) NTP Server"
+pattern = "version=\"ntpd version = ([^ ]+)\",\\s*processor=\"unknown\",\\s*system=\"OpenVMS AXP\""
+version_group = 1
+product = "NTP"
+context = "ntp.readvar"
+example = "\n      version=\"ntpd version = 4.1.0\", processor=\"unknown\", system=\"OpenVMS AXP\"\n    "
+metadata = { "service.family" = "NTP", "os.vendor" = "OpenVMS", "os.product" = "OpenVMS", "os.arch" = "Alpha" }
+
+[[match]]
+name = "F5 Big-IP Load Balancers NTP"
+pattern = "version=\"ntpd ([^ ]+)[^\"]+\",\\s*processor=\"([^ ]+)\",\\s*system=\"BIG-IPBIG-IP\\s+([^\"]+)\""
+version_group = 1
+vendor = "F5"
+product = "BIG-IP LTM"
+context = "ntp.readvar"
+example = "\n      version=\"ntpd 4.1.1a@1.791 Fri Aug  8 04:08:19 PDT 2003 (1)\",\n      processor=\"i386\", system=\"BIG-IPBIG-IP 4.5PTF-0\", leap=3, stratum=16,\n      precision=-16, rootdelay=0.000, rootdispersion=103599.120, peer=0,\n      refid=0.0.0.0, reftime=0x00000000.00000000, poll=4,\n      clock=0xd20533b8.903aa79b, state=1, offset=0.000, frequency=0.000,\n      jitter=0.015, stability=0.000\n    "
+metadata = { "service.family" = "BIG-IP", "service.cpe23" = "cpe:/a:f5:big-ip_local_traffic_manager:{service.version}", "os.arch" = "{capture:2}", "os.version" = "{capture:3}" }
+
+[[match]]
+name = "NTP on an unknown system"
+pattern = "version=\"ntpd ([^ ]+)[^\"]+\",\\s*processor,\\s*system=\"/\""
+version_group = 1
+product = "NTP"
+context = "ntp.readvar"
+example = "\n      version=\"ntpd 4.2.6p2-RC4@1.2180-o Sun Jun 13 02:56:12 UTC 2010 (2)\", processor, system=\"/\"\n    "
+metadata = { "service.family" = "NTP" }
+

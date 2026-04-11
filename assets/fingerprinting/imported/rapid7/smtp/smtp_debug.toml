@@ -1,0 +1,36 @@
+# This file contains fingerprints imported from Rapid7 Recog.
+# Source: https://github.com/rapid7/recog
+# License: BSD-2-Clause
+
+[service]
+attribution = "Rapid7 Recog"
+name = "smtp"
+default_ports = []
+description = "Imported from Rapid7 smtp_debug"
+
+[[match]]
+name = "Exim"
+pattern = "^500 No way!$"
+vendor = "exim"
+product = "exim"
+context = "unknown"
+example = "500 No way!"
+metadata = { "service.family" = "exim", "service.cpe23" = "cpe:/a:exim:exim:-" }
+
+[[match]]
+name = "TIS FWTK and derivatives (other firewalls, like Gauntlet, are derived from TIS)"
+pattern = "^250[ -] *Debug set -NOT!$"
+vendor = "TIS"
+product = "FWTK"
+context = "unknown"
+metadata = { "service.family" = "FWTK" }
+
+[[match]]
+name = "Alt-N MDaemon SMTP"
+pattern = "^500[ -]What\\? I don't understand that\\.$"
+vendor = "Alt-N"
+product = "MDaemon"
+context = "unknown"
+example = "500 What? I don't understand that."
+metadata = { "service.family" = "MDaemon", "service.cpe23" = "cpe:/a:altn:mdaemon:-", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows", "os.arch" = "x86", "os.cpe23" = "cpe:/o:microsoft:windows:-" }
+

@@ -1,0 +1,258 @@
+# This file contains fingerprints imported from Rapid7 Recog.
+# Source: https://github.com/rapid7/recog
+# License: BSD-2-Clause
+
+[service]
+attribution = "Rapid7 Recog"
+name = "pjl"
+default_ports = []
+description = "Imported from Rapid7 hp_pjl_id"
+
+[[match]]
+name = "HP JetDirect Printer"
+pattern = "(?i)laserjet (.*)(?: series)?"
+vendor = "HP"
+product = "JetDirect"
+context = "unknown"
+example = "HP LaserJet 4100 Series"
+metadata = { "service.family" = "JetDirect", "os.vendor" = "HP", "os.device" = "Printer", "os.family" = "LaserJet", "os.product" = "{capture:1}" }
+
+[[match]]
+name = "HP Designjet printer"
+pattern = "(?i)(designjet \\S+)"
+vendor = "HP"
+product = "JetDirect"
+context = "unknown"
+example = "hp designjet 110plus"
+metadata = { "service.family" = "JetDirect", "os.vendor" = "HP", "os.family" = "DesignJet", "os.device" = "Printer", "os.product" = "{capture:1}" }
+
+[[match]]
+name = "Xerox ColorQube Multifunction Printer"
+pattern = "^Xerox ColorQube (\\S+)$"
+context = "unknown"
+example = "Xerox ColorQube 8570DN"
+metadata = { "os.vendor" = "Xerox", "os.family" = "ColorQube", "os.product" = "{capture:1}", "os.device" = "Multifunction Device" }
+
+[[match]]
+name = "Brother Printer"
+pattern = "^Brother (.+)$"
+context = "unknown"
+example = "Brother HL-1660e"
+metadata = { "os.vendor" = "Brother", "os.device" = "Printer", "os.product" = "{capture:1}" }
+
+[[match]]
+name = "Canon iR multifunction device"
+pattern = "^(iR ?\\S+)"
+context = "unknown"
+example = "iR 3180C EUR"
+metadata = { "os.vendor" = "Canon", "os.family" = "iR Series", "os.device" = "Multifunction Device", "os.product" = "{capture:1}" }
+
+[[match]]
+name = "Dell Laser Printer"
+pattern = "^(?:Dell (?:Color Laser |Laser Printer )?|(?:Color Laser |Laser Printer ))(\\d+(?:n|cn|dn|cdn))(?: Color Laser| Laser Printer)?$"
+context = "unknown"
+example = "Dell Laser Printer 1710n"
+metadata = { "os.vendor" = "Dell", "os.family" = "Laser Printer", "os.device" = "Printer", "os.product" = "{capture:1}" }
+
+[[match]]
+name = "Dell Laser multifunction device"
+pattern = "^Dell (\\d+(?:n|cn|dn|cdn)) MFP$"
+context = "unknown"
+example = "Dell 2135cn MFP"
+metadata = { "os.vendor" = "Dell", "os.family" = "Laser Printer", "os.device" = "Multifunction Device", "os.product" = "{capture:1}" }
+
+[[match]]
+name = "HP Digital Sender scanner"
+pattern = "^HP (\\S+ Digital Sender)$"
+context = "unknown"
+example = "HP 9250C Digital Sender"
+metadata = { "os.vendor" = "HP", "os.device" = "Scanner", "os.family" = "Digital Sender", "os.product" = "{capture:1}" }
+
+[[match]]
+name = "IBM Infoprint Printer"
+pattern = "^(?:IBM )?Infoprint(?: Color)? (\\S+)$"
+context = "unknown"
+metadata = { "os.vendor" = "IBM", "os.family" = "Infoprint", "os.device" = "Printer", "os.product" = "{capture:1}" }
+
+[[match]]
+name = "Konica Minolta printer"
+pattern = "^KM-(.*)$"
+context = "unknown"
+example = "KM-5050"
+metadata = { "os.vendor" = "Lexmark", "os.device" = "Printer", "os.product" = "{capture:1}" }
+
+[[match]]
+name = "Kyocera Mita Multifunction device"
+pattern = "^(FS-\\S+MFP\\S*)$"
+context = "unknown"
+example = "FS-C2126MFP"
+metadata = { "os.vendor" = "Kyocera Mita", "os.device" = "Multifunction Device", "os.family" = "FS", "os.product" = "{capture:1}" }
+
+[[match]]
+name = "Kyocera Mita Printer"
+pattern = "^(FS-(?:C)?\\d+(?:D|DN))$"
+context = "unknown"
+example = "FS-C8500DN"
+metadata = { "os.vendor" = "Kyocera Mita", "os.device" = "Printer", "os.family" = "FS", "os.product" = "{capture:1}" }
+
+[[match]]
+name = "Kyocera Mita TASKalfa multifunction device"
+pattern = "^(TASKalfa \\S+)$"
+context = "unknown"
+example = "TASKalfa 300ci"
+metadata = { "os.vendor" = "Kyocera Mita", "os.device" = "Multifunction Device", "os.family" = "TASKalfa", "os.product" = "{capture:1}" }
+
+[[match]]
+name = "Lexmark JetDirect printer"
+pattern = "^Lexmark (.*)$"
+context = "unknown"
+example = "Lexmark C910"
+metadata = { "os.vendor" = "Lexmark", "os.device" = "Printer", "os.product" = "{capture:1}" }
+
+[[match]]
+name = "Oce FX series multifunction device"
+pattern = "(?i)^Oce (fx[^\\s:]+):"
+context = "unknown"
+example = "Oce fx3000:8C5-B29:Ver.D:U0707161719:B0601271355"
+metadata = { "os.vendor" = "Oce", "os.family" = "FX Series", "os.device" = "Multifunction Device", "os.product" = "{capture:1}" }
+
+[[match]]
+name = "Oce VarioLink multifunction device"
+pattern = "(?i)^Oce (VL\\S+):"
+context = "unknown"
+example = "Oce VL3200:8C5-D92:Ver.B"
+metadata = { "os.vendor" = "Oce", "os.family" = "VarioLink", "os.device" = "Multifunction Device", "os.product" = "{capture:1}" }
+
+[[match]]
+name = "Oce-acquired IGI printer"
+pattern = "(?i)^OceIGI MX-\\S+"
+context = "unknown"
+example = "OceIGI MX-NBX3 02-Jul-07 14:47"
+metadata = { "os.vendor" = "Oce", "os.device" = "Printer" }
+
+[[match]]
+name = "Oce IM series multifunction device"
+pattern = "(?i)^Imagistics (im\\S+) (.+)"
+context = "unknown"
+example = "Imagistics im3510/4510 02-Aug-04 10:56"
+metadata = { "os.vendor" = "Oce", "os.family" = "IM Series", "os.device" = "Multifunction Device", "system.time.format" = "dd-MMM-yy HH:mm", "os.product" = "{capture:1}", "system.time" = "{capture:2}" }
+
+[[match]]
+name = "Okidata color printer"
+pattern = "^OKI (C\\d+)\\S*$"
+context = "unknown"
+example = "OKI C610"
+metadata = { "os.vendor" = "Okidata", "os.device" = "Printer", "os.product" = "{capture:1}" }
+
+[[match]]
+name = "Okidata multifunction device"
+pattern = "^OKI (MC\\d+)\\S*$"
+context = "unknown"
+example = "OKI MC860"
+metadata = { "os.vendor" = "Okidata", "os.device" = "Multifunction Device", "os.product" = "{capture:1}" }
+
+[[match]]
+name = "Ricoh Aficio Printer"
+pattern = "(?i)^RICOH ((?:Aficio|MP|SP) .*)$"
+context = "unknown"
+example = "RICOH Aficio 2075"
+metadata = { "os.vendor" = "Ricoh", "os.family" = "Aficio", "os.product" = "{capture:1}", "os.device" = "Printer" }
+
+[[match]]
+name = "Ricoh NRG printer"
+pattern = "(?i)^NRG ([MS]P \\S+)$"
+context = "unknown"
+example = "NRG MP 171"
+metadata = { "os.vendor" = "Ricoh", "os.device" = "Printer", "os.product" = "{capture:1}" }
+
+[[match]]
+name = "Ricoh Gestetner multifunction device"
+pattern = "(?i)^Gestetner (MP\\S+/DSc\\S+)$"
+context = "unknown"
+example = "Gestetner MPC2500/DSc525"
+metadata = { "os.vendor" = "Ricoh", "os.device" = "Multifunction Device", "os.product" = "{capture:1}" }
+
+[[match]]
+name = "RSI Hydra printer"
+pattern = "(?i)^HYDRA$"
+context = "unknown"
+example = "HYDRA"
+metadata = { "os.vendor" = "RSI", "os.device" = "Printer", "os.product" = "Hydra" }
+
+[[match]]
+name = "Savin Printer"
+pattern = "(?i)^Savin (\\S+)$"
+context = "unknown"
+example = "SAVIN 4075"
+metadata = { "os.vendor" = "Savin", "os.device" = "Printer", "os.product" = "{capture:1}" }
+
+[[match]]
+name = "Samsung multifunction device"
+pattern = "(?i)^Samsung ((?:SCX|CLX)-\\S+) Series$"
+context = "unknown"
+example = "Samsung SCX-5835_5935 Series"
+metadata = { "os.vendor" = "Samsung", "os.device" = "Multifunction Device", "os.product" = "{capture:1}" }
+
+[[match]]
+name = "Samsung printer"
+pattern = "(?i)^Samsung ((?:ML|CLP)-\\S+) Series$"
+context = "unknown"
+example = "Samsung CLP-680 Series"
+metadata = { "os.vendor" = "Samsung", "os.device" = "Printer", "os.product" = "{capture:1}" }
+
+[[match]]
+name = "Sharp Printer"
+pattern = "(?i)^SHARP (\\S+-\\S+)"
+context = "unknown"
+example = "Sharp MX-NBX3 18-Mar-08 10:22"
+metadata = { "os.vendor" = "Sharp", "os.device" = "Printer", "os.product" = "{capture:1}" }
+
+[[match]]
+name = "Source Technologies Printer"
+pattern = "(?i)^Source Technologies (\\S+)$"
+context = "unknown"
+example = "Source Technologies ST-9620"
+metadata = { "os.vendor" = "Source Technologies", "os.device" = "Printer", "os.product" = "{capture:1}" }
+
+[[match]]
+name = "Toshiba e-STUDIO multifunction device"
+pattern = "^TOSHIBA (e-STUDIO\\S+)(?:\\s+.*)?"
+context = "unknown"
+example = "TOSHIBA e-STUDIO350 V468Z 20061013"
+metadata = { "os.vendor" = "Toshiba", "os.family" = "e-STUDIO", "os.device" = "Multifunction Device", "os.product" = "{capture:1}" }
+
+[[match]]
+name = "Xerox Phaser Printer"
+pattern = "^(?:ID=)?Xerox (Phaser \\S+)$"
+context = "unknown"
+example = "Xerox Phaser 6180MFP-D"
+metadata = { "os.vendor" = "Xerox", "os.family" = "Phaser", "os.device" = "Printer", "os.product" = "{capture:1}" }
+
+[[match]]
+name = "Xerox Workcentre Printer"
+pattern = "^Xerox (WorkCentre .*)$"
+context = "unknown"
+example = "Xerox WorkCentre 7425"
+metadata = { "os.vendor" = "Xerox", "os.family" = "WorkCentre", "os.product" = "{capture:1}", "os.device" = "Printer" }
+
+[[match]]
+name = "Xerox XC Printer"
+pattern = "^(XC\\S+)$"
+context = "unknown"
+example = "XC560"
+metadata = { "os.vendor" = "Xerox", "os.family" = "XC", "os.device" = "Printer", "os.product" = "{capture:1}" }
+
+[[match]]
+name = "Xerox DocuColor Printer"
+pattern = "^(DC\\S+)$"
+context = "unknown"
+example = "DC250"
+metadata = { "os.vendor" = "Xerox", "os.family" = "DocuColor", "os.device" = "Printer", "os.product" = "{capture:1}" }
+
+[[match]]
+name = "Xerox EX Print Server, powered by EFI Fiery"
+pattern = "^(EX\\d+-\\d+)$"
+context = "unknown"
+example = "EX4112-4127"
+metadata = { "os.vendor" = "Xerox", "os.family" = "EX", "os.device" = "Print Server", "os.product" = "{capture:1}" }
+

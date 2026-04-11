@@ -1,0 +1,293 @@
+# This file contains fingerprints imported from Rapid7 Recog.
+# Source: https://github.com/rapid7/recog
+# License: BSD-2-Clause
+
+[service]
+attribution = "Rapid7 Recog"
+name = "pop3"
+default_ports = []
+description = "Imported from Rapid7 pop_banners"
+
+[[match]]
+name = "OSX Cyrus POP"
+pattern = "^([^ ]{1,512}) +Cyrus POP3 v(\\d+\\.\\d+.*)-OS X(?: Server)? ([\\d\\.]+).* server ready"
+version_group = 2
+vendor = "Carnegie Mellon University"
+product = "Cyrus POP"
+context = "pop3.banner"
+example = "8.8.8.8 Cyrus POP3 v2.3.8-OS X Server 10.5: 9A562 server ready <1999107648.1324502155@8.8.8.8>"
+metadata = { "service.family" = "Cyrus MTA", "os.vendor" = "Apple", "os.family" = "Mac OS X", "os.product" = "Mac OS X", "os.version" = "{capture:3}", "os.cpe23" = "cpe:/o:apple:mac_os_x:{os.version}", "host.domain" = "{capture:1}" }
+
+[[match]]
+name = "CMU Cyrus POP"
+pattern = "^([^ ]{1,512}) +Cyrus POP3 v([\\d\\.]+)"
+version_group = 2
+vendor = "Carnegie Mellon University"
+product = "Cyrus POP"
+context = "pop3.banner"
+example = "foo Cyrus POP3 v2.3"
+metadata = { "service.family" = "Cyrus MTA", "host.domain" = "{capture:1}" }
+
+[[match]]
+name = "IBM Lotus Notes/Domino"
+pattern = "^Lotus Notes POP3 server version X[^ ]+ ready on"
+vendor = "IBM"
+product = "Lotus Domino"
+context = "pop3.banner"
+example = "Lotus Notes POP3 server version X2.0 ready on foo/bar."
+metadata = { "service.family" = "Lotus Domino", "service.cpe23" = "cpe:/a:ibm:lotus_domino:-" }
+
+[[match]]
+name = "IBM Lotus Notes/Domino - Release variant"
+pattern = "^Lotus Notes POP3 server version Release ([^ ]+) ready on"
+version_group = 1
+vendor = "IBM"
+product = "Lotus Domino"
+context = "pop3.banner"
+example = "Lotus Notes POP3 server version Release 8.5.1FP5 ready on foo/US."
+metadata = { "service.family" = "Lotus Domino", "service.cpe23" = "cpe:/a:ibm:lotus_domino:{service.version}" }
+
+[[match]]
+name = "Qpopper with Sphera mods"
+pattern = "^Qpopper \\(version (\\d+\\.\\d+\\.\\d+), modified by Sphera Technologies\\) at (.+) starting\\."
+version_group = 1
+vendor = "Sphera"
+product = "Qpopper"
+context = "pop3.banner"
+example = "Qpopper (version 4.0.3, modified by Sphera Technologies) at domain starting.  <xxx@domain>"
+metadata = { "service.family" = "Qpopper", "host.domain" = "{capture:2}" }
+
+[[match]]
+name = "Qpopper with MySQL auth module"
+pattern = "^Qpopper \\(version (\\d+\\.\\d+\\.\\d+)-mysql-(.+)\\) at (.+) starting\\."
+version_group = 1
+vendor = "Qualcomm"
+product = "Qpopper"
+context = "pop3.banner"
+example = "Qpopper (version 4.0.3-mysql-0.13) at domain starting.  <xxx@domain>"
+metadata = { "service.family" = "Qpopper", "service.component.family" = "qpopper-mysql", "service.component.product" = "qpopper-mysql", "service.component.version" = "{capture:2}", "host.domain" = "{capture:3}" }
+
+[[match]]
+name = "Qpopper missing version info"
+pattern = "(?i)^Qpop(?:per)? \\(version ([\\d\\.]+)\\) at (\\S{1,512})(?: starting\\.)?"
+version_group = 1
+vendor = "Qualcomm"
+product = "Qpopper"
+context = "pop3.banner"
+example = "Qpopper (version 4.0.16) at foo.example.com"
+metadata = { "service.family" = "Qpopper", "host.domain" = "{capture:2}" }
+
+[[match]]
+name = "Qpopper with missing version info"
+pattern = "^QPOP \\(version (.*)\\) at (.+) starting\\."
+vendor = "Qualcomm"
+product = "Qpopper"
+context = "pop3.banner"
+example = "QPOP (version ?) at domain starting.  <xxx@domain>"
+metadata = { "service.family" = "Qpopper", "qpopper.version" = "{capture:1}", "host.domain" = "{capture:2}" }
+
+[[match]]
+name = "Microsoft Exchange Server 2003"
+pattern = "^Microsoft Exchange Server 2003 POP3 server version (\\d+\\.\\d+\\.\\d+\\.\\d+) (.+) ready.$"
+version_group = 1
+vendor = "Microsoft"
+product = "Exchange 2003 Server"
+context = "pop3.banner"
+example = "Microsoft Exchange Server 2003 POP3 server version 6.5.6944.0 (host) ready."
+metadata = { "service.family" = "Exchange Server", "service.cpe23" = "cpe:/a:microsoft:exchange_server:{service.version}", "host.name" = "{capture:2}", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows", "os.cpe23" = "cpe:/o:microsoft:windows:-" }
+
+[[match]]
+name = "Microsoft Exchange Server 2000"
+pattern = "^Microsoft Exchange 2000 POP3 server version (\\d+\\.\\d+\\.\\d+\\.\\d+) \\((\\S{1,512})\\) ready\\.$"
+version_group = 1
+vendor = "Microsoft"
+product = "Exchange 2000 Server"
+context = "pop3.banner"
+example = "Microsoft Exchange 2000 POP3 server version 6.0.6603.0 (host) ready."
+metadata = { "service.family" = "Exchange Server", "service.cpe23" = "cpe:/a:microsoft:exchange_server:{service.version}", "host.name" = "{capture:2}", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows", "os.cpe23" = "cpe:/o:microsoft:windows:-" }
+
+[[match]]
+name = "Microsoft Exchange Server"
+pattern = "^Microsoft Exchange POP3 server version (\\d+\\.\\d+\\.\\d+\\.\\d+) ready$"
+version_group = 1
+vendor = "Microsoft"
+product = "Exchange Server"
+context = "pop3.banner"
+example = "Microsoft Exchange POP3 server version 5.5.2654.50 ready"
+metadata = { "service.family" = "Exchange Server", "service.cpe23" = "cpe:/a:microsoft:exchange_server:{service.version}", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows", "os.cpe23" = "cpe:/o:microsoft:windows:-" }
+
+[[match]]
+name = "Microsoft POP3 Services on Windows 2003"
+pattern = "^Microsoft Windows POP3 Service Version 1.0 <.+@(.+)> ready.$"
+vendor = "Microsoft"
+product = "E-mail Services"
+context = "pop3.banner"
+example = "Microsoft Windows POP3 Service Version 1.0 <xxx@host> ready."
+metadata = { "service.family" = "E-mail Services", "host.name" = "{capture:1}", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows Server 2003", "os.cpe23" = "cpe:/o:microsoft:windows_server_2003:-" }
+
+[[match]]
+name = "Microsoft Exchange Server 2007"
+pattern = "^Microsoft Exchange Server 2007 POP3 service ready\\.?$"
+vendor = "Microsoft"
+product = "Exchange 2007 Server"
+context = "pop3.banner"
+example = "Microsoft Exchange Server 2007 POP3 service ready"
+metadata = { "service.family" = "Exchange Server", "service.cpe23" = "cpe:/a:microsoft:exchange_server:-", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows", "os.cpe23" = "cpe:/o:microsoft:windows:-" }
+
+[[match]]
+name = "Microsoft Exchange Server, generic"
+pattern = "^The? Microsoft Exchange POP3 service is ready\\.?$"
+vendor = "Microsoft"
+product = "Exchange Server"
+context = "pop3.banner"
+example = "The Microsoft Exchange POP3 service is ready."
+metadata = { "service.family" = "Exchange Server", "service.cpe23" = "cpe:/a:microsoft:exchange_server:-", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows", "os.cpe23" = "cpe:/o:microsoft:windows:-" }
+
+[[match]]
+name = "Dovecot Secure POP Server"
+pattern = "^[dD]ovecot (?:DA )?ready\\.(?: <.+@(.+)>)?$"
+vendor = "Dovecot"
+product = "Dovecot"
+context = "pop3.banner"
+example = "Dovecot ready."
+metadata = { "service.family" = "Dovecot", "service.cpe23" = "cpe:/a:dovecot:dovecot:-", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "Dovecot Secure POP Server - Ubuntu variant"
+pattern = "^Dovecot \\(Ubuntu\\) ready\\.$"
+vendor = "Dovecot"
+product = "Dovecot"
+context = "pop3.banner"
+example = "Dovecot (Ubuntu) ready."
+metadata = { "service.family" = "Dovecot", "service.cpe23" = "cpe:/a:dovecot:dovecot:-", "os.vendor" = "Ubuntu", "os.family" = "Linux", "os.product" = "Linux", "os.cpe23" = "cpe:/o:canonical:ubuntu_linux:-" }
+
+[[match]]
+name = "Dovecot Secure POP Server - Debian variant"
+pattern = "^Dovecot \\(Debian\\) ready\\.$"
+vendor = "Dovecot"
+product = "Dovecot"
+context = "pop3.banner"
+example = "Dovecot (Debian) ready."
+metadata = { "service.family" = "Dovecot", "service.cpe23" = "cpe:/a:dovecot:dovecot:-", "os.vendor" = "Debian", "os.family" = "Linux", "os.product" = "Linux", "os.cpe23" = "cpe:/o:debian:debian_linux:-" }
+
+[[match]]
+name = "Dovecot Secure POP Server - Raspbian variant"
+pattern = "^Dovecot \\(Raspbian\\) ready\\.$"
+vendor = "Dovecot"
+product = "Dovecot"
+context = "pop3.banner"
+example = "Dovecot (Raspbian) ready."
+metadata = { "service.family" = "Dovecot", "service.cpe23" = "cpe:/a:dovecot:dovecot:-", "os.vendor" = "Raspbian", "os.family" = "Linux", "os.product" = "Linux", "hw.product" = "Raspberry Pi" }
+
+[[match]]
+name = "Zimbra Collaboration POP"
+pattern = "^(\\S{1,512}) Zimbra POP3 server ready\\.?$"
+vendor = "Zimbra"
+product = "Collaboration"
+context = "pop3.banner"
+example = "foo.bar Zimbra POP3 server ready"
+metadata = { "service.cpe23" = "cpe:/a:zimbra:collaboration:-", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "Zimbra Collaboration POP with version"
+pattern = "^(\\S{1,512}) Zimbra (\\S+) POP3 server ready\\.?$"
+version_group = 2
+vendor = "Zimbra"
+product = "Collaboration"
+context = "pop3.banner"
+example = "foo.bar Zimbra 7.0.0_GA_3079 POP3 server ready"
+metadata = { "service.cpe23" = "cpe:/a:zimbra:collaboration:{service.version}", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "Generic masked POP3 server"
+pattern = "^(?:S?POP3? server ready |Hello there.? )?<.*@([^>]+)>$"
+context = "pop3.banner"
+example = "POP3 server ready <58c29ae4-7316-429e-8109-060444ab1a28@foo.example.com>"
+metadata = { "host.name" = "{capture:1}" }
+
+[[match]]
+name = "Apple Open Directory"
+pattern = "^ApplePasswordServer ([\\d\\.]+) password"
+vendor = "Apple"
+product = "Open Directory"
+context = "pop3.banner"
+example = "ApplePasswordServer 10.6.0.0 password server at 10.2.90.228 ready."
+metadata = { "os.vendor" = "Apple", "os.family" = "Mac OS X", "os.product" = "Mac OS X", "os.version" = "{capture:1}", "os.certainty" = "0.5", "os.cpe23" = "cpe:/o:apple:mac_os_x:{os.version}" }
+
+[[match]]
+name = "TCP/IP Services for OpenVMS POP server"
+pattern = "^TCPIP POP server V\\d\\.\\d\\S-\\S{3}, OpenVMS V(\\d\\.\\d-\\d)(?:\\s+\\S+)?\\s+at\\s+(\\S+),"
+vendor = "HP"
+product = "TCPIP POP server"
+context = "pop3.banner"
+example = "TCPIP POP server V5.4J-15A, OpenVMS V7.3-2 Alpha at example.com, up since 2015-02-12 08:44:53 20400434.2"
+metadata = { "service.family" = "OpenVMS", "os.vendor" = "HP", "os.family" = "OpenVMS", "os.product" = "OpenVMS", "os.version" = "{capture:1}", "os.cpe23" = "cpe:/o:hp:openvms:{os.version}", "host.name" = "{capture:2}" }
+
+[[match]]
+name = "Courier MTA POP"
+pattern = "^Hello there\\.$"
+vendor = "Double Precision"
+product = "Courier POP"
+context = "pop3.banner"
+example = "Hello there."
+metadata = { "service.family" = "Courier MTA" }
+
+[[match]]
+name = "CMailServer"
+pattern = "^CMailServer ([\\d\\.]+) POP3 Service Ready$"
+version_group = 1
+vendor = "Youngzsoft"
+product = "CMailServer"
+context = "pop3.banner"
+example = "CMailServer 5.0.0 POP3 Service Ready"
+metadata = { "os.family" = "Windows", "os.vendor" = "Microsoft" }
+
+[[match]]
+name = "POP3 Bigfoot server"
+pattern = "^POP3 Bigfoot v(\\d\\.\\d) server ready$"
+version_group = 1
+vendor = "Bigfoot"
+product = "Bigfoot Email Tools"
+context = "pop3.banner"
+example = "POP3 Bigfoot v1.0 server ready"
+metadata = { "service.family" = "Bigfoot Email Tools" }
+
+[[match]]
+name = "CCProxy POP3 server"
+pattern = "^CCProxy ([\\d.]+) POP3 Service Ready$"
+version_group = 1
+vendor = "Youngzsoft"
+product = "CCProxy"
+context = "pop3.banner"
+example = "CCProxy 8.0 POP3 Service Ready"
+metadata = { "service.family" = "CCProxy" }
+
+[[match]]
+name = "WinWebmail POP3"
+pattern = "^POP3 on WinWebMail \\[([\\d.]+)\\] ready\\.$"
+version_group = 1
+vendor = "Ma Jian"
+product = "WinWebMail"
+context = "pop3.banner"
+example = "POP3 on WinWebMail [1.1.1.1] ready."
+metadata = { "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows", "os.cpe23" = "cpe:/o:microsoft:windows:-" }
+
+[[match]]
+name = "BlackJumboDog"
+pattern = "^BlackJumboDog \\(Version ([\\d\\.]+)\\) ready$"
+version_group = 1
+vendor = "SapporoWorks"
+product = "BlackJumboDog"
+context = "pop3.banner"
+example = "BlackJumboDog (Version 5.7.5.0) ready"
+metadata = { "os.family" = "Windows", "os.vendor" = "Microsoft", "os.product" = "Windows", "os.cpe23" = "cpe:/o:microsoft:windows:-" }
+
+[[match]]
+name = "MailEnable POP3"
+pattern = "^Welcome to MailEnable POP3 Server$"
+vendor = "MailEnable"
+product = "MailEnable"
+context = "pop3.banner"
+example = "Welcome to MailEnable POP3 Server"
+metadata = { "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows", "os.cpe23" = "cpe:/o:microsoft:windows:-", "service.family" = "Mail Server", "service.cpe23" = "cpe:/a:mailenable:mailenable:-" }
+

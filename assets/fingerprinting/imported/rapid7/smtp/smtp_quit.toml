@@ -1,0 +1,25 @@
+# This file contains fingerprints imported from Rapid7 Recog.
+# Source: https://github.com/rapid7/recog
+# License: BSD-2-Clause
+
+[service]
+attribution = "Rapid7 Recog"
+name = "smtp"
+default_ports = []
+description = "Imported from Rapid7 smtp_quit"
+
+[[match]]
+name = "221 See ya in cyberspace"
+pattern = "^221[ -]See ya in cyberspace$"
+vendor = "Alt-N"
+product = "MDaemon"
+context = "unknown"
+metadata = { "service.family" = "MDaemon", "service.cpe23" = "cpe:/a:altn:mdaemon:-", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows", "os.arch" = "x86", "os.cpe23" = "cpe:/o:microsoft:windows:-" }
+
+[[match]]
+name = "Raptor Firewall"
+pattern = "^503[ -]5\\.5\\.0 Not accepting any command except QUIT$"
+product = "raptor"
+context = "unknown"
+example = "503 5.5.0 Not accepting any command except QUIT"
+

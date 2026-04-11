@@ -1,0 +1,336 @@
+# This file contains fingerprints imported from Rapid7 Recog.
+# Source: https://github.com/rapid7/recog
+# License: BSD-2-Clause
+
+[service]
+attribution = "Rapid7 Recog"
+name = "snmp"
+default_ports = []
+description = "Imported from Rapid7 snmp_sysobjid"
+
+[[match]]
+name = "Windows NT 4 on x86"
+pattern = "^1\\.3\\.6\\.1\\.4\\.1\\.311\\.1\\.1\\.3\\.1\\.[23] Hardware: x86.*Software: Windows NT Version 4\\.0"
+context = "snmp.sys_object_id"
+example = "1.3.6.1.4.1.311.1.1.3.1.2 Hardware: x86 Family 6 Model 8 Stepping 3 AT/AT COMPATIBLE  - Software: Windows NT Version 4.0  (Build Number: 1381 Uniprocessor Free )"
+metadata = { "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows NT Server", "os.version" = "4.0", "os.arch" = "x86", "os.cpe23" = "cpe:/o:microsoft:windows_nt:4.0" }
+
+[[match]]
+name = "Windows 2000 on x86"
+pattern = "^1\\.3\\.6\\.1\\.4\\.1\\.311\\.1\\.1\\.3\\.1\\.2 Hardware: x86.*Software: Windows 2000 Version 5\\.0"
+context = "snmp.sys_object_id"
+example = "1.3.6.1.4.1.311.1.1.3.1.2 Hardware: x86 Family 15 Model 4 Stepping 8 AT/AT COMPATIBLE - Software: Windows 2000 Version 5.0 (Build 2195 Uniprocessor Free)"
+metadata = { "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows 2000 Server", "os.arch" = "x86", "os.cpe23" = "cpe:/o:microsoft:windows_2000:-" }
+
+[[match]]
+name = "Windows 2000 Datacenter on x86"
+pattern = "^1\\.3\\.6\\.1\\.4\\.1\\.311\\.1\\.1\\.3\\.1\\.3 Hardware: x86.*Software: Windows 2000 Version 5\\.0"
+context = "snmp.sys_object_id"
+example = "1.3.6.1.4.1.311.1.1.3.1.3 Hardware: x86 Family 15 Model 4 Stepping 8 AT/AT COMPATIBLE - Software: Windows 2000 Version 5.0 (Build 2195 Uniprocessor Free)"
+metadata = { "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows 2000 Datacenter Server", "os.arch" = "x86", "os.cpe23" = "cpe:/o:microsoft:windows_2000:-" }
+
+[[match]]
+name = "Windows Server 2003 on x86"
+pattern = "^1\\.3\\.6\\.1\\.4\\.1\\.311\\.1\\.1\\.3\\.1\\.2 Hardware: x86.*Software: Windows Version 5\\.2"
+context = "snmp.sys_object_id"
+example = "1.3.6.1.4.1.311.1.1.3.1.2 Hardware: x86 Family 15 Model 4 Stepping 3 AT/AT COMPATIBLE - Software: Windows Version 5.2 (Build 3790 Multiprocessor Free)"
+metadata = { "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows Server 2003", "os.arch" = "x86", "os.cpe23" = "cpe:/o:microsoft:windows_server_2003:-" }
+
+[[match]]
+name = "Windows Server 2003 Datacenter on x86"
+pattern = "^1\\.3\\.6\\.1\\.4\\.1\\.311\\.1\\.1\\.3\\.1\\.3 Hardware: x86.*Software: Windows Version 5\\.2"
+context = "snmp.sys_object_id"
+example = "1.3.6.1.4.1.311.1.1.3.1.3 Hardware: x86 Family 15 Model 4 Stepping 3 AT/AT COMPATIBLE - Software: Windows Version 5.2 (Build 3790 Multiprocessor Free)"
+metadata = { "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows Server 2003, Datacenter Edition", "os.arch" = "x86", "os.cpe23" = "cpe:/o:microsoft:windows_server_2003:-" }
+
+[[match]]
+name = "Windows Server 2003 on x86_64"
+pattern = "^1\\.3\\.6\\.1\\.4\\.1\\.311\\.1\\.1\\.3\\.1\\.2 Hardware: \\S+64.*Software: Windows Version 5\\.2"
+context = "snmp.sys_object_id"
+example = "1.3.6.1.4.1.311.1.1.3.1.2 Hardware: AMD64 Family 15 Model 4 Stepping 3 AT/AT COMPATIBLE - Software: Windows Version 5.2 (Build 3790 Multiprocessor Free)"
+metadata = { "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows Server 2003", "os.arch" = "x86_64", "os.cpe23" = "cpe:/o:microsoft:windows_server_2003:-" }
+
+[[match]]
+name = "Windows Server 2003 Datacenter on x86_64"
+pattern = "^1\\.3\\.6\\.1\\.4\\.1\\.311\\.1\\.1\\.3\\.1\\.3 Hardware: \\S+64.*Software: Windows Version 5\\.2"
+context = "snmp.sys_object_id"
+example = "1.3.6.1.4.1.311.1.1.3.1.3 Hardware: AMD64 Family 15 Model 4 Stepping 3 AT/AT COMPATIBLE - Software: Windows Version 5.2 (Build 3790 Multiprocessor Free)"
+metadata = { "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows Server 2003, Datacenter Edition", "os.arch" = "x86_64", "os.cpe23" = "cpe:/o:microsoft:windows_server_2003:-" }
+
+[[match]]
+name = "Windows CE"
+pattern = "^Microsoft Windows CE Version ([\\d.]+)"
+context = "snmp.sys_object_id"
+example = "Microsoft Windows CE Version 4.20 (Build 0)"
+metadata = { "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows CE", "os.version" = "{capture:1}", "os.cpe23" = "cpe:/o:microsoft:windows_ce:{os.version}" }
+
+[[match]]
+name = "Windows Server 2008 on x86"
+pattern = "^1\\.3\\.6\\.1\\.4\\.1\\.311\\.1\\.1\\.3\\.1\\.2 Hardware: x86.*Software: Windows Version 6\\.0 \\(Build 6001"
+context = "snmp.sys_object_id"
+example = "1.3.6.1.4.1.311.1.1.3.1.2 Hardware: x86 Family 15 Model 2 Stepping 5 AT/AT COMPATIBLE - Software: Windows Version 6.0 (Build 6001 Multiprocessor Free)"
+metadata = { "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows Server 2008", "os.arch" = "x86", "os.cpe23" = "cpe:/o:microsoft:windows_server_2008:-" }
+
+[[match]]
+name = "Windows Server 2008 Datacenter on x86"
+pattern = "^1\\.3\\.6\\.1\\.4\\.1\\.311\\.1\\.1\\.3\\.1\\.3 Hardware: x86.*Software: Windows Version 6\\.0 \\(Build 6001"
+context = "snmp.sys_object_id"
+example = "1.3.6.1.4.1.311.1.1.3.1.3 Hardware: x86 Family 15 Model 2 Stepping 5 AT/AT COMPATIBLE - Software: Windows Version 6.0 (Build 6001 Multiprocessor Free)"
+metadata = { "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows Server 2008 Datacenter Edition", "os.arch" = "x86", "os.cpe23" = "cpe:/o:microsoft:windows_server_2008:-" }
+
+[[match]]
+name = "Windows Server 2008 on x86_64"
+pattern = "^1\\.3\\.6\\.1\\.4\\.1\\.311\\.1\\.1\\.3\\.1\\.2 Hardware: \\S+64.*Software: Windows Version 6\\.0 \\(Build 6001"
+context = "snmp.sys_object_id"
+example = "1.3.6.1.4.1.311.1.1.3.1.2 Hardware: AMD64 Family 16 Model 2 Stepping 3 AT/AT COMPATIBLE - Software: Windows Version 6.0 (Build 6001 Multiprocessor Free)"
+metadata = { "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows Server 2008", "os.arch" = "x86_64", "os.cpe23" = "cpe:/o:microsoft:windows_server_2008:-" }
+
+[[match]]
+name = "Windows Server 2008 Datacenter on x86_64"
+pattern = "^1\\.3\\.6\\.1\\.4\\.1\\.311\\.1\\.1\\.3\\.1\\.3 Hardware: \\S+64.*Software: Windows Version 6\\.0 \\(Build 6001"
+context = "snmp.sys_object_id"
+example = "1.3.6.1.4.1.311.1.1.3.1.3 Hardware: AMD64 Family 16 Model 2 Stepping 3 AT/AT COMPATIBLE - Software: Windows Version 6.0 (Build 6001 Multiprocessor Free)"
+metadata = { "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows Server 2008 Datacenter Edition", "os.arch" = "x86_64", "os.cpe23" = "cpe:/o:microsoft:windows_server_2008:-" }
+
+[[match]]
+name = "Windows Server 2008 SP2 on x86"
+pattern = "^1\\.3\\.6\\.1\\.4\\.1\\.311\\.1\\.1\\.3\\.1\\.2 Hardware: x86.*Software: Windows Version 6\\.0 \\(Build 6002"
+context = "snmp.sys_object_id"
+example = "1.3.6.1.4.1.311.1.1.3.1.2 Hardware: x86 Family 16 Model 2 Stepping 3 AT/AT COMPATIBLE - Software: Windows Version 6.0 (Build 6002 Multiprocessor Free)"
+metadata = { "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows Server 2008", "os.version" = "SP2", "os.arch" = "x86", "os.cpe23" = "cpe:/o:microsoft:windows_server_2008:SP2" }
+
+[[match]]
+name = "Windows Server 2008 Datacenter SP2 on x86"
+pattern = "^1\\.3\\.6\\.1\\.4\\.1\\.311\\.1\\.1\\.3\\.1\\.3 Hardware: x86.*Software: Windows Version 6\\.0 \\(Build 6002"
+context = "snmp.sys_object_id"
+example = "1.3.6.1.4.1.311.1.1.3.1.3 Hardware: x86 Family 16 Model 2 Stepping 3 AT/AT COMPATIBLE - Software: Windows Version 6.0 (Build 6002 Multiprocessor Free)"
+metadata = { "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows Server 2008 Datacenter Edition", "os.version" = "SP2", "os.arch" = "x86", "os.cpe23" = "cpe:/o:microsoft:windows_server_2008:SP2" }
+
+[[match]]
+name = "Windows Server 2008 SP2 on x86_64"
+pattern = "^1\\.3\\.6\\.1\\.4\\.1\\.311\\.1\\.1\\.3\\.1\\.2 Hardware: \\S+64.*Software: Windows Version 6\\.0 \\(Build 6002"
+context = "snmp.sys_object_id"
+example = "1.3.6.1.4.1.311.1.1.3.1.2 Hardware: AMD64 Family 16 Model 2 Stepping 3 AT/AT COMPATIBLE - Software: Windows Version 6.0 (Build 6002 Multiprocessor Free)"
+metadata = { "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows Server 2008 R2", "os.version" = "SP2", "os.arch" = "x86_64", "os.cpe23" = "cpe:/o:microsoft:windows_server_2008:SP2" }
+
+[[match]]
+name = "Windows Server 2008 Datacenter SP2 on x86_64"
+pattern = "^1\\.3\\.6\\.1\\.4\\.1\\.311\\.1\\.1\\.3\\.1\\.3 Hardware: \\S+64.*Software: Windows Version 6\\.0 \\(Build 6002"
+context = "snmp.sys_object_id"
+example = "1.3.6.1.4.1.311.1.1.3.1.3 Hardware: AMD64 Family 16 Model 2 Stepping 3 AT/AT COMPATIBLE - Software: Windows Version 6.0 (Build 6002 Multiprocessor Free)"
+metadata = { "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows Server 2008 R2", "os.version" = "SP2", "os.arch" = "x86_64", "os.cpe23" = "cpe:/o:microsoft:windows_server_2008:SP2" }
+
+[[match]]
+name = "Windows Server 2008 R2 on x86"
+pattern = "^1\\.3\\.6\\.1\\.4\\.1\\.311\\.1\\.1\\.3\\.1\\.2 Hardware: x86.*Software: Windows Version 6\\.1 \\(Build 7600"
+context = "snmp.sys_object_id"
+example = "1.3.6.1.4.1.311.1.1.3.1.2 Hardware: x86 Family 15 Model 2 Stepping 5 AT/AT COMPATIBLE - Software: Windows Version 6.1 (Build 7600 Multiprocessor Free)"
+metadata = { "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows Server 2008 R2", "os.arch" = "x86", "os.cpe23" = "cpe:/o:microsoft:windows_server_2008:-" }
+
+[[match]]
+name = "Windows Server 2008 Datacenter R2 on x86"
+pattern = "^1\\.3\\.6\\.1\\.4\\.1\\.311\\.1\\.1\\.3\\.1\\.3 Hardware: x86.*Software: Windows Version 6\\.1 \\(Build 7600"
+context = "snmp.sys_object_id"
+example = "1.3.6.1.4.1.311.1.1.3.1.3 Hardware: x86 Family 15 Model 2 Stepping 5 AT/AT COMPATIBLE - Software: Windows Version 6.1 (Build 7600 Multiprocessor Free)"
+metadata = { "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows Server 2008 R2, Datacenter Edition", "os.arch" = "x86", "os.cpe23" = "cpe:/o:microsoft:windows_server_2008:-" }
+
+[[match]]
+name = "Windows Server 2008 R2 on x86_64"
+pattern = "^1\\.3\\.6\\.1\\.4\\.1\\.311\\.1\\.1\\.3\\.1\\.2 Hardware: \\S+64.*Software: Windows Version 6\\.1 \\(Build 7600"
+context = "snmp.sys_object_id"
+example = "1.3.6.1.4.1.311.1.1.3.1.2 Hardware: AMD64 Family 16 Model 2 Stepping 3 AT/AT COMPATIBLE - Software: Windows Version 6.1 (Build 7600 Multiprocessor Free)"
+metadata = { "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows Server 2008 R2", "os.arch" = "x86_64", "os.cpe23" = "cpe:/o:microsoft:windows_server_2008:-" }
+
+[[match]]
+name = "Windows Server 2008 Datacenter R2 on x86_64"
+pattern = "^1\\.3\\.6\\.1\\.4\\.1\\.311\\.1\\.1\\.3\\.1\\.3 Hardware: \\S+64.*Software: Windows Version 6\\.1 \\(Build 7600"
+context = "snmp.sys_object_id"
+example = "1.3.6.1.4.1.311.1.1.3.1.3 Hardware: AMD64 Family 16 Model 2 Stepping 3 AT/AT COMPATIBLE - Software: Windows Version 6.1 (Build 7600 Multiprocessor Free)"
+metadata = { "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows Server 2008 R2, Datacenter Edition", "os.arch" = "x86_64", "os.cpe23" = "cpe:/o:microsoft:windows_server_2008:-" }
+
+[[match]]
+name = "Windows Server 2008 R2 SP1 on x86"
+pattern = "^1\\.3\\.6\\.1\\.4\\.1\\.311\\.1\\.1\\.3\\.1\\.2 Hardware: x86.*Software: Windows Version 6\\.1 \\(Build 7601"
+context = "snmp.sys_object_id"
+example = "1.3.6.1.4.1.311.1.1.3.1.2 Hardware: x86 Family 15 Model 2 Stepping 5 AT/AT COMPATIBLE - Software: Windows Version 6.1 (Build 7601 Multiprocessor Free)"
+metadata = { "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows Server 2008 R2", "os.version" = "SP1", "os.arch" = "x86", "os.cpe23" = "cpe:/o:microsoft:windows_server_2008:SP1" }
+
+[[match]]
+name = "Windows Server 2008 Datacenter R2 SP1 on x86"
+pattern = "^1\\.3\\.6\\.1\\.4\\.1\\.311\\.1\\.1\\.3\\.1\\.3 Hardware: x86.*Software: Windows Version 6\\.1 \\(Build 7601"
+context = "snmp.sys_object_id"
+example = "1.3.6.1.4.1.311.1.1.3.1.3 Hardware: x86 Family 15 Model 2 Stepping 5 AT/AT COMPATIBLE - Software: Windows Version 6.1 (Build 7601 Multiprocessor Free)"
+metadata = { "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows Server 2008 R2, Datacenter Edition", "os.version" = "SP1", "os.arch" = "x86", "os.cpe23" = "cpe:/o:microsoft:windows_server_2008:SP1" }
+
+[[match]]
+name = "Windows Server 2008 R2 SP1 on x86_64"
+pattern = "^1\\.3\\.6\\.1\\.4\\.1\\.311\\.1\\.1\\.3\\.1\\.2 Hardware: \\S+64.*Software: Windows Version 6\\.1 \\(Build 7601"
+context = "snmp.sys_object_id"
+example = "1.3.6.1.4.1.311.1.1.3.1.2 Hardware: AMD64 Family 16 Model 2 Stepping 3 AT/AT COMPATIBLE - Software: Windows Version 6.1 (Build 7601 Multiprocessor Free)"
+metadata = { "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows Server 2008 R2", "os.version" = "SP1", "os.arch" = "x86_64", "os.cpe23" = "cpe:/o:microsoft:windows_server_2008:SP1" }
+
+[[match]]
+name = "Windows Server 2008 Datacenter R2 SP1 on x86_64"
+pattern = "^1\\.3\\.6\\.1\\.4\\.1\\.311\\.1\\.1\\.3\\.1\\.3 Hardware: \\S+64.*Software: Windows Version 6\\.1 \\(Build 7601"
+context = "snmp.sys_object_id"
+example = "1.3.6.1.4.1.311.1.1.3.1.3 Hardware: AMD64 Family 16 Model 2 Stepping 3 AT/AT COMPATIBLE - Software: Windows Version 6.1 (Build 7601 Multiprocessor Free)"
+metadata = { "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows Server 2008 R2, Datacenter Edition", "os.version" = "SP1", "os.arch" = "x86_64", "os.cpe23" = "cpe:/o:microsoft:windows_server_2008:SP1" }
+
+[[match]]
+name = "Windows Server 2012 on x86_64"
+pattern = "^1\\.3\\.6\\.1\\.4\\.1\\.311\\.1\\.1\\.3\\.1\\.2 Hardware: \\S+64.*Software: Windows Version 6\\.2 \\(Build 9200"
+context = "snmp.sys_object_id"
+example = "1.3.6.1.4.1.311.1.1.3.1.2 Hardware: Intel64 Family 6 Model 2 Stepping 3 AT/AT COMPATIBLE - Software: Windows Version 6.2 (Build 9200 Multiprocessor Free)"
+metadata = { "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows Server 2012", "os.arch" = "x86_64", "os.cpe23" = "cpe:/o:microsoft:windows_server_2012:-" }
+
+[[match]]
+name = "Net-SNMP on hpux9"
+pattern = "^1\\.3\\.6\\.1\\.4\\.1\\.8072\\.3\\.2\\.1$"
+vendor = "Net-SNMP"
+product = "SNMP Agent"
+context = "snmp.sys_object_id"
+example = "1.3.6.1.4.1.8072.3.2.1"
+metadata = { "os.vendor" = "HP", "os.family" = "HP-UX", "os.product" = "HP-UX", "os.version" = "9", "os.cpe23" = "cpe:/o:hp:hp-ux:9", "service.cpe23" = "cpe:/a:net-snmp:net-snmp:-" }
+
+[[match]]
+name = "Net-SNMP on sunos4"
+pattern = "^1\\.3\\.6\\.1\\.4\\.1\\.8072\\.3\\.2\\.2$"
+vendor = "Net-SNMP"
+product = "SNMP Agent"
+context = "snmp.sys_object_id"
+example = "1.3.6.1.4.1.8072.3.2.2"
+metadata = { "os.vendor" = "Sun", "os.family" = "Solaris", "os.product" = "Solaris", "os.cpe23" = "cpe:/o:sun:solaris:-", "service.cpe23" = "cpe:/a:net-snmp:net-snmp:-" }
+
+[[match]]
+name = "Net-SNMP on solaris"
+pattern = "^1\\.3\\.6\\.1\\.4\\.1\\.8072\\.3\\.2\\.3$"
+vendor = "Net-SNMP"
+product = "SNMP Agent"
+context = "snmp.sys_object_id"
+example = "1.3.6.1.4.1.8072.3.2.3"
+metadata = { "os.vendor" = "Sun", "os.family" = "Solaris", "os.product" = "Solaris", "os.cpe23" = "cpe:/o:sun:solaris:-", "service.cpe23" = "cpe:/a:net-snmp:net-snmp:-" }
+
+[[match]]
+name = "Net-SNMP on osf"
+pattern = "^1\\.3\\.6\\.1\\.4\\.1\\.8072\\.3\\.2\\.4$"
+vendor = "Net-SNMP"
+product = "SNMP Agent"
+context = "snmp.sys_object_id"
+example = "1.3.6.1.4.1.8072.3.2.4"
+metadata = { "os.vendor" = "DEC", "os.product" = "OSF/1", "service.cpe23" = "cpe:/a:net-snmp:net-snmp:-" }
+
+[[match]]
+name = "Net-SNMP on ultrix"
+pattern = "^1\\.3\\.6\\.1\\.4\\.1\\.8072\\.3\\.2\\.5$"
+vendor = "Net-SNMP"
+product = "SNMP Agent"
+context = "snmp.sys_object_id"
+example = "1.3.6.1.4.1.8072.3.2.5"
+metadata = { "os.vendor" = "DEC", "os.product" = "Ultrix", "service.cpe23" = "cpe:/a:net-snmp:net-snmp:-" }
+
+[[match]]
+name = "Net-SNMP on hpux10"
+pattern = "^1\\.3\\.6\\.1\\.4\\.1\\.8072\\.3\\.2\\.6$"
+vendor = "Net-SNMP"
+product = "SNMP Agent"
+context = "snmp.sys_object_id"
+example = "1.3.6.1.4.1.8072.3.2.6"
+metadata = { "os.vendor" = "HP", "os.family" = "HP-UX", "os.product" = "HP-UX", "os.version" = "10", "os.cpe23" = "cpe:/o:hp:hp-ux:10", "service.cpe23" = "cpe:/a:net-snmp:net-snmp:-" }
+
+[[match]]
+name = "Net-SNMP on netbsd"
+pattern = "^1\\.3\\.6\\.1\\.4\\.1\\.8072\\.3\\.2\\.7$"
+vendor = "Net-SNMP"
+product = "SNMP Agent"
+context = "snmp.sys_object_id"
+example = "1.3.6.1.4.1.8072.3.2.7"
+metadata = { "os.vendor" = "NetBSD", "os.family" = "NetBSD", "os.product" = "NetBSD", "os.cpe23" = "cpe:/o:netbsd:netbsd:-", "service.cpe23" = "cpe:/a:net-snmp:net-snmp:-" }
+
+[[match]]
+name = "Net-SNMP on freebsd"
+pattern = "^1\\.3\\.6\\.1\\.4\\.1\\.8072\\.3\\.2\\.8$"
+vendor = "Net-SNMP"
+product = "SNMP Agent"
+context = "snmp.sys_object_id"
+example = "1.3.6.1.4.1.8072.3.2.8"
+metadata = { "os.vendor" = "FreeBSD", "os.family" = "FreeBSD", "os.product" = "FreeBSD", "os.cpe23" = "cpe:/o:freebsd:freebsd:-", "service.cpe23" = "cpe:/a:net-snmp:net-snmp:-" }
+
+[[match]]
+name = "Net-SNMP on irix"
+pattern = "^1\\.3\\.6\\.1\\.4\\.1\\.8072\\.3\\.2\\.9$"
+vendor = "Net-SNMP"
+product = "SNMP Agent"
+context = "snmp.sys_object_id"
+example = "1.3.6.1.4.1.8072.3.2.9"
+metadata = { "os.vendor" = "SGI", "os.family" = "IRIX", "os.product" = "IRIX", "os.cpe23" = "cpe:/o:sgi:irix:-", "service.cpe23" = "cpe:/a:net-snmp:net-snmp:-" }
+
+[[match]]
+name = "Net-SNMP on linux"
+pattern = "^1\\.3\\.6\\.1\\.4\\.1\\.8072\\.3\\.2\\.10$"
+vendor = "Net-SNMP"
+product = "SNMP Agent"
+context = "snmp.sys_object_id"
+example = "1.3.6.1.4.1.8072.3.2.10"
+metadata = { "os.family" = "Linux", "os.product" = "Linux", "service.cpe23" = "cpe:/a:net-snmp:net-snmp:-" }
+
+[[match]]
+name = "Net-SNMP on bsdi"
+pattern = "^1\\.3\\.6\\.1\\.4\\.1\\.8072\\.3\\.2\\.11$"
+vendor = "Net-SNMP"
+product = "SNMP Agent"
+context = "snmp.sys_object_id"
+example = "1.3.6.1.4.1.8072.3.2.11"
+metadata = { "os.vendor" = "Berkeley Software Design Inc.", "os.product" = "BSD/OS", "service.cpe23" = "cpe:/a:net-snmp:net-snmp:-" }
+
+[[match]]
+name = "Net-SNMP on openbsd"
+pattern = "^1\\.3\\.6\\.1\\.4\\.1\\.8072\\.3\\.2\\.12$"
+vendor = "Net-SNMP"
+product = "SNMP Agent"
+context = "snmp.sys_object_id"
+example = "1.3.6.1.4.1.8072.3.2.12"
+metadata = { "os.vendor" = "OpenBSD", "os.family" = "OpenBSD", "os.product" = "OpenBSD", "os.cpe23" = "cpe:/o:openbsd:openbsd:-", "service.cpe23" = "cpe:/a:net-snmp:net-snmp:-" }
+
+[[match]]
+name = "Net-SNMP on win32"
+pattern = "^1\\.3\\.6\\.1\\.4\\.1\\.8072\\.3\\.2\\.13$"
+vendor = "Net-SNMP"
+product = "SNMP Agent"
+context = "snmp.sys_object_id"
+example = "1.3.6.1.4.1.8072.3.2.13"
+metadata = { "os.vendor" = "Microsoft", "os.product" = "Windows", "os.family" = "Windows", "os.cpe23" = "cpe:/o:microsoft:windows:-", "service.cpe23" = "cpe:/a:net-snmp:net-snmp:-" }
+
+[[match]]
+name = "Net-SNMP on hpux11"
+pattern = "^1\\.3\\.6\\.1\\.4\\.1\\.8072\\.3\\.2\\.14$"
+vendor = "Net-SNMP"
+product = "SNMP Agent"
+context = "snmp.sys_object_id"
+example = "1.3.6.1.4.1.8072.3.2.14"
+metadata = { "os.vendor" = "HP", "os.family" = "HP-UX", "os.product" = "HP-UX", "os.version" = "11", "os.cpe23" = "cpe:/o:hp:hp-ux:11", "service.cpe23" = "cpe:/a:net-snmp:net-snmp:-" }
+
+[[match]]
+name = "Net-SNMP on aix"
+pattern = "^1\\.3\\.6\\.1\\.4\\.1\\.8072\\.3\\.2\\.15$"
+vendor = "Net-SNMP"
+product = "SNMP Agent"
+context = "snmp.sys_object_id"
+example = "1.3.6.1.4.1.8072.3.2.15"
+metadata = { "os.vendor" = "IBM", "os.family" = "AIX", "os.product" = "AIX", "os.cpe23" = "cpe:/o:ibm:aix:-", "service.cpe23" = "cpe:/a:net-snmp:net-snmp:-" }
+
+[[match]]
+name = "Net-SNMP on macosx"
+pattern = "^1\\.3\\.6\\.1\\.4\\.1\\.8072\\.3\\.2\\.16$"
+vendor = "Net-SNMP"
+product = "SNMP Agent"
+context = "snmp.sys_object_id"
+example = "1.3.6.1.4.1.8072.3.2.16"
+metadata = { "os.vendor" = "Apple", "os.product" = "Mac OS X", "os.cpe23" = "cpe:/o:apple:mac_os_x:-", "service.cpe23" = "cpe:/a:net-snmp:net-snmp:-" }
+
+[[match]]
+name = "HP Aruba Network Switch"
+pattern = "^1\\.3\\.6\\.1\\.4\\.1\\.11\\.2\\.3\\.7\\.11\\.181\\.21\\sAruba\\s(JL\\d+A)\\s(\\d+[A-Z]?)\\S+\\sSwitch.+ROM\\s([A-Z]+(?:\\.\\d+)+)"
+context = "snmp.sys_object_id"
+example = "1.3.6.1.4.1.11.2.3.7.11.181.21 Aruba JL256A 2930F-48G-PoE+-4SFP+ Switch, revision WC.16.11.0004, ROM WC.16.01.0010"
+metadata = { "os.vendor" = "Aruba Networks", "os.version" = "{capture:3}", "hw.vendor" = "Aruba Networks", "hw.product" = "{capture:2}", "hw.model" = "{capture:1}", "hw.device" = "Switch" }
+

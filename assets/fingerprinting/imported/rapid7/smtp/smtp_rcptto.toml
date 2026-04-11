@@ -1,0 +1,18 @@
+# This file contains fingerprints imported from Rapid7 Recog.
+# Source: https://github.com/rapid7/recog
+# License: BSD-2-Clause
+
+[service]
+attribution = "Rapid7 Recog"
+name = "smtp"
+default_ports = []
+description = "Imported from Rapid7 smtp_rcptto"
+
+[[match]]
+name = "550 not local host foo.bar, not a gateway"
+pattern = "550[ -]not local host .*, not a gateway *"
+vendor = "Ipswitch"
+product = "IMail Server"
+context = "unknown"
+metadata = { "service.family" = "IMail Server", "service.cpe23" = "cpe:/a:ipswitch:imail_server:-" }
+

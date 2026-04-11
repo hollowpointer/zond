@@ -1,0 +1,20 @@
+# This file contains fingerprints imported from Rapid7 Recog.
+# Source: https://github.com/rapid7/recog
+# License: BSD-2-Clause
+
+[service]
+attribution = "Rapid7 Recog"
+name = "http"
+default_ports = []
+description = "Imported from Rapid7 http_xpoweredby"
+
+[[match]]
+name = "PHP"
+pattern = "^PHP/([0-9.]+)$"
+version_group = 1
+vendor = "PHP"
+product = "PHP"
+context = "http_header.x-powered-by"
+example = "PHP/8.2.14"
+metadata = { "service.family" = "PHP", "service.cpe23" = "cpe:/a:php:php:{service.version}" }
+

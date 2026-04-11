@@ -1,0 +1,299 @@
+# This file contains fingerprints imported from Rapid7 Recog.
+# Source: https://github.com/rapid7/recog
+# License: BSD-2-Clause
+
+[service]
+attribution = "Rapid7 Recog"
+name = "x509"
+default_ports = []
+description = "Imported from Rapid7 x509_issuers"
+
+[[match]]
+name = "Lets Encrypt R3 - generic -- assert nothing."
+pattern = "^CN=R3,O=Let's Encrypt,C=US$"
+context = "x509.issuer"
+example = "CN=R3,O=Let's Encrypt,C=US"
+metadata = { "hw.certainty" = "0.0", "os.certainty" = "0.0", "service.certainty" = "0.0" }
+
+[[match]]
+name = "Lets Encrypt X3 - generic -- assert nothing."
+pattern = "^CN=Let's Encrypt Authority X3,O=Let's Encrypt,C=US$"
+context = "x509.issuer"
+example = "CN=Let's Encrypt Authority X3,O=Let's Encrypt,C=US"
+metadata = { "hw.certainty" = "0.0", "os.certainty" = "0.0", "service.certainty" = "0.0" }
+
+[[match]]
+name = "Amazon AWS Server CA 1B - generic -- assert nothing."
+pattern = "^CN=Amazon,OU=Server CA 1B,O=Amazon,C=US$"
+context = "x509.issuer"
+example = "CN=Amazon,OU=Server CA 1B,O=Amazon,C=US"
+metadata = { "hw.certainty" = "0.0", "os.certainty" = "0.0", "service.certainty" = "0.0" }
+
+[[match]]
+name = "DigiCert SHA2 - generic -- assert nothing."
+pattern = "^CN=DigiCert SHA2 Secure Server CA,O=DigiCert Inc,C=US$"
+context = "x509.issuer"
+example = "CN=DigiCert SHA2 Secure Server CA,O=DigiCert Inc,C=US"
+metadata = { "hw.certainty" = "0.0", "os.certainty" = "0.0", "service.certainty" = "0.0" }
+
+[[match]]
+name = "DigiCert SHA256 2020 CA1 - generic -- assert nothing."
+pattern = "^CN=DigiCert TLS (?:RSA SHA256|Hybrid ECC SHA384) 2020 CA1,O=DigiCert Inc,C=US$"
+context = "x509.issuer"
+example = "CN=DigiCert TLS RSA SHA256 2020 CA1,O=DigiCert Inc,C=US"
+metadata = { "hw.certainty" = "0.0", "os.certainty" = "0.0", "service.certainty" = "0.0" }
+
+[[match]]
+name = "DigiCert ECC CA-1 - generic -- assert nothing."
+pattern = "^CN=DigiCert Secure Site ECC CA-1,OU=www.digicert.com,O=DigiCert Inc,C=US$"
+context = "x509.issuer"
+example = "CN=DigiCert Secure Site ECC CA-1,OU=www.digicert.com,O=DigiCert Inc,C=US"
+metadata = { "hw.certainty" = "0.0", "os.certainty" = "0.0", "service.certainty" = "0.0" }
+
+[[match]]
+name = "DigiCert SHA2 EV - generic -- assert nothing."
+pattern = "^CN=DigiCert SHA2 (?:Extended Validation|High Assurance) Server CA,OU=www.digicert.com,O=DigiCert Inc,C=US$"
+context = "x509.issuer"
+example = "CN=DigiCert SHA2 Extended Validation Server CA,OU=www.digicert.com,O=DigiCert Inc,C=US"
+metadata = { "hw.certainty" = "0.0", "os.certainty" = "0.0", "service.certainty" = "0.0" }
+
+[[match]]
+name = "Sectigo RSA - generic -- assert nothing."
+pattern = "^CN=Sectigo RSA (?:Domain|Organization) Validation Secure Server CA,O=Sectigo Limited,L=Salford,ST=Greater Manchester,C=GB$"
+context = "x509.issuer"
+example = "CN=Sectigo RSA Domain Validation Secure Server CA,O=Sectigo Limited,L=Salford,ST=Greater Manchester,C=GB"
+metadata = { "hw.certainty" = "0.0", "os.certainty" = "0.0", "service.certainty" = "0.0" }
+
+[[match]]
+name = "GeoTrust RSA CA 2018 - generic -- assert nothing."
+pattern = "^CN=GeoTrust RSA CA 2018,OU=www.digicert.com,O=DigiCert Inc,C=US$"
+context = "x509.issuer"
+example = "CN=GeoTrust RSA CA 2018,OU=www.digicert.com,O=DigiCert Inc,C=US"
+metadata = { "hw.certainty" = "0.0", "os.certainty" = "0.0", "service.certainty" = "0.0" }
+
+[[match]]
+name = "Go Daddy G2 - generic -- assert nothing."
+pattern = "^CN=Go Daddy Secure Certificate Authority - G2,OU=http://certs\\.godaddy\\.com/repository/,O=GoDaddy.com\\\\, Inc\\.,L=Scottsdale,ST=Arizona,C=US$"
+context = "x509.issuer"
+example = "CN=Go Daddy Secure Certificate Authority - G2,OU=http://certs.godaddy.com/repository/,O=GoDaddy.com\\, Inc.,L=Scottsdale,ST=Arizona,C=US"
+metadata = { "hw.certainty" = "0.0", "os.certainty" = "0.0", "service.certainty" = "0.0" }
+
+[[match]]
+name = "Google Chromecast Gen 1"
+pattern = "^CN=Eureka Gen1 ICA,OU=Google TV,O=Google Inc,L=Mountain View,ST=California,C=US$"
+context = "x509.issuer"
+example = "CN=Eureka Gen1 ICA,OU=Google TV,O=Google Inc,L=Mountain View,ST=California,C=US"
+metadata = { "os.vendor" = "Google", "os.product" = "Chrome OS", "os.certainty" = "0.5", "os.cpe23" = "cpe:/o:google:chrome_os:-", "hw.device" = "Media Server", "hw.vendor" = "Google", "hw.product" = "Chromecast", "hw.certainty" = "0.5", "hw.cpe23" = "cpe:/h:google:chromecast:-", "chromecast.generation" = "1" }
+
+[[match]]
+name = "Google Chromecast"
+pattern = "^CN=Chromecast ICA (\\d+)\\s*\\(?([^,\\)]*)\\)?,OU=Cast,O=Google Inc,L=Mountain View,ST=California,C=US$"
+context = "x509.issuer"
+example = "CN=Chromecast ICA 3,OU=Cast,O=Google Inc,L=Mountain View,ST=California,C=US"
+metadata = { "os.vendor" = "Google", "os.product" = "Chrome OS", "os.certainty" = "0.5", "os.cpe23" = "cpe:/o:google:chrome_os:-", "hw.device" = "Media Server", "hw.vendor" = "Google", "hw.product" = "Chromecast", "hw.certainty" = "0.5", "hw.cpe23" = "cpe:/h:google:chromecast:-", "chromecast.generation" = "{capture:1}", "chromecast.capabilities" = "{capture:2}" }
+
+[[match]]
+name = "Google Chromecast - mDNS"
+pattern = "^CN=atvremote/[a-z_]+/([a-z]+)/Chromecast/"
+context = "x509.issuer"
+example = "CN=atvremote/sabrina_prod_stable/sabrina/Chromecast/13:37:F0:0B:AR:42"
+metadata = { "os.vendor" = "Google", "os.product" = "Chrome OS", "os.certainty" = "0.5", "os.cpe23" = "cpe:/o:google:chrome_os:-", "hw.device" = "Media Server", "hw.vendor" = "Google", "hw.product" = "Chromecast", "hw.certainty" = "0.5", "hw.cpe23" = "cpe:/h:google:chromecast:-", "chromecast.codename" = "{capture:1}" }
+
+[[match]]
+name = "ASUS Nexus Player (Android) with Google Cast"
+pattern = "^CN=Asus fugu Cast ICA,OU=Widevine,O=Google Inc,L=Kirkland,ST=Washington,C=US$"
+context = "x509.issuer"
+example = "CN=Asus fugu Cast ICA,OU=Widevine,O=Google Inc,L=Kirkland,ST=Washington,C=US"
+metadata = { "os.vendor" = "Google", "os.family" = "Linux", "os.product" = "Android", "os.cpe23" = "cpe:/o:google:android:-", "hw.device" = "Media Server", "hw.vendor" = "ASUS", "hw.product" = "Nexus Player" }
+
+[[match]]
+name = "Sony SmartTV (Android) with Google Cast"
+pattern = "^CN=Sony amai Cast ICA,OU=Widevine,O=Google Inc,L=Kirkland,ST=Washington,C=US$"
+context = "x509.issuer"
+example = "CN=Sony amai Cast ICA,OU=Widevine,O=Google Inc,L=Kirkland,ST=Washington,C=US"
+metadata = { "os.vendor" = "Google", "os.family" = "Linux", "os.product" = "Android", "os.cpe23" = "cpe:/o:google:android:-", "hw.device" = "Smart TV", "hw.vendor" = "Sony" }
+
+[[match]]
+name = "Vizio SmartTV (Android) with Google Cast"
+pattern = "^CN=Cast TV ICA \\(Vizio\\),OU=Cast,O=Google Inc,L=Mountain View,ST=California,C=US$"
+context = "x509.issuer"
+example = "CN=Cast TV ICA (Vizio),OU=Cast,O=Google Inc,L=Mountain View,ST=California,C=US"
+metadata = { "os.vendor" = "Google", "os.family" = "Linux", "os.product" = "Android", "os.cpe23" = "cpe:/o:google:android:-", "hw.device" = "Smart TV", "hw.vendor" = "Vizio" }
+
+[[match]]
+name = "NVIDIA SHIELD (Android) with Google Cast"
+pattern = "^CN=NVidia Shield Cast ICA,OU=Widevine,O=Google Inc,L=Kirkland,ST=Washington,C=US$"
+context = "x509.issuer"
+example = "CN=NVidia Shield Cast ICA,OU=Widevine,O=Google Inc,L=Kirkland,ST=Washington,C=US"
+metadata = { "os.vendor" = "Google", "os.family" = "Linux", "os.product" = "Android", "os.cpe23" = "cpe:/o:google:android:-", "hw.device" = "Tablet", "hw.vendor" = "NVIDIA", "hw.product" = "SHIELD" }
+
+[[match]]
+name = "NVIDIA SHIELD (Android) with Google Cast (Darcy)"
+pattern = "^CN=NVidia Darcy NVidia Tegra K1-Denver Cast ICA,OU=Widevine,O=Google Inc,L=Kirkland,ST=Washington,C=US$"
+context = "x509.issuer"
+example = "CN=NVidia Darcy NVidia Tegra K1-Denver Cast ICA,OU=Widevine,O=Google Inc,L=Kirkland,ST=Washington,C=US"
+metadata = { "os.vendor" = "Google", "os.family" = "Linux", "os.product" = "Android", "os.cpe23" = "cpe:/o:google:android:-", "hw.device" = "Tablet", "hw.vendor" = "NVIDIA", "hw.product" = "SHIELD" }
+
+[[match]]
+name = "Yealink VoIP Phone"
+pattern = "^CN=Yealink Equipment Issuing CA,OU=yealink\\.com,O=Yealink Network Technology Co\\.\\\\,Ltd.,L=Xiamen,ST=Fujian,C=CN$"
+context = "x509.issuer"
+example = "CN=Yealink Equipment Issuing CA,OU=yealink.com,O=Yealink Network Technology Co.\\,Ltd.,L=Xiamen,ST=Fujian,C=CN"
+metadata = { "os.vendor" = "Yealink", "os.family" = "Linux", "os.product" = "Linux", "hw.device" = "VoIP", "hw.vendor" = "Yealink" }
+
+[[match]]
+name = "APC UPS"
+pattern = "^CN=[a-zA-Z0-9]+,OU=Internally Generated Certificate,O=American Power Conversion Corp,L=Default Locality,ST=Default State,C=US$"
+context = "x509.issuer"
+example = "CN=ZA1117619249,OU=Internally Generated Certificate,O=American Power Conversion Corp,L=Default Locality,ST=Default State,C=US"
+metadata = { "hw.device" = "Power Device", "hw.vendor" = "APC" }
+
+[[match]]
+name = "Cisco ASA Temp Cert"
+pattern = "^CN=ASA Temporary Self Signed Certificate$"
+context = "x509.issuer"
+example = "CN=ASA Temporary Self Signed Certificate"
+metadata = { "os.vendor" = "Cisco", "os.family" = "Adaptive Security Appliance", "os.product" = "Adaptive Security Appliance", "hw.vendor" = "Cisco", "hw.family" = "Adaptive Security Appliance", "hw.product" = "Adaptive Security Appliance", "hw.device" = "Firewall", "hw.cpe23" = "cpe:/h:cisco:adaptive_security_appliance:-" }
+
+[[match]]
+name = "Cisco Video Communication Server"
+pattern = "^CN=Temporary CA [a-fA-F0-9]{8}\\-[a-fA-F0-9]{4}\\-[a-fA-F0-9]{4}\\-[a-fA-F0-9]{4}\\-[a-fA-F0-9]{12},OU=Temporary CA"
+context = "x509.issuer"
+example = "CN=Temporary CA 218131fe-8af4-11e7-aa6e-9950d6bbaf74,OU=Temporary CA 218131fe-8af4-11e7-aa6e-9950d6bbaf74,O=Temporary CA 218131fe-8af4-11e7-aa6e-9950d6bbaf74"
+metadata = { "hw.device" = "Video Conferencing", "hw.vendor" = "Cisco", "hw.product" = "TelePresence" }
+
+[[match]]
+name = "VMware ESXi w/Installer"
+pattern = "^O=VMware Installer$"
+context = "x509.issuer"
+example = "O=VMware Installer"
+metadata = { "os.vendor" = "VMware", "os.family" = "VMware ESX/ESXi", "os.product" = "VMware ESXi Server", "os.device" = "Hypervisor", "os.cpe23" = "cpe:/o:vmware:esxi:-", "hw.device" = "Hypervisor" }
+
+[[match]]
+name = "VMware vCenter"
+pattern = "^CN=CA,OU=VMware Engineering,O=vCenter,ST=California,C=US$"
+vendor = "VMware"
+product = "vCenter"
+context = "x509.issuer"
+example = "CN=CA,OU=VMware Engineering,O=vCenter,ST=California,C=US"
+metadata = { "service.cpe23" = "cpe:/a:vmware:vcenter_server:-" }
+
+[[match]]
+name = "HP iLO"
+pattern = "^CN=Default Issuer \\(Do not trust\\),OU=ISS,O=Hewlett Packard Enterprise,L=Houston,ST=Texas,C=US$"
+context = "x509.issuer"
+example = "CN=Default Issuer (Do not trust),OU=ISS,O=Hewlett Packard Enterprise,L=Houston,ST=Texas,C=US"
+metadata = { "hw.device" = "Lights Out Management", "hw.vendor" = "HP", "hw.family" = "iLO", "hw.product" = "iLO", "hw.cpe23" = "cpe:/h:hp:integrated_lights-out:-", "os.device" = "Lights Out Management", "os.vendor" = "HP", "os.family" = "iLO", "os.product" = "iLO", "os.cpe23" = "cpe:/o:hp:integrated_lights-out_firmware:-" }
+
+[[match]]
+name = "Synology"
+pattern = "^CN=synology.com,O=Synology Inc.,L=Taipei,C=TW$"
+context = "x509.issuer"
+example = "CN=synology.com,O=Synology Inc.,L=Taipei,C=TW"
+metadata = { "os.device" = "NAS", "os.family" = "Linux", "os.product" = "DSM", "os.vendor" = "Synology", "hw.vendor" = "Synology", "hw.device" = "NAS" }
+
+[[match]]
+name = "Citrix Netscaler (later renamed to Citrix ADC)"
+pattern = "^CN=default(?: [A-Z]+)?,OU=NS Internal,O=Citrix ANG,L=San Jose,ST=California,C=US$"
+vendor = "Citrix"
+product = "Netscaler"
+context = "x509.issuer"
+example = "CN=default,OU=NS Internal,O=Citrix ANG,L=San Jose,ST=California,C=US"
+metadata = { "service.family" = "Netscaler", "service.device" = "Network Management Device", "service.cpe23" = "cpe:/a:citrix:netscaler:-", "os.vendor" = "Citrix", "os.family" = "Netscaler", "os.product" = "Netscaler Gateway Firmware", "os.device" = "Network Management Device", "os.cpe23" = "cpe:/o:citrix:netscaler_gateway_firmware:-", "hw.vendor" = "Citrix", "hw.family" = "Netscaler", "hw.product" = "Netscaler Gateway", "hw.device" = "Network Management Device", "hw.cpe23" = "cpe:/h:citrix:netscaler_gateway:-" }
+
+[[match]]
+name = "Technicolor Router - without model or version"
+pattern = "^O=Technicolor,L=Edegem,ST=Antwerp,C=BE$"
+context = "x509.issuer"
+example = "O=Technicolor,L=Edegem,ST=Antwerp,C=BE"
+metadata = { "os.vendor" = "Technicolor", "os.device" = "Router", "os.certainty" = "0.5", "hw.vendor" = "Technicolor", "hw.device" = "Router", "hw.certainty" = "0.5" }
+
+[[match]]
+name = "DrayTek Vigor Router - without model or version"
+pattern = "^CN=Vigor Router,OU=DrayTek Support,O=DrayTek Corp.,L=HuKou,ST=HsinChu,C=TW$"
+context = "x509.issuer"
+example = "CN=Vigor Router,OU=DrayTek Support,O=DrayTek Corp.,L=HuKou,ST=HsinChu,C=TW"
+metadata = { "os.vendor" = "DrayTek", "os.device" = "Router", "os.certainty" = "0.5", "hw.vendor" = "DrayTek", "hw.family" = "Vigor", "hw.device" = "Router", "hw.certainty" = "0.5" }
+
+[[match]]
+name = "Kubernetes NGINX Ingress Controller with default cert"
+pattern = "^CN=Kubernetes Ingress Controller Fake Certificate,O=Acme Co$"
+vendor = "Kubernetes"
+product = "NGINX Ingress Controller"
+context = "x509.issuer"
+example = "CN=Kubernetes Ingress Controller Fake Certificate,O=Acme Co"
+metadata = { "service.family" = "Kubernetes", "service.cpe23" = "cpe:/a:kubernetes:nginx_ingress_controller:-" }
+
+[[match]]
+name = "Traefik Proxy default certificate"
+pattern = "^CN=TRAEFIK DEFAULT CERT$"
+vendor = "Traefik Labs"
+product = "Traefik Proxy"
+context = "x509.issuer"
+example = "CN=TRAEFIK DEFAULT CERT"
+metadata = { "service.family" = "Traefik", "service.cpe23" = "cpe:/a:traefik:traefik:-" }
+
+[[match]]
+name = "WatchGuard Fireware"
+pattern = "(?i)^CN=Fireware web CA,OU=Fireware,O=WatchGuard(?: CA)?$"
+vendor = "WatchGuard"
+product = "Fireware XTM"
+context = "x509.issuer"
+example = "CN=Fireware web ca,OU=Fireware,O=WatchGuard"
+metadata = { "service.cpe23" = "cpe:/a:watchguard:fireware_xtm:-", "os.vendor" = "WatchGuard", "os.product" = "Fireware", "os.cpe23" = "cpe:/o:watchguard:fireware:-" }
+
+[[match]]
+name = "CaddyServer Caddy - golang based httpd"
+pattern = "^O=Caddy Self-Signed$"
+vendor = "CaddyServer"
+product = "Caddy"
+context = "x509.issuer"
+example = "O=Caddy Self-Signed"
+metadata = { "service.cpe23" = "cpe:/a:caddyserver:caddy:-" }
+
+[[match]]
+name = "Avaya Video Conferencing Device - CU360"
+pattern = "^CN=Avaya cu360 (\\S+)$"
+context = "x509.issuer"
+example = "CN=Avaya cu360 11YT11111111"
+metadata = { "hw.vendor" = "Avaya", "hw.device" = "Video Conferencing", "hw.product" = "CU360", "hw.serial_number" = "{capture:1}" }
+
+[[match]]
+name = "Roomba Device"
+pattern = "^CN=Roomba CA,OU=\\S+,O=iRobot,L=Bedford,ST=MA,C=US$"
+context = "x509.issuer"
+example = "CN=Roomba CA,OU=HBU,O=iRobot,L=Bedford,ST=MA,C=US"
+metadata = { "hw.vendor" = "iRobot", "hw.device" = "Device", "hw.product" = "Roomba" }
+
+[[match]]
+name = "FreshTomato Router Firmware"
+pattern = "(?i)^CN=\\S+,OU=FreshTomato Team,O=FreshTomato,L=Columbus,ST=Ohio,C=US(?:.*)$"
+context = "x509.issuer"
+example = "CN=192.168.1.1,OU=FreshTomato Team,O=FreshTomato,L=Columbus,ST=Ohio,C=US"
+metadata = { "os.vendor" = "FreshTomato", "os.family" = "Linux", "os.product" = "FreshTomato", "os.device" = "Router", "os.cpe23" = "cpe:/o:freshtomato:freshtomato:-" }
+
+[[match]]
+name = "Bosch Device"
+pattern = "(?i)^SERIALNUMBER=(\\d+),CN=(\\S+),OU=ST-VS,O=Bosch Sicherheitssysteme GmbH,L=Grasbrunn,C=DE"
+context = "x509.issuer"
+example = "SERIALNUMBER=111111111111111111,CN=00-07-5f-11-11-11,OU=ST-VS,O=Bosch Sicherheitssysteme GmbH,L=Grasbrunn,C=DE"
+metadata = { "os.vendor" = "Bosch", "hw.vendor" = "Bosch", "hw.serial_number" = "{capture:1}", "host.mac" = "{capture:2}" }
+
+[[match]]
+name = "Proxmox open-source virtualization platform"
+pattern = "^CN=Proxmox Virtual Environment,OU=[a-f0-9-]+,O=PVE Cluster Manager CA$"
+vendor = "Proxmox"
+product = "Virtual Environment"
+context = "x509.issuer"
+example = "CN=Proxmox Virtual Environment,OU=dd69676f-e203-490e-b040-79b75ed6a9d7,O=PVE Cluster Manager CA"
+metadata = { "service.cpe23" = "cpe:/a:proxmox:virtual_environment:-", "os.vendor" = "Proxmox", "os.family" = "Linux", "os.product" = "Proxmox" }
+
+[[match]]
+name = "Kubernetes minikube"
+pattern = "^CN=minikubeCA$"
+vendor = "Kubernetes"
+product = "minikube"
+context = "x509.issuer"
+example = "CN=minikubeCA"
+metadata = { "service.cpe23" = "cpe:/a:kubernetes:minikube:-" }
+

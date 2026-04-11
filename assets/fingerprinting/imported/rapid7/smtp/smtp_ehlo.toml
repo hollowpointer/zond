@@ -1,0 +1,24 @@
+# This file contains fingerprints imported from Rapid7 Recog.
+# Source: https://github.com/rapid7/recog
+# License: BSD-2-Clause
+
+[service]
+attribution = "Rapid7 Recog"
+name = "smtp"
+default_ports = []
+description = "Imported from Rapid7 smtp_ehlo"
+
+[[match]]
+name = "Cisco PIX - changes the command letters to 'X' before passing them to the real SMTP server"
+pattern = "^500[ -]Syntax error, command \"XXXX\" unrecognized$"
+context = "unknown"
+metadata = { "os.vendor" = "Cisco", "os.family" = "PIX", "os.product" = "PIX", "os.cpe23" = "cpe:/o:cisco:pix_firewall_software:-" }
+
+[[match]]
+name = "221 See ya in cyberspace"
+pattern = "^221[ -]See ya in cyberspace$"
+vendor = "Alt-N"
+product = "MDaemon"
+context = "unknown"
+metadata = { "service.family" = "MDaemon", "service.cpe23" = "cpe:/a:altn:mdaemon:-", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows", "os.arch" = "x86", "os.cpe23" = "cpe:/o:microsoft:windows:-" }
+

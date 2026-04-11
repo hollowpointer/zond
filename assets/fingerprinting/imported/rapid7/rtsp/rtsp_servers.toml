@@ -1,0 +1,108 @@
+# This file contains fingerprints imported from Rapid7 Recog.
+# Source: https://github.com/rapid7/recog
+# License: BSD-2-Clause
+
+[service]
+attribution = "Rapid7 Recog"
+name = "rtsp"
+default_ports = []
+description = "Imported from Rapid7 rtsp_servers"
+
+[[match]]
+name = "Flussonic Media Server"
+pattern = "^Flussonic \\(http:\\/\\/www.flussonic.com\\/\\) ([\\d\\.]+)$"
+version_group = 1
+vendor = "Flussonic"
+product = "Flussonic Media Server"
+context = "rtsp_header.server"
+example = "Flussonic (http://www.flussonic.com/) 19.04"
+
+[[match]]
+name = "Hipcam IP camera running the RealServer RTSP server."
+pattern = "^Hipcam RealServer\\/V([\\d\\.]+)$"
+version_group = 1
+vendor = "RealNetworks"
+product = "RealServer"
+context = "rtsp_header.server"
+example = "Hipcam RealServer/V1.0"
+metadata = { "hw.vendor" = "Hipcam", "hw.device" = "IP Camera" }
+
+[[match]]
+name = "Dahua IP Camera"
+pattern = "^Dahua Rtsp Server$"
+vendor = "Dahua"
+context = "rtsp_header.server"
+example = "Dahua Rtsp Server"
+metadata = { "hw.vendor" = "Dahua", "hw.device" = "IP Camera" }
+
+[[match]]
+name = "GStreamer RTSP Server (https://github.com/GStreamer/gst-rtsp-server)"
+pattern = "^GStreamer RTSP server$"
+vendor = "GStreamer"
+product = "GStreamer RTSP Server"
+context = "rtsp_header.server"
+example = "GStreamer RTSP server"
+
+[[match]]
+name = "Windows Media Server"
+pattern = "^WMServer\\/([\\d\\.]+)$"
+version_group = 1
+vendor = "Microsoft"
+product = "Windows Media Server"
+context = "rtsp_header.server"
+example = "WMServer/9.1.1.3862"
+metadata = { "service.family" = "Windows Media Server", "os.vendor" = "Microsoft", "os.family" = "Windows" }
+
+[[match]]
+name = "Wowza Media Systems Streaming Video Services"
+pattern = "^Wowza (Streaming Engine|Media Server) ([\\d\\.]+) build(\\d*)$"
+version_group = 2
+vendor = "Wowza Media Systems"
+context = "rtsp_header.server"
+example = "Wowza Streaming Engine 4.7.7 build20181108145350"
+metadata = { "service.product" = "{capture:1}", "service.version.version" = "{capture:3}" }
+
+[[match]]
+name = "Foscam IP Camera"
+pattern = "^HiIpcam\\/V\\d+R\\d+ VodServer\\/[\\d\\.]+$"
+context = "rtsp_header.server"
+example = "HiIpcam/V100R003 VodServer/1.0.0"
+metadata = { "hw.vendor" = "Foscam", "hw.device" = "IP Camera" }
+
+[[match]]
+name = "Indigo Security IP Camera"
+pattern = "^Indigo\\-Security\\/[\\d\\.]+$"
+context = "rtsp_header.server"
+example = "Indigo-Security/1.0"
+metadata = { "hw.vendor" = "Indigo Security", "hw.device" = "IP Camera" }
+
+[[match]]
+name = "Cisco MediaSense Media Server (RTSP)"
+pattern = "^Cisco MediaSense Media Server$"
+vendor = "Cisco"
+product = "MediaSense"
+context = "rtsp_header.server"
+example = "Cisco MediaSense Media Server"
+metadata = { "service.cpe23" = "cpe:/a:cisco:mediasense:-", "os.vendor" = "Cisco", "hw.vendor" = "Cisco", "hw.device" = "SIP Gateway", "hw.product" = "MediaSense" }
+
+[[match]]
+name = "Avigilon IP Camera"
+pattern = "^AvigilonOnvifNvt/(\\d+\\.\\S+)"
+context = "rtsp_header.server"
+example = "AvigilonOnvifNvt/2.6.0.130"
+metadata = { "hw.vendor" = "Avigilon", "hw.device" = "IP Camera", "os.vendor" = "Avigilon", "os.family" = "Linux", "os.product" = "Linux", "os.version" = "{capture:1}" }
+
+[[match]]
+name = "Sony Network Camera"
+pattern = "^Linux/2\\.6\\.35\\.14_nl-xarina\\+ Ze-PRO$"
+context = "rtsp_header.server"
+example = "Linux/2.6.35.14_nl-xarina+ Ze-PRO"
+metadata = { "hw.vendor" = "Sony", "hw.device" = "IP Camera" }
+
+[[match]]
+name = "Freebox OS on Freebox Set-top Box Devices"
+pattern = "^fbxrtspd/([0-9.]+) Freebox RTSP server$"
+context = "rtsp_header.server"
+example = "fbxrtspd/1.2 Freebox RTSP server"
+metadata = { "os.vendor" = "Freebox", "os.product" = "Freebox OS", "os.family" = "Linux", "hw.vendor" = "Freebox", "os.version" = "{capture:1}" }
+

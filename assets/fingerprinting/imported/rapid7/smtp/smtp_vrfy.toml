@@ -1,0 +1,93 @@
+# This file contains fingerprints imported from Rapid7 Recog.
+# Source: https://github.com/rapid7/recog
+# License: BSD-2-Clause
+
+[service]
+attribution = "Rapid7 Recog"
+name = "smtp"
+default_ports = []
+description = "Imported from Rapid7 smtp_vrfy"
+
+[[match]]
+name = "Cisco PIX - changes the command letters to 'X' before passing them to the real SMTP server"
+pattern = "^500[ -]Syntax error, command \"XXXX.*\" unrecognized$"
+context = "unknown"
+metadata = { "os.vendor" = "Cisco", "os.family" = "PIX", "os.product" = "PIX", "os.cpe23" = "cpe:/o:cisco:pix_firewall_software:-" }
+
+[[match]]
+name = "Exim - expn not available variant"
+pattern = "^550[ -]EXPN not available *$"
+vendor = "exim"
+product = "exim"
+context = "unknown"
+example = "550 EXPN not available"
+metadata = { "service.family" = "exim", "service.cpe23" = "cpe:/a:exim:exim:-" }
+
+[[match]]
+name = "Exim - vrfy not available variant"
+pattern = "^252[ -]VRFY not available *$"
+vendor = "exim"
+product = "exim"
+context = "unknown"
+example = "252 VRFY not available"
+metadata = { "service.family" = "exim", "service.cpe23" = "cpe:/a:exim:exim:-" }
+
+[[match]]
+name = "Exim - vrfy variant"
+pattern = "^250[ -]<.+> is deliverable *$"
+vendor = "exim"
+product = "exim"
+context = "unknown"
+example = "250 <root> is deliverable"
+metadata = { "service.family" = "exim", "service.cpe23" = "cpe:/a:exim:exim:-" }
+
+[[match]]
+name = "Exim - not deliverable variant"
+pattern = "^550[ -]<.+> is not deliverable *$"
+vendor = "exim"
+product = "exim"
+context = "unknown"
+example = "550 <root> is not deliverable"
+metadata = { "service.family" = "exim", "service.cpe23" = "cpe:/a:exim:exim:-" }
+
+[[match]]
+name = "Alt-N MDaemon - vrfy variant"
+pattern = "^502[ -]command is not active$"
+vendor = "Alt-N"
+product = "MDaemon"
+context = "unknown"
+example = "502 command is not active"
+metadata = { "service.family" = "MDaemon", "service.cpe23" = "cpe:/a:altn:mdaemon:-", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows", "os.arch" = "x86", "os.cpe23" = "cpe:/o:microsoft:windows:-" }
+
+[[match]]
+name = "Gordano NTMail - seen this on NTMail 4.30.0012, NTMail 5.06.0016"
+pattern = "^557[ -]5\\.5\\.2 String does not match anything\\. *$"
+vendor = "Gordano"
+product = "NTMail"
+context = "unknown"
+metadata = { "service.family" = "NTMail" }
+
+[[match]]
+name = "Sendmail - vrfy variant"
+pattern = "^252[ -](?:2\\.5\\.2)? Cannot VRFY user; try RCPT to attempt delivery \\(or try finger\\) *$"
+product = "Sendmail"
+context = "unknown"
+metadata = { "service.family" = "Sendmail", "service.certainty" = "0.85" }
+
+[[match]]
+name = "Symantec Mail Security"
+pattern = "^504 .*: Recipient address rejected: need fully-qualified address$"
+vendor = "Symantec"
+product = "Mail Security for SMTP"
+context = "unknown"
+example = "504 <foo>: Recipient address rejected: need fully-qualified address"
+metadata = { "service.cpe23" = "cpe:/a:symantec:mail_security_for_smtp:-" }
+
+[[match]]
+name = "Lotus Domino - vrfy variant"
+pattern = "^252 Unable to VRFY \".*\", but will accept message and attempt delivery *$"
+vendor = "Lotus"
+product = "Lotus Domino"
+context = "unknown"
+metadata = { "service.family" = "Lotus Domino", "service.cpe23" = "cpe:/a:ibm:lotus_domino:-" }
+

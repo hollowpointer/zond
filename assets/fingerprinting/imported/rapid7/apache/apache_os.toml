@@ -1,0 +1,276 @@
+# This file contains fingerprints imported from Rapid7 Recog.
+# Source: https://github.com/rapid7/recog
+# License: BSD-2-Clause
+
+[service]
+attribution = "Rapid7 Recog"
+name = "apache"
+default_ports = []
+description = "Imported from Rapid7 apache_os"
+
+[[match]]
+name = "IBM i5/OS iSeries (OS/400)"
+pattern = "\\(iSeries\\)"
+context = "apache_os"
+example = "Apache/2.0.52 (iSeries)"
+metadata = { "os.vendor" = "IBM", "os.family" = "OS/400", "os.product" = "OS/400", "os.cpe23" = "cpe:/o:ibm:os_400:-" }
+
+[[match]]
+name = "Mandriva (formerly Mandrake) Linux 9.2"
+pattern = "\\(Mandrake Linux/\\d+\\.\\d+\\.92mdk\\)"
+context = "apache_os"
+example = "Apache-AdvancedExtranetServer/2.0.47 (Mandrake Linux/6.3.92mdk) mod_ssl/2.0.47 OpenSSL/0.9.7b PHP/4.3.2"
+metadata = { "os.certainty" = "0.9", "os.vendor" = "Mandriva", "os.family" = "Linux", "os.product" = "Linux", "os.version" = "9.2", "os.cpe23" = "cpe:/o:mandriva:linux:9.2" }
+
+[[match]]
+name = "Mandriva (formerly Mandrake) Linux 10.0"
+pattern = "\\(Mandrake Linux/\\d+\\.\\d+\\.100mdk\\)"
+context = "apache_os"
+example = "Apache-AdvancedExtranetServer/2.0.48 (Mandrake Linux/6.11.100mdk)"
+metadata = { "os.certainty" = "0.9", "os.vendor" = "Mandriva", "os.family" = "Linux", "os.product" = "Linux", "os.version" = "10.0", "os.cpe23" = "cpe:/o:mandriva:linux:10.0" }
+
+[[match]]
+name = "Mandriva (formerly Mandrake) Linux unknown version"
+pattern = "\\((?:Mandrake|Mandriva) Linux/"
+context = "apache_os"
+example = "Apache-AdvancedExtranetServer/2.0.44 (Mandrake Linux/11mdk) mod_perl/1.99_08 Perl/v5.8.0 mod_ssl/2.0.44 OpenSSL/0.9.7a PHP/4.3.1 mod_jk2/2.0.0"
+metadata = { "os.vendor" = "Mandriva", "os.family" = "Linux", "os.product" = "Linux", "os.cpe23" = "cpe:/o:mandriva:linux:-" }
+
+[[match]]
+name = "Mandriva (formerly Mandrake) Linux unknown version - variant 2"
+pattern = "\\(Mandrakelinux/"
+context = "apache_os"
+example = "Apache-AdvancedExtranetServer/2.0.53 (Mandrakelinux/PREFORK-9mdk) mod_ssl/2.0.53 OpenSSL/0.9.7e PHP/4.3.10 mod_perl/1.999.21 Perl/v5.8.6"
+metadata = { "os.vendor" = "Mandriva", "os.family" = "Linux", "os.product" = "Linux", "os.cpe23" = "cpe:/o:mandriva:linux:-" }
+
+[[match]]
+name = "PalmOS"
+pattern = "\\(PalmOS\\)"
+context = "apache_os"
+example = "Apache/1.2.42 (PalmOS)"
+metadata = { "os.vendor" = "Palm", "os.family" = "PalmOS", "os.product" = "PalmOS" }
+
+[[match]]
+name = "Microsoft Windows"
+pattern = "\\(Win32\\)"
+context = "apache_os"
+example = "Apache/2.2.25 (Win32)"
+metadata = { "os.certainty" = "0.75", "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows", "os.cpe23" = "cpe:/o:microsoft:windows:-" }
+
+[[match]]
+name = "Apple Mac OS X"
+pattern = "\\(Darwin\\)"
+context = "apache_os"
+example = "Apache/1.3.33 (Darwin)"
+metadata = { "os.vendor" = "Apple", "os.family" = "Mac OS X", "os.product" = "Mac OS X", "os.cpe23" = "cpe:/o:apple:mac_os_x:-" }
+
+[[match]]
+name = "Ubuntu"
+pattern = "\\(Ubuntu\\)"
+context = "apache_os"
+example = "Apache (Ubuntu)"
+metadata = { "os.vendor" = "Ubuntu", "os.family" = "Linux", "os.product" = "Linux", "os.cpe23" = "cpe:/o:canonical:ubuntu_linux:-" }
+
+[[match]]
+name = "Sun Cobalt RaQ (Red Hat based Linux)"
+pattern = ".{0,512}(?:Sun )?Cobalt \\(Unix\\)?"
+context = "apache_os"
+example = "Apache/1.3.3 Cobalt (Unix) (Red Hat/Linux)"
+metadata = { "os.vendor" = "Sun", "os.family" = "Linux", "os.product" = "Cobalt RaQ" }
+
+[[match]]
+name = "Blue Quartz is created by a Cobalt RaQ UG"
+pattern = "\\(BlueQuartz\\)"
+context = "apache_os"
+example = "Apache/2.0.52 (BlueQuartz)"
+metadata = { "os.vendor" = "Sun", "os.family" = "Linux", "os.product" = "Cobalt RaQ" }
+
+[[match]]
+name = "Red Hat Fedora 11"
+pattern = "^Apache\\/2\\.2\\.11.*\\(Fedora\\)"
+context = "apache_os"
+example = "Apache/2.2.11 (Fedora)"
+metadata = { "os.vendor" = "Fedora Project", "os.family" = "Linux", "os.product" = "Fedora Core", "os.version" = "11", "os.cpe23" = "cpe:/o:fedoraproject:fedora_core:11" }
+
+[[match]]
+name = "Red Hat Fedora 13"
+pattern = "^Apache\\/2\\.2\\.15.*\\(Fedora\\)"
+context = "apache_os"
+example = "Apache/2.2.15 (Fedora)"
+metadata = { "os.vendor" = "Fedora Project", "os.family" = "Linux", "os.product" = "Fedora Core", "os.version" = "13", "os.cpe23" = "cpe:/o:fedoraproject:fedora_core:13" }
+
+[[match]]
+name = "Red Hat Fedora 14"
+pattern = "^Apache\\/2\\.2\\.16.*\\(Fedora\\)"
+context = "apache_os"
+example = "Apache/2.2.16 (Fedora)"
+metadata = { "os.vendor" = "Fedora Project", "os.family" = "Linux", "os.product" = "Fedora Core", "os.version" = "14", "os.cpe23" = "cpe:/o:fedoraproject:fedora_core:14" }
+
+[[match]]
+name = "Red Hat Fedora 17"
+pattern = "^Apache\\/2\\.2\\.23.*\\(Fedora\\)"
+context = "apache_os"
+example = "Apache/2.2.23 (Fedora)"
+metadata = { "os.vendor" = "Fedora Project", "os.family" = "Linux", "os.product" = "Fedora Core", "os.version" = "17", "os.cpe23" = "cpe:/o:fedoraproject:fedora_core:17" }
+
+[[match]]
+name = "Red Hat Fedora 18"
+pattern = "^Apache\\/2\\.4\\.3.*\\(Fedora\\)"
+context = "apache_os"
+example = "Apache/2.4.3 (Fedora) PHP/5.4.12"
+metadata = { "os.vendor" = "Fedora Project", "os.family" = "Linux", "os.product" = "Fedora Core", "os.version" = "18", "os.cpe23" = "cpe:/o:fedoraproject:fedora_core:18" }
+
+[[match]]
+name = "Red Hat Fedora"
+pattern = "\\(Fedora\\)"
+context = "apache_os"
+example = "Apache (Fedora)"
+metadata = { "os.vendor" = "Fedora Project", "os.family" = "Linux", "os.product" = "Fedora Core", "os.cpe23" = "cpe:/o:fedoraproject:fedora_core:-" }
+
+[[match]]
+name = "Red Hat Enterprise Linux"
+pattern = "\\(RHEL\\)"
+context = "apache_os"
+example = "Apache/2.0.53 (RHEL)"
+metadata = { "os.vendor" = "Red Hat", "os.family" = "Linux", "os.product" = "Enterprise Linux", "os.cpe23" = "cpe:/o:redhat:enterprise_linux:-" }
+
+[[match]]
+name = "Red Hat Linux"
+pattern = "\\(Red[ -]Hat(?:[/ ]Linux)?\\)"
+context = "apache_os"
+example = "Apache (Red Hat Linux)"
+metadata = { "os.vendor" = "Red Hat", "os.family" = "Linux", "os.product" = "Linux", "os.cpe23" = "cpe:/o:redhat:linux:-" }
+
+[[match]]
+name = "Apache OS: Red Hat Enterprise Linux"
+pattern = "\\(Red Hat Enterprise (?:Linux)?\\)"
+context = "apache_os"
+example = "Apache/2.4.6 (Red Hat Enterprise Linux) OpenSSL/1.0.2k-fips"
+metadata = { "os.vendor" = "Red Hat", "os.family" = "Linux", "os.product" = "Enterprise Linux", "os.cpe23" = "cpe:/o:redhat:enterprise_linux:-" }
+
+[[match]]
+name = "Debian Linux"
+pattern = "Debian(?:[/ ]GNU)?(?:/Linux)?"
+context = "apache_os"
+example = "Debian GNU/Linux"
+metadata = { "os.vendor" = "Debian", "os.family" = "Linux", "os.product" = "Linux", "os.cpe23" = "cpe:/o:debian:debian_linux:-" }
+
+[[match]]
+name = "Novell SuSE Linux"
+pattern = "\\((?:Linux/)?S[uU]SE(?:/Linux)?\\)"
+context = "apache_os"
+example = "Apache (SuSE/Linux)"
+metadata = { "os.vendor" = "SuSE", "os.family" = "Linux", "os.product" = "Linux", "os.cpe23" = "cpe:/o:suse:linux:-" }
+
+[[match]]
+name = "Novell NetWare"
+pattern = "\\(NETWARE\\)"
+context = "apache_os"
+example = "Apache/2.0.64 (NETWARE)"
+metadata = { "os.vendor" = "Novell", "os.family" = "NetWare", "os.product" = "NetWare", "os.cpe23" = "cpe:/o:novell:netware:-" }
+
+[[match]]
+name = "HP HP-UX"
+pattern = "HP-UX_Apache-based_Web_Server"
+context = "apache_os"
+example = "Apache/2.0.58 HP-UX_Apache-based_Web_Server"
+metadata = { "os.vendor" = "HP", "os.family" = "HP-UX", "os.product" = "HP-UX", "os.cpe23" = "cpe:/o:hp:hp-ux:-" }
+
+[[match]]
+name = "CentOS Linux"
+pattern = "\\(CentOS\\)"
+context = "apache_os"
+example = "Apache/2.2.15 (CentOS)"
+metadata = { "os.vendor" = "CentOS", "os.family" = "Linux", "os.product" = "Linux", "os.cpe23" = "cpe:/o:centos:centos:-" }
+
+[[match]]
+name = "Turbolinux"
+pattern = "\\(Turbolinux\\)"
+context = "apache_os"
+example = "Apache/2.2.6 (Turbolinux)"
+metadata = { "os.vendor" = "Turbolinux", "os.family" = "Linux", "os.product" = "Linux" }
+
+[[match]]
+name = "FreeBSD"
+pattern = "\\(FreeBSD\\)"
+context = "apache_os"
+example = "Apache/2.4.51 (FreeBSD) OpenSSL/1.1.1h-freebsd"
+metadata = { "os.vendor" = "FreeBSD", "os.family" = "FreeBSD", "os.product" = "FreeBSD", "os.cpe23" = "cpe:/o:freebsd:freebsd:-" }
+
+[[match]]
+name = "Asianux Linux"
+pattern = "\\(Asianux\\)"
+context = "apache_os"
+example = "Apache/2.2.15 (Asianux)"
+metadata = { "os.vendor" = "Asianux", "os.family" = "Linux", "os.product" = "Linux" }
+
+[[match]]
+name = "Gentoo Linux"
+pattern = "\\(Gentoo(?:/Linux)?\\)"
+context = "apache_os"
+example = "Apache/2.2.6 (Gentoo) DAV/2 mod_python/3.3.1"
+metadata = { "os.vendor" = "Gentoo", "os.family" = "Linux", "os.product" = "Linux", "os.cpe23" = "cpe:/o:gentoo:linux:-" }
+
+[[match]]
+name = "Conectiva Linux"
+pattern = "\\(Conectiva(?:/Linux)?\\)"
+context = "apache_os"
+example = "Apache/1.3.33 (Unix) (Conectiva/Linux)"
+metadata = { "os.vendor" = "Conectiva", "os.family" = "Linux", "os.product" = "Linux", "os.cpe23" = "cpe:/o:conectiva:linux:-" }
+
+[[match]]
+name = "Trustix Linux"
+pattern = "\\(Trustix Secure Linux(?:/Linux)?\\)"
+context = "apache_os"
+example = "Apache/2.0.55 (Trustix Secure Linux/Linux)"
+metadata = { "os.vendor" = "Trustix", "os.family" = "Linux", "os.product" = "Secure Linux", "os.cpe23" = "cpe:/o:trustix:secure_linux:-" }
+
+[[match]]
+name = "White Box Enterprise Linux"
+pattern = "\\(White Box\\)"
+context = "apache_os"
+example = "Apache/2.0.46 (White Box)"
+metadata = { "os.vendor" = "White Box", "os.family" = "Linux", "os.product" = "Enterprise Linux" }
+
+[[match]]
+name = "UnitedLinux"
+pattern = "\\(UnitedLinux\\)"
+context = "apache_os"
+example = "Apache/1.3.26 (UnitedLinux) mod_ssl/2.8.10"
+metadata = { "os.vendor" = "UnitedLinux", "os.family" = "Linux", "os.product" = "Linux" }
+
+[[match]]
+name = "PLD Linux"
+pattern = "\\(PLD/Linux\\)"
+context = "apache_os"
+example = "Apache/1.3.42 (PLD/Linux)"
+metadata = { "os.vendor" = "PLD", "os.family" = "Linux", "os.product" = "Linux" }
+
+[[match]]
+name = "Vine Linux"
+pattern = "\\(Vine/Linux\\)"
+context = "apache_os"
+example = "Apache/1.3.27 (Unix) (Vine/Linux)"
+metadata = { "os.vendor" = "Vine", "os.family" = "Linux", "os.product" = "Linux" }
+
+[[match]]
+name = "rPath Linux"
+pattern = "\\(rPath\\)"
+context = "apache_os"
+example = "Apache/2.2.9 (rPath)"
+metadata = { "os.vendor" = "rPath", "os.family" = "Linux", "os.product" = "Linux" }
+
+[[match]]
+name = "StartCom Linux"
+pattern = "\\(StartCom(?: Linux)?\\)"
+context = "apache_os"
+example = "Apache/2.2.3 (StartCom)"
+metadata = { "os.vendor" = "StartCom", "os.family" = "Linux", "os.product" = "Linux" }
+
+[[match]]
+name = "Generic Linux fallback"
+pattern = "Linux"
+context = "apache_os"
+example = "Apache/Linux"
+metadata = { "os.certainty" = "0.75", "os.family" = "Linux", "os.product" = "Linux" }
+

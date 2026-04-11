@@ -1,0 +1,423 @@
+# This file contains fingerprints imported from Rapid7 Recog.
+# Source: https://github.com/rapid7/recog
+# License: BSD-2-Clause
+
+[service]
+attribution = "Rapid7 Recog"
+name = "operating"
+default_ports = []
+description = "Imported from Rapid7 operating_system"
+
+[[match]]
+name = "Windows Server 2003 and later"
+pattern = "(?i)^(?:Microsoft )?(Windows (?:[a-z]+\\s[a-z]+\\s|[a-z]+\\s)?Server (?:\\d{4} R2|\\d{4}))(?:,\\s|\\s)?([a-z]+)?(?: Evaluation)?(?: Edition)?(?:\\s|\\swith(?:out)? Hyper-V\\s)?(SP\\d|SP \\d|Service Pack \\d)?$"
+context = "operating_system.name"
+example = "Windows Compute Cluster Server 2003"
+metadata = { "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "{capture:1}", "os.edition" = "{capture:2}", "os.version" = "{capture:3}" }
+
+[[match]]
+name = "Windows 10 Mobile"
+pattern = "(?i)^(?:Microsoft )?Windows 10 Mobile(?:\\s([a-z]+))??(?: Edition)?$"
+context = "operating_system.name"
+example = "Windows 10 Mobile Edition"
+metadata = { "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows 10 Mobile", "os.edition" = "{capture:1}", "os.device" = "Mobile", "os.cpe23" = "cpe:/o:microsoft:windows_10_mobile:-" }
+
+[[match]]
+name = "Windows Desktop XP and later"
+pattern = "(?i)^(?:Microsoft )?(Windows (?:XP|Vista|7|8|8.1|10))(?:\\s)?((?:[a-z]+|[a-z]+, )?(?:[a-z]+|[a-z]+\\s[a-z]+)?)?(?: Edition)?(?:\\s)?(SP\\d|SP \\d|Service Pack \\d)?$"
+context = "operating_system.name"
+example = "Windows XP Professional"
+metadata = { "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "{capture:1}", "os.edition" = "{capture:2}", "os.version" = "{capture:3}" }
+
+[[match]]
+name = "Windows 2000"
+pattern = "(?i)^(?:Microsoft )?Windows 2000(?:\\s)?([a-z]+|[a-z]+\\s[a-z]+)?(?:\\s)?(SP\\d|SP \\d|Service Pack \\d)?$"
+context = "operating_system.name"
+example = "Windows 2000 Professional"
+metadata = { "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows 2000", "os.edition" = "{capture:1}", "os.version" = "{capture:2}", "os.cpe23" = "cpe:/o:microsoft:windows_2000:{os.version}" }
+
+[[match]]
+name = "Windows NT"
+pattern = "(?i)^(?:Microsoft )?Windows NT (\\d.\\d{1,2})?(?:\\s)?([a-z]+|[a-z]+\\s[a-z]+)?$"
+context = "operating_system.name"
+example = "Windows NT 3.51 Server"
+metadata = { "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "NT", "os.version" = "{capture:1}", "os.edition" = "{capture:2}", "os.cpe23" = "cpe:/o:microsoft:windows_nt:{os.version}" }
+
+[[match]]
+name = "Windows Phone 7 and later"
+pattern = "(?i)^(?:Microsoft )?Windows Phone (\\d|\\d\\.\\d)?$"
+context = "operating_system.name"
+example = "Windows Phone 7.5"
+metadata = { "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows Phone", "os.version" = "{capture:1}", "os.device" = "Mobile" }
+
+[[match]]
+name = "Windows 9x"
+pattern = "(?i)^(?:Microsoft )?(Windows\\s?(?:95|98|98SE|98 SE|98 Second Edition|ME|Millenium Edition))$"
+context = "operating_system.name"
+example = "Windows 98 SE"
+metadata = { "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "{capture:1}" }
+
+[[match]]
+name = "Windows version 6.1 (Windows 7 or Windows Server 2008 R2)"
+pattern = "(?i)^(?:Microsoft )?Windows(?:\\sNT)? 6.1$"
+context = "operating_system.name"
+example = "Windows 6.1"
+metadata = { "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows 7 or Windows Server 2008 R2" }
+
+[[match]]
+name = "Windows version 6.2 (Windows 8 or Windows Server 2012)"
+pattern = "(?i)^(?:Microsoft )?Windows(?:\\sNT)? 6.2$"
+context = "operating_system.name"
+example = "Windows 6.2"
+metadata = { "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows 8 or Windows Server 2012" }
+
+[[match]]
+name = "Windows version 6.3 (Windows 8.1 or Windows Server 2012 R2)"
+pattern = "(?i)^(?:Microsoft )?Windows(?:\\sNT)? 6.3$"
+context = "operating_system.name"
+example = "Windows 6.3"
+metadata = { "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows 8.1 or Windows Server 2012 R2" }
+
+[[match]]
+name = "Windows version 10.0 (Windows 10 or Windows Server 2016)"
+pattern = "(?i)^(?:Microsoft )?Windows(?:\\sNT)? 10.0$"
+context = "operating_system.name"
+example = "Windows 10.0"
+metadata = { "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows 10 or Windows Server 2016" }
+
+[[match]]
+name = "Windows catch-all"
+pattern = "(?i)^(?:Microsoft )?Windows.*$"
+context = "operating_system.name"
+example = "Windows for Workgroups 3.11"
+metadata = { "os.vendor" = "Microsoft", "os.family" = "Windows", "os.product" = "Windows", "os.certainty" = "0.5", "os.cpe23" = "cpe:/o:microsoft:windows:-" }
+
+[[match]]
+name = "Alpine Linux"
+pattern = "(?i)^Alpine Linux\\s?(?:v)?(\\d+?(?:\\.\\d+?)*?(?:\\src\\d+?)?)?$"
+context = "operating_system.name"
+example = "Alpine Linux v3.4.0"
+metadata = { "os.vendor" = "Alpine", "os.family" = "Linux", "os.product" = "Linux", "os.version" = "{capture:1}", "os.cpe23" = "cpe:/o:alpinelinux:alpine_linux:{os.version}" }
+
+[[match]]
+name = "Arch Linux"
+pattern = "(?i)^Arch Linux\\s?(\\d+?(?:\\.\\d+?)*?)?$"
+context = "operating_system.name"
+example = "Arch Linux 2016.04.01"
+metadata = { "os.vendor" = "Arch", "os.family" = "Linux", "os.product" = "Linux", "os.version" = "{capture:1}" }
+
+[[match]]
+name = "Amazon Linux AMI"
+pattern = "(?i)^Amazon Linux(?: AMI)?\\s?(\\d+?(?:\\.\\d+?)*?)?$"
+context = "operating_system.name"
+example = "Amazon Linux AMI 5.11"
+metadata = { "os.vendor" = "Amazon", "os.family" = "Linux", "os.product" = "Linux AMI", "os.version" = "{capture:1}" }
+
+[[match]]
+name = "Centos Linux"
+pattern = "(?i)^CentOS(?: Linux)?(?: [a-z]+)?\\s?(\\d+?(?:\\.\\d+?)*?)?(?:\\s.*?)?$"
+context = "operating_system.name"
+example = "Centos Linux 5.11"
+metadata = { "os.vendor" = "CentOS", "os.family" = "Linux", "os.product" = "Linux", "os.version" = "{capture:1}", "os.cpe23" = "cpe:/o:centos:centos:{os.version}" }
+
+[[match]]
+name = "Debian Linux"
+pattern = "(?i)^Debian(?: (?:GNU\\/)?Linux)?\\s?((?:\\d+?(?:\\.\\d+?)*?)|(?:\\w+?\\/sid\\s?))?(?:\\s[a-z\\(\\)]+)?$"
+context = "operating_system.name"
+example = "Debian 6.0"
+metadata = { "os.vendor" = "Debian", "os.family" = "Linux", "os.product" = "Linux", "os.version" = "{capture:1}", "os.cpe23" = "cpe:/o:debian:debian_linux:{os.version}" }
+
+[[match]]
+name = "Fedora Linux"
+pattern = "(?i)^Fedora(?: Core)?(?: Linux)?(?: release)?\\s?(\\d+?)?(?:\\s.*)?$"
+context = "operating_system.name"
+example = "Fedora Core 6"
+metadata = { "os.vendor" = "Red Hat", "os.family" = "Linux", "os.product" = "Linux", "os.version" = "{capture:1}", "os.cpe23" = "cpe:/o:redhat:linux:{os.version}" }
+
+[[match]]
+name = "Gentoo Linux"
+pattern = "(?i)^Gentoo(?: Linux)\\s?(\\d+?(?:\\.\\d+?)*?)?$"
+context = "operating_system.name"
+example = "Gentoo Linux"
+metadata = { "os.vendor" = "Gentoo", "os.family" = "Linux", "os.product" = "Linux", "os.version" = "{capture:1}", "os.cpe23" = "cpe:/o:gentoo:linux:{os.version}" }
+
+[[match]]
+name = "Kali Linux"
+pattern = "(?i)^Kali(?: Linux)?\\s?(\\d+?(?:\\.\\d+?)+?(?:[a-z])?|\\d+?)?$"
+context = "operating_system.name"
+example = "Kali Linux 1.0.0"
+metadata = { "os.vendor" = "Kali", "os.family" = "Linux", "os.product" = "Linux", "os.version" = "{capture:1}" }
+
+[[match]]
+name = "Kubuntu Linux"
+pattern = "(?i)^Kubuntu(?: Linux)?\\s(\\d+?(?:\\.\\d+?)*?)?\\s?(LTS)?$"
+context = "operating_system.name"
+example = "Kubuntu 12.04.4 LTS"
+metadata = { "os.vendor" = "Kubuntu", "os.family" = "Linux", "os.product" = "Linux", "os.version" = "{capture:1}", "os.edition" = "{capture:2}" }
+
+[[match]]
+name = "Oracle Enterprise Linux"
+pattern = "(?i)^Oracle(?: Enterprise)? Linux\\s?(?:Server\\s?)?(\\d+?(?:\\.\\d+?)*?)?$"
+context = "operating_system.name"
+example = "Oracle Enterprise Linux 5.11"
+metadata = { "os.vendor" = "Oracle", "os.family" = "Enterprise Linux", "os.product" = "Linux", "os.version" = "{capture:1}", "os.cpe23" = "cpe:/o:oracle:linux:{os.version}" }
+
+[[match]]
+name = "OpenSUSE Linux"
+pattern = "(?i)^OpenSUSE(?: Linux)?(?: [a-z]+?)??\\s?(\\d+?(?:\\.\\d+?)*?)?(?:\\s\\(.*)?$"
+context = "operating_system.name"
+example = "OpenSUSE Linux 10.1"
+metadata = { "os.vendor" = "OpenSUSE", "os.family" = "Linux", "os.product" = "Linux", "os.version" = "{capture:1}" }
+
+[[match]]
+name = "Red Hat Enterprise Linux"
+pattern = "(?i)^(?:Red Hat|RedHat|Red-Hat|RHEL)(?: Enterprise)?(?: Linux)?(?: [a-z]+)?\\s?(\\d+?(?:\\.\\d+?)*?)?$"
+context = "operating_system.name"
+example = "Red Hat Enterprise Linux AS"
+metadata = { "os.vendor" = "Red Hat", "os.family" = "Linux", "os.product" = "Enterprise Linux", "os.version" = "{capture:1}", "os.cpe23" = "cpe:/o:redhat:enterprise_linux:{os.version}" }
+
+[[match]]
+name = "Scientific Linux"
+pattern = "(?i)^Scientific(?: Linux)?\\s?(\\d+?(?:\\.\\d+?)*?)?$"
+context = "operating_system.name"
+example = "Scientific Linux 5.11"
+metadata = { "os.vendor" = "Scientific", "os.family" = "Linux", "os.product" = "Linux", "os.version" = "{capture:1}" }
+
+[[match]]
+name = "Slackware Linux"
+pattern = "(?i)^Slackware(?: Linux)\\s?(\\d+?(?:\\.\\d+?)*?)?$"
+context = "operating_system.name"
+example = "Slackware Linux 14.1"
+metadata = { "os.vendor" = "Slackware", "os.family" = "Linux", "os.product" = "Linux", "os.version" = "{capture:1}" }
+
+[[match]]
+name = "SUSE Linux Enterprise Desktop"
+pattern = "(?i)^SUSE(?: SLED)?(?: Linux Enterprise Desktop)?\\s?(\\d+?(?:\\.\\d+?)*?)?$"
+context = "operating_system.name"
+example = "SUSE SLED 11"
+metadata = { "os.vendor" = "SUSE", "os.family" = "Linux", "os.product" = "Linux Enterprise Desktop", "os.version" = "{capture:1}", "os.cpe23" = "cpe:/o:suse:linux_enterprise_desktop:{os.version}" }
+
+[[match]]
+name = "SUSE Linux Enterprise Server"
+pattern = "(?i)^SUSE(?: SLES)?(?: Linux Enterprise Server)?\\s?(\\d+?(?:\\.\\d+?)*?)?$"
+context = "operating_system.name"
+example = "SUSE SLES 11"
+metadata = { "os.vendor" = "SUSE", "os.family" = "Linux", "os.product" = "Linux Enterprise Server", "os.version" = "{capture:1}", "os.cpe23" = "cpe:/o:suse:linux_enterprise_server:{os.version}" }
+
+[[match]]
+name = "SLES Linux Enterprise Server"
+pattern = "(?i)^SLES(?: Linux Enterprise Server)?\\s?(\\d+?(?:\\.\\d+?)*?)?$"
+context = "operating_system.name"
+example = "SLES 11"
+metadata = { "os.vendor" = "SUSE", "os.family" = "Linux", "os.product" = "Linux Enterprise Server", "os.version" = "{capture:1}", "os.cpe23" = "cpe:/o:suse:linux_enterprise_server:{os.version}" }
+
+[[match]]
+name = "Ubuntu Linux"
+pattern = "(?i)^Ubuntu(?: Linux)?(?:\\s|-)(\\d+?(?:\\.\\d+?)*?)?\\s?(LTS)?$"
+context = "operating_system.name"
+example = "Ubuntu 12.04.4 LTS"
+metadata = { "os.vendor" = "Ubuntu", "os.family" = "Linux", "os.product" = "Linux", "os.version" = "{capture:1}", "os.edition" = "{capture:2}", "os.cpe23" = "cpe:/o:canonical:ubuntu_linux:{os.version}" }
+
+[[match]]
+name = "Xubuntu Linux"
+pattern = "(?i)^Xubuntu(?: Linux)?\\s(\\d+?(?:\\.\\d+?)*?)?\\s?(LTS)?$"
+context = "operating_system.name"
+example = "Xubuntu 12.04.4 LTS"
+metadata = { "os.vendor" = "Xubuntu", "os.family" = "Linux", "os.product" = "Linux", "os.version" = "{capture:1}", "os.edition" = "{capture:2}" }
+
+[[match]]
+name = "Photon Linux"
+pattern = "(?i)^VMWare Photon(?:\\/)?(?:\\s?Linux)?\\s?(?:v)?(\\d+?(?:\\.\\d+?)*?)?$"
+context = "operating_system.name"
+example = "VMware Photon Linux"
+metadata = { "os.vendor" = "VMware", "os.family" = "Linux", "os.product" = "Photon Linux", "os.version" = "{capture:1}", "os.cpe23" = "cpe:/o:vmware:photon_os:{os.version}" }
+
+[[match]]
+name = "Vendor-based Linux catch-all"
+pattern = "(?i)^(\\S{0,256})\\s{1,8}Linux\\s+([\\w.-]*)$"
+context = "operating_system.name"
+example = "Aurox Linux 10.2"
+metadata = { "os.family" = "Linux", "os.product" = "Linux", "os.certainty" = "0.6", "os.vendor" = "{capture:1}", "os.version" = "{capture:2}" }
+
+[[match]]
+name = "Linux catch-all"
+pattern = "(?i)^.{0,1000}Linux?\\s?(\\d+?(?:\\.\\d+?)*?)?$"
+context = "operating_system.name"
+example = "Linux 2.42.6"
+metadata = { "os.vendor" = "Linux", "os.family" = "Linux", "os.product" = "Linux", "os.certainty" = "0.5", "os.version" = "{capture:1}", "os.cpe23" = "cpe:/o:linux:linux_kernel:{os.version}" }
+
+[[match]]
+name = "Mac OS 9"
+pattern = "(?i)^(?:Apple )?Mac OS ([7-9](?:\\.\\d+?)*?)$"
+context = "operating_system.name"
+example = "Mac OS 9"
+metadata = { "os.vendor" = "Apple", "os.family" = "Mac OS", "os.product" = "Mac OS", "os.version" = "{capture:1}", "os.cpe23" = "cpe:/o:apple:macos:{os.version}" }
+
+[[match]]
+name = "Mac OS X with version number"
+pattern = "(?i)^(?:Apple OS X|Apple Mac OS X|Mac OS X|OS X|Mac OS)\\s?(\\d+?(?:\\.\\d+?)*?)?$"
+context = "operating_system.name"
+example = "Mac OS X 10.10.5"
+metadata = { "os.vendor" = "Apple", "os.family" = "Mac OS X", "os.product" = "Mac OS X", "os.version" = "{capture:1}", "os.cpe23" = "cpe:/o:apple:mac_os_x:{os.version}" }
+
+[[match]]
+name = "Mac OS X Cheetah"
+pattern = "(?i)^(?:Apple )?Mac OS X Cheetah$"
+context = "operating_system.name"
+example = "Mac OS X Cheetah"
+metadata = { "os.vendor" = "Apple", "os.family" = "Mac OS X", "os.product" = "Mac OS X", "os.version" = "10.0", "os.cpe23" = "cpe:/o:apple:mac_os_x:10.0" }
+
+[[match]]
+name = "Mac OS X Puma"
+pattern = "(?i)^(?:Apple )?Mac OS X Puma$"
+context = "operating_system.name"
+example = "Mac OS X Puma"
+metadata = { "os.vendor" = "Apple", "os.family" = "Mac OS X", "os.product" = "Mac OS X", "os.version" = "10.1", "os.cpe23" = "cpe:/o:apple:mac_os_x:10.1" }
+
+[[match]]
+name = "Mac OS X Jaguar"
+pattern = "(?i)^(?:Apple )?Mac OS X Jaguar$"
+context = "operating_system.name"
+example = "Mac OS X Jaguar"
+metadata = { "os.vendor" = "Apple", "os.family" = "Mac OS X", "os.product" = "Mac OS X", "os.version" = "10.2", "os.cpe23" = "cpe:/o:apple:mac_os_x:10.2" }
+
+[[match]]
+name = "Mac OS X Panther"
+pattern = "(?i)^(?:Apple )?Mac OS X Panther$"
+context = "operating_system.name"
+example = "Mac OS X Panther"
+metadata = { "os.vendor" = "Apple", "os.family" = "Mac OS X", "os.product" = "Mac OS X", "os.version" = "10.3", "os.cpe23" = "cpe:/o:apple:mac_os_x:10.3" }
+
+[[match]]
+name = "Mac OS X Tiger"
+pattern = "(?i)^(?:Apple )?Mac OS X Tiger$"
+context = "operating_system.name"
+example = "Mac OS X Tiger"
+metadata = { "os.vendor" = "Apple", "os.family" = "Mac OS X", "os.product" = "Mac OS X", "os.version" = "10.4", "os.cpe23" = "cpe:/o:apple:mac_os_x:10.4" }
+
+[[match]]
+name = "Mac OS X Leopard"
+pattern = "(?i)^(?:Apple )?Mac OS X Leopard$"
+context = "operating_system.name"
+example = "Mac OS X Leopard"
+metadata = { "os.vendor" = "Apple", "os.family" = "Mac OS X", "os.product" = "Mac OS X", "os.version" = "10.5", "os.cpe23" = "cpe:/o:apple:mac_os_x:10.5" }
+
+[[match]]
+name = "Mac OS X Snow Leopard"
+pattern = "(?i)^(?:Apple )?Mac OS X Snow Leopard$"
+context = "operating_system.name"
+example = "Mac OS X Snow Leopard"
+metadata = { "os.vendor" = "Apple", "os.family" = "Mac OS X", "os.product" = "Mac OS X", "os.version" = "10.6", "os.cpe23" = "cpe:/o:apple:mac_os_x:10.6" }
+
+[[match]]
+name = "Mac OS X Lion"
+pattern = "(?i)^(?:Apple )?Mac OS X Lion$"
+context = "operating_system.name"
+example = "Mac OS X Lion"
+metadata = { "os.vendor" = "Apple", "os.family" = "Mac OS X", "os.product" = "Mac OS X", "os.version" = "10.7", "os.cpe23" = "cpe:/o:apple:mac_os_x:10.7" }
+
+[[match]]
+name = "Mac OS X Mountain Lion"
+pattern = "(?i)^(?:Apple )?Mac OS X Mountain Lion$"
+context = "operating_system.name"
+example = "Mac OS X Mountain Lion"
+metadata = { "os.vendor" = "Apple", "os.family" = "Mac OS X", "os.product" = "Mac OS X", "os.version" = "10.8", "os.cpe23" = "cpe:/o:apple:mac_os_x:10.8" }
+
+[[match]]
+name = "Mac OS X Mavericks"
+pattern = "(?i)^(?:Apple )?Mac OS X Mavericks$"
+context = "operating_system.name"
+example = "Mac OS X Mavericks"
+metadata = { "os.vendor" = "Apple", "os.family" = "Mac OS X", "os.product" = "Mac OS X", "os.version" = "10.9", "os.cpe23" = "cpe:/o:apple:mac_os_x:10.9" }
+
+[[match]]
+name = "Mac OS X Yosemite"
+pattern = "(?i)^(?:Apple )?Mac OS X Yosemite$"
+context = "operating_system.name"
+example = "Mac OS X Yosemite"
+metadata = { "os.vendor" = "Apple", "os.family" = "Mac OS X", "os.product" = "Mac OS X", "os.version" = "10.10", "os.cpe23" = "cpe:/o:apple:mac_os_x:10.10" }
+
+[[match]]
+name = "Mac OS X El Capitan"
+pattern = "(?i)^(?:Apple )?Mac OS X El Capitan$"
+context = "operating_system.name"
+example = "Mac OS X El Capitan"
+metadata = { "os.vendor" = "Apple", "os.family" = "Mac OS X", "os.product" = "Mac OS X", "os.version" = "10.11", "os.cpe23" = "cpe:/o:apple:mac_os_x:10.11" }
+
+[[match]]
+name = "Apple iOS for iPhone and iPad"
+pattern = "(?i)^(?:Apple )?iOS\\s?(\\d+?(?:\\.\\d+?)*?)?$"
+context = "operating_system.name"
+example = "iOS 7.1.2"
+metadata = { "os.vendor" = "Apple", "os.family" = "Apple iOS", "os.product" = "iOS", "os.version" = "{capture:1}", "os.device" = "Mobile", "os.cpe23" = "cpe:/o:apple:iphone_os:{os.version}" }
+
+[[match]]
+name = "Many BSD family OSes"
+pattern = "(?i)^(.{0,256}?BSD)\\s?(\\d+?(?:\\.\\d+?)*?(?:[\\-\\/_ ]?\\w+?)?(?:-[a-z]\\d+?)?)?$"
+context = "operating_system.name"
+example = "FreeBSD 10.3-RELEASE"
+metadata = { "os.vendor" = "{capture:1}", "os.family" = "{capture:1}", "os.product" = "{capture:1}", "os.version" = "{capture:2}" }
+
+[[match]]
+name = "OpenSolaris"
+pattern = "(?i)^(?:Oracle|Sun)?\\s?OpenSolaris\\s?(\\d+?(?:\\.\\d+?)*?)?$"
+context = "operating_system.name"
+example = "OpenSolaris 2009.06"
+metadata = { "os.vendor" = "Sun", "os.family" = "Solaris", "os.product" = "Solaris", "os.version" = "{capture:1}", "os.cpe23" = "cpe:/o:sun:solaris:{os.version}" }
+
+[[match]]
+name = "Solaris 11 and up"
+pattern = "(?i)^(?:Oracle|Sun)?\\s?Solaris\\s?(1[1-9]?(?:\\.\\d+?)*?)?$"
+context = "operating_system.name"
+example = "Solaris 11.3"
+metadata = { "os.vendor" = "Oracle", "os.family" = "Solaris", "os.product" = "Solaris", "os.version" = "{capture:1}", "os.cpe23" = "cpe:/o:oracle:solaris:{os.version}" }
+
+[[match]]
+name = "Solaris 7-10"
+pattern = "(?i)^(?:Oracle|Sun)?\\s?Solaris\\s?((?:[789]|10)+?(?:\\.\\d+?)*?)?$"
+context = "operating_system.name"
+example = "Solaris 7"
+metadata = { "os.vendor" = "Sun", "os.family" = "Solaris", "os.product" = "Solaris", "os.version" = "{capture:1}", "os.cpe23" = "cpe:/o:sun:solaris:{os.version}" }
+
+[[match]]
+name = "SunOS/Solaris 5.7-5.10"
+pattern = "(?i)^(?:Oracle|Sun)?\\s?SunOS\\s?5.([789]|10)?$"
+context = "operating_system.name"
+example = "SunOS 5.7"
+metadata = { "os.vendor" = "Sun", "os.family" = "Solaris", "os.product" = "Solaris", "os.version" = "{capture:1}", "os.cpe23" = "cpe:/o:sun:solaris:{os.version}" }
+
+[[match]]
+name = "Oracle/Solaris 5.11 and upwards"
+pattern = "(?i)^(?:Oracle|Sun)?\\s?SunOS\\s?5.(1[1-9])?$"
+context = "operating_system.name"
+example = "SunOS 5.11"
+metadata = { "os.vendor" = "Oracle", "os.family" = "Solaris", "os.product" = "Solaris", "os.version" = "{capture:1}", "os.cpe23" = "cpe:/o:oracle:solaris:{os.version}" }
+
+[[match]]
+name = "IBM OSes"
+pattern = "(?i)^(?:IBM\\s?)?(AIX|MVS|OS/(?:\\d{1,3})|VM/CMS|VM/ESA|z/OS)\\s?(\\d+?(?:\\.\\d+?)*?)?$"
+context = "operating_system.name"
+example = "AIX"
+metadata = { "os.vendor" = "IBM", "os.family" = "{capture:1}", "os.product" = "{capture:1}", "os.version" = "{capture:2}" }
+
+[[match]]
+name = "HP OSes"
+pattern = "(?i)^(?:HP\\s?)?(Digital UNIX|HP-UX|iLO|OpenVMS|ProLiant|Tru64 UNIX)\\s?V?(\\d+(?:\\.\\d+)*(?:-[\\dA-Z]+)?)?$"
+context = "operating_system.name"
+example = "HP-UX"
+metadata = { "os.vendor" = "HP", "os.family" = "{capture:1}", "os.product" = "{capture:1}", "os.version" = "{capture:2}" }
+
+[[match]]
+name = "Juniper"
+pattern = "(?i)^(?:Juniper\\s?)?(Junos|Junos OS|ScreenOS)\\s?(\\d+(?:\\.\\d+?)*(?:X\\d{2})?)?$"
+context = "operating_system.name"
+example = "Junos"
+metadata = { "os.vendor" = "Juniper", "os.family" = "{capture:1}", "os.product" = "{capture:1}", "os.version" = "{capture:2}" }
+
+[[match]]
+name = "Cisco"
+pattern = "(?i)^(?:Cisco\\s?)?(ASA|Adaptive Security Appliance|IOS|IOS-XE|IOS-XR|NX-OS|PIX-OS|SAN-OS)\\s?(?:Version (\\d+(?:\\.\\d+)*(?:\\(\\d+(?:\\.\\d+)*\\))?))?$"
+context = "operating_system.name"
+example = "Cisco ASA"
+metadata = { "os.vendor" = "Cisco", "os.family" = "{capture:1}", "os.product" = "{capture:1}", "os.version" = "{capture:2}" }
+

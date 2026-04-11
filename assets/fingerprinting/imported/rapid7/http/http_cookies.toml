@@ -1,0 +1,749 @@
+# This file contains fingerprints imported from Rapid7 Recog.
+# Source: https://github.com/rapid7/recog
+# License: BSD-2-Clause
+
+[service]
+attribution = "Rapid7 Recog"
+name = "http"
+default_ports = []
+description = "Imported from Rapid7 http_cookies"
+
+[[match]]
+name = "CloudFlare web load balancer endpoint"
+pattern = "^__cfd?uid="
+vendor = "CloudFlare"
+product = "CloudFlare Load Balancer"
+context = "http_header.cookie"
+example = "__cfuid=1337"
+metadata = { "service.family" = "CloudFlare", "service.cpe23" = "cpe:/a:cloudflare:load_balancing:-" }
+
+[[match]]
+name = "Amazon Application Load Balancer"
+pattern = "^(AWSALB(?:TG)?(?:CORS)?)="
+vendor = "Amazon"
+product = "Application Load Balancer"
+context = "http_header.cookie"
+example = "AWSALB=791357231C9C446E295988DA51A2CD313D13788329433D96A05631377389B17BF097D4C8A2D0BE5BC4F3C649AED7DFF939364A5790E2EC67F33C4483E2E9DD17E99814071B;PATH=/;HttpOnly;Secure"
+metadata = { "cookie" = "{capture:1}", "service.family" = "Web Services" }
+
+[[match]]
+name = "Amazon Elastic Load Balancer"
+pattern = "^(AWSELB(?:CORS)?)="
+vendor = "Amazon"
+product = "Elastic Load Balancer"
+context = "http_header.cookie"
+example = "AWSELB=791357231C9C446E295988DA51A2CD313D13788329433D96A05631377389B17BF097D4C8A2D0BE5BC4F3C649AED7DFF939364A5790E2EC67F33C4483E2E9DD17E99814071B;PATH=/;HttpOnly;Secure"
+metadata = { "cookie" = "{capture:1}", "service.family" = "Web Services" }
+
+[[match]]
+name = "PHP - http://www.php.net/ref.session"
+pattern = "^(PHPSESSI(?:D|ON))="
+vendor = "PHP"
+product = "PHP"
+context = "http_header.cookie"
+example = "PHPSESSID=deleted; expires=Thu, 01-Jan-1970 00:00:01 GMT; Max-Age=0; path=/"
+metadata = { "cookie" = "{capture:1}", "service.family" = "PHP", "service.cpe23" = "cpe:/a:php:php:-" }
+
+[[match]]
+name = "Microsoft IIS (ASP.NET)\n      http://msdn2.microsoft.com/en-us/library/ms953828.aspx\n      http://msdn2.microsoft.com/en-us/library/91ka2e6a.aspx\n    "
+pattern = "^(ASPSESSIONID[A-Z]+|ASP\\.NET_SessionId|\\.ASPXANONYMOUS)="
+vendor = "Microsoft"
+product = "IIS"
+context = "http_header.cookie"
+example = "ASPSESSIONIDQSBRRTTB=BECILMBCPMGHJGAHKCHNGENF; path=/"
+metadata = { "cookie" = "{capture:1}", "service.family" = "IIS", "service.cpe23" = "cpe:/a:microsoft:iis:-", "service.component.vendor" = "Microsoft", "service.component.family" = "ASP.NET", "service.component.product" = "ASP.NET", "service.component.cpe23" = "cpe:/a:microsoft:asp.net:-" }
+
+[[match]]
+name = "Adobe (Macromedia) ColdFusion uses various cookies"
+pattern = "^(CFCLIENT_[^=]+|CFGLOBALS|CFID|CFTOKEN)="
+vendor = "Adobe"
+product = "ColdFusion"
+context = "http_header.cookie"
+example = "CFTOKEN=f3863673461e83d7-8B854468-1866-DAAC-99FBB842C6018037;expires=Mon, 01-Aug-2050 01:05:45 GMT;path=/;HttpOnly;"
+metadata = { "cookie" = "{capture:1}", "service.family" = "ColdFusion", "service.cpe23" = "cpe:/a:adobe:coldfusion:-" }
+
+[[match]]
+name = "Array Networks Secure Access Gateway / SSL VPN"
+pattern = "^ANsession\\d+=(\\S+);"
+vendor = "Array Networks"
+context = "http_header.cookie"
+example = "ANsession0002262072457555=IPMI; path=/;secure"
+metadata = { "cookie" = "{capture:1}", "service.family" = "Secure Access Gateway", "hw.device" = "VPN" }
+
+[[match]]
+name = "Apache with session ID containing IP and timestamp (timestamp can be micros, millis or seconds)"
+pattern = "^Apache=(\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3})\\.[0-9]+(?:\\.[0-9]+)?;"
+vendor = "Apache"
+product = "HTTPD"
+context = "http_header.cookie"
+example = "Apache=10.10.130.165.1643670182768255; path=/"
+metadata = { "cookie" = "Apache", "host.ip" = "{capture:1}", "service.family" = "Apache", "service.cpe23" = "cpe:/a:apache:http_server:-" }
+
+[[match]]
+name = "Apache with opaque session ID"
+pattern = "^Apache=[0-9a-z]{8}\\.[0-9a-z]{13};"
+vendor = "Apache"
+product = "HTTPD"
+context = "http_header.cookie"
+example = "Apache=1148b9c3.5d6e61e36f2f9; path=/; domain=.foo.com"
+metadata = { "cookie" = "Apache", "service.family" = "Apache", "service.cpe23" = "cpe:/a:apache:http_server:-" }
+
+[[match]]
+name = "Apache JServ"
+pattern = "^JServSessionIdroot="
+vendor = "Apache"
+product = "JServ"
+context = "http_header.cookie"
+example = "JServSessionIdroot=tphxjy73e1.JS1; path=/"
+metadata = { "cookie" = "JServSessionIdroot", "service.family" = "JServ" }
+
+[[match]]
+name = "ATG Dynamo"
+pattern = "^(ATG_SESSION_ID|DYN_USER_CONFIRM|DYN_USER_ID)="
+vendor = "ATG"
+product = "Dynamo"
+context = "http_header.cookie"
+example = "ATG_SESSION_ID=yuAUs8xnkzLaF8P3Zk1v5hR28XB4dKsOKZ4jCkVO; path=/"
+metadata = { "cookie" = "{capture:1}", "service.family" = "Dynamo" }
+
+[[match]]
+name = "Bugzilla"
+pattern = "^Bugzilla_login_request_cookie="
+vendor = "Mozilla"
+product = "Bugzilla"
+context = "http_header.cookie"
+example = "Bugzilla_login_request_cookie=ylMVo9ZDtd; path=/; secure"
+metadata = { "cookie" = "Bugzilla_login_request_cookie", "service.cpe23" = "cpe:/a:mozilla:bugzilla:-" }
+
+[[match]]
+name = "BEA WebLogic (no timestamp)"
+pattern = "^WebLogicSession="
+vendor = "BEA"
+product = "WebLogic"
+context = "http_header.cookie"
+example = "WebLogicSession=YfifY2Ck8aWILbJPiaoY3L8aKBjh2MZhUAjHXypG6IBwvWXrun3i|-3385140432258369694/-900104935/6/7009/7009/7010/7010/7009/-1; path=/"
+metadata = { "cookie" = "WebLogicSession", "service.family" = "WebLogic", "service.cpe23" = "cpe:/a:bea:weblogic_server:-" }
+
+[[match]]
+name = "BlueCoat Proxy"
+pattern = "^(BCSI-CS-[0-9A-Za-z]+)="
+vendor = "Blue Coat"
+product = "Proxy"
+context = "http_header.cookie"
+example = "BCSI-CS-2f6c78bdf64f3b32=2; Path=/"
+metadata = { "cookie" = "{capture:1}", "service.family" = "Proxy" }
+
+[[match]]
+name = "CakePHP - http://www.cakephp.org/"
+pattern = "^CAKEPHP="
+product = "CakePHP"
+context = "http_header.cookie"
+example = "CAKEPHP=03bgv7jqfurftnm5crn3lc0ob1; expires=Mon, 19-Apr-2021 08:56:06 GMT; Max-Age=14400; path=/; HttpOnly"
+metadata = { "cookie" = "CAKEPHP", "service.family" = "PHP" }
+
+[[match]]
+name = "Cisco 11000 Series Content Service Switch (CSS)"
+pattern = "^ARPT=([A-Z]+)([0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3})[A-Z]+"
+vendor = "Cisco"
+product = "11000 Series Content Service Switch"
+context = "http_header.cookie"
+example = "ARPT=FOOOB192.168.15.52CKOKM; path=/"
+metadata = { "cookie" = "ARPT", "host.name" = "{capture:1}", "host.ip" = "{capture:2}", "service.family" = "Content Service Switch" }
+
+[[match]]
+name = "Cisco 11000 Series Content Service Switch (CSS) - catch all variant"
+pattern = "^ARPT="
+vendor = "Cisco"
+product = "11000 Series Content Service Switch"
+context = "http_header.cookie"
+example = "ARPT=388766892.51247.0000; path=/; Httponly/"
+metadata = { "cookie" = "ARPT", "service.family" = "Content Service Switch" }
+
+[[match]]
+name = "Cisco ASA VPN"
+pattern = "^webvpn(?:c|context|_portal|Lang|login|SharePoint)?="
+vendor = "Cisco"
+product = "HTTP"
+context = "http_header.cookie"
+example = "webvpn=; expires=Thu, 01 Jan 1970 22:00:00 GMT; path=/; secure"
+metadata = { "os.vendor" = "Cisco", "os.family" = "Adaptive Security Appliance", "os.product" = "Adaptive Security Appliance", "hw.vendor" = "Cisco", "hw.family" = "Adaptive Security Appliance", "hw.product" = "Adaptive Security Appliance", "hw.device" = "Firewall", "hw.cpe23" = "cpe:/h:cisco:adaptive_security_appliance:-" }
+
+[[match]]
+name = "Citrix Application Protection System, Enterprise - http://support.citrix.com/article/CTX109330"
+pattern = "^st8id="
+vendor = "Citrix"
+product = "Application Protection System, Enterprise"
+context = "http_header.cookie"
+example = "st8id=1e1bcc1010b6de32734c584317443b31.00.641b86ac5ed3ebb0799138f83af9b63f;"
+metadata = { "cookie" = "st8id", "service.family" = "Application Protection System" }
+
+[[match]]
+name = "Citrix NetScaler"
+pattern = "^NSC_(?:AAAC|BASEURL|CERT|DLGE|EPAC|TASS|TEMP|TMA[APS]|PERS|USER)="
+vendor = "Citrix"
+product = "NetScaler"
+context = "http_header.cookie"
+example = "NSC_AAAC=xyz;"
+metadata = { "os.vendor" = "Citrix", "os.family" = "NetScaler", "os.device" = "Network Management Device", "os.product" = "NetScaler", "os.cpe23" = "cpe:/o:citrix:netscaler_firmware:-", "service.family" = "NetScaler", "service.device" = "Network Management Device", "service.cpe23" = "cpe:/a:citrix:netscaler:-" }
+
+[[match]]
+name = "Pulse Secure VPN"
+pattern = "^DSSignInURL=/"
+vendor = "Pulse Secure"
+product = "Pulse Connect Secure"
+context = "http_header.cookie"
+example = "DSSignInURL=/; path=/; secure"
+metadata = { "service.cpe23" = "cpe:/a:pulsesecure:pulse_connect_secure:-", "os.vendor" = "Pulse Secure", "os.family" = "SSL-VPN", "os.device" = "VPN", "os.product" = "Pulse Connect Secure" }
+
+[[match]]
+name = "Dokuwiki"
+pattern = "^DokuWiki="
+vendor = "Dokuwiki"
+product = "Dokuwiki"
+context = "http_header.cookie"
+example = "DokuWiki=t8l1aev7703vbtejovp165pv01; path=/; secure"
+metadata = { "cookie" = "DokuWiki", "service.cpe23" = "cpe:/a:dokuwiki:dokuwiki:-" }
+
+[[match]]
+name = "Ektron CMS400.net"
+pattern = "^(EktGUID|ecm)="
+vendor = "Ektron"
+product = "CMS400.NET"
+context = "http_header.cookie"
+example = "EktGUID=382107cc-a38d-4d25-8182-3748834e21c8; expires=Tue, 19-Apr-2022 03:12:15 GMT; path=/"
+metadata = { "cookie" = "{capture:1}", "service.family" = "CMS400.NET" }
+
+[[match]]
+name = "Atlanssian's Fisheye"
+pattern = "^FESESSIONID="
+vendor = "Atlassian"
+product = "Fisheye"
+context = "http_header.cookie"
+example = "FESESSIONID=133713381337"
+metadata = { "cookie" = "FESESSIONID", "service.cpe23" = "cpe:/a:atlassian:fisheye:-" }
+
+[[match]]
+name = "Atlassian Bitbucket"
+pattern = "^BITBUCKETSESSIONID="
+vendor = "Atlassian"
+product = "Bitbucket"
+context = "http_header.cookie"
+example = "BITBUCKETSESSIONID=49D9B4A9C574CFA312E671F3453CEAC5; Max-Age=1209600; Expires=Tue, 04-Oct-2022 22:16:45 GMT; Path=/; HttpOnly"
+metadata = { "service.cpe23" = "cpe:/a:atlassian:bitbucket:-" }
+
+[[match]]
+name = "F5 BIG-IP LTM - Server variant"
+pattern = "(?i)^(BIGipServer([^=]+))="
+vendor = "F5"
+product = "BIG-IP LTM"
+context = "http_header.cookie"
+example = "BigIpServerCustomerRP=5a; path=/; domain=.foo.bar; secure; HttpOnly"
+metadata = { "cookie" = "{capture:1}", "loadbalancer.poolname" = "{capture:2}", "service.family" = "BIG-IP", "service.cpe23" = "cpe:/a:f5:big-ip_local_traffic_manager:-" }
+
+[[match]]
+name = "Gogs"
+pattern = "^i_like_gogits="
+vendor = "Gogs"
+product = "Gogs"
+context = "http_header.cookie"
+example = "i_like_gogits=fc3914645f1d5c76; Path=/; HttpOnly"
+metadata = { "cookie" = "i_like_gogits", "service.cpe23" = "cpe:/a:gogs:gogs:-" }
+
+[[match]]
+name = "F5 BIG-IP LTM"
+pattern = "^(BigIPCookie[^=]*)="
+vendor = "F5"
+product = "BIG-IP LTM"
+context = "http_header.cookie"
+example = "BigIPCookie=855248779.20480.0000; path=/; Httponly"
+metadata = { "cookie" = "{capture:1}", "service.family" = "BIG-IP", "service.cpe23" = "cpe:/a:f5:big-ip_local_traffic_manager:-" }
+
+[[match]]
+name = "Flyspray"
+pattern = "^flyspray_project="
+vendor = "Flyspray"
+product = "Flyspray"
+context = "http_header.cookie"
+example = "flyspray_project=133713381234; Path=/; HttpOnly"
+metadata = { "cookie" = "flyspray_project", "service.cpe23" = "cpe:/a:flyspray:flyspray:-" }
+
+[[match]]
+name = "Gitea"
+pattern = "^i_like_gitea="
+vendor = "Gitea"
+product = "Gitea"
+context = "http_header.cookie"
+example = "i_like_gitea=fc39d4645b1d5c7c; Path=/"
+metadata = { "cookie" = "i_like_gitea", "service.certainty" = "0.5", "service.cpe23" = "cpe:/a:gitea:gitea:-" }
+
+[[match]]
+name = "GitLab"
+pattern = "^_gitlab_session="
+vendor = "GitLab"
+product = "GitLab"
+context = "http_header.cookie"
+example = "_gitlab_session=032d024e9c2445b595e68255da9e6835; path=/; expires=Mon, 26 Apr 2021 03:09:57 -0000; HttpOnly"
+metadata = { "cookie" = "_gitlab_session", "service.certainty" = "0.5", "service.cpe23" = "cpe:/a:gitlab:gitlab:-" }
+
+[[match]]
+name = "HAProxy - http://haproxy.1wt.eu/download/1.2/doc/architecture.txt"
+pattern = "^SERVERID=([A-Za-z0-9\\-_]+)"
+product = "HAProxy"
+context = "http_header.cookie"
+example = "SERVERID=foo1; path=/"
+metadata = { "cookie" = "SERVERID", "host.name" = "{capture:1}", "service.family" = "HAProxy" }
+
+[[match]]
+name = "IBM Tivoli Access Manager for e-business WebSEAL\n      http://publib.boulder.ibm.com/infocenter/tivihelp/v2r1/index.jsp?topic=/com.ibm.itame.doc/am60_webseal_admin180.htm\n    "
+pattern = "^(AMWEBJCT!([^!]+)!([^=]+))="
+vendor = "IBM"
+product = "Tivoli Access Manager for e-business WebSEAL"
+context = "http_header.cookie"
+example = "AMWEBJCT!%2F4plportal!JSESSIONID=fQDCzpljFPMhMVaDUOD+uOBe.undefined; Path=/"
+metadata = { "cookie" = "{capture:1}", "junction.name" = "{capture:2}", "junction.cookie" = "{capture:3}", "service.family" = "Tivoli" }
+
+[[match]]
+name = "IBM Tivoli Access Manager for e-business WebSeal\n      http://publib.boulder.ibm.com/infocenter/tivihelp/v2r1/index.jsp?topic=/com.ibm.itame.doc/am60_webseal_admin117.htm\n    "
+pattern = "^(PD-S-SESSION-ID|PD-H-SESSION-ID|PD_STATEFUL_[^=]+)="
+vendor = "IBM"
+product = "Tivoli Access Manager for e-business WebSEAL"
+context = "http_header.cookie"
+example = "PD-S-SESSION-ID=1_2_0_xRzIc55lBOTYkrYfW+qWHWGgdqlVKeEgwrhtKt+KRfq8R3lW; Path=/; Secure; HttpOnly"
+metadata = { "cookie" = "{capture:1}", "service.family" = "Tivoli" }
+
+[[match]]
+name = "IBM WebSphere Load Balancer"
+pattern = "^IBMCBR="
+vendor = "IBM"
+product = "WebSphere Load Balancer"
+context = "http_header.cookie"
+example = "IBMCBR=fakevalue"
+metadata = { "cookie" = "IBMCBR", "service.family" = "WebSphere" }
+
+[[match]]
+name = "Joom!Fish http://www.joomfish.net/"
+pattern = "^(mbfcookie(?:\\[lang\\])?)="
+product = "Joom!Fish"
+context = "http_header.cookie"
+example = "mbfcookie=deleted; expires=Thu, 01-Jan-1970 00:00:01 GMT; Max-Age=0; path=/"
+metadata = { "cookie" = "{capture:1}", "service.family" = "Joom!Fish" }
+
+[[match]]
+name = "Mastodon"
+pattern = "^_mastodon_session="
+product = "Mastodon"
+context = "http_header.cookie"
+example = "_mastodon_session=U09wSzlaMHNuZVI3RGJjR1M2d2lqNFhXc1BXNlJtOXBueTdoM1J2Ykk3UjRXa2V3WkNUNm5BUmY4Z0NISk9FaEtrOVQrMXJCRldvbk1kY3BUaDZkMlRuZkNBUDVXU01EakN3S1JEZDdjbzhNQ0t5MHpXZE9WSGlTOVhKNkhlZWhlaWsxM3Mvd0poU1NHWkZjWUNucmJoeDdNdU85ekpkQVJSbkhDeXdKZ08wMkNuUm1BYnE3cGVBK2FBN1FTUU9SLS1EdUVoNWtLOFFWaWsxNmY2bzErbFVRPT0%3D--4b6087906fdfa25f0bfd46b13d3c1c3a9fb379cd; path=/; secure; HttpOnly"
+metadata = { "cookie" = "_mastodon_session" }
+
+[[match]]
+name = "Microsoft Commerce Server - http://msdn2.microsoft.com/en-us/library/ms953828.aspx"
+pattern = "^(MSCSAuth|MSCSProfile)="
+vendor = "Microsoft"
+product = "Commerce Server"
+context = "http_header.cookie"
+example = "MSCSProfile=287001FD2674671C7869448243193407F294F4F921DD7D627A0F4EE0CC7F3FAC36B5E45588612D30B2A6C57F1D461CB5EE0887989EE7F09E4529B0795EF87BB095FFF1DE42BD5E8F00273BCAACB9DC80733367D09A4B6A48A6802C4DCD6EB029BF5B207BCE523E8BF2EE3EBCDF5776BAC6B6BCD4BF54EF9C178F9605E75D0DDA; path=/"
+metadata = { "cookie" = "{capture:1}", "service.family" = "Commerce Server", "service.cpe23" = "cpe:/a:microsoft:commerce_server:-" }
+
+[[match]]
+name = "Nextcloud"
+pattern = "^(nc_sameSiteCookiestrict|nc_sameSiteCookielax|oc_sessionPassphrase)="
+vendor = "Nextcloud"
+product = "Nextcloud Server"
+context = "http_header.cookie"
+example = "nc_sameSiteCookiestrict=true; path=/nextcloud; httponly;secure; expires=Fri, 31-Dec-2100 23:59:59 GMT; SameSite=strict"
+metadata = { "cookie" = "{capture:1}", "service.cpe23" = "cpe:/a:nextcloud:nextcloud_server:-" }
+
+[[match]]
+name = "Nortel Alteon Web Switch"
+pattern = "^AlteonP="
+vendor = "Nortel"
+product = "Alteon Web Switch"
+context = "http_header.cookie"
+example = "AlteonP=c46736793e45929dbaeebabb; path="
+metadata = { "cookie" = "AlteonP", "service.family" = "Alteon" }
+
+[[match]]
+name = "Observium"
+pattern = "^OBSID="
+vendor = "Observium"
+product = "Observium"
+context = "http_header.cookie"
+example = "OBSID=gud74jg1slhskdo7idqgklkamm6g3908; expires=Tue, 20-Apr-2021 01:31:27 GMT; Max-Age=86400; path=/; HttpOnly"
+metadata = { "cookie" = "OBSID", "service.cpe23" = "cpe:/a:observium:observium:-" }
+
+[[match]]
+name = "OpenMarket/FatWire Content Server (www.fatwire.com)"
+pattern = "^((?:SS_X_)?CSINTERSESSIONID)="
+vendor = "FatWire"
+product = "Content Server"
+context = "http_header.cookie"
+example = "SS_X_CSINTERSESSIONID=0001P73k2FUEYEU4Ks5TtKxcs2K:vv0b9pej; path=/"
+metadata = { "cookie" = "{capture:1}", "service.family" = "Content Server" }
+
+[[match]]
+name = "Oversee Webserver"
+pattern = "^parkinglot="
+vendor = "Oversee"
+product = "Webserver"
+context = "http_header.cookie"
+example = "parkinglot=1; domain=.foo.com; path=/; expires=Sun, 11-May-2008 13:51:17 GMT"
+metadata = { "cookie" = "parkinglot", "service.family" = "Webserver" }
+
+[[match]]
+name = "Phabricator"
+pattern = "^phsid="
+vendor = "Phacility"
+product = "Phabricator"
+context = "http_header.cookie"
+example = "phsid=A%2Fxesybc4bypb74dlgojdgw2edct6osflno25h2fw7"
+metadata = { "cookie" = "phsid", "service.family" = "Phabricator", "service.cpe23" = "cpe:/a:phacility:phabricator:-" }
+
+[[match]]
+name = "RealMedia OpenAdStream"
+pattern = "^RMID="
+vendor = "RealMedia"
+product = "OpenAdStream"
+context = "http_header.cookie"
+example = "RMID=36c12633607cf7a0; expires=Thu, 31-Dec-2020 23:59:59 GMT; path=/; domain=.foo.bar"
+metadata = { "cookie" = "RMID", "service.family" = "OpenAdStream" }
+
+[[match]]
+name = "Roxen WebServer"
+pattern = "^RoxenUserID="
+vendor = "Roxen"
+product = "WebServer"
+context = "http_header.cookie"
+example = "RoxenUserID=c70fd536bc9e1342ce2a608b10547f88; expires=Wed, 19 Apr 2023 02:44:41 GMT; path=/"
+metadata = { "cookie" = "RoxenUserID", "service.family" = "WebServer" }
+
+[[match]]
+name = "Siebel CRM"
+pattern = "^_sn="
+vendor = "Siebel"
+product = "CRM"
+context = "http_header.cookie"
+example = "_sn=e7139835ca75f921e25c364d4a8fef48; path=/; expires=Mon, 19 Apr 2021 06:06:58 GMT; HttpOnly"
+metadata = { "cookie" = "_sn", "service.family" = "CRM" }
+
+[[match]]
+name = "Netscape Enterprise Server (subsequently iPlanet Web Server, Sun ONE Web Server, presently Sun Java System Web Server)"
+pattern = "^NSES40Session="
+vendor = "Sun"
+product = "Java System Web Server"
+context = "http_header.cookie"
+example = "NSES40Session=2%253A3e57d375%253Adc59172283a7e72c;path=/;expires=Sat, 22-Feb-2003 20:15:57 GMT"
+metadata = { "cookie" = "NSES40Session", "service.family" = "Java System Web Server", "service.version" = "4.0", "service.cpe23" = "cpe:/a:sun:java_system_web_server:4.0" }
+
+[[match]]
+name = "Redmine"
+pattern = "^_redmine_session="
+vendor = "Redmine"
+product = "Redmine"
+context = "http_header.cookie"
+example = "_redmine_session=BAh7B0kiD3Nlc3Npb25faWQGOgZFRkkiJWY2MGY5MTJiZjg0NGU1ZmQxZWI2OTViNzAxYjU4NTRiBjsAVEkiEF9jc3JmX3Rva2VuBjsARkkiMW1kV3Z5NDl6eVkwWDl4bFQvMUxSSmxmbjhhaDR1WWxERWUrMFQ4dVcvS0k9BjsARg%3D%3D--ce5f52d49b68e30a7ec34b75bf456d6c79d234d2; path=/; HttpOnly"
+metadata = { "cookie" = "_redmine_session", "service.cpe23" = "cpe:/a:redmine:redmine:-" }
+
+[[match]]
+name = "Sage X3 Syracuse Web Server"
+pattern = "^(syracuse\\.sid\\.\\d+)="
+vendor = "Sage"
+product = "Sage X3 Syracuse Web Server"
+context = "http_header.cookie"
+example = "syracuse.sid.8124=8b102bf7-327c-4962-9279-550e72afcaa9; path=/; HttpOnly"
+metadata = { "cookie" = "{capture:1}", "service.family" = "Sage X3 Syracuse Web Server" }
+
+[[match]]
+name = "Sun Java System Application Server (formerly iPlanet Application Server, Sun ONE Application Server)"
+pattern = "^(GX_SESSION_ID|JROUTE)="
+vendor = "Sun"
+product = "Java System Application Server"
+context = "http_header.cookie"
+example = "GX_SESSION_ID=ji7vouPhPt5CAtGF%2BWPMXBrhjjxWZAD9HRNeEEITGCA%3D"
+metadata = { "cookie" = "{capture:1}", "service.family" = "Java System Application Server", "service.cpe23" = "cpe:/a:sun:java_system_application_server:-" }
+
+[[match]]
+name = "TYPO3 CMS - http://typo3.com/"
+pattern = "^fe_typo_user="
+vendor = "TYPO3"
+product = "CMS"
+context = "http_header.cookie"
+example = "fe_typo_user=aae725f7dcb8cb5215e64f66d4584cc92; path=/"
+metadata = { "cookie" = "fe_typo_user", "service.family" = "CMS" }
+
+[[match]]
+name = "Unica NetTracker - http://netinsight.unica.com/Products/NetTracker.cfm"
+pattern = "^SaneID="
+vendor = "Unica"
+product = "NetTracker"
+context = "http_header.cookie"
+example = "SaneID=10.1.1.223.1618798365976948; path=/; domain=.foo.bar"
+metadata = { "cookie" = "SaneID", "service.family" = "NetTracker" }
+
+[[match]]
+name = "Urchin Tracking Module - http://www.google.com/support/urchin45/bin/answer.py?answer=28307&topic=7425"
+pattern = "^(__utm[a-z])="
+vendor = "Google"
+product = "Urchin Tracking Module"
+context = "http_header.cookie"
+example = "__utmp=2071164266.582676006.3393543082; path=/; domain=.foo.bar"
+metadata = { "cookie" = "{capture:1}", "service.family" = "Urchin" }
+
+[[match]]
+name = "Silver Peak Appliance"
+pattern = "vxoaSessionID="
+context = "http_header.cookie"
+example = "vxoaSessionID=s%3A2650cfe1df092fc617d229d6d6b5dbfc.70yKRpb371czAWFkZWXdNfCSNexQvtiVr%2B3Z51YXbIw; Path=/; HttpOnly; Secure"
+metadata = { "hw.vendor" = "Silver Peak", "hw.device" = "Network Appliance", "hw.product" = "SD-WAN" }
+
+[[match]]
+name = "Vignette"
+pattern = "^(vgncontext|vgnvisitor|ssuid)="
+vendor = "Vignette"
+product = "Vignette"
+context = "http_header.cookie"
+example = "vgnvisitor=2KM2OM00bZ40000PovANt0Dgn0; path=/; expires=Saturday, 06-Sep-2014 23:50:08 GMT"
+metadata = { "cookie" = "{capture:1}", "service.family" = "Vignette" }
+
+[[match]]
+name = "Plain Black WebGUI - http://www.plainblack.com/webgui"
+pattern = "^wgSession="
+vendor = "Plain Black"
+product = "WebGUI"
+context = "http_header.cookie"
+example = "wgSession=xngFQdcbCap87x6d8qc1YA; path=/; expires=Thu, 17-Apr-2031 02:29:05 GMT"
+metadata = { "cookie" = "wgSession", "service.family" = "WebGUI" }
+
+[[match]]
+name = "WebTrends"
+pattern = "^(WEBTRENDS_?ID)="
+vendor = "WebTrends"
+product = "WebTrends"
+context = "http_header.cookie"
+example = "WEBTRENDS_ID=10.247.9.69.1618795409656141; path=/; expires=Tue, 19-Apr-22 01:23:29 GMT; domain=.foo.bar"
+metadata = { "cookie" = "{capture:1}", "service.family" = "WebTrends" }
+
+[[match]]
+name = "Zimbra Collaboration"
+pattern = "^(ZM_(?:TEST|LOGIN_CSRF)|ZA_(?:SKIN|TEST))="
+vendor = "Zimbra"
+product = "Collaboration"
+context = "http_header.cookie"
+example = "ZM_TEST=true; Secure"
+metadata = { "cookie" = "{capture:1}", "service.cpe23" = "cpe:/a:zimbra:collaboration:-" }
+
+[[match]]
+name = "Zope"
+pattern = "^_ZopeId="
+product = "Zope"
+context = "http_header.cookie"
+example = "_ZopeId=\"91304233A995SVLz3SI\"; Path=/"
+metadata = { "cookie" = "_ZopeId", "service.family" = "Zope" }
+
+[[match]]
+name = "OracleAS Portal default cookie name - http://download.oracle.com/docs/cd/B14099_19/portal.1014/b19305/cg_app_f.htm"
+pattern = "^portal=([0-9]+\\.[0-9]+\\.[0-9]+)"
+version_group = 1
+vendor = "Oracle"
+product = "Application Server Portal"
+context = "http_header.cookie"
+example = "portal=2173348032.20480.0000;"
+metadata = { "cookie" = "portal", "service.family" = "OracleAS", "service.cpe23" = "cpe:/a:oracle:application_server_portal:{service.version}" }
+
+[[match]]
+name = "HP System Management Homepage (SMH)"
+pattern = "^Compaq-HMMD=[^;]+;"
+vendor = "HP"
+product = "SMH"
+context = "http_header.cookie"
+example = "Compaq-HMMD=0001-c01fffff-487a-394a-aab0-ffffffffffff-ffffffffffffffff; path=/"
+metadata = { "service.family" = "SMH" }
+
+[[match]]
+name = "Moodle"
+pattern = "^MoodleSession="
+context = "http_header.cookie"
+example = "MoodleSession=uohhsgcain708q5l4gqcmmb5s2; path=/"
+metadata = { "service.component.vendor" = "Moodle", "service.component.family" = "Moodle", "service.component.product" = "Moodle", "service.component.cpe23" = "cpe:/a:moodle:moodle:-" }
+
+[[match]]
+name = "Arachni Security Scanner"
+pattern = "_arachni_webui_session="
+vendor = "Arachni"
+product = "Arachni"
+context = "http_header.cookie"
+example = "_arachni_webui_session=el2MMEVVcld3Q2dBc3UvSmtQYmlPckpxSE2CMmlwd1Nja2lvUk5tRG5XYTlnRHJuVVVTblVNMTBOdGhrUU02dzC0K1I0Mnk3d1I3SUlCcngwQkliV3Y5VDBnVVZkOWJsS0VGSlYwM1RGMlVzVDNKcXlrdFNQZ0lIM1VBN3RDZFIrZTBrdjZmdSt0YnV2djh1RFE0S1czUmZQcGxNNW9UWVQydXFCZmNHZDRmTlg4cWludE5SUDRYU2JwdWw4Qmk3dEpDV3ZBejRkbU9ueFJKNG1HenplUEJjem9LU09IM0Z6ZHM4YU00aVpKUHJRVzR3SG8rRzBjWG9jclpqZGd2dmp2TnVGbjkvb0lmanZvM3lPZGhXb3c9PS0tR0dXVWppWnorMG1NNjlXTkYvaEswUT09--44b846e66f558667d7503010a726e2388803136f; path=/; HttpOnly"
+
+[[match]]
+name = "Unraid"
+pattern = "^unraid_"
+vendor = "Lime Technologies"
+product = "Unraid"
+context = "http_header.cookie"
+example = "unraid_2e9e9f79999999999999999999r9b999=c5599999999999999999999999999e38; path=/; HttpOnly; SameSite=Lax"
+metadata = { "service.certainty" = "0.5" }
+
+[[match]]
+name = "Laravel PHP web application framework"
+pattern = "^laravel_session="
+vendor = "Laravel"
+product = "Laravel"
+context = "http_header.cookie"
+example = "laravel_session=eyJpdiI6IjZmcXM4SXZqNVQxY2U2UDVEb1V0SFE9PSIsInZhbHVlIjoiQlRUYXk2WEsxUkZmVU5lRXpBTlZkUURkUnphR0RGMTdaRDkxWHFLVGhtaUZwM0plaWR2aVMyeVQ5MmFzNlVFczVQUExpeDdhUUZveVlCOVUxMVA4dHp6ZUQrK0t3KzBUaVlxb2o4WUxleE1rb29GTlozZWF6cXpUUTRnNFpJTHUiLCJtYWMiOiI3ZGNhNzhmOGRmMWFmZmE5ZjFiYjQ5ODBlNGEwMjgzZWNiZGI2ZTI4ZjFmYWJkMmIxZTgwYzM2NjA1OThlNGNlIn0%3D; expires=Mon, 13-Mar-2023 18:21:13 GMT; Max-Age=7200; path=/; httponly; samesite=lax"
+metadata = { "service.cpe23" = "cpe:/a:laravel:laravel:-" }
+
+[[match]]
+name = "phpMyAdmin web interface for MySQL and MariaDB"
+pattern = "^phpMyAdmin="
+vendor = "phpMyAdmin"
+product = "phpMyAdmin"
+context = "http_header.cookie"
+example = "phpMyAdmin=28600e9ff9772c871dacec70f9c5edaa; path=/; HttpOnly"
+metadata = { "service.cpe23" = "cpe:/a:phpmyadmin:phpmyadmin:-" }
+
+[[match]]
+name = "Adminer database management tool"
+pattern = "^(adminer_(?:sid|key))="
+vendor = "Adminer"
+product = "Adminer"
+context = "http_header.cookie"
+example = "adminer_sid=6580f6449f9572f817ec99600bc619d2; path=/; HttpOnly"
+metadata = { "cookie" = "{capture:1}", "service.cpe23" = "cpe:/a:adminer:adminer:-" }
+
+[[match]]
+name = "mongo-express web-based MongoDB admin interface"
+pattern = "^mongo-express="
+vendor = "mongo-express Project"
+product = "mongo-express"
+context = "http_header.cookie"
+example = "mongo-express=s%3A1qAVXDHaoFE5J0G4wkYKfyjuv6_0Zd9E.l2DGc0YAb7MJQfUleYVEla5i79pbkhDYVayvCEPFCDc; Path=/; HttpOnly"
+metadata = { "service.cpe23" = "cpe:/a:mongo-express_project:mongo-express:-" }
+
+[[match]]
+name = "ManageEngine ADManager Plus"
+pattern = "^(JSESSIONIDADMP|admpcsrf)="
+vendor = "ManageEngine"
+product = "ADManager Plus"
+context = "http_header.cookie"
+example = "JSESSIONIDADMP=3A92A25349FECF56B7D7D6FF915545B5; Path=/; HttpOnly"
+metadata = { "cookie" = "{capture:1}", "service.cpe23" = "cpe:/a:zohocorp:manageengine_admanager_plus:-" }
+
+[[match]]
+name = "ManageEngine ADAudit Plus"
+pattern = "^(JSESSIONIDADAP|adapcsrf)="
+vendor = "ManageEngine"
+product = "ADAudit Plus"
+context = "http_header.cookie"
+example = "JSESSIONIDADAP=BB472B7AD767571D913190056ED594CB; Path=/; HttpOnly"
+metadata = { "cookie" = "{capture:1}", "service.cpe23" = "cpe:/a:zohocorp:manageengine_adaudit_plus:-" }
+
+[[match]]
+name = "ManageEngine ADSelfService Plus"
+pattern = "^(JSESSIONIDADSSP|adscsrf)="
+vendor = "ManageEngine"
+product = "ADSelfService Plus"
+context = "http_header.cookie"
+example = "JSESSIONIDADSSP=A7FECBD71C67184E929AF80715C29C20; Path=/; Secure; HttpOnly"
+metadata = { "cookie" = "{capture:1}", "service.cpe23" = "cpe:/a:zohocorp:manageengine_adselfservice_plus:-" }
+
+[[match]]
+name = "ManageEngine Active Directory 360 (AD360)"
+pattern = "^ad360csrf="
+vendor = "ManageEngine"
+product = "AD360"
+context = "http_header.cookie"
+example = "ad360csrf=03c99789-515c-4aa9-8823-7e2e8e8b3026;path=/;SameSite=None;Secure;priority=high"
+metadata = { "service.cpe23" = "cpe:/a:zohocorp:manageengine_ad360:-" }
+
+[[match]]
+name = "ManageEngine Analytics Plus"
+pattern = "^ZROPJSESSIONID="
+vendor = "ManageEngine"
+product = "Analytics Plus"
+context = "http_header.cookie"
+example = "ZROPJSESSIONID=FECE4724AC1990DBCC45DD3DA6CB3002; Path=/; Secure; HttpOnly"
+metadata = { "service.cpe23" = "cpe:/a:zohocorp:manageengine_analytics_plus:-" }
+
+[[match]]
+name = "dotCMS Content Management Platform"
+pattern = "^(dmid|opvc|sitevisitscookie)="
+vendor = "dotCMS"
+product = "dotCMS"
+context = "http_header.cookie"
+example = "dmid=dcd46b93-54ab-4a43-a023-99154f879c3e; Max-Age=153792000; Expires=Thu, 18-Mar-2027 21:28:37 GMT; Path=/; HttpOnly; SameSite=Strict"
+metadata = { "cookie" = "{capture:1}", "service.cpe23" = "cpe:/a:dotcms:dotcms:-" }
+
+[[match]]
+name = "qdPM - project management tool"
+pattern = "^qdPM8="
+vendor = "qdPM"
+product = "qdPM"
+context = "http_header.cookie"
+example = "qdPM8=57d23588bfe525e24760bf4c73b10759; path=/"
+metadata = { "service.cpe23" = "cpe:/a:qdpm:qdpm:-" }
+
+[[match]]
+name = "CloudPanel - server control panel"
+pattern = "^cloudpanel="
+vendor = "MGT-COMMERCE GmbH"
+product = "CloudPanel"
+context = "http_header.cookie"
+example = "cloudpanel=9rs2cohqs9bfq5fch54j2m5eje; path=/; secure; httponly; samesite=lax"
+
+[[match]]
+name = "Control Web Panel (CWP) (formerly CentOS Web Panel) - web hosting control panel"
+pattern = "^cwpsrv-[0-9a-f]{32}="
+vendor = "Control Web Panel"
+product = "Control Web Panel"
+context = "http_header.cookie"
+example = "cwpsrv-5df9a64aa14f59216453d6f07164a7f1=aq0jsl5muvuli7cif5p9ut7dtm; path=/"
+metadata = { "service.cpe23" = "cpe:/a:control-webpanel:webpanel:-", "os.family" = "Linux", "os.product" = "Linux" }
+
+[[match]]
+name = "FileRun - self-hosted Google Drive alternative"
+pattern = "^FileRunSID="
+vendor = "FileRun"
+product = "FileRun"
+context = "http_header.cookie"
+example = "FileRunSID=966e9a0441b5fea1a72af53b1a6adc8f; path=/; HttpOnly"
+metadata = { "service.cpe23" = "cpe:/a:filerun:filerun:-" }
+
+[[match]]
+name = "Progress MOVEit Transfer (formerly MOVEit DMZ, MOVEit File Transfer)"
+pattern = "^(DMZCookieTest|MIDMZLang|siLockLongTermInstID)="
+vendor = "Progress"
+product = "MOVEit Transfer"
+context = "http_header.cookie"
+example = "DMZCookieTest=ifyoucanreadthisyourbrowsersupportscookies; path=/"
+metadata = { "cookie" = "{capture:1}", "service.cpe23" = "cpe:/a:progress:moveit_transfer:-" }
+
+[[match]]
+name = "Roundcube Webmail"
+pattern = "^roundcube_sessid="
+vendor = "Roundcube"
+product = "Webmail"
+context = "http_header.cookie"
+example = "roundcube_sessid=bdd66fb23fa3ce907a1e792475273145; path=/; HttpOnly"
+metadata = { "service.cpe23" = "cpe:/a:roundcube:webmail:-" }
+
+[[match]]
+name = "Ignore simple JSESSIONID and related cookies -- assert nothing"
+pattern = "(?i)^JSESSIONID(?:\\.[^=]+)?=[^;]+;"
+context = "http_header.cookie"
+example = "JSESSIONID=6ooov35i4l3n36qtaf8csvg0;Path=/"
+metadata = { "hw.certainty" = "0.0", "os.certainty" = "0.0", "service.certainty" = "0.0" }
+
+[[match]]
+name = "Ignore simple SESSIONID and related cookies -- assert nothing"
+pattern = "(?i)^_?SESSION_?ID\\s*=\\s*[^;]+;"
+context = "http_header.cookie"
+example = "sessionId=7dba3249cfcd4b59854055311099a294; path=/;"
+metadata = { "hw.certainty" = "0.0", "os.certainty" = "0.0", "service.certainty" = "0.0" }
+
+[[match]]
+name = "Ignore simple SID and related cookies -- assert nothing"
+pattern = "(?i)^sid=[^;]+;"
+context = "http_header.cookie"
+example = "sid=sfd10bf73-654458f687aa3c68b3874915f651e0ca;path=/;\""
+metadata = { "hw.certainty" = "0.0", "os.certainty" = "0.0", "service.certainty" = "0.0" }
+

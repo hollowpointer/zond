@@ -1,0 +1,1213 @@
+# This file contains fingerprints imported from Rapid7 Recog.
+# Source: https://github.com/rapid7/recog
+# License: BSD-2-Clause
+
+[service]
+attribution = "Rapid7 Recog"
+name = "x509"
+default_ports = []
+description = "Imported from Rapid7 x509_subjects"
+
+[[match]]
+name = "Araknis Networks Router"
+pattern = "^CN=([0-9a-fA-F]{2}:[0-9a-fA-F]{2}:[0-9a-fA-F]{2}:[0-9a-fA-F]{2}:[0-9a-fA-F]{2}:[0-9a-fA-F]{2}),OU=([^,]+),O=Araknis Networks \\(TM\\),L=Charlotte,C=US$"
+context = "x509.subject"
+example = "CN=d4:6a:91:7a:a3:c4,OU=AN-300-RT-4L2W,O=Araknis Networks (TM),L=Charlotte,C=US"
+metadata = { "hw.device" = "Router", "hw.vendor" = "Araknis Networks", "hw.product" = "{capture:2}", "host.mac" = "{capture:1}" }
+
+[[match]]
+name = "Cisco / Linksys Router"
+pattern = "^CN=([a-fA-F0-9:]+),OU=([^,]+),O=Cisco-Linksys\\\\, LLC"
+context = "x509.subject"
+example = "CN=00:22:6b:ef:1e:d0,OU=RV042,O=Cisco-Linksys\\, LLC,L=Irvine,C=US"
+metadata = { "hw.device" = "Broadband Router", "hw.vendor" = "Cisco", "hw.product" = "{capture:2}", "host.mac" = "{capture:1}" }
+
+[[match]]
+name = "Cisco Post-Linksys Router"
+pattern = "^CN=([a-fA-F0-9\\:]+),OU=([^,]+),O=Cisco Systems\\\\, Inc\\."
+context = "x509.subject"
+example = "CN=74:a2:e6:5c:99:21,OU=RV042G,O=Cisco Systems\\, Inc.,L=Irvine,C=US"
+metadata = { "hw.device" = "Broadband Router", "hw.vendor" = "Cisco", "hw.product" = "{capture:2}", "host.mac" = "{capture:1}" }
+
+[[match]]
+name = "Cisco IP phone with serial number"
+pattern = "^SERIALNUMBER=PID:([^ ]+) SN:([^,]+),CN=(?:[a-zA-Z0-9\\-]+)-SEP([a-fA-F0-9]{12}),OU=[CV]TG,O=Cisco Systems Inc\\.$"
+context = "x509.subject"
+example = "SERIALNUMBER=PID:CP-8851 SN:FCH1924AHCA,CN=CP-8851-SEPB07D47D33A1C,OU=CTG,O=Cisco Systems Inc."
+metadata = { "hw.device" = "VoIP", "hw.vendor" = "Cisco", "hw.product" = "{capture:1}", "hw.serial_number" = "{capture:2}", "host.mac" = "{capture:3}" }
+
+[[match]]
+name = "Cisco IP Phone without serial number"
+pattern = "^CN=SEP([a-fA-F0-9]{12}),O=TemporaryDefaultCertificate$"
+context = "x509.subject"
+example = "CN=SEP1C6A7AE57121,O=TemporaryDefaultCertificate"
+metadata = { "hw.device" = "VoIP", "hw.vendor" = "Cisco", "host.mac" = "{capture:1}" }
+
+[[match]]
+name = "Cambium Networks WAP"
+pattern = "^CN=Cambium WLAN AP,OU=Products,O=Cambium Networks Inc,L=San Jose,ST=CA,C=US$"
+context = "x509.subject"
+example = "CN=Cambium WLAN AP,OU=Products,O=Cambium Networks Inc,L=San Jose,ST=CA,C=US"
+metadata = { "hw.device" = "WAP", "hw.vendor" = "Cambium Networks", "hw.product" = "WLAN AP" }
+
+[[match]]
+name = "Cambium Networks Router"
+pattern = "^CN=([^,]+),OU=Products,O=Cambium Networks Inc,L=San Jose,ST=CA,C=US$"
+context = "x509.subject"
+example = "CN=R190V,OU=Products,O=Cambium Networks Inc,L=San Jose,ST=CA,C=US"
+metadata = { "hw.device" = "Router", "hw.vendor" = "Cambium Networks", "hw.product" = "{capture:1}" }
+
+[[match]]
+name = "Technicolor Router - without model or version"
+pattern = "^O=Technicolor,L=Edegem,ST=Antwerp,C=BE$"
+context = "x509.subject"
+example = "O=Technicolor,L=Edegem,ST=Antwerp,C=BE"
+metadata = { "os.vendor" = "Technicolor", "os.device" = "Router", "os.certainty" = "0.5", "hw.vendor" = "Technicolor", "hw.device" = "Router", "hw.certainty" = "0.5" }
+
+[[match]]
+name = "DrayTek Vigor Router - without model or version"
+pattern = "^CN=Vigor Router,OU=DrayTek Support,O=DrayTek Corp.,L=HuKou,ST=HsinChu,C=TW$"
+context = "x509.subject"
+example = "CN=Vigor Router,OU=DrayTek Support,O=DrayTek Corp.,L=HuKou,ST=HsinChu,C=TW"
+metadata = { "os.vendor" = "DrayTek", "os.device" = "Router", "os.certainty" = "0.5", "hw.vendor" = "DrayTek", "hw.family" = "Vigor", "hw.device" = "Router", "hw.certainty" = "0.5" }
+
+[[match]]
+name = "Nepenthes honeypot"
+pattern = "^CN=Nepenthes Development Team,OU=anv,O=dionaea\\.carnivore\\.it,C=DE$"
+product = "Nepenthes"
+context = "x509.subject"
+example = "CN=Nepenthes Development Team,OU=anv,O=dionaea.carnivore.it,C=DE"
+metadata = { "service.family" = "Nepenthes" }
+
+[[match]]
+name = "Super Micro IPMI Controller"
+pattern = "^CN=IPMI,OU=Software,O=Super Micro Computer,ST=California,C=US$"
+context = "x509.subject"
+example = "CN=IPMI,OU=Software,O=Super Micro Computer,ST=California,C=US"
+metadata = { "hw.device" = "Lights Out Management", "hw.vendor" = "Super Micro", "hw.product" = "IPMI", "os.vendor" = "Super Micro", "os.product" = "ATEN Linux" }
+
+[[match]]
+name = "Dell iDRAC Remote Access Controller w/MAC"
+pattern = "^CN=iDRACdefault([a-fA-F0-9]{12}),OU=iDRAC Group,O=Dell Inc.,L=Round Rock,C=US$"
+context = "x509.subject"
+example = "CN=iDRACdefault0023AEF89AD1,OU=iDRAC Group,O=Dell Inc.,L=Round Rock,C=US"
+metadata = { "hw.device" = "Lights Out Management", "hw.vendor" = "Dell", "hw.product" = "iDRAC", "os.vendor" = "Dell", "os.product" = "iDRAC Linux", "host.mac" = "{capture:1}" }
+
+[[match]]
+name = "Dell iDRAC Remote Access Controller w/Service Tag"
+pattern = "^CN=idrac-([A-Z0-9]{7}),OU=Remote Access Group,O=Dell Inc\\.,L=Round Rock,ST=Texas,C=US$"
+context = "x509.subject"
+example = "CN=idrac-JXJJC02,OU=Remote Access Group,O=Dell Inc.,L=Round Rock,ST=Texas,C=US"
+metadata = { "hw.device" = "Lights Out Management", "hw.vendor" = "Dell", "hw.product" = "iDRAC", "os.vendor" = "Dell", "os.product" = "iDRAC Linux", "dell.service_tag" = "{capture:1}" }
+
+[[match]]
+name = "Dell iDRAC Remote Access Controller w/o Service Tag"
+pattern = "^CN=idrac.*,OU=Remote Access Group,O=Dell Inc\\.,L=Round Rock,ST=Texas,C=US$"
+context = "x509.subject"
+example = "CN=idrac-SVCTAG,OU=Remote Access Group,O=Dell Inc.,L=Round Rock,ST=Texas,C=US"
+metadata = { "hw.device" = "Lights Out Management", "hw.vendor" = "Dell", "hw.product" = "iDRAC", "os.vendor" = "Dell", "os.product" = "iDRAC Linux" }
+
+[[match]]
+name = "Dell iDRAC Remote Access Controller w/Version"
+pattern = "^CN=(i?DRAC\\d+) default certificate,OU=Remote Access Group,O=Dell Inc\\.,L=Round Rock,ST=Texas,C=US$"
+context = "x509.subject"
+example = "CN=iDRAC7 default certificate,OU=Remote Access Group,O=Dell Inc.,L=Round Rock,ST=Texas,C=US"
+metadata = { "hw.device" = "Lights Out Management", "hw.vendor" = "Dell", "hw.product" = "{capture:1}", "os.vendor" = "Dell", "os.product" = "iDRAC Linux" }
+
+[[match]]
+name = "Dell iDRAC Remote Access Controller Default Certificate"
+pattern = "^CN=iDRAC default certificate,OU=Server Firmware Group,O=Dell Inc\\.,L=Round Rock,ST=Texas,C=US$"
+context = "x509.subject"
+example = "CN=iDRAC default certificate,OU=Server Firmware Group,O=Dell Inc.,L=Round Rock,ST=Texas,C=US"
+metadata = { "hw.device" = "Lights Out Management", "hw.vendor" = "Dell", "hw.product" = "iDRAC", "os.vendor" = "Dell", "os.product" = "iDRAC Linux" }
+
+[[match]]
+name = "Lenovo XCC"
+pattern = "^CN=XCC-([a-zA-Z0-9]+)-([a-zA-Z0-9]+),O=System X,L=RTP,ST=NC,C=US$"
+context = "x509.subject"
+example = "CN=XCC-7X06-J1005NEX,O=System X,L=RTP,ST=NC,C=US"
+metadata = { "hw.device" = "Lights Out Management", "hw.vendor" = "Lenovo", "hw.family" = "System X", "hw.product" = "XCC", "os.vendor" = "Lenovo", "os.product" = "XCC Linux", "lenovo.machine_type" = "{capture:1}", "lenovo.machine_model" = "{capture:2}" }
+
+[[match]]
+name = "HP iLO"
+pattern = "^CN=([A-Za-z0-9\\_\\-\\.]+),OU=ISS,O=Hewlett-Packard Company,L=Houston,ST=Texas,C=US$"
+context = "x509.subject"
+example = "CN=SERVER-1231,OU=ISS,O=Hewlett-Packard Company,L=Houston,ST=Texas,C=US"
+metadata = { "hw.device" = "Lights Out Management", "hw.vendor" = "HP", "hw.family" = "iLO", "hw.product" = "iLO", "hw.cpe23" = "cpe:/h:hp:integrated_lights-out:-", "os.device" = "Lights Out Management", "os.vendor" = "HP", "os.family" = "iLO", "os.product" = "iLO", "os.cpe23" = "cpe:/o:hp:integrated_lights-out_firmware:-", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "HP iLO - HP Service Processor"
+pattern = "^CN=HP Service Processor,OU=UDU Service Tools,O=Hewlett-Packard Development Company\\\\, L\\.P\\.\\\\ ,L=Fremont,ST=California,C=US$"
+context = "x509.subject"
+example = "CN=HP Service Processor,OU=UDU Service Tools,O=Hewlett-Packard Development Company\\, L.P.\\ ,L=Fremont,ST=California,C=US"
+metadata = { "hw.device" = "Lights Out Management", "hw.vendor" = "HP", "hw.family" = "iLO", "hw.product" = "iLO", "hw.cpe23" = "cpe:/h:hp:integrated_lights-out:-", "os.device" = "Lights Out Management", "os.vendor" = "HP", "os.family" = "iLO", "os.product" = "iLO", "os.cpe23" = "cpe:/o:hp:integrated_lights-out_firmware:-" }
+
+[[match]]
+name = "HP iLO (Onboard Administrator)"
+pattern = "^CN=OA\\-([a-fA-F0-9]+),OU=Onboard Administrator,"
+context = "x509.subject"
+example = "CN=OA-001F296E21A3,OU=Onboard Administrator,O=Corp.,L=Location,ST=N/A,C=US"
+metadata = { "hw.device" = "Lights Out Management", "hw.vendor" = "HP", "hw.family" = "iLO", "hw.product" = "iLO", "hw.cpe23" = "cpe:/h:hp:integrated_lights-out:-", "os.device" = "Lights Out Management", "os.vendor" = "HP", "os.family" = "iLO", "os.product" = "iLO", "os.cpe23" = "cpe:/o:hp:integrated_lights-out_firmware:-", "host.mac" = "{capture:1}" }
+
+[[match]]
+name = "HP iLO - Enterprise Mgmt variant"
+pattern = "^CN=([A-Za-z0-9\\_\\-\\.]+),OU=Hewlett Packard Enterprise Network Management Software \\(SMH\\),O=Hewlett Packard Enterprise,L=Houston,ST=Texas,C=US$"
+context = "x509.subject"
+example = "CN=bigsrv99,OU=Hewlett Packard Enterprise Network Management Software (SMH),O=Hewlett Packard Enterprise,L=Houston,ST=Texas,C=US"
+metadata = { "hw.device" = "Lights Out Management", "hw.vendor" = "HP", "hw.family" = "iLO", "hw.product" = "iLO", "hw.cpe23" = "cpe:/h:hp:integrated_lights-out:-", "os.device" = "Lights Out Management", "os.vendor" = "HP", "os.family" = "iLO", "os.product" = "iLO", "os.cpe23" = "cpe:/o:hp:integrated_lights-out_firmware:-", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "Oracle iLO"
+pattern = "^CN=Oracle Integrated Lights Out Manager,O=Oracle America\\\\, Inc\\.,L=Redwood Shores,ST=California,C=US$"
+context = "x509.subject"
+example = "CN=Oracle Integrated Lights Out Manager,O=Oracle America\\, Inc.,L=Redwood Shores,ST=California,C=US"
+metadata = { "hw.device" = "Lights Out Management", "hw.vendor" = "Oracle", "hw.family" = "ILOM", "hw.product" = "ILOM", "os.device" = "Lights Out Management", "os.vendor" = "Oracle", "os.family" = "ILOM", "os.product" = "ILOM", "os.cpe23" = "cpe:/o:oracle:integrated_lights_out_manager_firmware:-" }
+
+[[match]]
+name = "AMI MegaRAC LOM"
+pattern = "^CN=AMI,OU=Service Processors,O=American Megatrends Inc"
+context = "x509.subject"
+example = "CN=AMI,OU=Service Processors,O=American Megatrends Inc.,L=Norcross,ST=Georgia,C=US"
+metadata = { "hw.device" = "Lights Out Management", "hw.vendor" = "AMI", "hw.family" = "MegaRAC", "hw.product" = "MegaRAC", "os.device" = "Lights Out Management", "os.vendor" = "AMI", "os.family" = "MegaRAC", "os.product" = "MegaRAC" }
+
+[[match]]
+name = "Cisco Integrated Management Controller"
+pattern = "^CN=C-series CIMC,OU=PID:([^ ]+) SERIAL:([^,]+),O=Cisco"
+context = "x509.subject"
+example = "CN=C-series CIMC,OU=PID:UCSC-C220-M3S SERIAL:FCH18999AAA,O=Cisco Self Signed,L=San Jose,ST=California,C=US"
+metadata = { "hw.device" = "Lights Out Management", "hw.vendor" = "Cisco", "hw.product" = "IMC", "os.vendor" = "Cisco", "os.family" = "Linux", "os.product" = "IMC", "hw.serial_number" = "{capture:2}", "cisco.imc_model" = "{capture:1}" }
+
+[[match]]
+name = "Cisco Integrated Management Controller C220"
+pattern = "^CN=C220-(FCH[^,]+),OU=null,O=Cisco Systems Inc"
+context = "x509.subject"
+example = "CN=C220-FCH17999AAA,OU=null,O=Cisco Systems Inc.,L=San Jose,ST=California,C=US"
+metadata = { "hw.device" = "Lights Out Management", "hw.vendor" = "Cisco", "hw.product" = "IMC", "os.vendor" = "Cisco", "os.family" = "Linux", "os.product" = "IMC", "hw.serial_number" = "{capture:1}" }
+
+[[match]]
+name = "Avocent KVM"
+pattern = "^CN=avocent.com,OU=AESS,O=Avocent,L=Sunrise,ST=FL,C=US$"
+context = "x509.subject"
+example = "CN=avocent.com,OU=AESS,O=Avocent,L=Sunrise,ST=FL,C=US"
+metadata = { "hw.device" = "KVM", "hw.vendor" = "Avocent", "os.device" = "KVM", "os.vendor" = "Avocent" }
+
+[[match]]
+name = "Avocent Mergepoint KVM"
+pattern = "^CN=Avocent Mergepoint Unity,O=Avocent Mergepoint Unity,L=Huntsville,ST=Alabama,C=US$"
+context = "x509.subject"
+example = "CN=Avocent Mergepoint Unity,O=Avocent Mergepoint Unity,L=Huntsville,ST=Alabama,C=US"
+metadata = { "hw.device" = "KVM", "hw.vendor" = "Avocent", "hw.product" = "Mergepoint", "os.device" = "KVM", "os.vendor" = "Avocent", "os.product" = "Mergepoint" }
+
+[[match]]
+name = "HP Jet Direct - with host MAC and product"
+pattern = "^CN=HP Jetdirect [a-zA-Z0-9]+,OU=([a-fA-F0-9]{12})\\+OU=([a-zA-Z0-9]+),O=Hewlett-Packard Co\\.$"
+context = "x509.subject"
+example = "CN=HP Jetdirect 38831831,OU=2C413883186A+OU=J8028E,O=Hewlett-Packard Co."
+metadata = { "hw.device" = "Printer", "hw.vendor" = "HP", "hw.family" = "JetDirect", "os.device" = "Printer", "os.vendor" = "HP", "os.family" = "JetDirect", "host.mac" = "{capture:1}", "hw.product" = "{capture:2}", "os.product" = "{capture:2}" }
+
+[[match]]
+name = "HP Jet Direct"
+pattern = "^CN=([a-zA-Z0-9\\.\\-\\_]+),OU=HP-IPG,O=HP,L=Vancouver,ST=Washington,C=US$"
+context = "x509.subject"
+example = "CN=HPD49F21,OU=HP-IPG,O=HP,L=Vancouver,ST=Washington,C=US"
+metadata = { "hw.device" = "Printer", "hw.vendor" = "HP", "hw.family" = "JetDirect", "os.device" = "Printer", "os.vendor" = "HP", "os.family" = "JetDirect", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "Cisco Firepower"
+pattern = "^CN=(?:Sourcefire3D|firepower|ciscoasa),OU=Intrusion Management System,O=(?:Sourcefire\\\\, Inc.|Cisco Systems\\\\, Inc),C=US$"
+context = "x509.subject"
+example = "CN=firepower,OU=Intrusion Management System,O=Cisco Systems\\, Inc,C=US"
+metadata = { "hw.device" = "IPS", "hw.vendor" = "Cisco", "hw.product" = "Firepower", "os.device" = "IPS", "os.vendor" = "Cisco", "os.product" = "Firepower", "os.family" = "Linux" }
+
+[[match]]
+name = "Cisco ASA Temp Cert"
+pattern = "^CN=ASA Temporary Self Signed Certificate$"
+context = "x509.subject"
+example = "CN=ASA Temporary Self Signed Certificate"
+metadata = { "os.vendor" = "Cisco", "os.family" = "Adaptive Security Appliance", "os.product" = "Adaptive Security Appliance", "hw.vendor" = "Cisco", "hw.family" = "Adaptive Security Appliance", "hw.product" = "Adaptive Security Appliance", "hw.device" = "Firewall", "hw.cpe23" = "cpe:/h:cisco:adaptive_security_appliance:-" }
+
+[[match]]
+name = "Cisco vWLC"
+pattern = "^SERIALNUMBER=([a-zA-Z0-9]+),CN=DEVICE-vWLC,O=Cisco Virtual WLC$"
+context = "x509.subject"
+example = "SERIALNUMBER=9C89M2088D1,CN=DEVICE-vWLC,O=Cisco Virtual WLC"
+metadata = { "os.vendor" = "Cisco", "os.device" = "Wireless Controller", "os.product" = "Wireless LAN Controller", "os.cpe23" = "cpe:/o:cisco:wireless_lan_controller_software:-", "hw.serial_number" = "{capture:1}" }
+
+[[match]]
+name = "Cisco WLC"
+pattern = "^CN=[a-zA-Z0-9\\.\\-\\_]+,OU=DeviceSSL \\(WebAdmin\\),O=Cisco Systems Inc\\.,C=US$"
+context = "x509.subject"
+example = "CN=169.254.1.1,OU=DeviceSSL (WebAdmin),O=Cisco Systems Inc.,C=US"
+metadata = { "os.vendor" = "Cisco", "os.device" = "Wireless Controller", "os.product" = "Wireless LAN Controller", "os.cpe23" = "cpe:/o:cisco:wireless_lan_controller_software:-", "hw.vendor" = "Cisco", "hw.device" = "Wireless Controller", "hw.product" = "Wireless LAN Controller", "hw.cpe23" = "cpe:/h:cisco:wireless_lan_controller:-" }
+
+[[match]]
+name = "Cisco Primary Collaboration Manager"
+pattern = "^CN=pca,OU=Cisco Prime Collaboration Manager,O=Cisco,L=San Jose,ST=California,C=US$"
+context = "x509.subject"
+example = "CN=pca,OU=Cisco Prime Collaboration Manager,O=Cisco,L=San Jose,ST=California,C=US"
+metadata = { "os.vendor" = "Cisco", "os.device" = "Network Management Device", "os.product" = "Prime Collaboration Manager", "hw.vendor" = "Cisco", "hw.device" = "Network Management Device", "hw.product" = "Prime Collaboration Manager" }
+
+[[match]]
+name = "Synology NAS"
+pattern = "^CN=synology\\.com.*,O=Synology Inc\\.,L=Taipei.*,C=TW$"
+context = "x509.subject"
+example = "CN=synology.com,OU=FTP Team,O=Synology Inc.,L=Taipei,ST=Taiwan,C=TW"
+metadata = { "hw.vendor" = "Synology", "hw.family" = "DiskStation", "hw.device" = "Storage", "os.device" = "Storage", "os.family" = "Linux", "os.product" = "DSM", "os.vendor" = "Synology" }
+
+[[match]]
+name = "Western Digital WD2GO Devices"
+pattern = "^CN=(?:\\*\\.)?([a-zA-Z0-9\\.\\_\\-]+)\\.wd2go\\.com"
+context = "x509.subject"
+example = "CN=device1133796-01b3e3fa.wd2go.com,OU=Domain Control Validated+OU=Hosted by Western Digital Corporation+OU=COMODO SSL Unified Communications"
+metadata = { "hw.vendor" = "Western Digital", "hw.family" = "WD2GO", "hw.device" = "Storage", "os.family" = "Linux", "os.vendor" = "Western Digital", "os.device" = "Storage", "wd2go.device_id" = "{capture:1}" }
+
+[[match]]
+name = "Seagate NAS"
+pattern = "^CN=Seagate Technology LLC,O=Seagate Technology LLC,L=Cupertino,ST=California,C=US$"
+context = "x509.subject"
+example = "CN=Seagate Technology LLC,O=Seagate Technology LLC,L=Cupertino,ST=California,C=US"
+metadata = { "hw.vendor" = "Seagate", "hw.device" = "Storage", "os.vendor" = "Seagate", "os.family" = "Linux" }
+
+[[match]]
+name = "Seagate Q-Series NAS (previously Quantum)"
+pattern = "^CN=[\\d\\.]+,OU=Q-Series,O=Quantum,ST=CO,C=US$"
+context = "x509.subject"
+example = "CN=1.1.1.1,OU=Q-Series,O=Quantum,ST=CO,C=US"
+metadata = { "hw.vendor" = "Seagate", "hw.device" = "Storage", "os.vendor" = "Seagate", "os.family" = "Linux" }
+
+[[match]]
+name = "QNAP NAS"
+pattern = "^CN=QNAP NAS,OU=QTS,O=QNAP Systems\\\\, Inc\\.,L=Taipei,ST=Taipei,C=TW$"
+context = "x509.subject"
+example = "CN=QNAP NAS,OU=QTS,O=QNAP Systems\\, Inc.,L=Taipei,ST=Taipei,C=TW"
+metadata = { "hw.vendor" = "QNAP Systems", "hw.family" = "Storage", "hw.device" = "Storage", "os.family" = "Linux", "os.vendor" = "QNAP Systems", "os.device" = "Storage" }
+
+[[match]]
+name = "VMware Authentication Daemon"
+pattern = "^CN=VMware,OU=VMware,L=Palo Alto,C=US$"
+vendor = "VMware"
+product = "vmauthd"
+context = "x509.subject"
+example = "CN=VMware,OU=VMware,L=Palo Alto,C=US"
+
+[[match]]
+name = "VMware ESX"
+pattern = "^CN=([a-zA-Z0-9\\.\\-\\_]+),OU=VMware ESX Server Default Certificate,O=VMware\\\\, Inc,L=Palo Alto,ST=California,C=US$"
+vendor = "VMware"
+context = "x509.subject"
+example = "CN=server99.,OU=VMware ESX Server Default Certificate,O=VMware\\, Inc,L=Palo Alto,ST=California,C=US"
+metadata = { "os.vendor" = "VMware", "os.family" = "VMware ESX/ESXi", "os.product" = "VMware ESX Server", "os.device" = "Hypervisor", "os.cpe23" = "cpe:/o:vmware:esx:-", "host.name" = "{capture:1}", "hw.device" = "Hypervisor" }
+
+[[match]]
+name = "VMware SRM"
+pattern = "^CN.*,OU=SRM,O=VMware\\\\, Inc\\.,L=Palo Alto,ST=California,C=US$"
+vendor = "VMware"
+product = "Site Recovery Manager"
+context = "x509.subject"
+example = "CN=SRM01,OU=SRM,O=VMware\\, Inc.,L=Palo Alto,ST=California,C=US"
+metadata = { "os.vendor" = "VMware", "os.product" = "Linux", "hw.vendor" = "VMware", "hw.device" = "Appliance", "hw.product" = "Site Recovery Manager" }
+
+[[match]]
+name = "VMware Horizon (formerly View)"
+pattern = "^CN=([^,=]{1,256}),OU=VMware Horizon View default certificate,O=VMware\\\\, Inc.$"
+vendor = "VMware"
+product = "Horizon"
+context = "x509.subject"
+example = "CN=horizon.foo.bar,OU=VMware Horizon View default certificate,O=VMware\\, Inc."
+metadata = { "service.cpe23" = "cpe:/a:vmware:horizon:-", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "VMware View"
+pattern = "^CN=([^,=]{1,256}),OU=VMware View default certificate,O=VMware\\\\, Inc.$"
+vendor = "VMware"
+product = "View"
+context = "x509.subject"
+example = "CN=horizon.foo.bar,OU=VMware View default certificate,O=VMware\\, Inc."
+metadata = { "service.cpe23" = "cpe:/a:vmware:view:-", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "Cisco IOS Default Certificate"
+pattern = "^CN=IOS-Self-Signed-Certificate-"
+context = "x509.subject"
+example = "CN=IOS-Self-Signed-Certificate-4163115936"
+metadata = { "os.vendor" = "Cisco", "os.family" = "IOS", "os.product" = "IOS", "os.cpe23" = "cpe:/o:cisco:ios:-", "hw.vendor" = "Cisco", "hw.device" = "Router" }
+
+[[match]]
+name = "Kubernetes api-server default certificate"
+pattern = "^CN=kube-apiserver$"
+vendor = "Kubernetes"
+product = "Kubernetes"
+context = "x509.subject"
+example = "CN=kube-apiserver"
+metadata = { "service.family" = "Kubernetes", "service.cpe23" = "cpe:/a:kubernetes:kubernetes:-" }
+
+[[match]]
+name = "Kubernetes Control Plane (formerly master) default certificate"
+pattern = "^CN=kubernetes-master$"
+vendor = "Kubernetes"
+product = "Kubernetes"
+context = "x509.subject"
+example = "CN=kubernetes-master"
+metadata = { "service.family" = "Kubernetes", "service.cpe23" = "cpe:/a:kubernetes:kubernetes:-" }
+
+[[match]]
+name = "Kubernetes NGINX Ingress Controller with default cert"
+pattern = "^CN=Kubernetes Ingress Controller Fake Certificate,O=Acme Co$"
+vendor = "Kubernetes"
+product = "NGINX Ingress Controller"
+context = "x509.subject"
+example = "CN=Kubernetes Ingress Controller Fake Certificate,O=Acme Co"
+metadata = { "service.family" = "Kubernetes", "service.cpe23" = "cpe:/a:kubernetes:nginx_ingress_controller:-" }
+
+[[match]]
+name = "Traefik Proxy default certificate"
+pattern = "^CN=TRAEFIK DEFAULT CERT$"
+vendor = "Traefik Labs"
+product = "Traefik Proxy"
+context = "x509.subject"
+example = "CN=TRAEFIK DEFAULT CERT"
+metadata = { "service.family" = "Traefik", "service.cpe23" = "cpe:/a:traefik:traefik:-" }
+
+[[match]]
+name = "Citrix Netscaler (later renamed to Citrix ADC)"
+pattern = "^CN=default(?: [A-Z]+)?,OU=NS Internal,O=Citrix ANG,L=San Jose,ST=California,C=US$"
+vendor = "Citrix"
+product = "Netscaler"
+context = "x509.subject"
+example = "CN=default,OU=NS Internal,O=Citrix ANG,L=San Jose,ST=California,C=US"
+metadata = { "service.family" = "Netscaler", "service.device" = "Network Management Device", "service.cpe23" = "cpe:/a:citrix:netscaler:-", "os.vendor" = "Citrix", "os.family" = "Netscaler", "os.product" = "Netscaler Gateway Firmware", "os.device" = "Network Management Device", "os.cpe23" = "cpe:/o:citrix:netscaler_gateway_firmware:-", "hw.vendor" = "Citrix", "hw.family" = "Netscaler", "hw.product" = "Netscaler Gateway", "hw.device" = "Network Management Device", "hw.cpe23" = "cpe:/h:citrix:netscaler_gateway:-" }
+
+[[match]]
+name = "Google Chromecast"
+pattern = "^CN=([a-zA-Z0-9]{5,12}) ([a-zA-Z0-9]{12}),OU=(?:Cast|Google TV),O=Google Inc,L=Mountain View,ST=California,C=US$"
+context = "x509.subject"
+example = "CN=LVDZG5 FA8FCA67413D,OU=Cast,O=Google Inc,L=Mountain View,ST=California,C=US"
+metadata = { "os.vendor" = "Google", "os.product" = "Chrome OS", "os.certainty" = "0.5", "os.cpe23" = "cpe:/o:google:chrome_os:-", "hw.device" = "Media Server", "hw.vendor" = "Google", "hw.product" = "Chromecast", "hw.certainty" = "0.5", "hw.serial_number" = "{capture:1}", "hw.cpe23" = "cpe:/h:google:chromecast:-", "host.mac_local" = "{capture:2}" }
+
+[[match]]
+name = "Vizio SmartTV (Android) with Google Cast"
+pattern = "^CN=([a-zA-Z0-9]{5,12}) ([a-zA-Z0-9]{12}),OU=Cast TV \\(Vizio\\),O=Google Inc,L=Mountain View,ST=California,C=US$"
+context = "x509.subject"
+example = "CN=9V039WC9 FA8FCA697898,OU=Cast TV (Vizio),O=Google Inc,L=Mountain View,ST=California,C=US"
+metadata = { "os.vendor" = "Google", "os.family" = "Linux", "os.product" = "Android", "os.cpe23" = "cpe:/o:google:android:-", "hw.device" = "Smart TV", "hw.vendor" = "Vizio", "hw.serial_number" = "{capture:1}", "host.mac_local" = "{capture:2}" }
+
+[[match]]
+name = "Cisco (TANDBERG) TelePresence"
+pattern = "^CN=TANDBERG,OU=R&D,O=TANDBERG ASA,L=Lysaker,ST=Askerhus,C=NO$"
+context = "x509.subject"
+example = "CN=TANDBERG,OU=R&D,O=TANDBERG ASA,L=Lysaker,ST=Askerhus,C=NO"
+metadata = { "hw.vendor" = "Cisco", "hw.device" = "Video Conferencing", "hw.product" = "TelePresence", "os.vendor" = "Cisco", "os.family" = "Linux", "os.product" = "TelePresence", "os.device" = "Video Conferencing" }
+
+[[match]]
+name = "Lifesize TelePresence"
+pattern = "^CN=lifesize.com,C=US$"
+context = "x509.subject"
+example = "CN=lifesize.com,C=US"
+metadata = { "hw.vendor" = "Lifesize", "hw.device" = "Video Conferencing", "hw.product" = "TelePresence", "os.vendor" = "Lifesize", "os.family" = "Linux", "os.product" = "TelePresence", "os.device" = "Video Conferencing" }
+
+[[match]]
+name = "Lifesize TelePresence (a_lifesize variant 1)"
+pattern = "^CN=a_lifesize_system,OU=lifesize,O=lifesize,L=Austin,ST=Texas,C=US$"
+context = "x509.subject"
+example = "CN=a_lifesize_system,OU=lifesize,O=lifesize,L=Austin,ST=Texas,C=US"
+metadata = { "hw.vendor" = "Lifesize", "hw.device" = "Video Conferencing", "hw.product" = "TelePresence", "os.vendor" = "Lifesize", "os.family" = "Linux", "os.product" = "TelePresence", "os.device" = "Video Conferencing" }
+
+[[match]]
+name = "Lifesize TelePresence (a_lifesize variant 2)"
+pattern = "^CN=A_LifeSize_System,OU=IT,O=LifeSize Communications\\\\, Inc\\.,ST=Texas,C=US$"
+context = "x509.subject"
+example = "CN=A_LifeSize_System,OU=IT,O=LifeSize Communications\\, Inc.,ST=Texas,C=US"
+metadata = { "hw.vendor" = "Lifesize", "hw.device" = "Video Conferencing", "hw.product" = "TelePresence", "os.vendor" = "Lifesize", "os.family" = "Linux", "os.product" = "TelePresence", "os.device" = "Video Conferencing" }
+
+[[match]]
+name = "Crestron Mercury"
+pattern = "^CN=MERCURY-([a-fA-F0-9]{12}),OU=Engineering,O=Crestron"
+context = "x509.subject"
+example = "CN=MERCURY-00107F1ABAA0,OU=Engineering,O=Crestron Electronics\\, Inc.,L=Rockleigh,ST=NJ,C=US"
+metadata = { "hw.vendor" = "Crestron", "hw.device" = "Video Conferencing", "hw.product" = "Mercury", "os.vendor" = "Crestron", "os.family" = "Linux", "os.device" = "Video Conferencing", "host.mac" = "{capture:1}" }
+
+[[match]]
+name = "Crestron AirMedia"
+pattern = "^CN=(AM-\\d+)-([a-fA-F0-9]{12}),OU=Engineering,O=Crestron"
+context = "x509.subject"
+example = "CN=AM-200-00107FB7B1E2,OU=Engineering,O=Crestron Electronics\\, Inc.,L=Rockleigh,ST=NJ,C=US"
+metadata = { "hw.vendor" = "Crestron", "hw.device" = "Video Conferencing", "hw.product" = "{capture:1}", "os.vendor" = "Crestron", "os.family" = "Linux", "os.device" = "Video Conferencing", "host.mac" = "{capture:2}" }
+
+[[match]]
+name = "Crestron Video Conferencing"
+pattern = "^CN=Crestron,OU=Engineering,O=Crestron Electronics\\\\, Inc\\.,L=Rockleigh,ST=NJ,C=US$"
+context = "x509.subject"
+example = "CN=Crestron,OU=Engineering,O=Crestron Electronics\\, Inc.,L=Rockleigh,ST=NJ,C=US"
+metadata = { "hw.vendor" = "Crestron", "hw.device" = "Video Conferencing", "os.vendor" = "Crestron", "os.family" = "Linux", "os.device" = "Video Conferencing" }
+
+[[match]]
+name = "ClickShare Wireless Presenter"
+pattern = "^CN=ClickShare-\\d+$"
+context = "x509.subject"
+example = "CN=ClickShare-4234234324"
+metadata = { "hw.vendor" = "Barco", "hw.device" = "Wireless Presenter", "hw.product" = "ClickShare", "os.vendor" = "Barco", "os.family" = "ClickShareOS", "os.device" = "Wireless Presenter" }
+
+[[match]]
+name = "SolsticePod"
+pattern = "^CN=Solstice,OU=Solstice,O=Mersive Technologies Inc,L=Denver,ST=CO,C=US$"
+context = "x509.subject"
+example = "CN=Solstice,OU=Solstice,O=Mersive Technologies Inc,L=Denver,ST=CO,C=US"
+metadata = { "hw.vendor" = "Mersive", "hw.device" = "Wireless Presenter", "hw.product" = "SolsticePod" }
+
+[[match]]
+name = "Extron MediaLink Controller"
+pattern = "^CN=Controller,OU=FW,O=ExtronElectronics,ST=CA,C=US$"
+context = "x509.subject"
+example = "CN=Controller,OU=FW,O=ExtronElectronics,ST=CA,C=US"
+metadata = { "hw.vendor" = "Extron", "hw.device" = "Display Controller", "hw.product" = "MediaLink Controller", "os.vendor" = "Extron", "os.family" = "Linux" }
+
+[[match]]
+name = "Extron IPLP "
+pattern = "^CN=IPLP,OU=ControlSystems,O=ExtronElectronics,L=Anaheim,ST=CA,C=US$"
+context = "x509.subject"
+example = "CN=IPLP,OU=ControlSystems,O=ExtronElectronics,L=Anaheim,ST=CA,C=US"
+metadata = { "hw.vendor" = "Extron", "hw.device" = "Display Controller", "hw.product" = "IP Link Control Processor", "os.vendor" = "Extron", "os.family" = "Linux" }
+
+[[match]]
+name = "Extron TLP "
+pattern = "^CN=TLP,OU=ControlSystems,O=ExtronElectronics,L=Anaheim,ST=CA,C=US$"
+context = "x509.subject"
+example = "CN=TLP,OU=ControlSystems,O=ExtronElectronics,L=Anaheim,ST=CA,C=US"
+metadata = { "hw.vendor" = "Extron", "hw.device" = "Display Controller", "hw.product" = "TouchLink Control Panel", "os.vendor" = "Extron", "os.family" = "Linux" }
+
+[[match]]
+name = "Extron ShareLink Pro "
+pattern = "^CN=ShareLink-Pro-.*,OU=AVSystems,O=ExtronElectronics"
+context = "x509.subject"
+example = "CN=ShareLink-Pro-18-99-99.local.com,OU=AVSystems,O=ExtronElectronics,L=Anaheim,ST=CA,C=US"
+metadata = { "hw.vendor" = "Extron", "hw.device" = "Display Controller", "hw.product" = "ShareLink Pro", "os.vendor" = "Extron", "os.family" = "Linux" }
+
+[[match]]
+name = "Cisco APIC"
+pattern = "^CN=VMM APIC,OU=VMM\\d+,O=Cisco,L=San Jose,ST=CA,C=US$"
+vendor = "Cisco"
+product = "APIC"
+context = "x509.subject"
+example = "CN=VMM APIC,OU=VMM15,O=Cisco,L=San Jose,ST=CA,C=US"
+metadata = { "service.cpe23" = "cpe:/a:cisco:application_policy_infrastructure_controller:-", "hw.vendor" = "Cisco", "hw.product" = "APIC", "hw.device" = "Network Appliance" }
+
+[[match]]
+name = "Cisco APIC - bare CN"
+pattern = "^CN=APIC$"
+vendor = "Cisco"
+product = "APIC"
+context = "x509.subject"
+example = "CN=APIC"
+metadata = { "service.cpe23" = "cpe:/a:cisco:application_policy_infrastructure_controller:-", "hw.vendor" = "Cisco", "hw.product" = "APIC", "hw.device" = "Network Appliance" }
+
+[[match]]
+name = "Samsung Communication Manager"
+pattern = "^CN=(iPX\\d+),OU=I Project,O=Samsung Electronics,L=Suwon,ST=Gyeonggi-do,C=KR$"
+context = "x509.subject"
+example = "CN=iPX3010,OU=I Project,O=Samsung Electronics,L=Suwon,ST=Gyeonggi-do,C=KR"
+metadata = { "hw.vendor" = "Samsung", "hw.device" = "VoIP Server", "hw.family" = "Communication Manager", "hw.product" = "{capture:1}", "os.vendor" = "Samsung", "os.family" = "Linux" }
+
+[[match]]
+name = "HIKVISION DVR"
+pattern = "^CN=www.hikvision.com,OU=DVRNVR,O=HIKVISION,L=HangZhou,ST=ZheJiang,C=CN$"
+context = "x509.subject"
+example = "CN=www.hikvision.com,OU=DVRNVR,O=HIKVISION,L=HangZhou,ST=ZheJiang,C=CN"
+metadata = { "os.vendor" = "Hikvision", "os.device" = "DVR", "hw.vendor" = "Hikvision", "hw.device" = "DVR" }
+
+[[match]]
+name = "Polatis Switch"
+pattern = "^CN=([a-zA-Z0-9\\.\\-\\_]+),OU=Polatis Switch ([a-zA-Z0-9]+),O=Polatis Inc\\.,ST=N/A,C=UK$"
+context = "x509.subject"
+example = "CN=192.168.0.1,OU=Polatis Switch 1591,O=Polatis Inc.,ST=N/A,C=UK"
+metadata = { "os.vendor" = "Polatis", "os.device" = "Switch", "hw.vendor" = "Polatis", "hw.device" = "Switch", "host.name" = "{capture:1}", "hw.product" = "{capture:2}" }
+
+[[match]]
+name = "Fidelis CommandPost"
+pattern = "^CN=([a-zA-Z0-9\\.\\-\\_]+),O=Fidelis Cybersecurity$"
+context = "x509.subject"
+example = "CN=localhost.localdomain,O=Fidelis Cybersecurity"
+metadata = { "hw.vendor" = "Fidelis", "hw.product" = "CommandPost", "hw.device" = "Appliance", "os.vendor" = "Fidelis", "os.product" = "CommandPost", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "IBM POWER System"
+pattern = "^CN=([a-zA-Z0-9]+\\-[a-zA-Z0-9]+)\\-([a-zA-Z0-9]+),O=IBM,L=Endicott,ST=New York,C=IN$"
+context = "x509.subject"
+example = "CN=8284-22A-211BAFW,O=IBM,L=Endicott,ST=New York,C=IN"
+metadata = { "hw.vendor" = "IBM", "hw.family" = "POWER System", "hw.product" = "{capture:1}", "hw.model" = "{capture:2}" }
+
+[[match]]
+name = "Polycom Eagle Eye Director"
+pattern = "^CN=EagleEyeDirectorII.polycom.com,OU=Video Division,O=Polycom Inc.,L=San Jose,ST=California,C=US$"
+context = "x509.subject"
+example = "CN=EagleEyeDirectorII.polycom.com,OU=Video Division,O=Polycom Inc.,L=San Jose,ST=California,C=US"
+metadata = { "hw.vendor" = "Polycom", "hw.device" = "Video Conferencing", "hw.product" = "Eagle Eye Director II" }
+
+[[match]]
+name = "Q-SYS Licensing Manager"
+pattern = "^CN=([a-zA-Z0-9]+),OU=RD,O=QSC\\\\, LLC,ST=Colorado,C=US$"
+vendor = "Q-SYS"
+product = "Licensing Manager"
+context = "x509.subject"
+example = "CN=SVRTIP44,OU=RD,O=QSC\\, LLC,ST=Colorado,C=US"
+metadata = { "host.name" = "{capture:1}" }
+
+[[match]]
+name = "Fortinet Gateway"
+pattern = "^CN=([A-Za-z0-9]+),OU=FortiGate,O=Fortinet,L=Sunnyvale,ST=California,C=US$"
+context = "x509.subject"
+example = "CN=FG100ETK1800118,OU=FortiGate,O=Fortinet,L=Sunnyvale,ST=California,C=US"
+metadata = { "hw.vendor" = "Fortinet", "hw.device" = "Firewall", "os.vendor" = "Fortinet", "os.family" = "Linux", "os.device" = "Firewall", "os.product" = "FortiOS", "os.cpe23" = "cpe:/o:fortinet:fortios:-", "hw.serial_number" = "{capture:1}" }
+
+[[match]]
+name = "Fortinet Gateway (Older)"
+pattern = "^CN=([A-Za-z0-9]+),O=Fortinet Ltd\\.$"
+context = "x509.subject"
+example = "CN=FG100D3G13803999,O=Fortinet Ltd."
+metadata = { "hw.vendor" = "Fortinet", "hw.device" = "Firewall", "os.vendor" = "Fortinet", "os.family" = "Linux", "os.device" = "Firewall", "os.product" = "FortiOS", "os.cpe23" = "cpe:/o:fortinet:fortios:-", "hw.serial_number" = "{capture:1}" }
+
+[[match]]
+name = "Fortinet FortiMail Appliance"
+pattern = "^CN=FortiMail,OU=FortiMail,O=Fortinet,L=Sunnyvale,ST=California,C=US$"
+context = "x509.subject"
+example = "CN=FortiMail,OU=FortiMail,O=Fortinet,L=Sunnyvale,ST=California,C=US"
+metadata = { "hw.vendor" = "Fortinet", "hw.device" = "Appliance", "hw.product" = "FortiMail", "os.vendor" = "Fortinet", "os.family" = "Linux", "os.product" = "FortiOS", "os.device" = "Appliance", "os.cpe23" = "cpe:/o:fortinet:fortios:-" }
+
+[[match]]
+name = "Fortinet FortiManager Appliance"
+pattern = "^CN=.*,OU=FortiManager,O=Fortinet,L=Sunnyvale,ST=California,C=US$"
+context = "x509.subject"
+example = "CN=FMG-VM0000000000,OU=FortiManager,O=Fortinet,L=Sunnyvale,ST=California,C=US"
+metadata = { "hw.vendor" = "Fortinet", "hw.device" = "Appliance", "hw.product" = "FortiManager", "os.vendor" = "Fortinet", "os.family" = "Linux", "os.product" = "FortiOS", "os.device" = "Appliance", "os.cpe23" = "cpe:/o:fortinet:fortios:-" }
+
+[[match]]
+name = "Cyberoam SSL VPN"
+pattern = "^CN=CyberoamApplianceCertificate"
+context = "x509.subject"
+example = "CN=CyberoamApplianceCertificate_C35316263111,OU=Cyberoam Appliance,O=Cyberoam,L=Ahmedabad,ST=Gujarat,C=IN"
+metadata = { "hw.vendor" = "Cyberoam", "hw.device" = "VPN", "hw.product" = "Appliance", "os.vendor" = "Cyberoam", "os.device" = "VPN" }
+
+[[match]]
+name = "Ubiquiti Wireless AP"
+pattern = "^CN=UBNT\\-([0-9a-fA-F]{2}:[0-9a-fA-F]{2}:[0-9a-fA-F]{2}:[0-9a-fA-F]{2}:[0-9a-fA-F]{2}:[0-9a-fA-F]{2}),OU=Technical Support,O=Ubiquiti Networks Inc.,L=San Jose,ST=CA,C=US$"
+context = "x509.subject"
+example = "CN=UBNT-68:72:51:4B:90:16,OU=Technical Support,O=Ubiquiti Networks Inc.,L=San Jose,ST=CA,C=US"
+metadata = { "hw.vendor" = "Ubiquiti", "hw.device" = "WAP", "os.vendor" = "Ubiquiti", "os.family" = "Linux", "os.device" = "WAP", "host.mac" = "{capture:1}" }
+
+[[match]]
+name = "Ubiquiti Controller - unifi bare"
+pattern = "^CN=unifi$"
+context = "x509.subject"
+example = "CN=unifi"
+metadata = { "hw.vendor" = "Ubiquiti", "hw.device" = "Wireless Controller", "os.vendor" = "Ubiquiti", "os.family" = "Linux", "os.device" = "Wireless Controller" }
+
+[[match]]
+name = "Ubiquiti Controller - unifi"
+pattern = "^CN=UniFi,OU=UniFi,O=ubnt\\.com,L=San Jose,ST=CA,C=US$"
+context = "x509.subject"
+example = "CN=UniFi,OU=UniFi,O=ubnt.com,L=San Jose,ST=CA,C=US"
+metadata = { "hw.vendor" = "Ubiquiti", "hw.device" = "Wireless Controller", "os.vendor" = "Ubiquiti", "os.family" = "Linux", "os.device" = "Wireless Controller" }
+
+[[match]]
+name = "UniFi Video App"
+pattern = "^CN=unifivideo-app$"
+context = "x509.subject"
+example = "CN=unifivideo-app"
+metadata = { "os.vendor" = "Ubiquiti", "os.family" = "Linux", "hw.vendor" = "Ubiquiti", "hw.family" = "UniFi", "hw.device" = "IP Camera" }
+
+[[match]]
+name = "UniFi Video Camera"
+pattern = "^CN=camera\\.ubnt\\.dev,"
+context = "x509.subject"
+example = "CN=camera.ubnt.dev,OU=devint,O=Ubiquiti Networks Inc.,L=Taipei,C=TW"
+metadata = { "hw.vendor" = "Ubiquiti", "hw.device" = "IP Camera", "hw.product" = "Camera", "os.vendor" = "Ubiquiti", "os.family" = "Linux", "os.device" = "IP Camera" }
+
+[[match]]
+name = "Ubiquiti Controller"
+pattern = "^CN=UBNT,OU=Technical Support,O=Ubiquiti Networks Inc\\.,L=San Jose,ST=CA,C=US$"
+context = "x509.subject"
+example = "CN=UBNT,OU=Technical Support,O=Ubiquiti Networks Inc.,L=San Jose,ST=CA,C=US"
+metadata = { "hw.vendor" = "Ubiquiti", "hw.device" = "Wireless Controller", "os.vendor" = "Ubiquiti", "os.family" = "Linux", "os.device" = "Wireless Controller" }
+
+[[match]]
+name = "Ubiquiti CloudKey Controller"
+pattern = "^CN=CloudKey,O=Ubiquiti Networks,L=San Jose,ST=CA,C=US$"
+context = "x509.subject"
+example = "CN=CloudKey,O=Ubiquiti Networks,L=San Jose,ST=CA,C=US"
+metadata = { "hw.vendor" = "Ubiquiti", "hw.device" = "Wireless Controller", "hw.product" = "CloudKey", "os.vendor" = "Ubiquiti", "os.family" = "Linux", "os.device" = "Wireless Controller", "os.product" = "CloudKey" }
+
+[[match]]
+name = "Ubiquiti Router"
+pattern = "^CN=UBNT Router UI,O=Ubiquiti Networks,L=San Jose,ST=CA,C=US$"
+context = "x509.subject"
+example = "CN=UBNT Router UI,O=Ubiquiti Networks,L=San Jose,ST=CA,C=US"
+metadata = { "hw.vendor" = "Ubiquiti", "hw.device" = "Router", "os.vendor" = "Ubiquiti", "os.family" = "Linux", "os.device" = "Router" }
+
+[[match]]
+name = "Ubiquiti Router UI"
+pattern = "^CN=UbiquitiRouterUI,O=Ubiquiti Inc.,L=New York,ST=New York,C=US"
+context = "x509.subject"
+example = "CN=UbiquitiRouterUI,O=Ubiquiti Inc.,L=New York,ST=New York,C=US"
+metadata = { "hw.vendor" = "Ubiquiti", "hw.device" = "Router", "os.vendor" = "Ubiquiti", "os.family" = "Linux", "os.device" = "Router" }
+
+[[match]]
+name = "Ubiquiti Video Controller"
+pattern = "^CN=UniFi-Video Controller,OU=R&D,O=Ubiquiti Networks,L=New York,ST=NY,C=US$"
+context = "x509.subject"
+example = "CN=UniFi-Video Controller,OU=R&D,O=Ubiquiti Networks,L=New York,ST=NY,C=US"
+metadata = { "hw.vendor" = "Ubiquiti", "hw.device" = "DVR", "hw.product" = "Video Controller", "os.vendor" = "Ubiquiti", "os.family" = "Linux", "os.device" = "DVR" }
+
+[[match]]
+name = "Verizon / Greenwave FIOS Router"
+pattern = "^CN=GreenWave Systems,OU=PKI,O=GreenWave Systems,L=Irvine,ST=California,C=US$"
+context = "x509.subject"
+example = "CN=GreenWave Systems,OU=PKI,O=GreenWave Systems,L=Irvine,ST=California,C=US"
+metadata = { "hw.vendor" = "Greenwave Systems", "hw.device" = "Broadband Router", "hw.product" = "Verizon FiOS Router" }
+
+[[match]]
+name = "PoliWall Firewall Original"
+pattern = "^CN=PoliWall,OU=Bandura Labs,O=Bandura\\\\, LLC\\.,L=Lake Saint Louis,ST=Missouri,C=US$"
+context = "x509.subject"
+example = "CN=PoliWall,OU=Bandura Labs,O=Bandura\\, LLC.,L=Lake Saint Louis,ST=Missouri,C=US"
+metadata = { "hw.vendor" = "Bandura Labs", "hw.device" = "Firewall", "hw.product" = "PoliWall" }
+
+[[match]]
+name = "PoliWall Firewall Newer Cert"
+pattern = "^CN=poliwall,OU=IT,O=Bandura,L=St\\. Louis,ST=Missouri,C=US$"
+context = "x509.subject"
+example = "CN=poliwall,OU=IT,O=Bandura,L=St. Louis,ST=Missouri,C=US"
+metadata = { "hw.vendor" = "Bandura Labs", "hw.device" = "Firewall", "hw.product" = "PoliWall" }
+
+[[match]]
+name = "pfSense Firewall"
+pattern = "^CN=pfSense-[a-zA-Z0-9]+,O=pfSense webConfigurator Self-Signed Certificate"
+context = "x509.subject"
+example = "CN=pfSense-58fb5b0b06777,O=pfSense webConfigurator Self-Signed Certificate,L=Locality,ST=State,C=US"
+metadata = { "hw.vendor" = "pfSense", "hw.device" = "Firewall", "hw.product" = "Firewall", "os.vendor" = "pfSense", "os.product" = "FreeBSD" }
+
+[[match]]
+name = "pfSense Firewall Default Certificate"
+pattern = "^CN=Common Name \\(eg\\\\, YOUR name\\),OU=Organizational Unit Name \\(eg\\\\, section\\),O=CompanyName,L=Somecity,ST=Somewhere,C=US$"
+context = "x509.subject"
+example = "CN=Common Name (eg\\, YOUR name),OU=Organizational Unit Name (eg\\, section),O=CompanyName,L=Somecity,ST=Somewhere,C=US"
+metadata = { "hw.vendor" = "pfSense", "hw.device" = "Firewall", "hw.product" = "Firewall", "os.vendor" = "pfSense", "os.product" = "FreeBSD" }
+
+[[match]]
+name = "OPNsense Firewall"
+pattern = "^O=OPNsense(?:[.]localdomain)?,L=Middelharnis,ST=Zuid-Holland,C=NL$"
+context = "x509.subject"
+example = "O=OPNsense,L=Middelharnis,ST=Zuid-Holland,C=NL"
+metadata = { "hw.vendor" = "OPNsense", "hw.device" = "Firewall", "hw.product" = "Firewall", "os.vendor" = "OPNsense", "os.product" = "FreeBSD" }
+
+[[match]]
+name = "ADTRAN Netvanta Router"
+pattern = "^CN=NetVanta,O=ADTRAN\\\\, Inc\\.,L=Huntsville,ST=AL,C=US$"
+context = "x509.subject"
+example = "CN=NetVanta,O=ADTRAN\\, Inc.,L=Huntsville,ST=AL,C=US"
+metadata = { "os.device" = "Router", "os.vendor" = "ADTRAN", "os.family" = "NetVanta", "hw.device" = "Router", "hw.vendor" = "ADTRAN", "hw.family" = "NetVanta" }
+
+[[match]]
+name = "Sophos Appliance"
+pattern = "^CN=SophosApplianceCertificate"
+context = "x509.subject"
+example = "CN=SophosApplianceCertificate_C330AC22W713PAF,OU=OU,O=Green House Data,L=Cheyenne,ST=WY,C=US"
+metadata = { "hw.vendor" = "Sophos", "hw.device" = "Appliance" }
+
+[[match]]
+name = "Hubitat Device Hub"
+pattern = "^CN=Hubitat Elevation,OU=Hub,O=Hubitat\\\\, Inc\\.,L=Scottsdale,ST=Arizona,C=US$"
+context = "x509.subject"
+example = "CN=Hubitat Elevation,OU=Hub,O=Hubitat\\, Inc.,L=Scottsdale,ST=Arizona,C=US"
+metadata = { "hw.vendor" = "Hubitat", "hw.device" = "Device Hub", "hw.product" = "Elevation", "os.vendor" = "Hubitat", "os.product" = "Linux" }
+
+[[match]]
+name = "Mercury Security (now HID Global)"
+pattern = "^CN=MAC([a-fA-F0-9]{12}),OU=([^,]+),O=Mercury Security Products\\\\, LLC,L=Long Beach,ST=CA,C=US(?:,\\S+)?$"
+context = "x509.subject"
+example = "CN=MAC000FE507A1F1,OU=M5IC,O=Mercury Security Products\\, LLC,L=Long Beach,ST=CA,C=US"
+metadata = { "hw.vendor" = "Mercury Security", "hw.device" = "Access Control", "host.mac" = "{capture:1}", "hw.product" = "{capture:2}" }
+
+[[match]]
+name = "Mercury Security (now HID Global) No MAC"
+pattern = "^CN=Mercury Security EP-series,O=Mercury Security Corp\\.,L=Long Beach,ST=CA,C=US$"
+context = "x509.subject"
+example = "CN=Mercury Security EP-series,O=Mercury Security Corp.,L=Long Beach,ST=CA,C=US"
+metadata = { "hw.vendor" = "Mercury Security", "hw.device" = "Access Control", "hw.product" = "EP-series" }
+
+[[match]]
+name = "Aruba Wireless Controller"
+pattern = "^CN=securelogin.arubanetworks.com,"
+context = "x509.subject"
+example = "CN=securelogin.arubanetworks.com,O=Aruba Networks,C=US"
+metadata = { "hw.vendor" = "Aruba Networks", "hw.device" = "Wireless Controller", "hw.product" = "Captive Portal" }
+
+[[match]]
+name = "WatchGuard Firewall"
+pattern = "^CN=Fireware web CA,OU=Fireware,O=WatchGuard$"
+context = "x509.subject"
+example = "CN=Fireware web CA,OU=Fireware,O=WatchGuard"
+metadata = { "hw.vendor" = "WatchGuard", "hw.device" = "Firewall", "os.vendor" = "WatchGuard", "os.product" = "Fireware", "os.cpe23" = "cpe:/o:watchguard:fireware:-" }
+
+[[match]]
+name = "SonicWALL SSL-VPN"
+pattern = "^CN=[0-9\\.]+,OU=SSL-VPN,O=SonicWALL\\\\, Inc\\.,L=Sunnyvale,ST=CA,C=US$"
+vendor = "SonicWall"
+context = "x509.subject"
+example = "CN=192.168.200.1,OU=SSL-VPN,O=SonicWALL\\, Inc.,L=Sunnyvale,ST=CA,C=US"
+metadata = { "service.family" = "SSL-VPN", "hw.vendor" = "SonicWall", "hw.device" = "VPN", "os.vendor" = "SonicWall", "os.family" = "SonicOS", "os.product" = "SonicOS", "os.cpe23" = "cpe:/o:sonicwall:sonicos:-" }
+
+[[match]]
+name = "SonicWALL Network Security Appliance firewall"
+pattern = "^CN=[0-9\\.]+,OU=HTTPS Management Certificate for SonicWALL \\(self-signed\\),O=HTTPS Management Certificate for SonicWALL \\(self-signed\\),L=Sunnyvale,ST=California,C=US$"
+context = "x509.subject"
+example = "CN=192.168.168.168,OU=HTTPS Management Certificate for SonicWALL (self-signed),O=HTTPS Management Certificate for SonicWALL (self-signed),L=Sunnyvale,ST=California,C=US"
+metadata = { "hw.vendor" = "SonicWall", "hw.product" = "Network Security Appliance", "hw.family" = "Network Security Appliance", "hw.device" = "Firewall", "os.vendor" = "SonicWall", "os.family" = "SonicOS", "os.product" = "SonicOS", "os.device" = "Firewall", "os.cpe23" = "cpe:/o:sonicwall:sonicos:-" }
+
+[[match]]
+name = "Akamai Global Host"
+pattern = "^CN=.*\\.akamai\\.net,O=Akamai Technologies\\\\, Inc\\.,L=Cambridge,ST=Massachusetts,C=US$"
+vendor = "Akamai"
+product = "GHost"
+context = "x509.subject"
+example = "CN=a248.e.akamai.net,O=Akamai Technologies\\, Inc.,L=Cambridge,ST=Massachusetts,C=US"
+metadata = { "service.cpe23" = "cpe:/a:akamai:akamaighost:-", "os.vendor" = "Akamai", "os.device" = "Web Proxy" }
+
+[[match]]
+name = "CaddyServer Caddy - golang based httpd"
+pattern = "^O=Caddy Self-Signed$"
+vendor = "CaddyServer"
+product = "Caddy"
+context = "x509.subject"
+example = "O=Caddy Self-Signed"
+metadata = { "service.cpe23" = "cpe:/a:caddyserver:caddy:-" }
+
+[[match]]
+name = "HP 3PAR"
+pattern = "^CN=HP_3PAR_"
+context = "x509.subject"
+example = "CN=HP_3PAR_1626615"
+metadata = { "hw.vendor" = "HP", "hw.device" = "Storage", "hw.product" = "3PAR" }
+
+[[match]]
+name = "Alienvault OSSIM"
+pattern = "^CN=(?:alienvault|VirtualUSMAllInOne)$"
+context = "x509.subject"
+example = "CN=alienvault"
+metadata = { "os.vendor" = "AlienVault", "os.device" = "Appliance", "os.product" = "OSSIM", "os.family" = "Linux" }
+
+[[match]]
+name = "Canon iR-ADV Printer with product info"
+pattern = "^CN=Canon (iR-[a-zA-Z0-9\\.\\-\\_]+)$"
+context = "x509.subject"
+example = "CN=Canon iR-ADV"
+metadata = { "hw.device" = "Printer", "hw.vendor" = "Canon", "os.device" = "Printer", "os.vendor" = "Canon", "hw.product" = "{capture:1}", "os.product" = "{capture:1}" }
+
+[[match]]
+name = "Canon iR-ADV Printer"
+pattern = "^CN=Canon Imaging Product$"
+context = "x509.subject"
+example = "CN=Canon Imaging Product"
+metadata = { "hw.device" = "Printer", "hw.vendor" = "Canon", "os.device" = "Printer", "os.vendor" = "Canon" }
+
+[[match]]
+name = "Canon ScanFront Simple"
+pattern = "^CN=ScanFront$"
+context = "x509.subject"
+example = "CN=ScanFront"
+metadata = { "hw.device" = "Scanner", "hw.vendor" = "Canon", "hw.product" = "ScanFront", "os.device" = "Scanner", "os.vendor" = "Canon", "os.product" = "ScanFront" }
+
+[[match]]
+name = "Canon ScanFront Full"
+pattern = "^CN=ScanFront,OU=IMS,O=CANON ELECTRONICS INC\\.,L=Minato-ku,ST=Tokyo,C=JP$"
+context = "x509.subject"
+example = "CN=ScanFront,OU=IMS,O=CANON ELECTRONICS INC.,L=Minato-ku,ST=Tokyo,C=JP"
+metadata = { "hw.device" = "Scanner", "hw.vendor" = "Canon", "hw.product" = "ScanFront", "os.device" = "Scanner", "os.vendor" = "Canon", "os.product" = "ScanFront" }
+
+[[match]]
+name = "Tenable Appliance"
+pattern = "^CN=tnsappliance.*,O=Tenable Network Security\\\\, Inc\\.,L=Columbia,ST=Maryland,C=US$"
+context = "x509.subject"
+example = "CN=tnsappliance-b088a321,OU=--,O=Tenable Network Security\\, Inc.,L=Columbia,ST=Maryland,C=US"
+metadata = { "hw.device" = "Appliance", "hw.vendor" = "Tenable", "hw.product" = "Tenable Core", "os.device" = "Appliance", "os.vendor" = "Tenable", "os.product" = "Tenable Core" }
+
+[[match]]
+name = "ExtraHop Appliance"
+pattern = "^CN=extrahop,OU=extrahop\\.com,O=ExtraHop,C=US$"
+context = "x509.subject"
+example = "CN=extrahop,OU=extrahop.com,O=ExtraHop,C=US"
+metadata = { "hw.device" = "Appliance", "hw.vendor" = "ExtraHop", "hw.product" = "Discover", "os.device" = "Appliance", "os.vendor" = "ExtraHop", "os.product" = "Discover" }
+
+[[match]]
+name = "Ruckus Zone Director"
+pattern = "^CN=Ruckus Wireless ZoneDirector SN-(\\d+),O=Ruckus Wireless\\\\, Inc\\.,ST=CA,C=US$"
+context = "x509.subject"
+example = "CN=Ruckus Wireless ZoneDirector SN-221301007591,O=Ruckus Wireless\\, Inc.,ST=CA,C=US"
+metadata = { "hw.device" = "Wireless Controller", "hw.vendor" = "Ruckus", "hw.product" = "Zone Director", "os.device" = "Wireless Controller", "os.vendor" = "Ruckus", "os.product" = "Zone Director", "hw.serial_number" = "{capture:1}" }
+
+[[match]]
+name = "Ruckus Wireless Access Point"
+pattern = "^CN=SN-(\\d+),O=Ruckus Wireless Inc.,L=Sunnyvale,ST=California,C=US$"
+context = "x509.subject"
+example = "CN=SN-010101010101,O=Ruckus Wireless Inc.,L=Sunnyvale,ST=California,C=US"
+metadata = { "hw.device" = "WAP", "hw.vendor" = "Ruckus", "hw.product" = "Access Point", "hw.serial_number" = "{capture:1}" }
+
+[[match]]
+name = "NEC DT Series IP Phone"
+pattern = "^CN=DT([^\\s]+) Series,O=NEC Corporation,ST=Tokyo,C=JP$"
+context = "x509.subject"
+example = "CN=DT800 Series,O=NEC Corporation,ST=Tokyo,C=JP"
+metadata = { "os.vendor" = "NEC", "os.device" = "VoIP", "hw.vendor" = "NEC", "hw.device" = "VoIP", "hw.product" = "{capture:1}" }
+
+[[match]]
+name = "Polycom SoundPoint IP Phone"
+pattern = "^CN=([a-fA-F0-9]{12}),O=Polycom Inc\\.$"
+context = "x509.subject"
+example = "CN=64167F169981,O=Polycom Inc."
+metadata = { "os.vendor" = "Polycom", "os.device" = "VoIP", "hw.vendor" = "Polycom", "hw.device" = "VoIP", "hw.product" = "SoundPoint", "host.mac" = "{capture:1}" }
+
+[[match]]
+name = "Siemens EN Software"
+pattern = "^CN=EN Software Production & Release,OU=Enterprise Networks,O=Siemens AG,L=Munich,ST=Germany,C=DE$"
+context = "x509.subject"
+example = "CN=EN Software Production & Release,OU=Enterprise Networks,O=Siemens AG,L=Munich,ST=Germany,C=DE"
+metadata = { "os.vendor" = "Siemens", "os.device" = "VoIP", "hw.vendor" = "Siemens", "hw.device" = "VoIP" }
+
+[[match]]
+name = "SecureConnect SSL VPN"
+pattern = "^CN=SecureConnect server,O=Quest,ST=CA,C=US$"
+context = "x509.subject"
+example = "CN=SecureConnect server,O=Quest,ST=CA,C=US"
+metadata = { "hw.vendor" = "SecureConnect", "hw.device" = "VPN", "os.vendor" = "SecureConnect", "os.device" = "VPN" }
+
+[[match]]
+name = "RecoverPoint Appliance"
+pattern = "^CN=RecoverPoint,OU=Data Protection and Availability Division,O=EMC Corporation,L=Hopkinton,ST=Massachusetts,C=US$"
+context = "x509.subject"
+example = "CN=RecoverPoint,OU=Data Protection and Availability Division,O=EMC Corporation,L=Hopkinton,ST=Massachusetts,C=US"
+metadata = { "hw.device" = "Appliance", "hw.vendor" = "EMC", "hw.product" = "RecoverPoint", "os.device" = "Appliance", "os.vendor" = "EMC", "os.product" = "RecoverPoint" }
+
+[[match]]
+name = "Palo Alto Firewall"
+pattern = "^CN=[a-fA-F0-9]+,O=Palo Alto Networks,L=Santa Clara,ST=CA,C=US$"
+vendor = "Palo Alto Networks"
+context = "x509.subject"
+example = "CN=d9fc2294968367a3a8ad1acd4c816c78444e6ea4d69869b40cc9751951fd3693,O=Palo Alto Networks,L=Santa Clara,ST=CA,C=US"
+metadata = { "hw.vendor" = "Palo Alto Networks", "hw.device" = "Firewall", "os.vendor" = "Palo Alto Networks", "os.product" = "PAN-OS", "os.family" = "PAN-OS", "os.device" = "Firewall", "os.cpe23" = "cpe:/o:paloaltonetworks:pan-os:-", "service.device" = "Firewall" }
+
+[[match]]
+name = "Symplified IAM Appliance (now RSA)"
+pattern = "^CN=selfappliance,OU=Engineering,O=Symplified,L=Boulder,ST=Colorado,C=US$"
+context = "x509.subject"
+example = "CN=selfappliance,OU=Engineering,O=Symplified,L=Boulder,ST=Colorado,C=US"
+metadata = { "hw.vendor" = "Symplified", "hw.device" = "Appliance", "hw.product" = "IAM" }
+
+[[match]]
+name = "OpenWRT WAP"
+pattern = "^CN=OpenWrt,L=Leipzig,ST=Saxony,C=DE$"
+context = "x509.subject"
+example = "CN=OpenWrt,L=Leipzig,ST=Saxony,C=DE"
+metadata = { "os.vendor" = "OpenWRT", "os.device" = "WAP" }
+
+[[match]]
+name = "Axis Communications Web Cam"
+pattern = "^CN=axis-([a-fA-F0-9]{12}),O=Axis Communications AB$"
+context = "x509.subject"
+example = "CN=axis-accc8ea31abf,O=Axis Communications AB"
+metadata = { "hw.vendor" = "AXIS", "hw.device" = "IP Camera", "os.vendor" = "AXIS", "os.device" = "IP Camera", "os.family" = "Linux", "host.mac" = "{capture:1}" }
+
+[[match]]
+name = "ELAN Web Cam"
+pattern = "^CN=([^,]+),OU=Nortek,O=ELAN,L=StuddardMD,ST=[^,]+,C=US$"
+context = "x509.subject"
+example = "CN=ServerRoom,OU=Nortek,O=ELAN,L=StuddardMD,ST=10000,C=US"
+metadata = { "hw.vendor" = "ELAN", "hw.device" = "IP Camera", "hw.product" = "HDIPCam", "os.vendor" = "ELAN", "os.device" = "IP Camera", "os.family" = "Linux", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "Dell OpenManage"
+pattern = "^CN=Dell_OpenManage.*,OU=PG,O=Dell Inc\\.,ST=Texas,C=US$"
+context = "x509.subject"
+example = "CN=Dell_OpenManage01,OU=PG,O=Dell Inc.,ST=Texas,C=US"
+metadata = { "hw.vendor" = "Dell", "hw.device" = "Appliance", "hw.product" = "OpenManage", "os.vendor" = "Dell", "os.device" = "Appliance", "os.family" = "Linux" }
+
+[[match]]
+name = "Dell EqualLogic PS Array"
+pattern = "^CN=Equallogic PS Array,OU=Dell Equallogic,O=Dell Inc\\.,L=Nashua,ST=New Hampshire,C=US$"
+context = "x509.subject"
+example = "CN=Equallogic PS Array,OU=Dell Equallogic,O=Dell Inc.,L=Nashua,ST=New Hampshire,C=US"
+metadata = { "hw.vendor" = "Dell", "hw.device" = "Storage", "hw.product" = "EqualLogic", "os.vendor" = "Dell", "os.device" = "Storage", "os.product" = "EqualLogic" }
+
+[[match]]
+name = "OpenNAC Appliance"
+pattern = "^CN=opennac\\.test,L=Madrid,ST=Madrid,C=ES$"
+context = "x509.subject"
+example = "CN=opennac.test,L=Madrid,ST=Madrid,C=ES"
+metadata = { "hw.vendor" = "OpenNAC", "hw.device" = "Appliance", "hw.product" = "OpenNAC", "os.vendor" = "OpenNAC", "os.family" = "Linux", "os.product" = "Linux" }
+
+[[match]]
+name = "AirMagnet SmartEdge Sensor"
+pattern = "^CN=SmartEdge Sensor,O=AirMagnet,L=Sunnyvale,ST=California,C=US$"
+context = "x509.subject"
+example = "CN=SmartEdge Sensor,O=AirMagnet,L=Sunnyvale,ST=California,C=US"
+metadata = { "hw.vendor" = "AirMagnet", "hw.device" = "Wireless Controller", "hw.product" = "SmartEdge Sensor" }
+
+[[match]]
+name = "AirDefense Inc Sensor"
+pattern = "^CN=Sensor WebUI,O=AirDefense Inc.,L=Alpharetta,ST=GA,C=US$"
+context = "x509.subject"
+example = "CN=Sensor WebUI,O=AirDefense Inc.,L=Alpharetta,ST=GA,C=US"
+metadata = { "hw.vendor" = "AirDefense", "hw.device" = "Wireless Controller", "hw.product" = "Sensor" }
+
+[[match]]
+name = "Aerohive Access Point"
+pattern = "^CN=HiveAP,OU=Default,O=Aerohive,(?:L=Sunnyvale,)?ST=California,C=US$"
+context = "x509.subject"
+example = "CN=HiveAP,OU=Default,O=Aerohive,ST=California,C=US"
+metadata = { "hw.vendor" = "Aerohive", "hw.device" = "WAP", "hw.product" = "Access Point", "os.vendor" = "Aerohive", "os.family" = "Linux", "os.product" = "Linux" }
+
+[[match]]
+name = "ZyWall Router"
+pattern = "^CN=(usg[^_]+)_([a-fA-F0-9]{12})$"
+context = "x509.subject"
+example = "CN=usg20w_5CF4AB615FAC"
+metadata = { "hw.vendor" = "Zyxel", "hw.device" = "Broadband Router", "hw.product" = "{capture:1}", "host.mac" = "{capture:2}" }
+
+[[match]]
+name = "Philips Hue Personal Wireless Lighting"
+pattern = "^CN=([a-fA-F0-9]{16}),O=Philips Hue,C=NL$"
+context = "x509.subject"
+example = "CN=001788fffe4f1999,O=Philips Hue,C=NL"
+metadata = { "hw.vendor" = "Philips", "hw.product" = "Hue", "hw.device" = "Light Bulb", "hw.cpe23" = "cpe:/h:philips:hue:-", "host.mac_eui64" = "{capture:1}" }
+
+[[match]]
+name = "IBM iSeries Service Console"
+pattern = "^CN=www\\.ibm\\.com,OU=IBM i Service,L=Rochester,ST=Minnesota,C=US$"
+context = "x509.subject"
+example = "CN=www.ibm.com,OU=IBM i Service,L=Rochester,ST=Minnesota,C=US"
+metadata = { "os.vendor" = "IBM", "os.family" = "OS/400", "os.product" = "OS/400", "os.cpe23" = "cpe:/o:ibm:os_400:-" }
+
+[[match]]
+name = "Kaptivo Whiteboard"
+pattern = "^CN=.*\\.ip\\.kaptivo\\.live,"
+context = "x509.subject"
+example = "CN=*.ip.kaptivo.live,OU=Domain Control Validated+OU=PositiveSSL Wildcard"
+metadata = { "hw.vendor" = "Kaptivo", "hw.product" = "Whiteboard", "hw.device" = "Whiteboard" }
+
+[[match]]
+name = "FireEye Appliance"
+pattern = "^CN=.*,OU=Network Security Management,O=FireEye\\\\, Inc\\.,L=Milpitas,ST=California,C=US$"
+context = "x509.subject"
+example = "CN=noc-feye-ex2,OU=Network Security Management,O=FireEye\\, Inc.,L=Milpitas,ST=California,C=US"
+metadata = { "hw.vendor" = "FireEye", "hw.product" = "Appliance", "hw.device" = "Security Appliance" }
+
+[[match]]
+name = "FireEye Investigation Analysis System Appliance"
+pattern = "^CN=.*,OU=IA,O=FireEye,L=Charlottesville,ST=Virginia,C=US$"
+context = "x509.subject"
+example = "CN=noc-feye-ia2,OU=IA,O=FireEye,L=Charlottesville,ST=Virginia,C=US"
+metadata = { "hw.vendor" = "FireEye", "hw.product" = "IA Appliance", "hw.device" = "Security Appliance" }
+
+[[match]]
+name = "Gigamon GigaVUE Appliance"
+pattern = "^CN=.*,OU=Gigamon Network Visibility Systems,O=Gigamon Inc\\.,L=Santa Clara,ST=California,C=US$"
+context = "x509.subject"
+example = "CN=gvue01,OU=Gigamon Network Visibility Systems,O=Gigamon Inc.,L=Santa Clara,ST=California,C=US"
+metadata = { "hw.vendor" = "Gigamon", "hw.device" = "Monitoring", "hw.product" = "GigaVUE" }
+
+[[match]]
+name = "Telliris IVR"
+pattern = "^CN=.*,OU=Telliris,O=DAC Systems,L=Shelton,ST=Connecticut,C=US$"
+context = "x509.subject"
+example = "CN=Telliris-IVR,OU=Telliris,O=DAC Systems,L=Shelton,ST=Connecticut,C=US"
+metadata = { "hw.vendor" = "Telliris", "hw.device" = "Voice Appliance", "hw.product" = "IVR" }
+
+[[match]]
+name = "Lantronix SLS terminal server"
+pattern = "^CN=SLS,O=Lantronix,L=Irvine,ST=California,C=US$"
+context = "x509.subject"
+example = "CN=SLS,O=Lantronix,L=Irvine,ST=California,C=US"
+metadata = { "hw.vendor" = "Lantronix", "hw.device" = "Device Server", "hw.product" = "SLS" }
+
+[[match]]
+name = "Tintri Storage Appliance"
+pattern = "^CN=Tintri Default Certificate,OU=Tintri Server Certificate,O=Tintri\\\\, Inc\\.,L=Mountain View,ST=CA,C=US$"
+context = "x509.subject"
+example = "CN=Tintri Default Certificate,OU=Tintri Server Certificate,O=Tintri\\, Inc.,L=Mountain View,ST=CA,C=US"
+metadata = { "hw.vendor" = "Tintro", "hw.device" = "NAS", "hw.product" = "Storage Appliance" }
+
+[[match]]
+name = "Axonius Appliance"
+pattern = "^CN=axonius,O=Axonius\\\\, Inc,L=New York City,ST=New York,C=US$"
+context = "x509.subject"
+example = "CN=axonius,O=Axonius\\, Inc,L=New York City,ST=New York,C=US"
+metadata = { "hw.vendor" = "Axonius", "hw.device" = "Security Appliance", "hw.product" = "Asset Management" }
+
+[[match]]
+name = "Avigilon IP Camera"
+pattern = "^CN=AVIGILON-CAMERA-([a-zA-Z0-9\\.\\-]+)-\\d+,OU=Certification Manager,O=Avigilon Corporation,L=Vancouver,ST=British Columbia,C=CA$"
+context = "x509.subject"
+example = "CN=AVIGILON-CAMERA-5.0-H3-DP1-1242900,OU=Certification Manager,O=Avigilon Corporation,L=Vancouver,ST=British Columbia,C=CA"
+metadata = { "hw.vendor" = "Avigilon", "hw.device" = "IP Camera", "hw.product" = "{capture:1}", "os.vendor" = "Avigilon", "os.family" = "Linux", "os.product" = "Linux" }
+
+[[match]]
+name = "Truen IP Camera (Often Rebranded)"
+pattern = "^CN=TCAM,OU=Security,O=Truen,L=Seoul,ST=Seoul,C=KR$"
+context = "x509.subject"
+example = "CN=TCAM,OU=Security,O=Truen,L=Seoul,ST=Seoul,C=KR"
+metadata = { "hw.certainty" = "0.5", "hw.vendor" = "Truen", "hw.device" = "IP Camera", "os.certainty" = "0.5", "os.vendor" = "Truen", "os.family" = "Linux", "os.product" = "Linux" }
+
+[[match]]
+name = "LigoWave Outdoor AP"
+pattern = "^CN=device.wilibox.com,OU=R&D,O=WILIBOX UAB,L=Kaunas,ST=-,C=LT$"
+context = "x509.subject"
+example = "CN=device.wilibox.com,OU=R&D,O=WILIBOX UAB,L=Kaunas,ST=-,C=LT"
+metadata = { "hw.certainty" = "0.50", "hw.vendor" = "LigoWave", "hw.device" = "WAP", "os.certainty" = "0.5", "os.vendor" = "LigoWave", "os.family" = "Linux", "os.product" = "Linux" }
+
+[[match]]
+name = "Motorola RFS Wireless Controllers"
+pattern = "^CN=(RFS\\d+)-([0-9a-fA-F]{2}-[0-9a-fA-F]{2}-[0-9a-fA-F]{2}-[0-9a-fA-F]{2}-[0-9a-fA-F]{2}-[0-9a-fA-F]{2})$"
+context = "x509.subject"
+example = "CN=RFS6000-B1-C1-11-11-11-11"
+metadata = { "hw.device" = "Wireless Controller", "hw.vendor" = "Motorola", "hw.product" = "{capture:1}", "host.mac" = "{capture:2}" }
+
+[[match]]
+name = "Motorola Wireless Access Points"
+pattern = "^CN=(AP\\d+)-([0-9a-fA-F]{2}-[0-9a-fA-F]{2}-[0-9a-fA-F]{2}-[0-9a-fA-F]{2}-[0-9a-fA-F]{2}-[0-9a-fA-F]{2})$"
+context = "x509.subject"
+example = "CN=AP6532-F1-11-11-11-11-11"
+metadata = { "hw.device" = "WAP", "hw.vendor" = "Motorola", "hw.product" = "{capture:1}", "host.mac" = "{capture:2}" }
+
+[[match]]
+name = "ATT VPN Gateway"
+pattern = "^CN=attvpngateway\\.att\\.com,O=AT&T,L=Tampa,ST=FL,C=US$"
+context = "x509.subject"
+example = "CN=attvpngateway.att.com,O=AT&T,L=Tampa,ST=FL,C=US"
+metadata = { "hw.vendor" = "ATT", "hw.device" = "VPN", "hw.product" = "VPN Gateway" }
+
+[[match]]
+name = "Silver Peak Appliance"
+pattern = "^CN=silver-peak,OU=Networking Appliance"
+context = "x509.subject"
+example = "CN=silver-peak,OU=Networking Appliance,O=Silver Peak Systems Inc,L=Mountain View,ST=California,C=--"
+metadata = { "hw.vendor" = "Silver Peak", "hw.device" = "Network Appliance", "hw.product" = "SD-WAN" }
+
+[[match]]
+name = "Windows Media Player Network Sharing Service"
+pattern = "^CN=Windows Media Player Network Sharing Service \\(([A-Z-]{1,15})\\)$"
+vendor = "Microsoft"
+product = "Windows Media Player"
+context = "x509.subject"
+example = "CN=Windows Media Player Network Sharing Service (LIVING-ROOM)"
+metadata = { "service.cpe23" = "cpe:/a:microsoft:windows_media_player:-", "os.vendor" = "Microsoft", "os.family" = "Windows", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "Freebox Device - Intermediate CA"
+pattern = "^CN=Freebox Intermediate CA,O=Freebox,ST=France,C=FR$"
+context = "x509.subject"
+example = "CN=Freebox Intermediate CA,O=Freebox,ST=France,C=FR"
+metadata = { "os.vendor" = "Freebox", "os.product" = "Freebox OS", "os.family" = "Linux", "hw.vendor" = "Freebox", "hw.device" = "Device" }
+
+[[match]]
+name = "Freebox Device"
+pattern = "^CN=[0-9a-z]+[.]fbxos[.]fr,C=FR$"
+context = "x509.subject"
+example = "CN=d36ob5re.fbxos.fr,C=FR"
+metadata = { "os.vendor" = "Freebox", "os.product" = "Freebox OS", "os.family" = "Linux", "hw.vendor" = "Freebox", "hw.device" = "Device" }
+
+[[match]]
+name = "TP-LINK Device"
+pattern = "^CN=TP-LINK CA,O=TP-LINK Technologies CO.\\\\, LTD.,L=Shenzhen,ST=Guangdong,C=CN(?:,\\S+)?$"
+context = "x509.subject"
+example = "CN=TP-LINK CA,O=TP-LINK Technologies CO.\\, LTD.,L=Shenzhen,ST=Guangdong,C=CN,1.2.840.113549.1.9.1=#0c16736572766963654074702d6c696e6b2e636f6d2e636e"
+metadata = { "hw.vendor" = "TP-LINK" }
+
+[[match]]
+name = "Bird Home Automation"
+pattern = "^CN=BHA-([0-9a-fA-F]{12}),O=Bird Home Automation$"
+context = "x509.subject"
+example = "CN=BHA-0123456789AB,O=Bird Home Automation"
+metadata = { "hw.device" = "Device", "hw.vendor" = "Bird Home Automation", "host.mac" = "{capture:1}" }
+
+[[match]]
+name = "Avaya Media Server"
+pattern = "^CN=\\S+,OU=Media Server,O=Avaya Inc\\.,C=US"
+context = "x509.subject"
+example = "CN=192.168.0.3,OU=Media Server,O=Avaya Inc.,C=US"
+metadata = { "os.vendor" = "Avaya", "os.device" = "Media Gateway", "os.product" = "Media Server" }
+
+[[match]]
+name = "iSTAR Ultra"
+pattern = "^CN=iSTAR Ultra"
+context = "x509.subject"
+example = "CN=iSTAR Ultra,OU=Access Control and Video Division,O=Johnson Controls,L=Westford,ST=Massachusetts,C=US"
+metadata = { "os.vendor" = "Software House", "os.family" = "Linux", "os.product" = "{hw.product} Firmware", "hw.vendor" = "Software House", "hw.device" = "Access Control", "hw.family" = "iSTAR Door Controllers", "hw.product" = "iSTAR Ultra", "hw.cpe23" = "cpe:/h:swhouse:istar_ultra:-" }
+
+[[match]]
+name = "SpotterRF"
+pattern = "^O=SpotteRF - NetworkedIO$"
+context = "x509.subject"
+example = "O=SpotteRF - NetworkedIO"
+metadata = { "os.vendor" = "SpotterRF", "os.family" = "Linux", "os.certainty" = "0.90", "hw.vendor" = "SpotterRF", "hw.device" = "Sensor", "hw.product" = "Drone Detector" }
+
+[[match]]
+name = "Bosch AutoDome IP Camera"
+pattern = "(?i)^CN=.{0,1000}myboschcam.net,O=Bosch Sicherheitssysteme"
+context = "x509.subject"
+example = "CN=local.myboschcam.net,O=Bosch Sicherheitssysteme GmbH,L=Grasbrunn,ST=Bayern,C=DE"
+metadata = { "hw.vendor" = "Bosch", "hw.device" = "Web Cam", "hw.product" = "AutoDome", "hw.certainty" = "0.50" }
+
+[[match]]
+name = "Redline Communication Radios"
+pattern = "(?i)CN=(\\w+),OU=BWI,O=Redline Communications Inc"
+context = "x509.subject"
+example = "CN=an80i,OU=BWI,O=Redline Communications Inc.,C=CA"
+metadata = { "hw.vendor" = "Redline", "hw.device" = "WAP", "hw.product" = "{capture:1}" }
+
+[[match]]
+name = "Vadio DocCom"
+pattern = "(?i)CN=Vaddio Device,O=Vaddio,L=Minnetonka,ST=MN,C=US"
+context = "x509.subject"
+example = "CN=Vaddio Device,O=Vaddio,L=Minnetonka,ST=MN,C=US"
+metadata = { "hw.vendor" = "Vaddio", "hw.device" = "Web Cam", "hw.product" = "DocCam", "hw.certainty" = "0.50" }
+
+[[match]]
+name = "2N IP Intercoms"
+pattern = "(?i)CN=.{0,1000},OU=2N IP Intercoms,O=2N Telekomunikace a.s.,L=Prague,ST=Czech Republic,C=CZ"
+context = "x509.subject"
+example = "CN=11111111111d,OU=2N IP Intercoms,O=2N Telekomunikace a.s.,L=Prague,ST=Czech Republic,C=CZ"
+metadata = { "hw.vendor" = "2N Telekomunikace", "hw.device" = "IP Camera", "hw.certainty" = "0.50" }
+
+[[match]]
+name = "Proxmox open-source virtualization platform"
+pattern = "^CN=(.{1,256}),OU=PVE Cluster Node,O=Proxmox Virtual Environment$"
+vendor = "Proxmox"
+product = "Virtual Environment"
+context = "x509.subject"
+example = "CN=pve.example.org,OU=PVE Cluster Node,O=Proxmox Virtual Environment"
+metadata = { "host.name" = "{capture:1}", "service.cpe23" = "cpe:/a:proxmox:virtual_environment:-", "os.vendor" = "Proxmox", "os.family" = "Linux", "os.product" = "Proxmox" }
+
+[[match]]
+name = "Duo Device Health"
+pattern = "^CN=(\\S{1,512}),OU=Endpoint Health,O=Duo Security\\\\, Inc.,L=Ann Arbor,ST=Michigan,C=US(?:,\\S+)?$"
+vendor = "Duo"
+product = "Duo Device Health"
+context = "x509.subject"
+example = "CN=127.0.0.1,OU=Endpoint Health,O=Duo Security\\, Inc.,L=Ann Arbor,ST=Michigan,C=US,1.2.840.113549.1.9.1=#0c1e656e64706f696e746865616c74684064756f73656375726974792e636f6d"
+metadata = { "host.name" = "{capture:1}" }
+
+[[match]]
+name = "Duo Certifier"
+pattern = "^CN=(\\S{1,512}),OU=Mac Certifier,O=Duo Security\\\\, Inc.,L=Ann Arbor,ST=Michigan,C=US(?:,\\S+)?$"
+vendor = "Duo"
+product = "Duo Certifier"
+context = "x509.subject"
+example = "CN=localhost,OU=Mac Certifier,O=Duo Security\\, Inc.,L=Ann Arbor,ST=Michigan,C=US,1.2.840.113549.1.9.1=#0c18656e64706f696e744064756f73656375726974792e636f6d"
+metadata = { "os.vendor" = "Apple", "os.family" = "Mac OS", "os.product" = "Mac OS", "os.cpe23" = "cpe:/o:apple:macos:-", "host.name" = "{capture:1}" }
+
+[[match]]
+name = "Zimbra Collaboration Server"
+pattern = "^CN=(\\S{1,512}),OU=Zimbra Collaboration Server$"
+vendor = "Zimbra"
+product = "Collaboration Server"
+context = "x509.subject"
+example = "CN=foo.bar,OU=Zimbra Collaboration Server"
+metadata = { "service.cpe23" = "cpe:/a:zimbra:collaboration_server:-", "host.name" = "{capture:1}" }
+

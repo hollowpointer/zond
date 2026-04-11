@@ -1,0 +1,454 @@
+# This file contains fingerprints imported from Rapid7 Recog.
+# Source: https://github.com/rapid7/recog
+# License: BSD-2-Clause
+
+[service]
+attribution = "Rapid7 Recog"
+name = "sip"
+default_ports = []
+description = "Imported from Rapid7 sip_banners"
+
+[[match]]
+name = "Cisco IOS SIP Gateway w/ Vague Version"
+pattern = "^Cisco-SIPGateway/IOS-(\\S+)\\.x$"
+vendor = "Cisco"
+product = "IOS"
+context = "sip_header.server"
+example = "Cisco-SIPGateway/IOS-12.x"
+metadata = { "service.family" = "IOS", "os.vendor" = "Cisco", "os.family" = "IOS", "os.product" = "IOS", "os.certainty" = "0.8", "os.version" = "{capture:1}", "os.cpe23" = "cpe:/o:cisco:ios:{os.version}", "hw.vendor" = "Cisco", "hw.device" = "Router" }
+
+[[match]]
+name = "Cisco IOS SIP Gateway w/ Full Version"
+pattern = "^Cisco-SIPGateway/IOS-(\\S+)$"
+vendor = "Cisco"
+product = "IOS"
+context = "sip_header.server"
+example = "Cisco-SIPGateway/IOS-15.2.4.M3"
+metadata = { "service.family" = "IOS", "os.vendor" = "Cisco", "os.family" = "IOS", "os.product" = "IOS", "os.certainty" = "1.0", "os.version" = "{capture:1}", "os.cpe23" = "cpe:/o:cisco:ios:{os.version}", "hw.vendor" = "Cisco", "hw.device" = "Router" }
+
+[[match]]
+name = "Cisco CP VoIP Phone"
+pattern = "^Cisco-CP-?(\\d+G?)(?:-\\S+)?/([\\d\\.]+)"
+context = "sip_header.server"
+example = "Cisco-CP7960G/8.0"
+metadata = { "os.vendor" = "Cisco", "os.device" = "VoIP", "hw.vendor" = "Cisco", "hw.product" = "CP", "hw.device" = "VoIP", "hw.model" = "{capture:1}", "hw.version" = "{capture:2}" }
+
+[[match]]
+name = "Linksys RT31P2"
+pattern = "^(?:[\\dA-F]{1,64} )?Linksys/RT31P2-([\\d.]+)\\(\\w+\\)$"
+context = "sip_header.server"
+example = "Linksys/RT31P2-3.1.9(LId)"
+metadata = { "os.vendor" = "Linksys", "os.product" = "RT31P2 Firmware", "os.version" = "{capture:1}", "os.device" = "VoIP", "hw.vendor" = "Linksys", "hw.product" = "RT31P2", "hw.device" = "VoIP", "hw.cpe23" = "cpe:/h:linksys:rt31p2:-" }
+
+[[match]]
+name = "Cisco SPA122"
+pattern = "^Cisco/SPA122-([\\d.]+)\\(\\w+\\)[\\w-]*$"
+context = "sip_header.server"
+example = "Cisco/SPA122-1.3.5(004p)"
+metadata = { "os.vendor" = "Cisco", "os.product" = "SPA122 Firmware", "os.version" = "{capture:1}", "os.device" = "VoIP", "os.cpe23" = "cpe:/o:cisco:spa122_firmware:{os.version}", "hw.vendor" = "Cisco", "hw.product" = "SPA122", "hw.device" = "VoIP", "hw.cpe23" = "cpe:/h:cisco:spa122:-" }
+
+[[match]]
+name = "Cisco SPA112"
+pattern = "^Cisco/SPA112-([\\d.SR]+)\\(\\w+\\)[\\w-]*$"
+context = "sip_header.server"
+example = "Cisco/SPA112-1.4.1SR1(002)d-hisec"
+metadata = { "os.vendor" = "Cisco", "os.product" = "SPA112 Firmware", "os.version" = "{capture:1}", "os.device" = "VoIP", "os.cpe23" = "cpe:/o:cisco:spa112_firmware:{os.version}", "hw.vendor" = "Cisco", "hw.product" = "SPA112", "hw.device" = "VoIP", "hw.cpe23" = "cpe:/h:cisco:spa112:-" }
+
+[[match]]
+name = "Cisco/Linksys SPA VoIP Phone"
+pattern = "(?:Cisco|Linksys)/(SPA\\d+[DG]?\\d?)-([\\d\\.a-zA-Z]+)"
+context = "sip_header.server"
+example = "PhoneSystems.net aabbccddeeff Linksys/SPA922-6.1.5(a)"
+metadata = { "os.vendor" = "Cisco", "os.device" = "VoIP", "hw.vendor" = "Cisco", "hw.product" = "SPA", "hw.device" = "VoIP", "hw.model" = "{capture:1}", "hw.version" = "{capture:2}" }
+
+[[match]]
+name = "Cisco/Linksys VoIP / Internet Phone adapter"
+pattern = "(?:Cisco|Linksys)(?: |/)(PAP2T?)(?:-|/)(\\S+)$"
+context = "sip_header.server"
+example = "PhoneSystems.net aabbccddeeff Linksys/PAP2-3.1.22(LS)"
+metadata = { "os.vendor" = "Cisco", "os.device" = "VoIP", "hw.vendor" = "Cisco", "hw.product" = "Internet Phone Adapter", "hw.device" = "VoIP", "hw.model" = "{capture:1}", "hw.version" = "{capture:2}" }
+
+[[match]]
+name = "Cisco Services Ready Platforms (SRP) Router"
+pattern = "^Cisco/(SRP\\d+)-([\\d\\.]+)"
+context = "sip_header.server"
+example = "Cisco/SRP541-1.2.6(003)"
+metadata = { "os.vendor" = "Cisco", "os.device" = "Router", "hw.vendor" = "Cisco", "hw.product" = "SRP", "hw.device" = "Router", "hw.model" = "{capture:1}", "hw.version" = "{capture:2}" }
+
+[[match]]
+name = "Cisco/Linksys WRP Wireless Router"
+pattern = "(?:Cisco|Linksys)/(WRP\\d+)-(\\S+)$"
+context = "sip_header.server"
+example = "aabbccddeeff_FinalStage_Linksys/WRP400-2.00.26"
+metadata = { "os.vendor" = "Cisco", "os.device" = "Router", "hw.vendor" = "Cisco", "hw.product" = "Wireless Router", "hw.device" = "Router", "hw.model" = "{capture:1}", "hw.version" = "{capture:2}" }
+
+[[match]]
+name = "Cisco TelePresence Expressway"
+pattern = "^TANDBERG\\/(\\d+) \\((X\\d+\\S*).*\\) ?(.*)$"
+context = "sip_header.server"
+example = "TANDBERG/528 (X7.3.7.01c84fd) Cisco-EX60"
+metadata = { "os.vendor" = "Cisco", "os.family" = "TelePresence", "os.product" = "Expressway", "tandberg.model" = "{capture:1}", "os.version" = "{capture:2}", "hw.model" = "{capture:3}" }
+
+[[match]]
+name = "Cisco TelePresence Collaboration Endpoint (RoomOS)"
+pattern = "^TANDBERG\\/(\\d+) \\((ce\\d+\\S*).*\\) ?(.*)$"
+context = "sip_header.server"
+example = "TANDBERG/529 (ce9.15.0.d97b604b745) Cisco-RoomKit"
+metadata = { "os.vendor" = "Cisco", "os.family" = "TelePresence", "os.product" = "Collaboration Endpoint", "tandberg.model" = "{capture:1}", "os.version" = "{capture:2}", "hw.model" = "{capture:3}" }
+
+[[match]]
+name = "Cisco/Tandberg TelePresence"
+pattern = "^(TANDBERG\\/(\\d+)) \\(((?:[abd-zA-WZ]|XC)*\\d+\\S*).*\\) ?(?:Cisco-)?(.*)$"
+context = "sip_header.server"
+example = "TANDBERG/519 (TC7.0.2.aecf2d9)"
+metadata = { "os.vendor" = "Tandberg", "os.family" = "Linux", "os.product" = "Linux", "tandberg.model" = "{capture:2}", "os.version" = "{capture:3}", "hw.series" = "{capture:4}", "hw.vendor" = "Cisco", "hw.family" = "TelePresence", "hw.device" = "Video Conferencing", "hw.product" = "{capture:1}" }
+
+[[match]]
+name = "NEC SL2100 Communications Server"
+pattern = "^NEC SL2100/([\\d.]+)$"
+context = "sip_header.server"
+example = "NEC SL2100/2.1"
+metadata = { "os.vendor" = "NEC", "os.product" = "SL2100 Firmware", "os.version" = "{capture:1}", "os.device" = "SIP Gateway", "os.cpe23" = "cpe:/o:nec:sl2100_firmware:{os.version}", "hw.vendor" = "NEC", "hw.family" = "SL2100", "hw.product" = "SL2100", "hw.device" = "SIP Gateway", "hw.cpe23" = "cpe:/h:nec:sl2100:-" }
+
+[[match]]
+name = "NEC UNIVERGE Aspire WX or UX SIP Gateway"
+pattern = "^NEC (Aspire [WU]X) ([\\d.]+)(?:/\\d\\.\\d)?$"
+context = "sip_header.server"
+example = "NEC Aspire WX 02.00.00"
+metadata = { "os.vendor" = "NEC", "os.version" = "{capture:2}", "hw.vendor" = "NEC", "hw.family" = "UNIVERGE", "hw.product" = "{capture:1}", "hw.device" = "SIP Gateway" }
+
+[[match]]
+name = "NEC UNIVERGE 9100 SIP Gateway"
+pattern = "^NEC(?:-i)? SV9100-(?:NA|GE) ([\\d.]+)(?:/\\d\\.\\d)?$"
+context = "sip_header.server"
+example = "NEC SV9100-NA 08.00.65/2.1"
+metadata = { "os.vendor" = "NEC", "os.product" = "SV9100 Firmware", "os.version" = "{capture:1}", "os.cpe23" = "cpe:/o:nec:sv9100_firmware:{os.version}", "hw.vendor" = "NEC", "hw.family" = "UNIVERGE", "hw.product" = "SV9100", "hw.device" = "SIP Gateway", "hw.cpe23" = "cpe:/h:nec:sv9100:-" }
+
+[[match]]
+name = "NEC UNIVERGE 8100 SIP Gateway"
+pattern = "^NEC(?:-i)? SV8100-(?:NA|GE) ([\\d.]+)(?:/\\d\\.\\d)?$"
+context = "sip_header.server"
+example = "NEC SV8100-GE 08.00.65/2.1"
+metadata = { "os.vendor" = "NEC", "os.product" = "SV8100 Firmware", "os.version" = "{capture:1}", "os.cpe23" = "cpe:/o:nec:sv8100_firmware:{os.version}", "hw.vendor" = "NEC", "hw.family" = "UNIVERGE", "hw.product" = "SV8100", "hw.device" = "SIP Gateway", "hw.cpe23" = "cpe:/h:nec:sv8100:-" }
+
+[[match]]
+name = "Grandstream UCM 6208"
+pattern = "^Grandstream UCM6208V(\\d\\.\\d\\w) ([\\d.]+)$"
+context = "sip_header.server"
+example = "Grandstream UCM6208V1.4A 1.0.16.20"
+metadata = { "os.vendor" = "Grandstream", "os.product" = "UCM6208 Firmware", "os.version" = "{capture:2}", "os.device" = "SIP Gateway", "os.cpe23" = "cpe:/o:grandstream:ucm6208_firmware:{os.version}", "hw.vendor" = "Grandstream", "hw.product" = "UCM6208", "hw.version" = "{capture:1}", "hw.device" = "SIP Gateway", "hw.cpe23" = "cpe:/h:grandstream:ucm6208:{hw.version}" }
+
+[[match]]
+name = "Grandstream UCM 6204"
+pattern = "^Grandstream UCM6204V(\\d\\.\\d\\w) ([\\d.]+)$"
+context = "sip_header.server"
+example = "Grandstream UCM6204V1.4A 1.0.15.16"
+metadata = { "os.vendor" = "Grandstream", "os.product" = "UCM6204 Firmware", "os.version" = "{capture:2}", "os.device" = "SIP Gateway", "os.cpe23" = "cpe:/o:grandstream:ucm6204_firmware:{os.version}", "hw.vendor" = "Grandstream", "hw.product" = "UCM6204", "hw.version" = "{capture:1}", "hw.device" = "SIP Gateway", "hw.cpe23" = "cpe:/h:grandstream:ucm6204:{hw.version}" }
+
+[[match]]
+name = "Grandstream UCM 6202"
+pattern = "^Grandstream UCM6202V(\\d\\.\\d\\w) ([\\d.]+)$"
+context = "sip_header.server"
+example = "Grandstream UCM6202V1.4A 1.0.15.16"
+metadata = { "os.vendor" = "Grandstream", "os.product" = "UCM6202 Firmware", "os.version" = "{capture:2}", "os.device" = "SIP Gateway", "os.cpe23" = "cpe:/o:grandstream:ucm6202_firmware:{os.version}", "hw.vendor" = "Grandstream", "hw.product" = "UCM6202", "hw.version" = "{capture:1}", "hw.device" = "SIP Gateway", "hw.cpe23" = "cpe:/h:grandstream:ucm6202:{hw.version}" }
+
+[[match]]
+name = "Grandstream UCM 6xxx series generic"
+pattern = "^Grandstream (UCM6\\d\\d\\d)V(\\d\\.\\d\\w) ([\\d.]+)$"
+context = "sip_header.server"
+example = "Grandstream UCM6102V1.5A 1.0.6.10"
+metadata = { "os.vendor" = "Grandstream", "os.version" = "{capture:3}", "os.device" = "SIP Gateway", "hw.vendor" = "Grandstream", "hw.product" = "{capture:1}", "hw.version" = "{capture:2}", "hw.device" = "SIP Gateway" }
+
+[[match]]
+name = "EnGenius DuraFon IP Phone"
+pattern = "EnGenius_Router$"
+context = "sip_header.server"
+example = "EnGenius_Router"
+metadata = { "hw.vendor" = "enGenius", "hw.product" = "DuraFon", "hw.device" = "VoIP" }
+
+[[match]]
+name = "Huawei Softswitch"
+pattern = "(?i)^Huawei (SoftX\\d+) (?:V\\d.*)$"
+context = "sip_header.server"
+example = "Huawei SoftX3000 V300R006"
+metadata = { "hw.vendor" = "Huawei", "hw.device" = "Telecom", "hw.product" = "Softswitch", "hw.model" = "{capture:1}" }
+
+[[match]]
+name = "Huawei generic"
+pattern = "(?i)^SIP/1.0 \\(Huawei\\)$"
+context = "sip_header.server"
+example = "SIP/1.0 (Huawei)"
+metadata = { "hw.vendor" = "Huawei" }
+
+[[match]]
+name = "Media5 Corporation SIP Stack"
+pattern = "^M5T SIP(?: Stack|-UA SAFE)/v?([\\d\\.]+)"
+version_group = 1
+vendor = "Media5 Corporation"
+product = "SIP Stack"
+context = "sip_header.server"
+example = "M5T SIP Stack/4.1.2.2"
+metadata = { "hw.device" = "VoIP" }
+
+[[match]]
+name = "Tilgin Vood"
+pattern = "^Tilgin Vood ([^_\\s]+)"
+context = "sip_header.server"
+example = "Tilgin Vood HG238x_ESx000-02_07_03_26"
+metadata = { "hw.vendor" = "Tilgin", "hw.product" = "Vood", "hw.model" = "{capture:1}" }
+
+[[match]]
+name = "ZTE GPON Router"
+pattern = "^(F\\d{3})/VT?(\\d(?:[\\d\\.A-Z]+))$"
+context = "sip_header.server"
+example = "F620/V3.30.20P5T4S"
+metadata = { "hw.vendor" = "ZTE", "hw.device" = "Router", "hw.product" = "{capture:1}", "hw.version" = "{capture:2}" }
+
+[[match]]
+name = "ZTE ZXDSL router"
+pattern = "^ZXDSL (\\S+)/V?(\\d(?:[\\d\\.A-Z_]+))$"
+context = "sip_header.server"
+example = "ZXDSL 931VII/V2.0.00.OTET06"
+metadata = { "hw.vendor" = "ZTE", "hw.device" = "Router", "hw.family" = "ZXDSL", "hw.product" = "{capture:1}", "hw.version" = "{capture:2}" }
+
+[[match]]
+name = "ZTE ZXHN router"
+pattern = "^(?:ZXHN )?(H\\d{3}N)/V?(\\d(?:[\\d\\.A-Z_]+))$"
+context = "sip_header.server"
+example = "ZXHN H218N/V1.02.01_ERS"
+metadata = { "hw.vendor" = "ZTE", "hw.device" = "Router", "hw.family" = "ZXHN", "hw.product" = "{capture:1}", "hw.version" = "{capture:2}" }
+
+[[match]]
+name = "Aastra IP Phone"
+pattern = "^Aastra ([^/]+)/([a-zA-Z0-9\\.\\-]+)$"
+context = "sip_header.server"
+example = "Aastra 6865i/4.2.0.2023"
+metadata = { "os.vendor" = "Aastra", "os.family" = "VoIP", "os.product" = "VoIP", "os.version" = "{capture:2}", "hw.vendor" = "Aastra", "hw.family" = "VoIP", "hw.device" = "VoIP", "hw.product" = "{capture:1}" }
+
+[[match]]
+name = "Audiocodes-Sip-Gateway"
+pattern = "^(?:Audiocodes-Sip-Gateway-)?(\\S{1,64}) FX[A-Z_]+/v.(\\S+)$"
+context = "sip_header.server"
+example = "Audiocodes-Sip-Gateway-MP-124 FXS/v.6.00A.034.003"
+metadata = { "os.vendor" = "AudioCodes", "os.family" = "SIP Gateway", "os.version" = "{capture:2}", "hw.vendor" = "AudioCodes", "hw.family" = "SIP Gateway", "hw.device" = "SIP Gateway", "hw.product" = "{capture:1}" }
+
+[[match]]
+name = "Wildix SIP Gateway"
+pattern = "^Wildix GW-(\\S+)$"
+context = "sip_header.server"
+example = "Wildix GW-5.0.3.42145"
+metadata = { "os.vendor" = "Wildix", "os.family" = "SIP Gateway", "os.version" = "{capture:1}", "hw.vendor" = "Wildix", "hw.family" = "SIP Gateway", "hw.device" = "SIP Gateway", "hw.product" = "SIP Gateway" }
+
+[[match]]
+name = "Wildix SIP Gateway - timestamp/build variant"
+pattern = "^Wildix GW ([\\d.~a-h]+)$"
+context = "sip_header.server"
+example = "Wildix GW 20201008.1~a2e84be1"
+metadata = { "os.vendor" = "Wildix", "os.family" = "SIP Gateway", "os.version" = "{capture:1}", "hw.vendor" = "Wildix", "hw.family" = "SIP Gateway", "hw.device" = "SIP Gateway", "hw.product" = "SIP Gateway" }
+
+[[match]]
+name = "Wildix SIP Gateway w/o Version"
+pattern = "^Wildix GW$"
+context = "sip_header.server"
+example = "Wildix GW"
+metadata = { "os.vendor" = "Wildix", "os.family" = "SIP Gateway", "hw.vendor" = "Wildix", "hw.family" = "SIP Gateway", "hw.device" = "SIP Gateway", "hw.product" = "SIP Gateway" }
+
+[[match]]
+name = "Dialogic Media Gateway w Version"
+pattern = "^PBX-IP Media Gateway/([\\d.]+)$"
+context = "sip_header.server"
+example = "PBX-IP Media Gateway/2.1"
+metadata = { "os.vendor" = "Dialogic", "os.family" = "SIP Gateway", "os.version" = "{capture:1}", "hw.vendor" = "Dialogic", "hw.family" = "SIP Gateway", "hw.device" = "SIP Gateway", "hw.product" = "Media Gateway" }
+
+[[match]]
+name = "Asterisk PBX w/ Version"
+pattern = "^Asterisk PBX (\\S+)$"
+version_group = 1
+vendor = "Asterisk"
+product = "PBX"
+context = "sip_header.server"
+example = "Asterisk PBX 13.18.0-6.7.1.1.rl.1538157944.1c65507"
+metadata = { "service.family" = "PBX" }
+
+[[match]]
+name = "Asterisk PBX w/o Version"
+pattern = "^Asterisk PBX$"
+vendor = "Asterisk"
+product = "PBX"
+context = "sip_header.server"
+example = "Asterisk PBX"
+metadata = { "service.family" = "PBX" }
+
+[[match]]
+name = "FreePBX"
+pattern = "^FPBX-(\\S+)$"
+version_group = 1
+vendor = "FreePBX"
+product = "PBX"
+context = "sip_header.server"
+example = "FPBX-12.0.70(11.20.0)"
+metadata = { "service.family" = "PBX" }
+
+[[match]]
+name = "Kamailio Kamailio - Linux on x86_64"
+pattern = "^[Kk]amailio \\(([\\d.]+)(?:-tls|-notls)? \\(x86_64/linux\\)\\)$"
+version_group = 1
+vendor = "Kamailio"
+product = "Kamailio"
+context = "sip_header.server"
+example = "kamailio (4.4.4 (x86_64/linux))"
+metadata = { "service.cpe23" = "cpe:/a:kamailio:kamailio:{service.version}", "os.family" = "Linux", "os.product" = "Linux", "os.arch" = "x86_64" }
+
+[[match]]
+name = "Kamailio Kamailio - Linux on x86"
+pattern = "^[Kk]amailio \\(([\\d.]+)(?:-tls|-notls)? \\(i386/linux\\)\\)$"
+version_group = 1
+vendor = "Kamailio"
+product = "Kamailio"
+context = "sip_header.server"
+example = "Kamailio (1.5.2-notls (i386/linux))"
+metadata = { "service.cpe23" = "cpe:/a:kamailio:kamailio:{service.version}", "os.family" = "Linux", "os.product" = "Linux", "os.arch" = "x86" }
+
+[[match]]
+name = "OpenSIPS OpenSIPS - Linux on x86_64"
+pattern = "^OpenSIPS \\(([\\d.]+)(?:-tls|-notls)? \\(x86_64/linux\\)\\)$"
+version_group = 1
+vendor = "OpenSIPS"
+product = "OpenSIPS"
+context = "sip_header.server"
+example = "OpenSIPS (1.7.2-notls (x86_64/linux))"
+metadata = { "service.cpe23" = "cpe:/a:opensips:opensips:{service.version}", "os.family" = "Linux", "os.product" = "Linux", "os.arch" = "x86_64" }
+
+[[match]]
+name = "OpenSIPS OpenSIPS - Linux on x86"
+pattern = "^OpenSIPS \\(([\\d.]+)(?:-tls|-notls)? \\(i386/linux\\)\\)$"
+version_group = 1
+vendor = "OpenSIPS"
+product = "OpenSIPS"
+context = "sip_header.server"
+example = "OpenSIPS (1.8.2-notls (i386/linux))"
+metadata = { "service.cpe23" = "cpe:/a:opensips:opensips:{service.version}", "os.family" = "Linux", "os.product" = "Linux", "os.arch" = "x86" }
+
+[[match]]
+name = "OpenSIPS OpenSIPS - Linux on ARM"
+pattern = "^OpenSIPS \\(([\\d.]+)(?:-tls|-notls)? \\(arm(?:v4tl|v7l)?/linux\\)\\)$"
+version_group = 1
+vendor = "OpenSIPS"
+product = "OpenSIPS"
+context = "sip_header.server"
+example = "OpenSIPS (2.2.2 (arm/linux))"
+metadata = { "service.cpe23" = "cpe:/a:opensips:opensips:{service.version}", "os.family" = "Linux", "os.product" = "Linux", "os.arch" = "ARM" }
+
+[[match]]
+name = "OpenSER OpenSER - Linux on Renesas SH4"
+pattern = "(?i)^OpenSER \\(([\\d.]+)(?:-tls|-notls)? \\(sh4/linux\\)\\)$"
+version_group = 1
+vendor = "OpenSER"
+product = "OpenSER"
+context = "sip_header.server"
+example = "OpenSER (1.3.2-notls (sh4/linux))"
+metadata = { "os.family" = "Linux", "os.product" = "Linux" }
+
+[[match]]
+name = "OpenSER OpenSER - Linux on x86_64"
+pattern = "(?i)^OpenSER \\(([\\d.]+)(?:-tls|-notls)? \\(x86_64/linux\\)\\)$"
+version_group = 1
+vendor = "OpenSER"
+product = "OpenSER"
+context = "sip_header.server"
+example = "OpenSer (1.1.0-notls (x86_64/linux))"
+metadata = { "os.family" = "Linux", "os.product" = "Linux", "os.arch" = "x86_64" }
+
+[[match]]
+name = "OpenSER OpenSER - Linux on x86"
+pattern = "(?i)^OpenSER \\(([\\d.]+)(?:-tls|-notls)? \\(i386/linux\\)\\)$"
+version_group = 1
+vendor = "OpenSER"
+product = "OpenSER"
+context = "sip_header.server"
+example = "OpenSER (1.3.0-notls (i386/linux))"
+metadata = { "os.family" = "Linux", "os.product" = "Linux", "os.arch" = "x86" }
+
+[[match]]
+name = "OpenSER OpenSER - Linux on ARM"
+pattern = "(?i)^OpenSER \\(([\\d.]+)(?:-tls|-notls)? \\(arm/linux\\)\\)$"
+version_group = 1
+vendor = "OpenSER"
+product = "OpenSER"
+context = "sip_header.server"
+example = "OpenSER (1.3.2-tls (arm/linux))"
+metadata = { "os.family" = "Linux", "os.product" = "Linux", "os.arch" = "ARM" }
+
+[[match]]
+name = "Algo SIP Device"
+pattern = "^Algo-([^/]+)/(.*)$"
+context = "sip_header.server"
+example = "Algo-8186/1.7"
+metadata = { "os.vendor" = "Algo", "os.family" = "SIP Device", "os.version" = "{capture:2}", "hw.vendor" = "Algo", "hw.family" = "SIP Device", "hw.device" = "SIP Device", "hw.product" = "{capture:1}" }
+
+[[match]]
+name = "Ingate SIParator Firewall"
+pattern = "^(?:SIParator|Ingate-Firewall)/(\\S+)$"
+context = "sip_header.server"
+example = "Ingate-Firewall/5.0.10"
+metadata = { "os.vendor" = "Ingate", "os.family" = "SIP Gateway", "os.version" = "{capture:1}", "hw.vendor" = "Ingate", "hw.family" = "SIP Gateway", "hw.device" = "SIP Gateway", "hw.product" = "SIParator Firewall" }
+
+[[match]]
+name = "Communigate Pro"
+pattern = "^CommuniGatePro/(\\d\\.[\\w.]+)$"
+version_group = 1
+vendor = "Communigate"
+product = "Communigate Pro"
+context = "sip_header.server"
+example = "CommuniGatePro/6.2.14"
+metadata = { "service.family" = "Pro", "service.cpe23" = "cpe:/a:communigate:communigate_pro:{service.version}" }
+
+[[match]]
+name = "STARFACE GmhH STARFACE PBX"
+pattern = "^STARFACE PBX$"
+vendor = "STARFACE GmhH"
+product = "STARFACE PBX"
+context = "sip_header.server"
+example = "STARFACE PBX"
+metadata = { "service.family" = "SIP Server" }
+
+[[match]]
+name = "Fortinet FortiVoice"
+pattern = "^FortiVoice-([\\w-]+)$"
+vendor = "Fortinet"
+product = "FortiVoice"
+context = "sip_header.server"
+example = "FortiVoice-200D"
+metadata = { "service.device" = "SIP Gateway", "service.cpe23" = "cpe:/a:fortinet:fortivoice:-", "hw.vendor" = "Fortinet", "hw.family" = "FortiVoice", "hw.product" = "{capture:1}", "hw.device" = "SIP Gateway" }
+
+[[match]]
+name = "FreeSWITCH FreeSWITCH"
+pattern = "^Freeswitch ([\\d.]+)$"
+version_group = 1
+vendor = "FreeSWITCH"
+product = "FreeSWITCH"
+context = "sip_header.server"
+example = "Freeswitch 2.0.0"
+metadata = { "service.device" = "SIP Gateway", "service.cpe23" = "cpe:/a:freeswitch:freeswitch:{service.version}" }
+
+[[match]]
+name = "Unify OpenStage VoIP Phone 1"
+pattern = "^(OpenStage|OpenScape)_(\\d+)_(V\\d \\S+) "
+context = "sip_header.server"
+example = "OpenStage_40_V3 R5.13.0      SIP  190111"
+metadata = { "os.vendor" = "Unify", "os.product" = "{hw.family} {unify.model} Firmware", "hw.vendor" = "Unify", "hw.product" = "{hw.family} {unify.model}", "hw.device" = "VoIP", "hw.family" = "{capture:1}", "unify.model" = "{capture:2}", "os.version" = "{capture:3}" }
+
+[[match]]
+name = "Unify OpenStage VoIP Phone 2"
+pattern = "^Desk_Phone_IP_(CP\\d+[EXT]?)_(V\\d \\S+) "
+context = "sip_header.server"
+example = "Desk_Phone_IP_CP200_V1 R6.14.0      SIP  190802"
+metadata = { "os.vendor" = "Unify", "hw.vendor" = "Unify", "hw.family" = "OpenScape Desk Phone", "hw.product" = "{hw.family} {unify.model}", "hw.device" = "VoIP", "unify.model" = "{capture:1}", "os.version" = "{capture:2}" }
+
+[[match]]
+name = "Eltex ESR model service gateway"
+pattern = "^Eltex (ESR-\\d\\w{1,4})$"
+context = "sip_header.server"
+example = "Eltex ESR-12V"
+metadata = { "os.vendor" = "Eltex", "os.device" = "Router", "os.product" = "{hw.product} Firmware", "hw.vendor" = "Eltex", "hw.product" = "{capture:1}", "hw.device" = "Router" }
+

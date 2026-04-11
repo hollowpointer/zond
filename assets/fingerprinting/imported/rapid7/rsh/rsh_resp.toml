@@ -1,0 +1,66 @@
+# This file contains fingerprints imported from Rapid7 Recog.
+# Source: https://github.com/rapid7/recog
+# License: BSD-2-Clause
+
+[service]
+attribution = "Rapid7 Recog"
+name = "rsh"
+default_ports = []
+description = "Imported from Rapid7 rsh_resp"
+
+[[match]]
+name = "Digital Unix rlogind"
+pattern = "^.Permission denied: Error 0$"
+context = "unknown"
+example = "xPermission denied: Error 0"
+metadata = { "os.vendor" = "HP", "os.family" = "Digital Unix" }
+
+[[match]]
+name = "Windows rlogind"
+pattern = "^.Winsock RSHD/NT: Protocol negotiation error\\..+$|^.in\\.rlogind: Permission denied\\..+$"
+context = "unknown"
+example = "xWinsock RSHD/NT: Protocol negotiation error.\n      0"
+metadata = { "os.vendor" = "Microsoft", "os.family" = "Windows" }
+
+[[match]]
+name = "Solaris rlogind"
+pattern = "^.permission denied\\..+$"
+context = "unknown"
+example = "xpermission denied.\n      "
+metadata = { "os.vendor" = "Sun", "os.family" = "Solaris", "os.product" = "Solaris", "os.cpe23" = "cpe:/o:sun:solaris:-" }
+
+[[match]]
+name = "AIX rlogind"
+pattern = "^.rlogind: Acc.s refus.\\..+$"
+context = "unknown"
+example = "xrlogind: Accxs refusx.\n      "
+metadata = { "os.vendor" = "IBM", "os.family" = "AIX", "os.product" = "AIX", "os.cpe23" = "cpe:/o:ibm:aix:-" }
+
+[[match]]
+name = "A/UX rlogind"
+pattern = "^.rlogind: Host name for your address \\([\\d.]+\\) unknown\\."
+context = "unknown"
+example = "xrlogind: Host name for your address (127.0.0.1) unknown.\n      "
+metadata = { "os.vendor" = "Apple", "os.family" = "A/UX" }
+
+[[match]]
+name = "HP-UX rexecd"
+pattern = "^.rexecd: Login incorrect\\."
+context = "unknown"
+example = "xrexecd: Login incorrect.\n      "
+metadata = { "os.vendor" = "HP", "os.family" = "HP-UX", "os.product" = "HP-UX", "os.cpe23" = "cpe:/o:hp:hp-ux:-" }
+
+[[match]]
+name = "AIX rexecd"
+pattern = "^.rexecd: [-\\d]+"
+context = "unknown"
+example = "xrexecd: 0-1 The login is not correct.\n      "
+metadata = { "os.vendor" = "IBM", "os.family" = "AIX", "os.product" = "AIX", "os.cpe23" = "cpe:/o:ibm:aix:-" }
+
+[[match]]
+name = "HP-UX rshd"
+pattern = "^.remshd: (?:getservbyname.+|Kerberos Authentication not enabled\\..+|Error! Kerberos authentication failed)$"
+context = "unknown"
+example = "xremshd: getservbyname\n      "
+metadata = { "os.vendor" = "HP", "os.family" = "HP-UX", "os.product" = "HP-UX", "os.cpe23" = "cpe:/o:hp:hp-ux:-" }
+
