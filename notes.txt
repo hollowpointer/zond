@@ -1,0 +1,2 @@
+- need a way to define which protocols to use
+- ipv4 net, local mac, link local, 

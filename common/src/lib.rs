@@ -8,5 +8,4 @@ pub mod config;
 pub mod logging;
 pub mod models;
 pub mod parse;
-pub mod sender;
 pub mod utils;

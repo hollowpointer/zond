@@ -15,8 +15,6 @@ pub mod tcp;
 pub mod udp;
 pub mod utils;
 
-use zond_common::sender::{PacketType, SenderConfig};
-
 use pnet::packet::ethernet::{EtherTypes, EthernetPacket};
 use pnet::util::MacAddr;
 use std::net::{IpAddr, Ipv4Addr, Ipv6Addr};
