@@ -1,0 +1,14 @@
+[service]
+name = "kubernetes"
+default_ports = [6443, 8443, 10250]
+description = "Kubernetes API Server"
+
+[[probe]]
+name = "get_api"
+payload = 'GET /api HTTP/1.1\r\nHost: localhost\r\n\r\n'
+protocol = "tcp"
+
+[[match]]
+name = "k8s_response"
+pattern = 'Kubernetes'
+product = "kubernetes"

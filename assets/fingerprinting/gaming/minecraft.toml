@@ -1,0 +1,14 @@
+[service]
+name = "minecraft"
+default_ports = [25565]
+description = "Minecraft Server"
+
+[[probe]]
+name = "ping"
+payload = '\xfe\x01'
+protocol = "tcp"
+
+[[match]]
+name = "minecraft_response"
+pattern = '^\xff'
+product = "minecraft"

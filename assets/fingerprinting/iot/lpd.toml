@@ -1,0 +1,14 @@
+[service]
+name = "lpd"
+default_ports = [515]
+description = "Line Printer Daemon"
+
+[[probe]]
+name = "get_queue"
+payload = '\x01default\n'
+protocol = "tcp"
+
+[[match]]
+name = "lpd_response"
+pattern = '^[\x00-\x01]'
+product = "lpd"

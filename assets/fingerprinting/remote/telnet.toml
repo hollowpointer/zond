@@ -1,0 +1,14 @@
+[service]
+name = "telnet"
+default_ports = [23]
+description = "Telnet Protocol"
+
+[[match]]
+name = "telnet_iac"
+pattern = '^[\xff][\xfb\xfc\xfd\xfe]'
+product = "telnet"
+
+[[match]]
+name = "telnet_login"
+pattern = '(?i)login:\s*$'
+product = "telnet"

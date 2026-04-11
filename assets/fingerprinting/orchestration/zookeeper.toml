@@ -1,0 +1,14 @@
+[service]
+name = "zookeeper"
+default_ports = [2181]
+description = "Apache ZooKeeper"
+
+[[probe]]
+name = "four_letter_word"
+payload = 'ruok'
+protocol = "tcp"
+
+[[match]]
+name = "imok"
+pattern = '^imok'
+product = "zookeeper"

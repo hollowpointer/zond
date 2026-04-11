@@ -1,0 +1,14 @@
+[service]
+name = "prometheus"
+default_ports = [9090]
+description = "Prometheus Monitoring"
+
+[[probe]]
+name = "get_metrics"
+payload = 'GET /metrics HTTP/1.1\r\nHost: localhost\r\n\r\n'
+protocol = "tcp"
+
+[[match]]
+name = "prom_metrics"
+pattern = 'promhttp_metric_handler_requests'
+product = "prometheus"

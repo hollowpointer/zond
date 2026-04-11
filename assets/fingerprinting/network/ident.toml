@@ -1,0 +1,14 @@
+[service]
+name = "ident"
+default_ports = [113]
+description = "IDENT / Auth Protocol"
+
+[[probe]]
+name = "query"
+payload = '1, 1\r\n'
+protocol = "tcp"
+
+[[match]]
+name = "ident_response"
+pattern = ':\s*USERID\s*:'
+product = "ident"

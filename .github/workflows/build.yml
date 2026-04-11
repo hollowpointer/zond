@@ -103,7 +103,6 @@ jobs:
         if: github.event_name == 'release'
         uses: softprops/action-gh-release@v2
         with:
-          # The action automatically detects the tag from the release event
           files: |
             target/release/zond-macos.zip
             target/release/zond-linux.tar.gz

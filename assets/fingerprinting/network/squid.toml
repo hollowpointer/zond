@@ -1,0 +1,14 @@
+[service]
+name = "squid"
+default_ports = [3128, 8080]
+description = "Squid HTTP Proxy"
+
+[[probe]]
+name = "get_root"
+payload = 'GET http://www.google.com/ HTTP/1.1\r\nHost: www.google.com\r\nProxy-Connection: keep-alive\r\n\r\n'
+protocol = "tcp"
+
+[[match]]
+name = "squid_header"
+pattern = '(?i)X-Squid-Error'
+product = "squid"

@@ -1,0 +1,14 @@
+[service]
+name = "steam_master"
+default_ports = [27010, 27011, 27012, 27013, 27014, 27015]
+description = "Steam Master Server / Source Engine"
+
+[[probe]]
+name = "get_info"
+payload = '\xff\xff\xff\xffTSource Engine Query\x00'
+protocol = "tcp"
+
+[[match]]
+name = "source_response"
+pattern = '^\xff\xff\xff\xffI'
+product = "source_engine"

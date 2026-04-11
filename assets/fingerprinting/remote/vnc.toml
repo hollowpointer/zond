@@ -1,0 +1,11 @@
+[service]
+name = "vnc"
+default_ports = [5900, 5901]
+description = "Virtual Network Computing / RFB Protocol"
+
+# VNC servers send a version banner immediately.
+[[match]]
+name = "vnc_banner"
+pattern = '^RFB (\d{3})\.(\d{3})\n'
+version_group = 1
+product = "vnc"

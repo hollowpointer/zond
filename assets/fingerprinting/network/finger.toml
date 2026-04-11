@@ -1,0 +1,14 @@
+[service]
+name = "finger"
+default_ports = [79]
+description = "Finger Protocol"
+
+[[probe]]
+name = "query"
+payload = '\r\n'
+protocol = "tcp"
+
+[[match]]
+name = "finger_response"
+pattern = 'Login:'
+product = "finger"

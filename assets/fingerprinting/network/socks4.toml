@@ -1,0 +1,14 @@
+[service]
+name = "socks4"
+default_ports = [1080]
+description = "SOCKS4 Proxy"
+
+[[probe]]
+name = "handshake"
+payload = '\x04\x01\x00\x50\x7f\x00\x00\x01\x00'
+protocol = "tcp"
+
+[[match]]
+name = "socks4_response"
+pattern = '^\x00[\x5a\x5b]'
+product = "socks4"

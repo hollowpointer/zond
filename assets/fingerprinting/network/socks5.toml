@@ -1,0 +1,14 @@
+[service]
+name = "socks5"
+default_ports = [1080]
+description = "SOCKS5 Proxy"
+
+[[probe]]
+name = "handshake"
+payload = '\x05\x01\x00'
+protocol = "tcp"
+
+[[match]]
+name = "socks5_response"
+pattern = '^\x05[\x00\xff]'
+product = "socks5"

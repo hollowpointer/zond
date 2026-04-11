@@ -1,0 +1,10 @@
+[service]
+name = "rsync"
+default_ports = [873]
+description = "rsync synchronization protocol"
+
+[[match]]
+name = "rsync_banner"
+pattern = '^@RSYNCD: ([\d.]+)'
+version_group = 1
+product = "rsync"

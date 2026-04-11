@@ -1,0 +1,14 @@
+[service]
+name = "kafka_rest"
+default_ports = [8082]
+description = "Confluent Kafka REST Proxy"
+
+[[probe]]
+name = "get_topics"
+payload = 'GET /topics HTTP/1.1\r\nHost: localhost\r\n\r\n'
+protocol = "tcp"
+
+[[match]]
+name = "kafka_rest_match"
+pattern = 'application/vnd.kafka'
+product = "kafka_rest"

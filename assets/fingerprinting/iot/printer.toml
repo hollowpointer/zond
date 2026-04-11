@@ -1,0 +1,14 @@
+[service]
+name = "jetdirect"
+default_ports = [9100]
+description = "HP JetDirect / AppSocket"
+
+[[probe]]
+name = "null"
+payload = ''
+protocol = "tcp"
+
+[[match]]
+name = "generic_printer"
+pattern = 'HP'
+product = "printer"

@@ -1,0 +1,14 @@
+[service]
+name = "consul"
+default_ports = [8500]
+description = "HashiCorp Consul"
+
+[[probe]]
+name = "get_v1"
+payload = 'GET /v1/agent/self HTTP/1.1\r\nHost: localhost\r\n\r\n'
+protocol = "tcp"
+
+[[match]]
+name = "consul_match"
+pattern = 'Consul'
+product = "consul"

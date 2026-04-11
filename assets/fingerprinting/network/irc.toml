@@ -1,0 +1,9 @@
+[service]
+name = "irc"
+default_ports = [6667, 6697]
+description = "Internet Relay Chat"
+
+[[match]]
+name = "irc_banner"
+pattern = '^:(.*) (?:NOTICE|001|433)'
+product = "irc"

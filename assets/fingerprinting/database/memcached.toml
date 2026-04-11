@@ -1,0 +1,16 @@
+[service]
+name = "memcached"
+default_ports = [11211]
+description = "Memcached"
+
+# Memcached version probe
+[[probe]]
+name = "memcached_version"
+payload = 'version\r\n'
+protocol = "tcp"
+
+[[match]]
+name = "memcached_version_response"
+pattern = '^VERSION ([\w.-]+)'
+version_group = 1
+product = "memcached"

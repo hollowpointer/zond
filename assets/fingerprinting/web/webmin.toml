@@ -1,0 +1,14 @@
+[service]
+name = "webmin"
+default_ports = [10000]
+description = "Webmin Administration"
+
+[[probe]]
+name = "get_root"
+payload = 'GET / HTTP/1.1\r\nHost: localhost\r\n\r\n'
+protocol = "tcp"
+
+[[match]]
+name = "webmin_match"
+pattern = 'Webmin'
+product = "webmin"

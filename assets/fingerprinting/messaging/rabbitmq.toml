@@ -1,0 +1,14 @@
+[service]
+name = "rabbitmq"
+default_ports = [5672, 5671]
+description = "RabbitMQ / AMQP"
+
+[[probe]]
+name = "amqp_header"
+payload = 'AMQP\x00\x00\x09\x01'
+protocol = "tcp"
+
+[[match]]
+name = "amqp_response"
+pattern = '^AMQP\x00'
+product = "rabbitmq"

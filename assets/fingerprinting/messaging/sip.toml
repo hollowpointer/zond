@@ -1,0 +1,15 @@
+[service]
+name = "sip"
+default_ports = [5060, 5061]
+description = "Session Initiation Protocol"
+
+# SIP OPTIONS probe
+[[probe]]
+name = "sip_options"
+payload = 'OPTIONS sip:nm@nm SIP/2.0\r\nVia: SIP/2.0/TCP nm;branch=zond\r\nFrom: <sip:nm@nm>;tag=root\r\nTo: <sip:nm@nm>\r\nCall-ID: zond\r\nCSeq: 1 OPTIONS\r\nMax-Forwards: 70\r\nContent-Length: 0\r\n\r\n'
+protocol = "tcp"
+
+[[match]]
+name = "sip_response"
+pattern = '^SIP/2\.0 (\d{3})'
+product = "sip"

@@ -1,0 +1,10 @@
+[service]
+name = "mongodb"
+default_ports = [27017]
+description = "MongoDB Database"
+
+# MongoDB often sends something if we send a malformed/legacy request.
+[[match]]
+name = "mongodb_prequel"
+pattern = 'MongoDB'
+product = "mongodb"

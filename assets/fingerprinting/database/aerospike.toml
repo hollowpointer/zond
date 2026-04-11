@@ -1,0 +1,14 @@
+[service]
+name = "aerospike"
+default_ports = [3000]
+description = "Aerospike Database"
+
+[[probe]]
+name = "info_statistics"
+payload = '\x02\x01\x00\x00\x00\x00\x00\x00\x0astatistics'
+protocol = "tcp"
+
+[[match]]
+name = "aerospike_response"
+pattern = '^\x02\x02'
+product = "aerospike"

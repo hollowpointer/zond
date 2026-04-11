@@ -1,0 +1,9 @@
+[service]
+name = "nats"
+default_ports = [4222]
+description = "NATS Messaging"
+
+[[match]]
+name = "nats_info"
+pattern = '^INFO \{(.*)\}'
+product = "nats"

@@ -1,0 +1,10 @@
+[service]
+name = "ftp"
+default_ports = [21]
+description = "File Transfer Protocol"
+
+[[match]]
+name = "ftp_banner"
+pattern = '(?i)^220[\s-]([\w\d\s.-]+)'
+version_group = 1
+product = "ftp"

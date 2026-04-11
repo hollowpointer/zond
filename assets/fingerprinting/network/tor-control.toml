@@ -1,0 +1,14 @@
+[service]
+name = "tor_control"
+default_ports = [9051]
+description = "Tor Control Port"
+
+[[probe]]
+name = "get_info"
+payload = 'PROTOCOLINFO 1\r\n'
+protocol = "tcp"
+
+[[match]]
+name = "tor_control_response"
+pattern = '^250-PROTOCOLINFO'
+product = "tor_control"

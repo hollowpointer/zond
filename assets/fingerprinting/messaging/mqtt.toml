@@ -1,0 +1,15 @@
+[service]
+name = "mqtt"
+default_ports = [1883, 8883]
+description = "MQTT Message Queuing Telemetry Transport"
+
+# MQTT Connect packet
+[[probe]]
+name = "mqtt_connect"
+payload = '\x10\x0c\x00\x04\x4d\x51\x54\x54\x04\x02\x00\x3c\x00\x00'
+protocol = "tcp"
+
+[[match]]
+name = "mqtt_connack"
+pattern = '^\x20\x02\x00'
+product = "mqtt"

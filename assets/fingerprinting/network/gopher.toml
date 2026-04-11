@@ -1,0 +1,14 @@
+[service]
+name = "gopher"
+default_ports = [70]
+description = "Gopher Protocol"
+
+[[probe]]
+name = "query"
+payload = '\r\n'
+protocol = "tcp"
+
+[[match]]
+name = "gopher_response"
+pattern = '^[0-9+igT]'
+product = "gopher"

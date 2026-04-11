@@ -1,0 +1,9 @@
+[service]
+name = "svn"
+default_ports = [3690]
+description = "Subversion svnserve"
+
+[[match]]
+name = "svn_banner"
+pattern = '^\( success \( 2 2 \( \) \( edit-pipeline svndiff1 '
+product = "svn"

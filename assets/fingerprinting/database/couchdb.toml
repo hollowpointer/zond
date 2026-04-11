@@ -1,0 +1,14 @@
+[service]
+name = "couchdb"
+default_ports = [5984]
+description = "Apache CouchDB"
+
+[[probe]]
+name = "http_get"
+payload = 'GET / HTTP/1.1\r\nHost: localhost\r\n\r\n'
+protocol = "tcp"
+
+[[match]]
+name = "couchdb_json"
+pattern = 'couchdb"\s*:\s*"Welcome'
+product = "couchdb"

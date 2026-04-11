@@ -1,0 +1,14 @@
+[service]
+name = "tor"
+default_ports = [9050, 9001]
+description = "Tor Onion Router"
+
+[[probe]]
+name = "socks5_handshake"
+payload = '\x05\x01\x00'
+protocol = "tcp"
+
+[[match]]
+name = "tor_socks_match"
+pattern = '^\x05\x00'
+product = "tor_socks"

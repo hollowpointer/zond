@@ -1,0 +1,11 @@
+[service]
+name = "smtp"
+default_ports = [25, 465, 587]
+description = "Simple Mail Transfer Protocol"
+
+# SMTP servers typically send a banner immediately upon connection.
+[[match]]
+name = "smtp_generic_banner"
+pattern = '^220 (.+) (?:ESMTP|SMTP)(?: (.+))?'
+version_group = 2
+product = "smtp"

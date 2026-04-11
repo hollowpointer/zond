@@ -1,0 +1,9 @@
+[service]
+name = "teamspeak_query"
+default_ports = [10011]
+description = "TeamSpeak 3 ServerQuery"
+
+[[match]]
+name = "ts3_banner"
+pattern = '^TS3'
+product = "teamspeak"

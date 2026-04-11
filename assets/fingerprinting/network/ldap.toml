@@ -1,0 +1,15 @@
+[service]
+name = "ldap"
+default_ports = [389, 636]
+description = "Lightweight Directory Access Protocol"
+
+# LDAP Bind Request (anonymous simple bind)
+[[probe]]
+name = "ldap_bind_request"
+payload = '\x30\x0c\x02\x01\x01\x60\x07\x02\x01\x03\x04\x00\x80\x00'
+protocol = "tcp"
+
+[[match]]
+name = "ldap_response"
+pattern = '^\x30[\x0c-\x84]' # ASN.1 Sequence
+product = "ldap"

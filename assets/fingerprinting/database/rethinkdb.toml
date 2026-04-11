@@ -1,0 +1,14 @@
+[service]
+name = "rethinkdb"
+default_ports = [28015]
+description = "RethinkDB"
+
+[[probe]]
+name = "handshake"
+payload = '\x3f\x33\xc4\x40\x00\x00\x00\x00\x07\x00\x00\x00\x56\x5f\x30\x5f\x31\x30\x5f\x30'
+protocol = "tcp"
+
+[[match]]
+name = "success"
+pattern = '^SUCCESS'
+product = "rethinkdb"

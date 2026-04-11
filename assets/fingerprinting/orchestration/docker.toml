@@ -1,0 +1,15 @@
+[service]
+name = "docker"
+default_ports = [2375, 2376]
+description = "Docker Remote API"
+
+[[probe]]
+name = "get_version"
+payload = 'GET /version HTTP/1.1\r\nHost: localhost\r\n\r\n'
+protocol = "tcp"
+
+[[match]]
+name = "docker_version"
+pattern = 'ApiVersion"\s*:\s*"([\d.]+)"'
+version_group = 1
+product = "docker"

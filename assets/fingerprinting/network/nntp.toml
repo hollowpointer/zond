@@ -1,0 +1,9 @@
+[service]
+name = "nntp"
+default_ports = [119]
+description = "Network News Transfer Protocol"
+
+[[match]]
+name = "nntp_banner"
+pattern = '^20[01] (.*) NNTP'
+product = "nntp"

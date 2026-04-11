@@ -1,0 +1,14 @@
+[service]
+name = "zabbix"
+default_ports = [10050, 10051]
+description = "Zabbix Agent/Server"
+
+[[probe]]
+name = "agent_ping"
+payload = 'agent.ping'
+protocol = "tcp"
+
+[[match]]
+name = "zabbix_pong"
+pattern = '^1'
+product = "zabbix"

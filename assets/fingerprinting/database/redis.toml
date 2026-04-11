@@ -1,0 +1,14 @@
+[service]
+name = "redis"
+default_ports = [6379]
+description = "Redis Key-Value Store"
+
+[[probe]]
+name = "redis_ping"
+payload = 'PING\r\n'
+protocol = "tcp"
+
+[[match]]
+name = "redis_pong"
+pattern = '^\+PONG'
+product = "redis"

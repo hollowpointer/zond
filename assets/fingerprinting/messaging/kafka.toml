@@ -1,0 +1,14 @@
+[service]
+name = "kafka"
+default_ports = [9092, 9093]
+description = "Apache Kafka"
+
+[[probe]]
+name = "api_versions"
+payload = '\x00\x00\x00\x15\x00\x12\x00\x00\x00\x00\x00\x00\x00\x03\x00\x0a\x7a\x6f\x6e\x64\x2d\x63\x6c\x69'
+protocol = "tcp"
+
+[[match]]
+name = "kafka_response"
+pattern = '^\x00\x00'
+product = "kafka"

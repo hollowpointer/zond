@@ -1,0 +1,10 @@
+[service]
+name = "imap"
+default_ports = [143, 993]
+description = "Internet Message Access Protocol"
+
+# IMAP servers send a greeting line starting with * OK
+[[match]]
+name = "imap_generic_greeting"
+pattern = '^\* OK (.*)'
+product = "imap"

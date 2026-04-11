@@ -1,0 +1,10 @@
+[service]
+name = "pop3"
+default_ports = [110, 995]
+description = "Post Office Protocol v3"
+
+# POP3 servers typically send a greeting starting with +OK
+[[match]]
+name = "pop3_generic_greeting"
+pattern = '^\+OK (.*)'
+product = "pop3"

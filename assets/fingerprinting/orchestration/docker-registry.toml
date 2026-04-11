@@ -1,0 +1,14 @@
+[service]
+name = "docker_registry"
+default_ports = [5000]
+description = "Docker Container Registry"
+
+[[probe]]
+name = "get_v2"
+payload = 'GET /v2/ HTTP/1.1\r\nHost: localhost\r\n\r\n'
+protocol = "tcp"
+
+[[match]]
+name = "registry_header"
+pattern = 'Docker-Distribution-Api-Version'
+product = "docker_registry"

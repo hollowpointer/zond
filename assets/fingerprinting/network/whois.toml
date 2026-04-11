@@ -1,0 +1,14 @@
+[service]
+name = "whois"
+default_ports = [43]
+description = "Whois Protocol"
+
+[[probe]]
+name = "query"
+payload = 'google.com\r\n'
+protocol = "tcp"
+
+[[match]]
+name = "whois_response"
+pattern = 'Domain Name:'
+product = "whois"

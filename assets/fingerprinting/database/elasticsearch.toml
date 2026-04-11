@@ -1,0 +1,21 @@
+[service]
+name = "elasticsearch"
+default_ports = [9200]
+description = "Elasticsearch"
+
+# Elasticsearch HTTP probe
+[[probe]]
+name = "elasticsearch_http"
+payload = 'GET / HTTP/1.1\r\nHost: localhost\r\nUser-Agent: Zond/1.0\r\nAccept: */*\r\n\r\n'
+protocol = "tcp"
+
+[[match]]
+name = "elasticsearch_json"
+pattern = '"tagline"\s*:\s*"You Know, for Search"'
+product = "elasticsearch"
+
+[[match]]
+name = "elasticsearch_version"
+pattern = '"number"\s*:\s*"([\d.]+)"'
+version_group = 1
+product = "elasticsearch"

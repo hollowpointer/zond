@@ -1,0 +1,14 @@
+[service]
+name = "zeromq"
+default_ports = [5555, 5556, 5557]
+description = "ZeroMQ / ZMTP"
+
+[[probe]]
+name = "zmtp_greeting"
+payload = '\xff\x00\x00\x00\x00\x00\x00\x00\x01\x7f'
+protocol = "tcp"
+
+[[match]]
+name = "zmtp_response"
+pattern = '^\xff[\x00-\x0a]'
+product = "zeromq"

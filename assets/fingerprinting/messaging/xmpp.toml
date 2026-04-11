@@ -1,0 +1,14 @@
+[service]
+name = "xmpp"
+default_ports = [5222, 5269]
+description = "XMPP Protocol"
+
+[[probe]]
+name = "stream_open"
+payload = "<?xml version='1.0'?><stream:stream to='localhost' xmlns='jabber:client' xmlns:stream='http://etherx.jabber.org/streams' version='1.0'>"
+protocol = "tcp"
+
+[[match]]
+name = "xmpp_response"
+pattern = '^<stream:stream'
+product = "xmpp"

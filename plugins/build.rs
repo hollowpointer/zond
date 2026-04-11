@@ -50,17 +50,27 @@ fn main() {
     let fingerprint_dir = Path::new("../assets/fingerprinting");
     let mut services = Vec::new();
 
-    if fingerprint_dir.exists() {
-        for entry in fs::read_dir(fingerprint_dir).unwrap() {
-            let entry = entry.unwrap();
-            let path = entry.path();
-            if path.extension().and_then(|s| s.to_str()) == Some("toml") {
-                let content = fs::read_to_string(&path).unwrap();
-                let def: ServiceDefinition = toml::from_str(&content)
-                    .unwrap_or_else(|_| panic!("Failed to parse {:?}", path));
-                services.push(def);
+    fn collect_toml_files(dir: &Path, files: &mut Vec<std::path::PathBuf>) {
+        if let Ok(entries) = fs::read_dir(dir) {
+            for entry in entries.flatten() {
+                let path = entry.path();
+                if path.is_dir() {
+                    collect_toml_files(&path, files);
+                } else if path.extension().and_then(|s| s.to_str()) == Some("toml") {
+                    files.push(path);
+                }
             }
         }
+    }
+
+    let mut toml_files = Vec::new();
+    collect_toml_files(fingerprint_dir, &mut toml_files);
+
+    for path in toml_files {
+        let content = fs::read_to_string(&path).unwrap();
+        let def: ServiceDefinition = toml::from_str(&content)
+            .unwrap_or_else(|_| panic!("Failed to parse {:?}", path));
+        services.push(def);
     }
 
     let encoded = bincode::serialize(&services).unwrap();

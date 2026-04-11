@@ -1,0 +1,15 @@
+[service]
+name = "postgresql"
+default_ports = [5432]
+description = "PostgreSQL Database"
+
+# Postgres needs a StartupMessage but often rejects with an error containing its ID.
+[[probe]]
+name = "postgres_startup"
+payload = '\x00\x00\x00\x08\x04\xd2\x16\x2f'
+protocol = "tcp"
+
+[[match]]
+name = "postgres_error"
+pattern = '^E\s*C'
+product = "postgresql"

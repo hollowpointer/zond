@@ -1,0 +1,14 @@
+[service]
+name = "bittorrent"
+default_ports = [6881, 6882, 6883, 6884, 6885, 6886, 6887, 6888, 6889]
+description = "BitTorrent Protocol"
+
+[[probe]]
+name = "handshake"
+payload = '\x13BitTorrent protocol\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+protocol = "tcp"
+
+[[match]]
+name = "bt_response"
+pattern = '^\x13BitTorrent protocol'
+product = "bittorrent"

@@ -1,0 +1,14 @@
+[service]
+name = "memcached_binary"
+default_ports = [11211]
+description = "Memcached Binary Protocol"
+
+[[probe]]
+name = "version"
+payload = '\x80\x0a\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+protocol = "tcp"
+
+[[match]]
+name = "version_response"
+pattern = '^\x81\x0a'
+product = "memcached_binary"

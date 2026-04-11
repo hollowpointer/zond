@@ -1,0 +1,15 @@
+[service]
+name = "influxdb"
+default_ports = [8086]
+description = "InfluxDB API"
+
+[[probe]]
+name = "ping"
+payload = 'GET /ping HTTP/1.1\r\nHost: localhost\r\n\r\n'
+protocol = "tcp"
+
+[[match]]
+name = "influxdb_header"
+pattern = '(?i)X-Influxdb-Version:\s*([\d.]+)'
+version_group = 1
+product = "influxdb"

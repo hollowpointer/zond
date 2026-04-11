@@ -1,0 +1,14 @@
+[service]
+name = "git"
+default_ports = [9418]
+description = "Git Daemon"
+
+[[probe]]
+name = "git_upload_pack"
+payload = '0011git-upload-pack /\0host=localhost\0'
+protocol = "tcp"
+
+[[match]]
+name = "git_response"
+pattern = '^[0-9a-f]{4}ERR'
+product = "git"

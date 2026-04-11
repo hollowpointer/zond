@@ -33,3 +33,6 @@ packaging/aur/pkg/
 # Proptests
 **/proptest-regressions/
 
+# Reviews
+*_review.md
+

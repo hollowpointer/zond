@@ -1,0 +1,14 @@
+[service]
+name = "cassandra"
+default_ports = [9042, 9160]
+description = "Apache Cassandra"
+
+[[probe]]
+name = "native_protocol_startup"
+payload = '\x04\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00'
+protocol = "tcp"
+
+[[match]]
+name = "native_protocol_error"
+pattern = '^[\x81-\x85]\x00\x00[\x00\x01]'
+product = "cassandra"

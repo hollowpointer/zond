@@ -1,0 +1,14 @@
+[service]
+name = "kibana"
+default_ports = [5601]
+description = "Kibana (Elasticsearch GUI)"
+
+[[probe]]
+name = "get_login"
+payload = 'GET /login HTTP/1.1\r\nHost: localhost\r\n\r\n'
+protocol = "tcp"
+
+[[match]]
+name = "kibana_pattern"
+pattern = 'kbn-name'
+product = "kibana"

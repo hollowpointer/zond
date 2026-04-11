@@ -1,0 +1,11 @@
+[service]
+name = "dns"
+default_ports = [53]
+description = "Domain Name System"
+
+# For TCP DNS, we can send a simple query or just check for the port.
+# DNS over TCP is often used for large responses.
+[[match]]
+name = "dns_tcp_match"
+pattern = '^[\x00-\xff][\x00-\xff][\x01\x00]' # Basic DNS header response part
+product = "dns"
