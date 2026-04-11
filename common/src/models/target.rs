@@ -41,18 +41,21 @@ impl TargetSet {
     /// Prepares the internal IP set for high-performance read-only access.
     pub fn canonicalize(&mut self) {
         self.ips.canonicalize();
+        self.ports.canonicalize();
     }
 
     /// Returns the total number of targets. Performs lazy IP normalization if needed.
     pub fn total_targets(&mut self) -> u128 {
-        self.ips.len() * (self.ports.len() as u128)
+        let port_len = self.ports.len();
+        self.ips.len() * (port_len as u128)
     }
 
     /// Creates a lazy iterator over every IP/Port combination. Performs lazy IP normalization.
     pub fn iter(&mut self) -> impl Iterator<Item = Target> + '_ {
-        let ports = &self.ports;
+        self.canonicalize();
+        let ports = self.ports.to_vec();
         self.ips.iter().flat_map(move |ip| {
-            ports.iter().map(move |(port, protocol)| Target {
+            ports.clone().into_iter().map(move |(port, protocol)| Target {
                 ip,
                 port,
                 protocol,
@@ -65,7 +68,7 @@ impl TargetSet {
     /// # Panics
     /// Panics in debug mode if the underlying IP set is not canonicalized.
     pub fn total_targets_canonical(&self) -> u128 {
-        self.ips.len_canonical() * (self.ports.len() as u128)
+        self.ips.len_canonical() * (self.ports.len_canonical() as u128)
     }
 }
 
