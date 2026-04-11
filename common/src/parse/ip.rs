@@ -26,12 +26,12 @@
 //! or adjacent inputs are merged into contiguous ranges to optimize scanning performance.
 
 use std::net::{IpAddr, Ipv4Addr};
-use std::sync::atomic::{AtomicBool, Ordering};
+use std::sync::atomic::AtomicBool;
 use thiserror::Error;
 
 use crate::models::ip::range::{IpError, Ipv4Range};
 use crate::models::ip::set::IpSet;
-use crate::{info, success, warn};
+use crate::success;
 
 /// Global indicator set to `true` if a "lan" resolution was successfully performed.
 pub static IS_LAN_SCAN: AtomicBool = AtomicBool::new(false);
@@ -287,7 +287,6 @@ mod tests {
     fn lan_keyword_resolution() {
         let input = vec!["lan"];
 
-        // We define a closure that simulates finding a LAN interface
         let mock_lan = |key: Keyword, set: &mut IpSet| match key {
             Keyword::Lan => {
                 set.insert("10.0.0.1".parse().unwrap());
