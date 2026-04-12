@@ -153,23 +153,23 @@ impl HostnameResolver {
 
     pub fn resolve_hosts(&mut self, hosts: &mut Vec<Host>) {
         for host in hosts {
-            let ips_to_check = host.ips.clone();
+            let ips_to_check = host.ips().clone();
 
             for ip in ips_to_check {
                 // Resolve DNS
-                if host.hostname.is_none()
+                if host.hostname().is_none()
                     && let Some(hostname) = self.hostname_map.remove(&ip)
                 {
-                    host.hostname = Some(hostname);
+                    host.set_hostname(Some(hostname));
                 }
 
                 // Resolve mDNS
                 if let Some(mdns_record) = self.mdns_cache.remove(&ip) {
-                    if host.hostname.is_none() && mdns_record.hostname.is_some() {
-                        host.hostname = mdns_record.hostname;
+                    if host.hostname().is_none() && mdns_record.hostname.is_some() {
+                        host.set_hostname(mdns_record.hostname.clone());
                     }
 
-                    host.ips.extend(mdns_record.ips);
+                    host.extend_ips(mdns_record.ips);
                 }
             }
         }

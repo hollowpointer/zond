@@ -26,9 +26,9 @@ pub fn ipv6_to_type_str(ipv6_addr: &Ipv6Addr) -> &'static str {
 }
 
 pub fn ip_to_detail(host: &Host, redact: bool) -> Vec<(String, ColoredString)> {
-    host.ips
+    host.ips()
         .iter()
-        .filter(|&&ip| ip != host.primary_ip)
+        .filter(|&&ip| ip != host.primary_ip())
         .map(|ip| match ip {
             IpAddr::V4(ipv4_addr) => {
                 let value = ipv4_addr.to_string().color(colors::IPV4_ADDR);
@@ -64,7 +64,7 @@ fn is_global_unicast(ip_addr: &IpAddr) -> bool {
 }
 
 pub fn hostname_to_detail(
-    hostname_opt: &Option<String>,
+    hostname_opt: Option<&str>,
     redact: bool,
 ) -> Option<(String, ColoredString)> {
     let mut result: Option<(String, ColoredString)> = None;
@@ -84,7 +84,7 @@ pub fn hostname_to_detail(
     result
 }
 
-pub fn mac_to_detail(mac_opt: &Option<MacAddr>, redact: bool) -> Option<(String, ColoredString)> {
+pub fn mac_to_detail(mac_opt: Option<MacAddr>, redact: bool) -> Option<(String, ColoredString)> {
     let mut result: Option<(String, ColoredString)> = None;
 
     if let Some(mac) = mac_opt {
@@ -99,8 +99,8 @@ pub fn mac_to_detail(mac_opt: &Option<MacAddr>, redact: bool) -> Option<(String,
     result
 }
 
-pub fn vendor_to_detail(vendor_opt: &Option<String>) -> Option<(String, ColoredString)> {
-    vendor_opt.as_ref().map(|vendor| {
+pub fn vendor_to_detail(vendor_opt: Option<&str>) -> Option<(String, ColoredString)> {
+    vendor_opt.map(|vendor| {
         (
             "Vendor".to_string(),
             vendor.to_string().color(colors::MAC_ADDR),

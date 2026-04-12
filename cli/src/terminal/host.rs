@@ -36,21 +36,21 @@ pub(crate) trait PrintableHost {
 impl PrintableHost for Host {
     fn print(&self, index: usize) {
         let p = Print::get();
-        let primary_ip: IpAddr = self.primary_ip;
+        let primary_ip: IpAddr = self.primary_ip();
 
         print_host_head(index, &primary_ip, self);
 
         let mut details = format::ip_to_detail(self, p.redact);
 
-        if let Some(mac_detail) = format::mac_to_detail(&self.mac, p.redact) {
+        if let Some(mac_detail) = format::mac_to_detail(self.mac(), p.redact) {
             details.push(mac_detail);
         }
 
-        if let Some(vendor_detail) = format::vendor_to_detail(&self.vendor) {
+        if let Some(vendor_detail) = format::vendor_to_detail(self.vendor()) {
             details.push(vendor_detail);
         }
 
-        if let Some(hostname_detail) = format::hostname_to_detail(&self.hostname, p.redact) {
+        if let Some(hostname_detail) = format::hostname_to_detail(self.hostname(), p.redact) {
             details.push(hostname_detail);
         }
 

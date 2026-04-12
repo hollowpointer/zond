@@ -10,7 +10,7 @@
 //! initialization and handling, thus being able to link a vendor (e.g Cisco) to a MAC address.
 
 use mac_oui::Oui;
-use pnet::util::MacAddr;
+pub use pnet::util::MacAddr;
 use std::sync::OnceLock;
 
 static OUI_DB: OnceLock<Oui> = OnceLock::new();

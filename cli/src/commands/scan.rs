@@ -36,7 +36,7 @@ pub async fn scan(
 
     Print::header("Network Scanner");
 
-    hosts.sort_by_key(|host| *host.ips.iter().next().unwrap_or(&host.primary_ip));
+    hosts.sort_by_key(|host| *host.ips().iter().next().unwrap_or(&host.primary_ip()));
 
     Print::hosts(&hosts)?;
     Print::discovery_summary(hosts.len(), start_time.elapsed());

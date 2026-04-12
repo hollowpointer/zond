@@ -192,10 +192,10 @@ impl LocalScanner {
             host.add_rtt(rtt);
         }
 
-        let is_new_ip: bool = host.ips.insert(source_addr);
+        let is_new_ip: bool = host.add_ip(source_addr);
 
-        if source_addr.is_ipv4() && host.primary_ip.is_ipv6() {
-            host.primary_ip = source_addr;
+        if source_addr.is_ipv4() && host.primary_ip().is_ipv6() {
+            host.set_primary_ip(source_addr);
         }
 
         if is_new_host || is_new_ip {
