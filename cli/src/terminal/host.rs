@@ -127,14 +127,13 @@ fn rtt_to_string(host: &Host) -> String {
 
 fn print_services(ports: &[Port]) {
     let mut open_c = 0;
-    let mut ghosted_c = 0;
-    let mut blocked_c = 0;
+    let mut filtered_c = 0;
+    let mut closed_c = 0;
     for p in ports {
-        match p.state {
+        match p.state() {
             PortState::Open => open_c += 1,
-            PortState::Ghosted => ghosted_c += 1,
-            PortState::Blocked => blocked_c += 1,
-            PortState::Closed => (),
+            PortState::Filtered | PortState::OpenFiltered => filtered_c += 1,
+            PortState::Closed => closed_c += 1,
             _ => (),
         }
     }
@@ -143,11 +142,8 @@ fn print_services(ports: &[Port]) {
     if open_c > 0 {
         stats.push(format!("{} OPEN", open_c).green().bold().to_string());
     }
-    if ghosted_c > 0 {
-        stats.push(format!("{} GHOSTED", ghosted_c).cyan().bold().to_string());
-    }
-    if blocked_c > 0 {
-        stats.push(format!("{} BLOCKED", blocked_c).yellow().bold().to_string());
+    if filtered_c > 0 {
+        stats.push(format!("{} FILTERED", filtered_c).cyan().bold().to_string());
     }
 
     let stats_str = if stats.is_empty() {
@@ -169,23 +165,24 @@ fn print_services(ports: &[Port]) {
         let last = i + 1 == ports.len();
         let branch = if !last { "├─" } else { "└─" }.bright_black();
 
-        let proto_str = match p.protocol {
+        let proto_str = match p.protocol() {
             Protocol::Tcp => "tcp",
             Protocol::Udp => "udp",
+            Protocol::Sctp => "sctp",
         };
-        let port_spec = format!("{}/{}", p.number, proto_str);
+        let port_spec = format!("{}/{}", p.number(), proto_str);
         let port_spec_padded = format!("{:width$}", port_spec, width = 9);
 
-        let (state_str, state_color) = match p.state {
+        let (state_str, state_color) = match p.state() {
             PortState::Open => ("OPEN   ", colored::Color::Green),
-            PortState::Ghosted => ("GHOSTED", colored::Color::Cyan),
-            PortState::Blocked => ("BLOCKED", colored::Color::Yellow),
+            PortState::Filtered => ("FILTERED", colored::Color::Cyan),
+            PortState::OpenFiltered => ("OPEN|FIL", colored::Color::Yellow),
             PortState::Closed => ("CLOSED ", colored::Color::Red),
             _ => ("UNKNOWN", colored::Color::White),
         };
 
         let state_fmt = format!("[ {} ]", state_str.color(state_color));
-        let svc_name = p.service_info.as_deref().unwrap_or("???");
+        let svc_name = p.service_name().unwrap_or("???");
 
         zprint!(
             "      {} {} {}  {}",

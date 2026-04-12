@@ -6,18 +6,18 @@
 
 //! # Port Targeting and Range Management
 //!
-//! This module provides the [`PortSet`] model, an optimized container for defining
-//! which TCP and UDP ports should be scanned.
+//! This module provides the [`PortSet`] model, a high-performance, thread-safe
+//! container for defining which TCP and UDP ports should be scanned.
 //!
 //! ## Overview
 //!
-//! Unlike the "Rich" [`Port`](crate::models::port::Port) model which stores result metadata,
-//! `PortSet` focus exclusively on efficient range containment and parsing. It supports:
-//! * **Mixed Protocols**: Separate tracking for TCP and UDP ranges.
+//! `PortSet` is designed to be parsed once at startup and read concurrently
+//! by thousands of worker threads. It features:
+//! * **Zero-Lock Concurrency**: Immutable read access (`&self`) via eager canonicalization.
+//! * **High-Speed Lookups**: Internal binary search over collapsed `RangeInclusive` sets.
 //! * **Smart Parsing**: Human-friendly string parsing (e.g., `"80, 443, u:53, 1000-2000"`).
-//! * **High Performance**: Optimized iteration and membership checks.
 
-use crate::models::port::Protocol;
+use crate::models::port::Protocol; // Adjust path as necessary
 use std::{num::ParseIntError, ops::RangeInclusive, str::FromStr};
 use thiserror::Error;
 
@@ -54,14 +54,13 @@ pub enum PortSetParseError {
 
 /// A collection of TCP and UDP port ranges used for target discovery.
 ///
-/// `PortSet` is designed to be easily constructed from strings and iterated over
-/// during the scan phase.
+/// Under the hood, this stores disjoint ranges. Upon creation, all ranges
+/// are merged and sorted (canonicalized) to ensure `O(log N)` lookup times
+/// via binary search.
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct PortSet {
-    pub(crate) tcp: Vec<RangeInclusive<u16>>,
-    pub(crate) udp: Vec<RangeInclusive<u16>>,
-    tcp_dirty: bool,
-    udp_dirty: bool,
+    tcp: Vec<RangeInclusive<u16>>,
+    udp: Vec<RangeInclusive<u16>>,
 }
 
 impl PortSet {
@@ -70,17 +69,25 @@ impl PortSet {
         Self {
             tcp: Vec::new(),
             udp: Vec::new(),
-            tcp_dirty: false,
-            udp_dirty: false,
         }
     }
 
     /// Returns the total number of unique port/protocol combinations.
     ///
     /// Note: This counts every individual port within every range.
-    pub fn len(&mut self) -> usize {
-        self.canonicalize();
-        self.len_canonical()
+    pub fn len(&self) -> usize {
+        let tcp_count: usize = self
+            .tcp
+            .iter()
+            .map(|r| (r.end().saturating_sub(*r.start()) as usize).saturating_add(1))
+            .sum();
+        let udp_count: usize = self
+            .udp
+            .iter()
+            .map(|r| (r.end().saturating_sub(*r.start()) as usize).saturating_add(1))
+            .sum();
+
+        tcp_count + udp_count
     }
 
     /// Returns `true` if no ports are defined for either protocol.
@@ -91,14 +98,7 @@ impl PortSet {
     /// Returns an iterator over all individual ports in the set.
     ///
     /// Yields TCP ports first, followed by UDP ports.
-    pub fn iter(&mut self) -> impl Iterator<Item = (u16, Protocol)> + '_ {
-        self.canonicalize();
-        self.iter_canonical()
-    }
-
-    /// A thread-safe iterator over canonicalized ranges.
-    pub fn iter_canonical(&self) -> impl Iterator<Item = (u16, Protocol)> + '_ {
-        debug_assert!(!self.tcp_dirty && !self.udp_dirty, "PortSet must be canonicalized");
+    pub fn iter(&self) -> impl Iterator<Item = (u16, Protocol)> + '_ {
         let tcp_iter = self
             .tcp
             .iter()
@@ -112,78 +112,58 @@ impl PortSet {
     }
 
     /// Flattens the set into a vector of individual ports.
-    pub fn to_vec(&mut self) -> Vec<(u16, Protocol)> {
+    pub fn to_vec(&self) -> Vec<(u16, Protocol)> {
         self.iter().collect()
     }
 
-    pub fn has_tcp(&mut self, port: u16) -> bool {
-        self.canonicalize();
-        self.has_tcp_canonical(port)
+    /// Checks if a specific TCP port is in the target set.
+    /// Uses a highly optimized binary search over disjoint ranges.
+    pub fn has_tcp(&self, port: u16) -> bool {
+        self.tcp
+            .binary_search_by(|range| {
+                if port < *range.start() {
+                    std::cmp::Ordering::Greater
+                } else if port > *range.end() {
+                    std::cmp::Ordering::Less
+                } else {
+                    std::cmp::Ordering::Equal
+                }
+            })
+            .is_ok()
     }
 
-    pub fn has_udp(&mut self, port: u16) -> bool {
-        self.canonicalize();
-        self.has_udp_canonical(port)
+    /// Checks if a specific UDP port is in the target set.
+    /// Uses a highly optimized binary search over disjoint ranges.
+    pub fn has_udp(&self, port: u16) -> bool {
+        self.udp
+            .binary_search_by(|range| {
+                if port < *range.start() {
+                    std::cmp::Ordering::Greater
+                } else if port > *range.end() {
+                    std::cmp::Ordering::Less
+                } else {
+                    std::cmp::Ordering::Equal
+                }
+            })
+            .is_ok()
     }
 
-    // ─── Query API (Read-Only / Sync) ────────────────────────────────────────
+    // ─── Internal Utility ────────────────────────────────────────────────────
 
-    /// A high-performance, thread-safe version of `len`.
-    pub fn len_canonical(&self) -> usize {
-        debug_assert!(!self.tcp_dirty && !self.udp_dirty, "PortSet must be canonicalized");
-        let tcp_count: usize = self
-            .tcp
-            .iter()
-            .map(|r| (r.end().saturating_sub(*r.start()) as usize).saturating_add(1))
-            .sum();
-        let udp_count: usize = self
-            .udp
-            .iter()
-            .map(|r| (r.end().saturating_sub(*r.start()) as usize).saturating_add(1))
-            .sum();
-        tcp_count + udp_count
-    }
-
-    /// A thread-safe version of `has_tcp`. Uses binary search.
-    pub fn has_tcp_canonical(&self, port: u16) -> bool {
-        debug_assert!(!self.tcp_dirty, "TCP ports must be canonicalized");
-        self.tcp.binary_search_by(|range| {
-            if port < *range.start() { std::cmp::Ordering::Greater }
-            else if port > *range.end() { std::cmp::Ordering::Less }
-            else { std::cmp::Ordering::Equal }
-        }).is_ok()
-    }
-
-    /// A thread-safe version of `has_udp`. Uses binary search.
-    pub fn has_udp_canonical(&self, port: u16) -> bool {
-        debug_assert!(!self.udp_dirty, "UDP ports must be canonicalized");
-        self.udp.binary_search_by(|range| {
-            if port < *range.start() { std::cmp::Ordering::Greater }
-            else if port > *range.end() { std::cmp::Ordering::Less }
-            else { std::cmp::Ordering::Equal }
-        }).is_ok()
-    }
-
-    /// Triggers sorting and merging of internal ranges.
-    pub fn canonicalize(&mut self) {
-        if self.tcp_dirty {
-            Self::merge_ranges(&mut self.tcp);
-            self.tcp_dirty = false;
-        }
-        if self.udp_dirty {
-            Self::merge_ranges(&mut self.udp);
-            self.udp_dirty = false;
-        }
-    }
-
+    /// Sorts and merges overlapping/adjacent ranges.
+    /// Called automatically during construction.
     fn merge_ranges(ranges: &mut Vec<RangeInclusive<u16>>) {
-        if ranges.is_empty() { return; }
+        if ranges.is_empty() {
+            return;
+        }
+
         ranges.sort_by_key(|r| *r.start());
         let mut merged = Vec::with_capacity(ranges.len());
         let mut it = ranges.drain(..);
         let mut current = it.next().unwrap();
 
         for next in it {
+            // Check for overlap or adjacency
             if *next.start() <= (*current.end()).saturating_add(1) {
                 if *next.end() > *current.end() {
                     current = *current.start()..=*next.end();
@@ -203,7 +183,7 @@ impl PortSet {
 // ══════════════════════════════════════════════════════════════════════════════
 
 impl Default for PortSet {
-    /// Returns a default [`PortSet`] containing common services: 22, 80, 443, 445, 3389.
+    /// Returns a default [`PortSet`] containing common discovery services.
     fn default() -> Self {
         Self::try_from(DEFAULT_PORTSET_PORTS).expect("Static discovery ports must be valid.")
     }
@@ -212,7 +192,7 @@ impl Default for PortSet {
 impl TryFrom<&str> for PortSet {
     type Error = PortSetParseError;
 
-    /// Parses a string into a `PortSet`.
+    /// Parses a string into a canonicalized `PortSet`.
     ///
     /// ### Format Support
     /// * **Individual**: `80`, `443`
@@ -225,7 +205,7 @@ impl TryFrom<&str> for PortSet {
     /// ```
     /// use zond_common::models::port::set::PortSet;
     ///
-    /// let mut set = PortSet::try_from("80, u:53, 1000-1005").unwrap();
+    /// let set = PortSet::try_from("80, u:53, 1000-1005").unwrap();
     /// assert!(set.has_tcp(80));
     /// assert!(set.has_udp(53));
     /// assert_eq!(set.len(), 8); // 1 + 1 + 6
@@ -285,14 +265,10 @@ impl TryFrom<&str> for PortSet {
             }
         }
 
-        let mut set = Self {
-            tcp,
-            udp,
-            tcp_dirty: true,
-            udp_dirty: true,
-        };
-        set.canonicalize();
-        Ok(set)
+        Self::merge_ranges(&mut tcp);
+        Self::merge_ranges(&mut udp);
+
+        Ok(Self { tcp, udp })
     }
 }
 
@@ -314,20 +290,17 @@ impl FromIterator<(u16, Protocol)> for PortSet {
     fn from_iter<T: IntoIterator<Item = (u16, Protocol)>>(iter: T) -> Self {
         let mut tcp = Vec::new();
         let mut udp = Vec::new();
+        let mut sctp = Vec::new();
         for (port, proto) in iter {
             match proto {
                 Protocol::Tcp => tcp.push(port..=port),
                 Protocol::Udp => udp.push(port..=port),
+                Protocol::Sctp => sctp.push(port..=port),
             }
         }
-        let mut set = PortSet {
-            tcp,
-            udp,
-            tcp_dirty: true,
-            udp_dirty: true,
-        };
-        set.canonicalize();
-        set
+        Self::merge_ranges(&mut tcp);
+        Self::merge_ranges(&mut udp);
+        Self { tcp, udp }
     }
 }
 
@@ -352,8 +325,8 @@ mod tests {
         assert!(port_set_single.is_ok());
         assert!(port_set_multiple.is_ok());
 
-        let mut port_set_single = port_set_single.unwrap();
-        let mut port_set_multiple = port_set_multiple.unwrap();
+        let port_set_single = port_set_single.unwrap();
+        let port_set_multiple = port_set_multiple.unwrap();
 
         assert!(port_set_single.has_tcp(21));
 
@@ -371,7 +344,7 @@ mod tests {
 
         assert!(port_set_udp.is_ok());
 
-        let mut port_set_udp = port_set_udp.unwrap();
+        let port_set_udp = port_set_udp.unwrap();
 
         assert!(port_set_udp.has_udp(22));
         assert!(port_set_udp.has_udp(53));
@@ -391,7 +364,7 @@ mod tests {
 
     #[test]
     fn set_boundaries() {
-        let mut limits = PortSet::try_from("0, 65535, u:0-65535").unwrap();
+        let limits = PortSet::try_from("0, 65535, u:0-65535").unwrap();
         assert!(limits.has_tcp(0));
         assert!(limits.has_tcp(65535));
         assert!(limits.has_udp(32768));
@@ -399,7 +372,7 @@ mod tests {
 
     #[test]
     fn set_messy_delimiters() {
-        let mut messy = PortSet::try_from(", 80, , 443 ,").unwrap();
+        let messy = PortSet::try_from(", 80, , 443 ,").unwrap();
         assert!(messy.has_tcp(80));
         assert!(messy.has_tcp(443));
     }
@@ -441,7 +414,7 @@ mod tests {
 
         assert!(port_set.is_ok());
 
-        let mut port_set = port_set.unwrap();
+        let port_set = port_set.unwrap();
 
         assert!(port_set.has_tcp(21));
         assert!(port_set.has_tcp(80));
@@ -453,22 +426,22 @@ mod tests {
     #[test]
     fn set_overlap_and_adjacency_merging() {
         // Overlap: 1-10 and 5-15 should be 1-15
-        let mut set = PortSet::try_from("1-10, 5-15").unwrap();
+        let set = PortSet::try_from("1-10, 5-15").unwrap();
         assert_eq!(set.len(), 15);
         assert_eq!(set.tcp.len(), 1);
 
         // Adjacency: 20 and 21 should be 20-21
-        let mut set = PortSet::try_from("20, 21").unwrap();
+        let set = PortSet::try_from("20, 21").unwrap();
         assert_eq!(set.len(), 2);
         assert_eq!(set.tcp.len(), 1);
 
         // Subsumption: 100-200 and 150
-        let mut set = PortSet::try_from("100-200, 150").unwrap();
+        let set = PortSet::try_from("100-200, 150").unwrap();
         assert_eq!(set.len(), 101);
         assert_eq!(set.tcp.len(), 1);
 
         // Mixed messy overlaps
-        let mut set = PortSet::try_from("u:53, u:53-53, u:50-60, u:55-65").unwrap();
+        let set = PortSet::try_from("u:53, u:53-53, u:50-60, u:55-65").unwrap();
         assert_eq!(set.len(), 16); // 50 to 65
         assert_eq!(set.udp.len(), 1);
     }
@@ -484,7 +457,7 @@ mod property_tests {
         #[test]
         fn single_port_roundtrip(p in 0..=65535u16) {
             let s = format!("{}", p);
-            let mut set = PortSet::from_str(&s).unwrap();
+            let set = PortSet::from_str(&s).unwrap();
             prop_assert!(set.has_tcp(p));
             prop_assert_eq!(set.len(), 1);
         }
@@ -494,7 +467,7 @@ mod property_tests {
         fn port_range_invariant(a in 0..=65535u16, b in 0..=65535u16) {
             let (start, end) = if a < b { (a, b) } else { (b, a) };
             let s = format!("{}-{}", start, end);
-            let mut set = PortSet::from_str(&s).unwrap();
+            let set = PortSet::from_str(&s).unwrap();
 
             prop_assert!(set.has_tcp(start));
             prop_assert!(set.has_tcp(end));
@@ -505,7 +478,7 @@ mod property_tests {
         #[test]
         fn udp_prefix_honored(p in 0..=65535u16) {
             let s = format!("u:{}", p);
-            let mut set = PortSet::from_str(&s).unwrap();
+            let set = PortSet::from_str(&s).unwrap();
             prop_assert!(set.has_udp(p));
             prop_assert!(!set.has_tcp(p));
         }
@@ -514,7 +487,7 @@ mod property_tests {
         #[test]
         fn multiple_ports_aggregation(p1 in 0..=1000u16, p2 in 2000..=3000u16) {
             let s = format!("{}, {}", p1, p2);
-            let mut set = PortSet::from_str(&s).unwrap();
+            let set = PortSet::from_str(&s).unwrap();
             prop_assert!(set.has_tcp(p1));
             prop_assert!(set.has_tcp(p2));
             prop_assert_eq!(set.len(), 2);
@@ -524,8 +497,8 @@ mod property_tests {
         #[test]
         fn normalization_invariant(ports in prop::collection::vec(0..=500u16, 1..=50)) {
             let s = ports.iter().map(|p| p.to_string()).collect::<Vec<_>>().join(",");
-            let mut set = PortSet::from_str(&s).unwrap();
-            
+            let set = PortSet::from_str(&s).unwrap();
+
             let unique_count = ports.into_iter().collect::<std::collections::HashSet<_>>().len();
             prop_assert_eq!(set.len(), unique_count);
             prop_assert!(set.tcp.len() <= unique_count);

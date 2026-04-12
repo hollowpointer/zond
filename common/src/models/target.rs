@@ -74,8 +74,7 @@ impl TargetSet {
     }
 
     /// Returns the number of unique ports in this set.
-    /// Performs lazy normalization.
-    pub fn port_count(&mut self) -> usize {
+    pub fn port_count(&self) -> usize {
         self.ports.len()
     }
 
@@ -83,7 +82,6 @@ impl TargetSet {
     pub fn canonicalize(&mut self) {
         if !self.is_canonicalized {
             self.ips.canonicalize();
-            self.ports.canonicalize();
             self.is_canonicalized = true;
         }
     }
@@ -129,7 +127,7 @@ impl TargetSet {
             return Err(TargetError::UncanonicalizedState);
         }
 
-        let port_len = self.ports.len_canonical() as u128;
+        let port_len = self.ports.len() as u128;
         self.ips
             .len_canonical()
             .checked_mul(port_len)

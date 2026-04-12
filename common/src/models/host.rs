@@ -318,13 +318,13 @@ impl Host {
     /// If the total port count exceeds [`MAX_PORTS_PER_HOST`], the port is ignored
     /// and the host is assigned the [`NetworkRole::Tarpit`] role.
     pub fn add_port(&mut self, new_port: Port) {
-        if self.ports.len() >= MAX_PORTS_PER_HOST && !self.ports.contains_key(&new_port.number) {
+        if self.ports.len() >= MAX_PORTS_PER_HOST && !self.ports.contains_key(&new_port.number()) {
             self.network_roles.insert(NetworkRole::Tarpit);
             return;
         }
 
         self.ports
-            .entry(new_port.number)
+            .entry(new_port.number())
             .and_modify(|p| p.merge(new_port.clone()))
             .or_insert(new_port);
 

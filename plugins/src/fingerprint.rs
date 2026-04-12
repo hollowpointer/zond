@@ -182,7 +182,7 @@ pub fn lookup_service_name(port: u16, _proto: Protocol) -> Option<String> {
     get_engine()
         .get_probes_for_port(port)
         .first()
-        .map(|srv| srv.service.name.clone())
+        .map(|srv| srv.def.service.name.clone())
 }
 
 /// High-level entry point for fingerprinting a TCP stream.
@@ -196,14 +196,19 @@ pub async fn fingerprint_tcp(mut stream: TcpStream, mut port: Port) -> Port {
         && n > 0
     {
         responses.push_str(&String::from_utf8_lossy(&buffer[..n]));
-        if let Some(id) = engine.identify_by_banner(port.number, &responses) {
-            port.service_info = Some(FingerprintEngine::format_identification(id));
+        if let Some(id) = engine.identify_by_banner(port.number(), &responses) {
+            let mut srv = Service::new(id.service_name, 100);
+            srv = srv.with_product(id.product);
+            if let Some(ver) = id.version {
+                srv = srv.with_version(ver);
+            }
+            port.set_service(srv);
             return port;
         }
     }
 
     // Stage 2: Active Probing
-    for def in engine.get_probes_for_port(port.number) {
+    for def in engine.get_probes_for_port(port.number()) {
         for probe in &def.probe {
             if probe.protocol != "tcp" {
                 continue;
@@ -220,19 +225,20 @@ pub async fn fingerprint_tcp(mut stream: TcpStream, mut port: Port) -> Port {
                     if let Ok(re) = Regex::new(&m.pattern)
                         && let Some(caps) = re.captures(&responses)
                     {
-                        let product = m
-                            .product
-                            .clone()
-                            .unwrap_or_else(|| def.service.name.clone());
-                        let mut info = product;
+                        let mut srv = Service::new(def.service.name.clone(), 100);
+                        if let Some(prod) = m.product.clone() {
+                            srv = srv.with_product(prod);
+                        } else {
+                            srv = srv.with_product(def.service.name.clone());
+                        }
 
                         if let Some(group_idx) = m.version_group
                             && let Some(ver) = caps.get(group_idx as usize)
                         {
-                            info.push_str(&format!(" ({})", ver.as_str()));
+                            srv = srv.with_version(ver.as_str());
                         }
 
-                        port.service_info = Some(info);
+                        port.set_service(srv);
                         return port;
                     }
                 }
@@ -241,14 +247,14 @@ pub async fn fingerprint_tcp(mut stream: TcpStream, mut port: Port) -> Port {
     }
 
     // Stage 3: Banner Fallback
-    if port.service_info.is_none() && !responses.is_empty() {
+    if port.service().is_none() && !responses.is_empty() {
         let clean: String = responses
             .chars()
             .filter(|c| c.is_ascii_graphic() || *c == ' ')
             .take(32)
             .collect();
         if !clean.is_empty() {
-            port.service_info = Some(format!("banner: {}", clean));
+            port.set_service(Service::new(format!("banner: {}", clean), 0));
         }
     }
 
