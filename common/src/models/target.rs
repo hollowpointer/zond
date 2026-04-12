@@ -12,7 +12,18 @@
 
 use crate::models::ip::set::IpSet;
 use crate::models::port::{PortSet, Protocol};
-use std::net::IpAddr;
+use std::{net::IpAddr, sync::Arc};
+use thiserror::Error;
+
+/// Errors that can occur during target composition and calculation.
+#[derive(Error, Debug, PartialEq, Eq)]
+pub enum TargetError {
+    #[error("Target collection is in a dirty state; call `canonicalize()` before concurrent reads")]
+    UncanonicalizedState,
+
+    #[error("Target calculation resulted in an integer overflow")]
+    CapacityOverflow,
+}
 
 /// Represents a single, atomic connection attempt.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
@@ -24,65 +35,126 @@ pub struct Target {
 
 /// A blueprint pairing a set of IP addresses with a set of ports.
 ///
-/// `TargetSet` supports lazy evaluation of the underlying IP set. Volume queries
-/// and iteration will trigger normalization of the IP set if needed.
+/// `TargetSet` supports lazy evaluation of the underlying sets. Volume queries
+/// and iteration will safely trigger normalization of the IPs and ports.
 #[derive(Debug, Clone, Default)]
 pub struct TargetSet {
-    pub ips: IpSet,
-    pub ports: PortSet,
+    /// Internal IP set. Kept private to protect lazy-evaluation invariants.
+    ips: IpSet,
+    /// Internal Port set. Kept private to protect lazy-evaluation invariants.
+    ports: PortSet,
+    /// Tracks whether the underlying sets are currently normalized for safe reads.
+    is_canonicalized: bool,
 }
 
 impl TargetSet {
-    /// Creates a new scan blueprint.
+    /// Creates a new scan blueprint. Defaults to an uncanonicalized state.
     pub fn new(ips: IpSet, ports: PortSet) -> Self {
-        Self { ips, ports }
+        Self {
+            ips,
+            ports,
+            is_canonicalized: false,
+        }
     }
 
-    /// Prepares the internal IP set for high-performance read-only access.
+    /// Returns a read-only reference to the underlying IP set.
+    pub fn ips(&self) -> &IpSet {
+        &self.ips
+    }
+
+    /// Returns a read-only reference to the underlying Port set.
+    pub fn ports(&self) -> &PortSet {
+        &self.ports
+    }
+
+    /// Returns the number of unique IP addresses in this set.
+    /// Performs lazy normalization.
+    pub fn ip_count(&mut self) -> u128 {
+        self.ips.len()
+    }
+
+    /// Returns the number of unique ports in this set.
+    /// Performs lazy normalization.
+    pub fn port_count(&mut self) -> usize {
+        self.ports.len()
+    }
+
+    /// Prepares the internal IP and Port sets for high-performance read-only access.
     pub fn canonicalize(&mut self) {
-        self.ips.canonicalize();
-        self.ports.canonicalize();
+        if !self.is_canonicalized {
+            self.ips.canonicalize();
+            self.ports.canonicalize();
+            self.is_canonicalized = true;
+        }
     }
 
-    /// Returns the total number of targets. Performs lazy IP normalization if needed.
-    pub fn total_targets(&mut self) -> u128 {
-        let port_len = self.ports.len();
-        self.ips.len() * (port_len as u128)
+    /// Returns the total number of targets. Performs lazy normalization if needed.
+    ///
+    /// Returns a `TargetError::CapacityOverflow` if the calculation exceeds `u128::MAX`.
+    pub fn total_targets(&mut self) -> Result<u128, TargetError> {
+        self.canonicalize();
+
+        let port_len = self.ports.len() as u128;
+        self.ips
+            .len()
+            .checked_mul(port_len)
+            .ok_or(TargetError::CapacityOverflow)
     }
 
-    /// Creates a lazy iterator over every IP/Port combination. Performs lazy IP normalization.
+    /// Creates a lazy iterator over every IP/Port combination. Performs lazy normalization.
+    ///
+    /// This uses `Arc` internally to prevent O(N) memory allocations when iterating
+    /// over massive subnets (e.g., /8 or IPv6 ranges).
     pub fn iter(&mut self) -> impl Iterator<Item = Target> + '_ {
         self.canonicalize();
-        let ports = self.ports.to_vec();
+
+        let ports_arc: Arc<[(u16, Protocol)]> = self.ports.to_vec().into();
+
         self.ips.iter().flat_map(move |ip| {
-            ports.clone().into_iter().map(move |(port, protocol)| Target {
+            let local_ports = Arc::clone(&ports_arc);
+            (0..local_ports.len()).map(move |i| Target {
                 ip,
-                port,
-                protocol,
+                port: local_ports[i].0,
+                protocol: local_ports[i].1,
             })
         })
     }
 
     /// Thread-safe version of `total_targets`.
     ///
-    /// # Panics
-    /// Panics in debug mode if the underlying IP set is not canonicalized.
-    pub fn total_targets_canonical(&self) -> u128 {
-        self.ips.len_canonical() * (self.ports.len_canonical() as u128)
+    /// This method is strictly read-only. It returns `TargetError::UncanonicalizedState`
+    /// if the sets have not been normalized prior to concurrent access.
+    pub fn total_targets_canonical(&self) -> Result<u128, TargetError> {
+        if !self.is_canonicalized {
+            return Err(TargetError::UncanonicalizedState);
+        }
+
+        let port_len = self.ports.len_canonical() as u128;
+        self.ips
+            .len_canonical()
+            .checked_mul(port_len)
+            .ok_or(TargetError::CapacityOverflow)
+    }
+
+    /// Returns true if either the IP set or the Port set is completely empty.
+    pub fn is_empty(&self) -> bool {
+        self.ips.is_empty() || self.ports.is_empty()
     }
 }
 
 /// A collection of multiple [`TargetSet`] units.
 #[derive(Debug, Clone, Default)]
 pub struct TargetMap {
-    pub units: Vec<TargetSet>,
+    units: Vec<TargetSet>,
 }
 
 impl TargetMap {
+    /// Creates a new, empty `TargetMap`.
     pub fn new() -> Self {
         Self::default()
     }
 
+    /// Adds a new unit definition to the map.
     pub fn add_unit(&mut self, unit: TargetSet) {
         self.units.push(unit);
     }
@@ -94,19 +166,39 @@ impl TargetMap {
         }
     }
 
-    /// Returns the total targets across all units. Performs lazy normalization.
-    pub fn total_targets(&mut self) -> u128 {
-        self.units.iter_mut().map(|u| u.total_targets()).sum()
+    /// Returns the gross total of target connections across all units.
+    /// Performs lazy normalization.
+    pub fn gross_targets(&mut self) -> Result<u128, TargetError> {
+        let mut total: u128 = 0;
+        for unit in &mut self.units {
+            let unit_total = unit.total_targets()?;
+            total = total
+                .checked_add(unit_total)
+                .ok_or(TargetError::CapacityOverflow)?;
+        }
+        Ok(total)
     }
 
-    /// Returns the total number of unique IP addresses. Performs lazy normalization.
-    pub fn total_ips(&mut self) -> u128 {
-        self.units.iter_mut().map(|u| u.ips.len()).sum()
+    /// Returns the gross number of IP addresses across all units.
+    /// Performs lazy normalization.
+    pub fn gross_ips(&mut self) -> Result<u128, TargetError> {
+        let mut total: u128 = 0;
+        for unit in &mut self.units {
+            total = total
+                .checked_add(unit.ip_count())
+                .ok_or(TargetError::CapacityOverflow)?;
+        }
+        Ok(total)
     }
 
-    /// Returns true if no targets are defined.
+    /// Returns true if no targets are defined across any unit.
     pub fn is_empty(&self) -> bool {
-        self.units.is_empty() || self.units.iter().all(|u| u.ips.is_empty())
+        self.units.is_empty() || self.units.iter().all(|u| u.is_empty())
+    }
+
+    /// Creates a flattened iterator over every target in every unit.
+    pub fn iter(&mut self) -> impl Iterator<Item = Target> + '_ {
+        self.units.iter_mut().flat_map(|unit| unit.iter())
     }
 }
 
@@ -123,6 +215,7 @@ impl TargetMap {
 mod tests {
     use super::*;
 
+    // Mock definitions for tests
     fn mock_ip_set(input: &str) -> IpSet {
         input.parse().expect("Valid IP input")
     }
@@ -133,22 +226,34 @@ mod tests {
 
     #[test]
     fn target_set_lazy_math() {
-        let mut ips = mock_ip_set("192.168.1.0/24");
-        // Force dirty state
-        ips.push_v4_range(crate::models::ip::range::Ipv4Range::new(
-            "10.0.0.1".parse().unwrap(),
-            "10.0.0.1".parse().unwrap(),
-        ).unwrap());
-        
-        let mut ts = TargetSet::new(ips, mock_port_set("80, 443"));
-        // Query triggers normalization
-        assert_eq!(ts.total_targets(), (256 + 1) * 2);
+        let mut ts = TargetSet::new(mock_ip_set("192.168.1.0/24"), mock_port_set("80, 443"));
+        assert_eq!(ts.total_targets().unwrap(), 256 * 2);
+    }
+
+    #[test]
+    fn thread_safe_reads_require_canonicalization() {
+        let ts = TargetSet::new(mock_ip_set("192.168.1.0/24"), mock_port_set("80"));
+
+        // Reading without canonicalizing should return an explicit error
+        let err = ts.total_targets_canonical().unwrap_err();
+        assert_eq!(err, TargetError::UncanonicalizedState);
+    }
+
+    #[test]
+    fn thread_safe_reads_succeed_when_prepared() {
+        let mut ts = TargetSet::new(mock_ip_set("192.168.1.0/24"), mock_port_set("80"));
+        ts.canonicalize();
+
+        assert_eq!(ts.total_targets_canonical().unwrap(), 256);
     }
 
     #[test]
     fn target_map_aggregation() {
         let mut map = TargetMap::new();
-        map.add_unit(TargetSet::new(mock_ip_set("10.0.0.1-10.0.0.5"), mock_port_set("80,443")));
-        assert_eq!(map.total_targets(), 10);
+        map.add_unit(TargetSet::new(
+            mock_ip_set("10.0.0.1-10.0.0.5"),
+            mock_port_set("80,443"),
+        ));
+        assert_eq!(map.gross_targets().unwrap(), 10);
     }
 }
