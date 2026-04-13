@@ -17,8 +17,8 @@ use std::time::Duration;
 use tokio::io::{AsyncReadExt, AsyncWriteExt};
 use tokio::net::TcpStream;
 use tokio::time::timeout;
-use zond_common::models::fingerprint::ServiceDefinition;
-use zond_common::models::port::{Port, Protocol};
+use zond_core::models::fingerprint::ServiceDefinition;
+use zond_core::models::port::{Port, Protocol};
 
 /// A compiled regex match rule for a service.
 pub struct CompiledMatch {
@@ -273,7 +273,7 @@ pub async fn fingerprint_tcp(mut stream: TcpStream, mut port: Port) -> Port {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use zond_common::models::fingerprint::{MatchRule, ServiceSignature};
+    use zond_core::models::fingerprint::{MatchRule, ServiceSignature};
 
     fn mock_service(
         name: &str,

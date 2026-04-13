@@ -8,7 +8,7 @@ use std::{sync::OnceLock, time::Duration};
 
 use anyhow::bail;
 use colored::*;
-use zond_common::{config::ZondConfig, models::host::Host, success};
+use zond_engine::{config::ZondConfig, models::host::Host, success};
 
 use crate::terminal::{banner, colors, host::PrintableHost};
 
@@ -153,7 +153,7 @@ impl Print {
             zprint!("{}", banner::NO_RESULTS_0.red().bold());
             return;
         }
-        zond_common::error!("Scan completed: 0 devices responded.");
+        zond_core::error!("Scan completed: 0 devices responded.");
     }
 
     /// Prints the standardized terminating line for the program output.

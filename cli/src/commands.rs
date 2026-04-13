@@ -39,7 +39,7 @@ pub mod listen;
 pub mod scan;
 
 use clap::{ArgAction, Parser, Subcommand};
-use zond_common::{config::ZondConfig, models::port::PortSet};
+use zond_engine::{config::ZondConfig, models::port::PortSet};
 
 #[derive(Parser)]
 #[command(name = "zond")]

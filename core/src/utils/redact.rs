@@ -21,7 +21,7 @@ use pnet::util::MacAddr;
 ///
 /// # Examples
 /// ```
-/// use zond_common::utils::redact;
+/// use zond_core::utils::redact;
 ///
 /// assert_eq!(redact::hostname("kabelbox.local"), "kaXXXXXal");
 /// assert_eq!(redact::hostname("workstation"), "woXXXXXon");
@@ -55,7 +55,7 @@ pub fn hostname(name: &str) -> String {
 /// # Examples
 /// ```
 /// use pnet::util::MacAddr;
-/// use zond_common::utils::redact;
+/// use zond_core::utils::redact;
 ///
 /// let mac = MacAddr::new(0x2c, 0xcf, 0x67, 0xf2, 0x51, 0xe3);
 /// assert_eq!(redact::mac_addr(&mac), "2c:cf:67:XX:XX:XX");
@@ -78,7 +78,7 @@ pub fn mac_addr(mac: &MacAddr) -> String {
 /// # Examples
 /// ```
 /// use std::net::Ipv6Addr;
-/// use zond_common::utils::redact;
+/// use zond_core::utils::redact;
 ///
 /// let ip = "2a02:908:8c1:b880:1234:5678:9abc:def0".parse::<Ipv6Addr>().unwrap();
 /// // Only the first 16-bit segment (s[0]) remains visible
@@ -97,7 +97,7 @@ pub fn global_unicast(ip: &Ipv6Addr) -> String {
 /// # Examples
 /// ```
 /// use std::net::Ipv6Addr;
-/// use zond_common::utils::redact;
+/// use zond_core::utils::redact;
 ///
 /// let ip = "fe80::ca52:61ff:fec7:594".parse::<Ipv6Addr>().unwrap();
 /// assert_eq!(redact::link_local(&ip), "fe80::ca52:61ff:XXXX:XXXX");
@@ -119,7 +119,7 @@ pub fn link_local(ip: &Ipv6Addr) -> String {
 /// # Examples
 /// ```
 ///
-/// use zond_common::utils::redact;
+/// use zond_core::utils::redact;
 /// use std::net::Ipv6Addr;
 ///
 /// let ip = "fd12:3456:789a:1:a8b2:c3d4:e5f6:1234".parse::<Ipv6Addr>().unwrap();

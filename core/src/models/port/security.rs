@@ -127,7 +127,7 @@ impl Security {
     ///
     /// ```
     /// use std::time::Duration;
-    /// # use zond_common::models::port::{Security, CertificateInfo};
+    /// # use zond_core::models::port::{Security, CertificateInfo};
     /// # let mut sec = Security::new();
     ///
     /// // Check if the certificate expires in the next 30 days

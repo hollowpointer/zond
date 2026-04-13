@@ -12,7 +12,7 @@
 //! configuration, useful for debugging or self-awareness context.
 
 use pnet::datalink::NetworkInterface;
-use zond_common::models::localhost::{FirewallStatus, IpServiceGroup};
+use zond_core::models::localhost::{FirewallStatus, IpServiceGroup};
 
 /// Retrieves a comprehensive snapshot of the local system's network state.
 pub fn get_system_info() -> anyhow::Result<SystemInfo> {

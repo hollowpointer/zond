@@ -15,9 +15,9 @@ use anyhow::ensure;
 use async_trait::async_trait;
 use pnet::{datalink::NetworkInterface, packet::tcp::TcpPacket};
 use tokio::sync::mpsc::UnboundedSender;
-use zond_common::{error, success};
+use zond_core::{error, success};
 
-use zond_common::models::{host::Host, ip::set::IpSet};
+use zond_core::models::{host::Host, ip::set::IpSet};
 use zond_protocols as protocol;
 
 use crate::network::transport::{self, TransportHandle, TransportType};

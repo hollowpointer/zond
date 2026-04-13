@@ -30,7 +30,7 @@ use pnet::{
     util::MacAddr,
 };
 
-use zond_common::{
+use zond_engine::{
     error,
     models::{host::Host, ip::set::IpSet},
     parse::IS_LAN_SCAN,

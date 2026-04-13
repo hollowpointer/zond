@@ -5,11 +5,11 @@
 // https://mozilla.org/MPL/2.0/.
 
 use std::net::{IpAddr, Ipv4Addr};
-use zond_common::config::ZondConfig;
-use zond_common::models::ip::set::IpSet;
-use zond_common::models::port::{PortSet, PortState};
-use zond_common::models::target::{TargetMap, TargetSet};
-use zond_core::scanner;
+use zond_core::config::ZondConfig;
+use zond_core::models::ip::set::IpSet;
+use zond_core::models::port::{PortSet, PortState};
+use zond_core::models::target::{TargetMap, TargetSet};
+use zond_engine::scanner;
 
 #[cfg(target_os = "linux")]
 use crate::utils::NetnsContext;

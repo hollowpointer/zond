@@ -2,8 +2,8 @@
 resolver = "2"
 members = [
     "cli",
+    "engine",
     "core",
-    "common",
     "protocols",
     "plugins",
     "tests",
@@ -29,7 +29,7 @@ crossterm = "0.29.0"
 rayon = "1.11.0"
 tracing = "0.1.44"
 
+zond-engine = { path = "./engine" }
 zond-core = { path = "./core" }
-zond-common = { path = "./common" }
 zond-protocols = { path = "./protocols" }
 zond-plugins = { path = "./plugins" }

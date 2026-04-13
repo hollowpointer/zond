@@ -6,8 +6,8 @@ on:
   push:
     branches: [ "main" ]
     paths:
-      - 'common/**'
       - 'core/**'
+      - 'engine/**'
       - 'cli/**'
       - 'plugins/**'
       - 'protocols/**'
@@ -20,8 +20,8 @@ on:
   pull_request:
     branches: [ "main" ]
     paths:
-      - 'common/**'
       - 'core/**'
+      - 'engine/**'
       - 'cli/**'
       - 'plugins/**'
       - 'protocols/**'

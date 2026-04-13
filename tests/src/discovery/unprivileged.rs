@@ -7,10 +7,10 @@
 use std::net::{IpAddr, Ipv4Addr};
 use std::sync::atomic::Ordering;
 use std::time::Duration;
-use zond_common::config::ZondConfig;
-use zond_common::models::host::Host;
-use zond_common::models::ip::{range::Ipv4Range, set::IpSet};
-use zond_core::scanner::{self, STOP_SIGNAL};
+use zond_core::config::ZondConfig;
+use zond_core::models::host::Host;
+use zond_core::models::ip::{range::Ipv4Range, set::IpSet};
+use zond_engine::scanner::{self, STOP_SIGNAL};
 
 #[tokio::test]
 async fn discovery_single_loopback() {

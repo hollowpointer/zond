@@ -31,7 +31,7 @@ Zond is currently a **best-effort hobby project**. While we do not have a formal
 ## Scope
 
 The security policy applies to all code within this repository, including:
-- `zond-core`
+- `zond-engine`
 - `zond-cli`
 - Plugins and Protocol implementations
 

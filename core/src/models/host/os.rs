@@ -55,7 +55,7 @@ impl OsFingerprint {
     ///
     /// ```
     /// # use std::sync::Arc;
-    /// # use zond_common::models::host::OsFingerprint;
+    /// # use zond_core::models::host::OsFingerprint;
     /// let os = OsFingerprint::new("Ubuntu Linux", 95);
     /// assert_eq!(os.accuracy, 95);
     /// ```

@@ -4,7 +4,8 @@
 // If a copy of the MPL was not distributed with this file, You can obtain one at
 // https://mozilla.org/MPL/2.0/.
 
-pub mod info;
-pub mod network;
-pub mod scanner;
-pub mod system;
+pub mod config;
+pub mod logging;
+pub mod models;
+pub mod parse;
+pub mod utils;

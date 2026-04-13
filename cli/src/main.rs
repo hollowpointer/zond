@@ -30,7 +30,7 @@ mod terminal;
 
 use std::process::ExitCode;
 
-use zond_common::{config::ZondConfig, error};
+use zond_engine::{config::ZondConfig, error};
 
 use crate::{
     commands::{CommandLine, Commands, discover, info, listen, scan},

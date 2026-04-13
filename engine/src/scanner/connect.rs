@@ -15,10 +15,10 @@ use tokio::net::TcpStream;
 use tokio::sync::mpsc;
 use tokio::task::JoinSet;
 use tokio::time::timeout;
-use zond_common::models::host::Host;
-use zond_common::models::ip::set::IpSet;
-use zond_common::models::port::{Port, PortSet, PortState, Protocol};
-use zond_common::models::target::{Target, TargetMap, TargetSet};
+use zond_core::models::host::Host;
+use zond_core::models::ip::set::IpSet;
+use zond_core::models::port::{Port, PortSet, PortState, Protocol};
+use zond_core::models::target::{Target, TargetMap, TargetSet};
 
 use super::STOP_SIGNAL;
 use super::dispatcher::Dispatcher;

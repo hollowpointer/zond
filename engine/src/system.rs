@@ -10,7 +10,7 @@ use std::process::Command;
 
 use anyhow;
 use pnet::datalink::NetworkInterface;
-use zond_common::models::localhost::{FirewallStatus, IpServiceGroup, Service};
+use zond_core::models::localhost::{FirewallStatus, IpServiceGroup, Service};
 
 /// Intermediate representation of a socket entry.
 #[derive(Debug)]
@@ -376,5 +376,5 @@ mod windows_impl {
 }
 
 pub fn get_network_interfaces() -> anyhow::Result<Vec<NetworkInterface>> {
-    zond_common::net::interface::get_prioritized_interfaces(10)
+    zond_core::net::interface::get_prioritized_interfaces(10)
 }

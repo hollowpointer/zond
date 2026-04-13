@@ -8,7 +8,7 @@ use rand::seq::SliceRandom;
 use std::sync::atomic::Ordering;
 use tokio::sync::mpsc;
 
-use zond_common::models::target::{Target, TargetMap};
+use zond_core::models::target::{Target, TargetMap};
 
 use super::STOP_SIGNAL;
 

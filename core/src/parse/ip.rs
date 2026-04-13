@@ -85,8 +85,8 @@ pub enum IpParseError {
 /// # Examples
 ///
 /// ```
-/// use zond_common::parse::ip::{to_set, Keyword};
-/// use zond_common::models::ip::set::IpSet;
+/// use zond_core::parse::ip::{to_set, Keyword};
+/// use zond_core::models::ip::set::IpSet;
 ///
 /// let targets = vec!["192.168.1.0/24", "10.0.0.1, 10.0.0.5-10"];
 /// let noop_resolver = |_: Keyword, _: &mut IpSet| Ok(());

@@ -5,8 +5,8 @@ license.workspace = true
 edition.workspace = true
 
 [dependencies]
+zond-engine = { workspace = true }
 zond-core = { workspace = true }
-zond-common = { workspace = true }
 clap = { workspace = true }
 anyhow = { workspace = true }
 console = { workspace = true }

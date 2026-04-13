@@ -7,8 +7,8 @@
 //! # Zond Integration Tests
 //!
 //! This crate contains integration tests for the Zond network scanner.
-//! It verifies the orchestration logic between `zond-core`, `zond-plugins`,
-//! and `zond-common` crates.
+//! It verifies the orchestration logic between `zond-engine`, `zond-plugins`,
+//! and `zond-core` crates.
 //!
 //! ## Testing Philosophy
 //!

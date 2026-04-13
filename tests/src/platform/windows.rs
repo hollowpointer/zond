@@ -6,9 +6,9 @@
 
 use pnet::datalink;
 use std::net::{IpAddr, TcpListener};
-use zond_common::config::ZondConfig;
-use zond_common::models::ip::set::IpSet;
-use zond_core::scanner;
+use zond_core::config::ZondConfig;
+use zond_core::models::ip::set::IpSet;
+use zond_engine::scanner;
 
 /// Verifies that Windows hardware heuristics (physical/wireless detection)
 /// execute correctly and find plausible adapters.
@@ -23,8 +23,8 @@ async fn windows_hardware_heuristics() {
     let mut physically_found = 0;
     for iface in interfaces {
         // These calls verify that the GetIfTable2 FFI logic works on the real host
-        let physical = zond_common::net::interface::os::is_physical(&iface);
-        let wireless = zond_common::net::interface::os::is_wireless(&iface);
+        let physical = zond_core::net::interface::os::is_physical(&iface);
+        let wireless = zond_core::net::interface::os::is_wireless(&iface);
 
         if physical {
             physically_found += 1;

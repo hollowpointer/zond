@@ -203,7 +203,7 @@ impl TryFrom<&str> for PortSet {
     /// # Examples
     ///
     /// ```
-    /// use zond_common::models::port::set::PortSet;
+    /// use zond_core::models::port::set::PortSet;
     ///
     /// let set = PortSet::try_from("80, u:53, 1000-1005").unwrap();
     /// assert!(set.has_tcp(80));

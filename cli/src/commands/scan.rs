@@ -13,7 +13,7 @@ use crate::terminal::colors;
 use crate::terminal::print::Print;
 use crate::terminal::spinner::SpinnerGuard;
 
-use zond_common::{config::ZondConfig, models::port::PortSet, parse};
+use zond_engine::{config::ZondConfig, models::port::PortSet, parse};
 
 pub async fn scan(
     targets: &[String],
@@ -27,7 +27,7 @@ pub async fn scan(
     let target_map = parse::to_target_map(targets, global_ports)?;
     let start_time = Instant::now();
 
-    let mut hosts = zond_core::scanner::scan(target_map, cfg).await?;
+    let mut hosts = zond_engine::scanner::scan(target_map, cfg).await?;
 
     if hosts.is_empty() {
         Print::no_results();
@@ -49,7 +49,7 @@ fn run_spinner() -> SpinnerGuard {
     let _enter = span.enter();
 
     SpinnerGuard::with_status(span.clone(), || {
-        let count = zond_core::scanner::get_host_count();
+        let count = zond_engine::scanner::get_host_count();
         let count_str = count.to_string().green().bold();
         let label = if count == 1 { "host" } else { "hosts" };
         format!("Scanned {} {} so far...", count_str, label)

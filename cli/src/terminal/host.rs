@@ -8,8 +8,8 @@ use std::{net::IpAddr, time::Duration};
 
 use colored::*;
 use unicode_width::UnicodeWidthStr;
-use zond_common::models::host::Host;
-use zond_common::models::port::{Port, PortState, Protocol};
+use zond_core::models::host::Host;
+use zond_core::models::port::{Port, PortState, Protocol};
 
 use crate::{
     terminal::{

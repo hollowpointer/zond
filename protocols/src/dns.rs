@@ -8,7 +8,7 @@ use anyhow::{Context, Result, anyhow};
 use dns_parser::{Builder, Packet, QueryClass, QueryType, RData};
 use std::net::IpAddr;
 
-use zond_common::utils::ip;
+use zond_core::utils::ip;
 
 pub fn get_hostname(payload: &[u8]) -> Result<(u16, String)> {
     let packet = Packet::parse(payload).context("Failed to parse DNS packet")?;

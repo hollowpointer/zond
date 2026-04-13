@@ -6,7 +6,7 @@
 
 use std::{net::Ipv4Addr, sync::atomic::Ordering};
 
-use zond_common::{
+use zond_core::{
     info,
     models::ip::{
         range::{IpError, Ipv4Range},

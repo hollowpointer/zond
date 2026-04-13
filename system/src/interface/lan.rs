@@ -7,7 +7,7 @@
 use super::os::{is_physical, is_wireless};
 use pnet::datalink::NetworkInterface;
 use pnet::ipnetwork::{IpNetwork, Ipv4Network};
-use zond_common::info;
+use zond_core::info;
 
 /// Errors arising from network validation constraints during LAN interface selection.
 #[derive(Debug, PartialEq, Eq, Clone, Copy)]

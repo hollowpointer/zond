@@ -1,0 +1,24 @@
+[package]
+name = "zond-engine"
+version = "0.1.6"
+edition.workspace = true 
+license.workspace = true
+
+[dependencies]
+zond-core = { workspace = true }
+zond-protocols = { workspace = true }
+zond-plugins = { workspace = true }
+pnet = { workspace = true }
+anyhow = { workspace = true }
+async-trait = { workspace = true }
+rand = { workspace = true }
+tracing = { workspace = true }
+
+tokio = { version = "1.47.1", features = ["full"] }
+hickory-resolver = "0.25.2"
+is-root = "0.1.3"
+sysinfo = "0.38.0"
+windows-sys = { version = "0.61.2", features = ["Win32_NetworkManagement_IpHelper", "Win32_Foundation", "Win32_Networking_WinSock"] }
+
+
+

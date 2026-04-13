@@ -288,7 +288,7 @@ impl FromStr for IpRange {
 /// # Examples
 ///
 /// ```
-/// use zond_common::models::ip::range::{cidr_range, IpRange};
+/// use zond_core::models::ip::range::{cidr_range, IpRange};
 /// use std::net::IpAddr;
 ///
 /// let range = cidr_range("192.168.1.5".parse().unwrap(), 24).unwrap();

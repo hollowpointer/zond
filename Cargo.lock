@@ -2428,12 +2428,12 @@ dependencies = [
  "tracing-indicatif",
  "tracing-subscriber",
  "unicode-width",
- "zond-common",
  "zond-core",
+ "zond-engine",
 ]
 
 [[package]]
-name = "zond-common"
+name = "zond-core"
 version = "0.1.4"
 dependencies = [
  "anyhow",
@@ -2452,7 +2452,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "zond-core"
+name = "zond-engine"
 version = "0.1.6"
 dependencies = [
  "anyhow",
@@ -2465,7 +2465,7 @@ dependencies = [
  "tokio",
  "tracing",
  "windows-sys 0.61.2",
- "zond-common",
+ "zond-core",
  "zond-plugins",
  "zond-protocols",
 ]
@@ -2476,8 +2476,8 @@ version = "0.1.0"
 dependencies = [
  "anyhow",
  "tokio",
- "zond-common",
  "zond-core",
+ "zond-engine",
 ]
 
 [[package]]
@@ -2491,7 +2491,7 @@ dependencies = [
  "serde",
  "tokio",
  "toml",
- "zond-common",
+ "zond-core",
  "zond-protocols",
 ]
 
@@ -2505,5 +2505,5 @@ dependencies = [
  "rand",
  "thiserror",
  "tracing",
- "zond-common",
+ "zond-core",
 ]

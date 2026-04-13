@@ -23,7 +23,7 @@ use crate::{
     terminal::{colors, print},
     zprint,
 };
-use zond_common::{
+use zond_engine::{
     config::ZondConfig,
     models::localhost::{FirewallStatus, IpServiceGroup, Service},
 };
@@ -40,7 +40,7 @@ pub fn info(_cfg: &ZondConfig) -> anyhow::Result<()> {
     );
     zprint!();
 
-    let system_info = zond_core::info::get_system_info()?;
+    let system_info = zond_engine::info::get_system_info()?;
 
     let printer = if is_root() {
         InfoPrinter::new(&system_info.services)
@@ -56,7 +56,7 @@ pub fn info(_cfg: &ZondConfig) -> anyhow::Result<()> {
         printer.print_local_services(&system_info.services)?;
     }
 
-    let interfaces = zond_common::net::interface::get_prioritized_interfaces(5)?;
+    let interfaces = zond_core::net::interface::get_prioritized_interfaces(5)?;
     print_network_interfaces(&interfaces)?;
 
     Ok(())

@@ -8,7 +8,7 @@ use crate::terminal::{colors, print};
 use colored::*;
 use pnet::datalink::NetworkInterface;
 use pnet::ipnetwork::IpNetwork;
-use zond_common::utils::ip::{self, Ipv6AddressType};
+use zond_core::utils::ip::{self, Ipv6AddressType};
 
 pub fn print_interface(interface: &NetworkInterface, idx: usize) {
     print::tree_head(idx, &interface.name);

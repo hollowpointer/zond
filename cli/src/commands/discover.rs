@@ -29,10 +29,10 @@ use crate::terminal::colors;
 use crate::terminal::print::Print;
 use crate::terminal::spinner::SpinnerGuard;
 
-use zond_common::models::ip::set::IpSet;
-use zond_common::parse;
-use zond_common::{config::ZondConfig, models::host::Host};
-use zond_core::scanner;
+use zond_core::models::ip::set::IpSet;
+use zond_core::parse;
+use zond_engine::{config::ZondConfig, models::host::Host};
+use zond_engine::scanner;
 
 /// Runs the active discovery scan on the provided targets.
 ///
@@ -81,7 +81,7 @@ fn run_spinner() -> SpinnerGuard {
     let _enter = span.enter();
 
     SpinnerGuard::with_status(span.clone(), || {
-        let count = zond_core::scanner::get_host_count();
+        let count = zond_engine::scanner::get_host_count();
         let count_str = count.to_string().green().bold();
         let label = if count == 1 { "host" } else { "hosts" };
         format!("Identified {} {} so far...", count_str, label)
