@@ -5,5 +5,6 @@
 // https://mozilla.org/MPL/2.0/.
 
 pub mod channel;
+pub mod mac;
 pub mod transport;
 pub mod utils;

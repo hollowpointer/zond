@@ -27,9 +27,9 @@ use pnet::{
         arp::ArpPacket,
         ethernet::{EtherTypes, EthernetPacket},
     },
-    util::MacAddr,
 };
 
+use zond_core::models::timer::ScanTimer;
 use zond_engine::{
     error,
     models::{host::Host, ip::set::IpSet},
@@ -37,7 +37,6 @@ use zond_engine::{
     sender::{PacketType, SenderConfig},
     success,
 };
-use zond_core::models::timer::ScanTimer;
 
 use protocol::ethernet;
 use tokio::{
@@ -46,7 +45,10 @@ use tokio::{
 };
 use zond_protocols::{self as protocol, ip};
 
-use crate::network::channel::{self, EthernetHandle};
+use crate::network::{
+    channel::{self, EthernetHandle},
+    mac::IntoCoreMac,
+};
 
 use super::NetworkExplorer;
 use async_trait::async_trait;
@@ -57,7 +59,7 @@ const MAX_SILENCE_MS: Duration = Duration::from_millis(500);
 const SEND_INTERVAL_US: Duration = Duration::from_micros(1000);
 
 pub struct LocalScanner {
-    hosts_map: HashMap<MacAddr, Host>,
+    hosts_map: HashMap<zond_core::models::mac::MacAddr, Host>,
     sender_cfg: SenderConfig,
     eth_handle: EthernetHandle,
     timer: ScanTimer,
@@ -173,14 +175,15 @@ impl LocalScanner {
             }
         };
 
-        let source_mac: MacAddr = eth_frame.get_source();
+        let pnet_mac = eth_frame.get_source();
+        let core_mac = pnet_mac.into_core();
 
         let mut is_new_host: bool = false;
-        let host: &mut Host = self.hosts_map.entry(source_mac).or_insert_with(|| {
+        let host: &mut Host = self.hosts_map.entry(core_mac).or_insert_with(|| {
             self.timer.mark_activity();
             super::increment_host_count();
             is_new_host = true;
-            Host::new(source_addr).with_mac(source_mac)
+            Host::new(source_addr).with_mac(core_mac)
         });
 
         if let Some(rtt) = rtt {

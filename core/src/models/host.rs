@@ -241,7 +241,7 @@ impl Host {
     }
 
     /// Builder method to set the hardware MAC and return Self.
-    pub fn with_mac(mut self, mac: crate::utils::mac::MacAddr) -> Self {
+    pub fn with_mac(mut self, mac: crate::models::mac::MacAddr) -> Self {
         self.set_hardware(HardwareInfo::new(mac));
         self
     }
@@ -284,7 +284,7 @@ impl Host {
     }
 
     /// Returns the most recent MAC address, if hardware info is available.
-    pub fn mac(&self) -> Option<crate::utils::mac::MacAddr> {
+    pub fn mac(&self) -> Option<crate::models::mac::MacAddr> {
         self.hardware.as_ref().and_then(|h| h.most_recent_mac())
     }
 

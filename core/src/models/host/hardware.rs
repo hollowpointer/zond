@@ -14,7 +14,7 @@
 //! and multi-homed hosts by tracking a history of all seen addresses.
 
 use std::{collections::BTreeMap, sync::Arc, time::Instant};
-use crate::utils::mac::MacAddr;
+use crate::models::mac::MacAddr;
 
 /// Physical hardware identification and auditing data for a network host.
 ///
@@ -112,7 +112,7 @@ mod tests {
 
     #[test]
     fn hardware_vendor_assignment() {
-        let mac = MacAddr(0x00, 0x0C, 0x29, 0xAB, 0xCD, 0xEF);
+        let mac = MacAddr::new(0x00, 0x0C, 0x29, 0xAB, 0xCD, 0xEF);
         let mut hw = HardwareInfo::new(mac);
         hw.vendor = Some(Arc::from("VMware, Inc."));
 
@@ -122,8 +122,8 @@ mod tests {
 
     #[test]
     fn test_most_recent_mac_selection() {
-        let mac_old = MacAddr(1, 1, 1, 1, 1, 1);
-        let mac_new = MacAddr(2, 2, 2, 2, 2, 2);
+        let mac_old = MacAddr::new(1, 1, 1, 1, 1, 1);
+        let mac_new = MacAddr::new(2, 2, 2, 2, 2, 2);
 
         let mut hw = HardwareInfo::new(mac_old);
         let future_time = Instant::now() + Duration::from_secs(60);
@@ -141,8 +141,8 @@ mod tests {
 
     #[test]
     fn prune_stale_macs_logic() {
-        let mac_keep = MacAddr(1, 1, 1, 1, 1, 1);
-        let mac_drop = MacAddr(2, 2, 2, 2, 2, 2);
+        let mac_keep = MacAddr::new(1, 1, 1, 1, 1, 1);
+        let mac_drop = MacAddr::new(2, 2, 2, 2, 2, 2);
 
         let mut hw = HardwareInfo::new(mac_keep);
         let past_time = Instant::now() - Duration::from_secs(3600);

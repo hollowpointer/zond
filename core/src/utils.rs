@@ -5,4 +5,3 @@
 // https://mozilla.org/MPL/2.0/.
 
 pub mod input;
-pub mod mac;

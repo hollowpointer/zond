@@ -2441,7 +2441,6 @@ dependencies = [
  "bincode",
  "crossterm",
  "mac_oui",
- "pnet",
  "proptest",
  "rand",
  "rayon",

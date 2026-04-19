@@ -12,7 +12,7 @@
 
 use std::net::Ipv6Addr;
 
-use pnet::util::MacAddr;
+use crate::models::mac::MacAddr;
 
 /// Redacts a hostname to protect privacy while maintaining some recognizability.
 ///
@@ -54,14 +54,14 @@ pub fn hostname(name: &str) -> String {
 ///
 /// # Examples
 /// ```
-/// use pnet::util::MacAddr;
+/// use zond_core::models::mac::MacAddr;
 /// use zond_core::redact;
 ///
 /// let mac = MacAddr::new(0x2c, 0xcf, 0x67, 0xf2, 0x51, 0xe3);
 /// assert_eq!(redact::mac_addr(&mac), "2c:cf:67:XX:XX:XX");
 /// ```
 pub fn mac_addr(mac: &MacAddr) -> String {
-    format!("{:02x}:{:02x}:{:02x}:XX:XX:XX", mac.0, mac.1, mac.2)
+    format!("{:02x}:{:02x}:{:02x}:XX:XX:XX", mac.0[0], mac.0[1], mac.0[2])
 }
 
 /// Redacts an IPv6 Global Unicast Address by preserving only the first 16-bit segment.
