@@ -9,7 +9,8 @@ use colored::*;
 use pnet::util::MacAddr;
 use std::net::{IpAddr, Ipv6Addr};
 use zond_core::models::host::Host;
-use zond_core::utils::{ip, redact};
+use zond_core::models::ip;
+use zond_core::utils::redact;
 
 // Logic moved from network/ip.rs
 pub fn ipv6_to_type_str(ipv6_addr: &Ipv6Addr) -> &'static str {

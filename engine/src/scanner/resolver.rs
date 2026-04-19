@@ -16,7 +16,7 @@ use std::{
 use anyhow::{Context, ensure};
 use pnet::packet::{Packet, udp::UdpPacket};
 use tokio::sync::mpsc::UnboundedReceiver;
-use zond_engine::{models::host::Host, utils};
+use zond_engine::{models::{host::Host, ip}, utils};
 use zond_protocols::{
     dns,
     mdns::{self, MdnsRecord},
@@ -182,7 +182,7 @@ impl HostnameResolver {
 
 fn is_queryable(ip: &IpAddr) -> bool {
     match ip {
-        IpAddr::V6(ipv6_addr) => utils::ip::is_global_unicast(ipv6_addr),
+        IpAddr::V6(ipv6_addr) => ip::is_global_unicast(ipv6_addr),
         IpAddr::V4(_ipv4_addr) => {
             // Future refinement: check for private ranges/localhost
             true

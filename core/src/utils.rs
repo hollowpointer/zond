@@ -5,7 +5,6 @@
 // https://mozilla.org/MPL/2.0/.
 
 pub mod input;
-pub mod ip;
 pub mod mac;
 pub mod redact;
 pub mod timing;
