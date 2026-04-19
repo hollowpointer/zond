@@ -6,8 +6,8 @@
 
 //! High-performance timing and lifecycle management for network scanning engines.
 //!
-//! Provides the `ScanTimer` data structure, a robust, general-purpose component 
-//! designed to govern the lifecycle of synchronous and asynchronous scanning loops 
+//! Provides the `ScanTimer` data structure, a robust, general-purpose component
+//! designed to govern the lifecycle of synchronous and asynchronous scanning loops
 //! (e.g., port discovery, host discovery).
 
 use std::time::{Duration, Instant};
@@ -50,14 +50,14 @@ impl ScanTimer {
     }
 
     /// Resets the internal "silence" tracker.
-    /// 
+    ///
     /// This should be called whenever a relevant packet or activity is observed on the network.
     pub fn mark_activity(&mut self) {
         self.last_activity = Instant::now();
     }
 
     /// Calculates how long to wait for the next timeout event.
-    /// 
+    ///
     /// Returns a fallback duration (e.g., 100ms) if the maximum silence period has already been exceeded.
     pub fn time_until_next_tick(&self) -> Duration {
         let now = Instant::now();
@@ -94,5 +94,105 @@ impl ScanTimer {
     /// could be a valid reason to break the loop.
     pub fn should_break_on_timeout(&self) -> bool {
         Instant::now() >= self.min_runtime
+    }
+}
+
+// ╔════════════════════════════════════════════╗
+// ║ ████████╗███████╗███████╗████████╗███████╗ ║
+// ║ ╚══██╔══╝██╔════╝██╔════╝╚══██╔══╝██╔════╝ ║
+// ║    ██║   █████╗  ███████╗   ██║   ███████╗ ║
+// ║    ██║   ██╔══╝  ╚════██║   ██║   ╚════██║ ║
+// ║    ██║   ███████╗███████║   ██║   ███████║ ║
+// ║    ╚═╝   ╚══════╝╚══════╝   ╚═╝   ╚══════╝ ║
+// ╚════════════════════════════════════════════╝
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use std::thread::sleep;
+
+    #[test]
+    fn test_initialization() {
+        let timer = ScanTimer::new(
+            Duration::from_secs(10),
+            Duration::from_secs(5),
+            Duration::from_secs(1),
+        );
+        assert!(!timer.has_expired());
+        assert!(!timer.should_break_on_timeout());
+    }
+
+    #[test]
+    fn test_mark_activity() {
+        let mut timer = ScanTimer::new(
+            Duration::from_secs(10),
+            Duration::from_secs(5),
+            Duration::from_millis(50),
+        );
+
+        let wait_time1 = timer.time_until_next_tick();
+        sleep(Duration::from_millis(10));
+        let wait_time2 = timer.time_until_next_tick();
+
+        assert!(wait_time2 < wait_time1);
+
+        timer.mark_activity();
+        let wait_time3 = timer.time_until_next_tick();
+
+        // Wait time should reset to near the original max_silence
+        assert!(wait_time3 > wait_time2);
+    }
+
+    #[test]
+    fn test_time_until_next_tick_fallback() {
+        let timer = ScanTimer::new(
+            Duration::from_secs(10),
+            Duration::from_secs(5),
+            Duration::from_millis(10),
+        );
+
+        sleep(Duration::from_millis(15)); // Exceed max_silence
+
+        // Should return the 100ms fallback since the time since last activity is greater than max_silence
+        assert_eq!(timer.time_until_next_tick(), Duration::from_millis(100));
+    }
+
+    #[test]
+    fn test_hard_deadline_expiration() {
+        let timer = ScanTimer::new(
+            Duration::from_millis(10), // short hard deadline
+            Duration::from_millis(100), // long min runtime (will not be reached)
+            Duration::from_secs(1),
+        );
+
+        assert!(!timer.has_expired());
+        sleep(Duration::from_millis(15));
+        assert!(timer.has_expired());
+    }
+
+    #[test]
+    fn test_silence_expiration() {
+        let timer = ScanTimer::new(
+            Duration::from_secs(10),
+            Duration::from_millis(10), // short min runtime
+            Duration::from_millis(10), // short max silence
+        );
+
+        assert!(!timer.has_expired());
+        sleep(Duration::from_millis(25)); // Exceed both min_runtime and max_silence
+        assert!(timer.has_expired());
+    }
+
+    #[test]
+    fn test_should_break_on_timeout() {
+        let timer = ScanTimer::new(
+            Duration::from_secs(10),
+            Duration::from_millis(10),
+            Duration::from_secs(1),
+        );
+
+        assert!(!timer.should_break_on_timeout());
+        sleep(Duration::from_millis(15));
+        assert!(timer.should_break_on_timeout());
     }
 }
