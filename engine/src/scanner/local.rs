@@ -36,8 +36,8 @@ use zond_engine::{
     parse::IS_LAN_SCAN,
     sender::{PacketType, SenderConfig},
     success,
-    utils::timing::ScanTimer,
 };
+use zond_core::models::timer::ScanTimer;
 
 use protocol::ethernet;
 use tokio::{
@@ -177,7 +177,7 @@ impl LocalScanner {
 
         let mut is_new_host: bool = false;
         let host: &mut Host = self.hosts_map.entry(source_mac).or_insert_with(|| {
-            self.timer.mark_seen();
+            self.timer.mark_activity();
             super::increment_host_count();
             is_new_host = true;
             Host::new(source_addr).with_mac(source_mac)
@@ -246,7 +246,7 @@ impl LocalScanner {
 
     fn should_continue(&self) -> bool {
         let not_stopped: bool = !super::STOP_SIGNAL.load(Ordering::Relaxed);
-        let time_expired: bool = !self.timer.is_expired();
+        let time_expired: bool = !self.timer.has_expired();
         let work_remains: bool = self.sender_cfg.len() > self.hosts_map.len();
 
         not_stopped && time_expired && work_remains

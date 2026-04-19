@@ -6,5 +6,3 @@
 
 pub mod input;
 pub mod mac;
-pub mod redact;
-pub mod timing;
