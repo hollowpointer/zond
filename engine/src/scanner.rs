@@ -24,8 +24,8 @@ use zond_core::config::ZondConfig;
 use zond_core::models::host::Host;
 use zond_core::models::ip::set::IpSet;
 use zond_core::models::target::TargetMap;
+use zond_core::input::InputHandle;
 use zond_core::net::interface;
-use zond_core::utils::input::InputHandle;
 use zond_core::{error, info, success, warn};
 
 mod connect;
